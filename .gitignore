@@ -22,3 +22,7 @@
 hs_err_pid*
 /sXXX_ZZZ-back/target/
 /target/
+
+# Jar y bat de la cascara.
+!Cascara.jar
+!Cascara.bat
