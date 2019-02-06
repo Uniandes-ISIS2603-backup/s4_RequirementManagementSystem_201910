@@ -5,14 +5,14 @@
     <modelVersion>4.0.0</modelVersion>
     
     <groupId>co.edu.uniandes.csw</groupId>
-    <artifactId>sXXX_ZZZ</artifactId>
+    <artifactId>s4_requirement</artifactId>
     <version>1.0</version>
     <packaging>pom</packaging>
-    <name>sXXX_ZZZ</name>
+    <name>s4_requirement</name>
  
     <modules>
-        <module>sXXX_ZZZ-back</module>
-        <module>sXXX_ZZZ-api</module>
+        <module>s4_requirement-back</module>
+        <module>s4_requirement-api</module>
     </modules>
     
     <repositories>
