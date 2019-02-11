@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.requirement.resources;
 
 import co.edu.uniandes.csw.requirement.dtos.CambioDTO;
+import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -24,6 +25,8 @@ import javax.ws.rs.Produces;
 @Consumes("application/JSON")
 @RequestScoped
 public class CambioResource{
+    
+    private static final Logger LOGGER = Logger.getLogger(CambioResource.class.getName());
     
     @POST
     public CambioDTO createCambio(CambioDTO cambio){

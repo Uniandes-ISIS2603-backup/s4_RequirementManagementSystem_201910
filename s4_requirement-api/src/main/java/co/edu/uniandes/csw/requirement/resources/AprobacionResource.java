@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.requirement.resources;
 
 import co.edu.uniandes.csw.requirement.dtos.AprobacionDTO;
+import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -24,6 +25,8 @@ import javax.ws.rs.Produces;
 @Consumes("application/JSON")
 @RequestScoped
 public class AprobacionResource {
+    
+    private static final Logger LOGGER = Logger.getLogger(AprobacionResource.class.getName());
     
     @POST
     public AprobacionDTO createAprobacion(AprobacionDTO cambio){
