@@ -32,10 +32,10 @@ import javax.ws.rs.ext.Provider;
 /**
  * Convertidor de Excepciones BusinessLogicException a mensajes REST.
  *
- * El error se transforma bajo el siguiente modelo:
- * Codigo de respuesta: <code style="color: #c7254e; background-color: #f9f2f4;">412 Precodition Failed</code>
- * Respuesta: La razon del error
- * 
+ * El error se transforma bajo el siguiente modelo: Codigo de respuesta:
+ * <code style="color: #c7254e; background-color: #f9f2f4;">412 Precodition
+ * Failed</code> Respuesta: La razon del error
+ *
  *
  * @author ISIS2603
  */
