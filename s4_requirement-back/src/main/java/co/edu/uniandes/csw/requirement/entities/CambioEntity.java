@@ -25,11 +25,11 @@ public class CambioEntity extends BaseEntity implements Serializable {
     
     private String descripcion;
     
-    //private StakeHolder autor;
+    //private StakeHolderEntity autor;
     
-    //private Objetivo objetivo;
+    //private ObjetivoEntity objetivo;
     
-    //private Requisito requisito;
+    //private RequisitoEntity requisito;
     
      /**
      * Constructor vacio
