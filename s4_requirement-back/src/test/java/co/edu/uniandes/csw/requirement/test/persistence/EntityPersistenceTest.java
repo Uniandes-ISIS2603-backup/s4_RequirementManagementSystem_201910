@@ -45,7 +45,7 @@ public class EntityPersistenceTest
     }
     
     @Test
-    public void createEditorialTest()
+    public void createObjetivoTest()
     {
         PodamFactory factory = new PodamFactoryImpl();
         ObjetivoEntity param = factory.manufacturePojo(ObjetivoEntity.class);
