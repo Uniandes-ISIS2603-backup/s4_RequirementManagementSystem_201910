@@ -13,7 +13,7 @@ import java.io.Serializable;
  */
 public class AprobacionDTO implements Serializable{
     
-    private int id;
+    private Integer id;
     
     private String tipo;
     
@@ -21,11 +21,11 @@ public class AprobacionDTO implements Serializable{
     
     private String comentario;
     
-    //private StakeHolder aprobador;
+    private StakeHolderDTO aprobador;
     
-    //private Objetivo objetivo;
+    private ObjetivoDTO objetivo;
     
-    //private Requisito requisito;
+    private RequisitoDTO requisito;
     
      /**
      * Constructor vacio
@@ -88,5 +88,47 @@ public class AprobacionDTO implements Serializable{
      */
     public void setComentario(String comentario) {
         this.comentario = comentario;
+    }
+
+    /**
+     * @return the aprobador
+     */
+    public StakeHolderDTO getAprobador() {
+        return aprobador;
+    }
+
+    /**
+     * @param aprobador the aprobador to set
+     */
+    public void setAprobador(StakeHolderDTO aprobador) {
+        this.aprobador = aprobador;
+    }
+
+    /**
+     * @return the objetivo
+     */
+    public ObjetivoDTO getObjetivo() {
+        return objetivo;
+    }
+
+    /**
+     * @param objetivo the objetivo to set
+     */
+    public void setObjetivo(ObjetivoDTO objetivo) {
+        this.objetivo = objetivo;
+    }
+
+    /**
+     * @return the requisito
+     */
+    public RequisitoDTO getRequisito() {
+        return requisito;
+    }
+
+    /**
+     * @param requisito the requisito to set
+     */
+    public void setRequisito(RequisitoDTO requisito) {
+        this.requisito = requisito;
     }
 }

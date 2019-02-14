@@ -80,3 +80,11 @@ public class CambioEntity extends BaseEntity implements Serializable {
         this.descripcion = descripcion;
     }
 }
+
+
+
+
+
+
+
+
