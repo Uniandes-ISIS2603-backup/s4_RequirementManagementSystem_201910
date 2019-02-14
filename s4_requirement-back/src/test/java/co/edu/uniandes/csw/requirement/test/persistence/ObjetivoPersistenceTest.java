@@ -26,7 +26,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  */
 
 @RunWith(Arquillian.class)
-public class EntityPersistenceTest 
+public class ObjetivoPersistenceTest 
 {
     @Inject
     private ObjetivoPersistence op;
