@@ -13,6 +13,8 @@ import javax.persistence.Entity;
  * @author estudiante
  */
 @Entity
+// La tabla en la base de datos se llama RequisitoEntity, porque no se usa anotación para cambiarle el nombre. 
+// Lo mismo pasa con los atributos, pues tampoco son anotados. 
 public class RequisitoEntity extends BaseEntity implements Serializable {
 
     private String autor, comentarios, descripcion, tipo;
