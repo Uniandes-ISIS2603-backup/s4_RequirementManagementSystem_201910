@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  *
- * @author estudiante
+ * @author Sofia Sarmiento
  */
 public class CasoDeUsoDetail extends CasoDeUsoDTO implements Serializable
 {

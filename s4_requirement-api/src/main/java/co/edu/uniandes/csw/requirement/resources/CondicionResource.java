@@ -19,7 +19,7 @@ import javax.ws.rs.Produces;
 
 /**
  *
- * @author estudiante
+ * @author Sofia Sarmiento
  */
 @Path("condiciones")
 @Produces("application/json")
