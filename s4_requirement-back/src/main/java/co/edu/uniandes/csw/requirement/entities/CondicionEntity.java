@@ -6,11 +6,13 @@
 package co.edu.uniandes.csw.requirement.entities;
 
 import java.io.Serializable;
+import javax.persistence.Entity;
 
 /**
  *
  * @author Sofia Sarmiento
  */
+@Entity
 public class CondicionEntity extends BaseEntity implements Serializable {
     
     private String descripcion;

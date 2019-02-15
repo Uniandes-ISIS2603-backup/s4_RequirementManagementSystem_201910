@@ -34,7 +34,7 @@ public class CondicionPersistence {
     
     public List<CondicionEntity> findAll (){
         
-        TypedQuery<CondicionEntity> query = em.createQuery("select u from CasoDeUsoEntity u", CondicionEntity.class);
+        TypedQuery<CondicionEntity> query = em.createQuery("select u from CondicionEntity u", CondicionEntity.class);
         return query.getResultList();
     }
     
