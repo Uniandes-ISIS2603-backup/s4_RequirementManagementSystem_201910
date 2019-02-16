@@ -141,6 +141,24 @@ public class CambioPersistenceTest {
     }
     
      /**
+     * Prueba para actualizar un Cambio.
+     */
+    @Test
+    public void updateEditorialTest() {
+        CambioEntity entity = data.get(0);
+        PodamFactory factory = new PodamFactoryImpl();
+        CambioEntity newEntity = factory.manufacturePojo(CambioEntity.class);
+
+        newEntity.setId(entity.getId());
+
+        cambioPersistence.update(newEntity);
+
+        CambioEntity resp = em.find(CambioEntity.class, entity.getId());
+
+        Assert.assertEquals(newEntity.getFechaYHora(), resp.getFechaYHora());
+    }
+    
+     /**
      * Prueba para eliminar un Cambio.
      */
     @Test

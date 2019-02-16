@@ -36,6 +36,10 @@ public class AprobacionPersistence {
         return query.getResultList();
     }
     
+    public AprobacionEntity update(AprobacionEntity aprobacion){
+        return em.merge(aprobacion);
+    }
+    
     public AprobacionEntity delete(Long aprobacionId){
         AprobacionEntity aprobacion = em.find(AprobacionEntity.class, aprobacionId);
         em.remove(aprobacion);

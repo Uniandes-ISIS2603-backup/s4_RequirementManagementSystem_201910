@@ -140,6 +140,24 @@ public class AprobacionPersistenceTest {
         }
     }
     
+         /**
+     * Prueba para actualizar un Cambio.
+     */
+    @Test
+    public void updateEditorialTest() {
+        AprobacionEntity entity = data.get(0);
+        PodamFactory factory = new PodamFactoryImpl();
+        AprobacionEntity newEntity = factory.manufacturePojo(AprobacionEntity.class);
+
+        newEntity.setId(entity.getId());
+
+        aprobacionPersistence.update(newEntity);
+
+        AprobacionEntity resp = em.find(AprobacionEntity.class, entity.getId());
+
+        Assert.assertEquals(newEntity.getComentario(), resp.getComentario());
+    }
+    
      /**
      * Prueba para eliminar un Cambio.
      */
