@@ -9,12 +9,12 @@ import java.io.Serializable;
 
 /**
  *
- * @author estudiante
+ * @author Sofia Sarmiento
  */
 public class CasoDeUsoDTO implements Serializable {
     
     private String nombre;
-    private int id;
+    private Integer id;
     //private List<CaminoDTO> cursoBasicoEventos;
     
     public CasoDeUsoDTO(){
@@ -38,7 +38,7 @@ public class CasoDeUsoDTO implements Serializable {
     /**
      * @return the id
      */
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
