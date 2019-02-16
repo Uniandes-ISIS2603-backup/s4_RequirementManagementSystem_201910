@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.requirement.test.persistence;
 
+
 import co.edu.uniandes.csw.requirement.entities.OrganizacionEntity;
 import co.edu.uniandes.csw.requirement.entities.StakeHolderEntity;
 import co.edu.uniandes.csw.requirement.persistence.OrganizacionPersistence;
@@ -24,60 +25,37 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
  *
- * @author Mateo Pedroza
+ * @author estudiante
  */
-
 @RunWith(Arquillian.class)
-public class EntityPersistanceTest {
+public class OrganizacionEntityPersistenceTest {
     
     @Inject
-    private StakeHolderPersistence ep;
-    @Inject
-    private OrganizacionPersistence epo;
+    private OrganizacionPersistence ep;
     
     @PersistenceContext
     private EntityManager em;
-    @PersistenceContext
-    private EntityManager emo;
     
     @Deployment
     public static JavaArchive createDeployment (){
         return ShrinkWrap.create(JavaArchive.class)
-                .addPackage(StakeHolderEntity.class.getPackage())
-                .addPackage(StakeHolderPersistence.class.getPackage())
                 .addPackage(OrganizacionEntity.class.getPackage())
                 .addPackage(OrganizacionPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
-    
-    @Test
-    public void creatStakeHolderTest(){
-        
-        PodamFactory factory = new PodamFactoryImpl();
-        StakeHolderEntity newEntity = factory.manufacturePojo(StakeHolderEntity.class);
-        
-        StakeHolderEntity ee = ep.create(newEntity);
-        
-        Assert.assertNotNull(ee);
-        
-        StakeHolderEntity entity = em.find(StakeHolderEntity.class, ee.getId());
-        
-        Assert.assertEquals(newEntity.getNombre(), entity.getNombre());
-    }
-    
         
     @Test
-    public void creatOrganizacionTest(){
+    public void createOrganizacionTest(){
         
         PodamFactory factory = new PodamFactoryImpl();
         OrganizacionEntity newEntity = factory.manufacturePojo(OrganizacionEntity.class);
         
-        OrganizacionEntity eeo = epo.create(newEntity);
+        OrganizacionEntity eeo = ep.create(newEntity);
         
         Assert.assertNotNull(eeo);
         
-        OrganizacionEntity entity = emo.find(OrganizacionEntity.class, eeo.getId());
+        OrganizacionEntity entity = em.find(OrganizacionEntity.class, eeo.getId());
         
         Assert.assertEquals(newEntity.getNombre(), entity.getNombre());
     }
