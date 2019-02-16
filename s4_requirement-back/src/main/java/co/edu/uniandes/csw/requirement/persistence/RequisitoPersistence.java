@@ -38,5 +38,18 @@ public class RequisitoPersistence
         return query.getResultList();
     }
     
+    // Still not implemented
+    public RequisitoPersistence update(RequisitoPersistence r)
+    {
+        return r;
+    }
+    
+    // Still not implemented
+    public void delete(Long id)
+    {
+        
+    }
+    
+    
     // implementacion de pruebas JUNIT
 }
