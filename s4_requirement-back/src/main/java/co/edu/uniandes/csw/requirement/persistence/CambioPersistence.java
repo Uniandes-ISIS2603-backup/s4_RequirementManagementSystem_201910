@@ -36,7 +36,8 @@ public class CambioPersistence {
         return query.getResultList();
     }
     
-    public CambioEntity delete(CambioEntity cambio){
+    public CambioEntity delete(Long cambioId){
+        CambioEntity cambio = em.find(CambioEntity.class, cambioId);
         em.remove(cambio);
         return cambio;
     }
