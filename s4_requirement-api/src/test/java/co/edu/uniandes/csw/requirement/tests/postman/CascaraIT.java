@@ -40,8 +40,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
- * Pruebas de integracion de la cascara.
- *
+ *  Pruebas de integracion de la cascara.
  * @author ISIS2603
  */
 @RunWith(Arquillian.class)
