@@ -19,7 +19,7 @@ import javax.ws.rs.Produces;
 
 /**
  *
- * @author estudiante
+ * @author Sofia Alvarez
  */
 @Path("camino")
 @Produces("application/json")

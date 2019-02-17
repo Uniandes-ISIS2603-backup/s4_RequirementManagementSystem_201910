@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author estudiante
+ * @author Sofia Alvarez
  */
 public class CaminoDTO implements Serializable
 {
