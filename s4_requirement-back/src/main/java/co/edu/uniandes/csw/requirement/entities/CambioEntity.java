@@ -8,34 +8,42 @@ package co.edu.uniandes.csw.requirement.entities;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
- * @author estudiante
+ * @author Emilio
  */
 @Entity
 public class CambioEntity extends BaseEntity implements Serializable {
-    
+
     private String tipo;
-    
+
     @Temporal(TemporalType.DATE)
     private Date fechaYHora;
-    
+
     private String descripcion;
-    
-    //private StakeHolderEntity autor;
-    
-    //private ObjetivoEntity objetivo;
-    
-    //private RequisitoEntity requisito;
-    
-     /**
+
+    @PodamExclude
+    @ManyToOne
+    private StakeHolderEntity autor;
+
+    @PodamExclude
+    @ManyToOne
+    private ObjetivoEntity objetivo;
+
+    @PodamExclude
+    @ManyToOne
+    private RequisitoEntity requisito;
+
+    /**
      * Constructor vacio
      */
-    public CambioEntity(){
-        
+    public CambioEntity() {
+
     }
 
     /**

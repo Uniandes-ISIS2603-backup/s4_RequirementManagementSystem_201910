@@ -6,7 +6,8 @@
 package co.edu.uniandes.csw.requirement.entities;
 
 import java.io.Serializable;
-import javax.persistence.Entity;
+import java.util.*;
+import javax.persistence.*;
 
 /**
  *
@@ -14,14 +15,26 @@ import javax.persistence.Entity;
  */
 @Entity
 public class StakeHolderEntity extends BaseEntity implements Serializable {
-    
+
     private String tipo;
     private String nombre;
 
-    public StakeHolderEntity(){
-        
-    }
+    @ManyToOne
+    private DRSEntity drs;
     
+    @OneToMany (mappedBy = "autor")
+    private List<CambioEntity> cambios = new ArrayList<>();
+    
+    @OneToMany (mappedBy = "aprobador")
+    private List<AprobacionEntity> aprobaciones = new ArrayList<>();
+    
+    @ManyToOne
+    private OrganizacionEntity organizacion;
+    
+    public StakeHolderEntity() {
+
+    }
+
     public String getTipo() {
         return tipo;
     }
@@ -37,7 +50,5 @@ public class StakeHolderEntity extends BaseEntity implements Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    
-    
-    
+
 }

@@ -24,17 +24,16 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  *
  * @author Jorge Esguerra
  */
-
 @RunWith(Arquillian.class)
-public class RequisitoPersistenceTest
-{
+public class RequisitoPersistenceTest {
+
     @Inject
     private RequisitoPersistence ep; // como es stateless, no se puede crear. 
     // Se hace una inyección de dependencias, es un patrón de diseño para manejar los stateless.
-    
+
     @PersistenceContext
     private EntityManager em;
-    
+
     @Deployment
     public static JavaArchive deployment() // declaración de paquetes para correr pruebas.
     {
@@ -44,16 +43,16 @@ public class RequisitoPersistenceTest
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
+
     @Test
-    public void createEditorialTest()
-    {   
+    public void createEditorialTest() {
         PodamFactory factory = new PodamFactoryImpl();
         RequisitoEntity test = factory.manufacturePojo(RequisitoEntity.class);
-        
+
         RequisitoEntity re = ep.create(test); //ep fue inyectada
         Assert.assertNotNull(re);
         // poder preguntar si el objeto quedó grabado en la DB.
-        
+
         RequisitoEntity entity = em.find(RequisitoEntity.class, re.getId());
         Assert.assertEquals(test.getAutor(), entity.getAutor());
     }

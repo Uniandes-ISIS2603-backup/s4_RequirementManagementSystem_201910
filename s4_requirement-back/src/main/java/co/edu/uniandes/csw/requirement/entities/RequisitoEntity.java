@@ -6,7 +6,10 @@
 package co.edu.uniandes.csw.requirement.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.*;
 
 /**
  *
@@ -19,10 +22,27 @@ public class RequisitoEntity extends BaseEntity implements Serializable {
 
     private String autor, comentarios, descripcion, tipo;
     private int importancia, estabilidad;
-    public RequisitoEntity ()
-    {
-        
+
+    public RequisitoEntity() {
+
     }
+
+    
+    @OneToMany(mappedBy= "requisito")
+    private List<AprobacionEntity> aprobaciones  = new ArrayList<AprobacionEntity>();
+    
+    @OneToMany(mappedBy="requisito")
+    private List<CambioEntity> cambios = new ArrayList<CambioEntity>();
+    
+    @ManyToMany(mappedBy="requisito")
+    private List<ObjetivoEntity> objetivos;
+    
+    @OneToMany(mappedBy="requisito")
+    private List<CasoDeUsoEntity> casosDeUso;
+    
+    @ManyToOne
+    private List<DRSEntity> drs;
+    
     /**
      * @return the autor
      */

@@ -24,37 +24,33 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  *
  * @author Sofia Alvarez
  */
-
 @RunWith(Arquillian.class)
 public class CaminoPersistenceTest {
-    
+
     @Inject
     private CaminoPersistence cp;
-    
+
     @PersistenceContext
     private EntityManager em;
-    
+
     @Deployment
-    public static JavaArchive deployment(){
+    public static JavaArchive deployment() {
         return ShrinkWrap.create(JavaArchive.class)
                 .addPackage(CaminoEntity.class.getPackage())
                 .addPackage(CaminoPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
-    
+
     @Test
-    public void createCaminoTest(){
+    public void createCaminoTest() {
         PodamFactory factory = new PodamFactoryImpl();
         CaminoEntity newCaminoEntity = factory.manufacturePojo(CaminoEntity.class);
         CaminoEntity ce = cp.create(newCaminoEntity);
-        
+
         Assert.assertNotNull(ce);
-        
+
         CaminoEntity entity = em.find(CaminoEntity.class, ce.getId());
         Assert.assertEquals(newCaminoEntity.getDescripcionPaso(), entity.getDescripcionPaso());
+    }
 }
-}
-
-
-

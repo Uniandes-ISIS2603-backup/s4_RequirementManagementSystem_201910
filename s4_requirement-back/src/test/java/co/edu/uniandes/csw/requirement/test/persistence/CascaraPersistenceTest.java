@@ -29,5 +29,5 @@ package co.edu.uniandes.csw.requirement.test.persistence;
  * @author ISIS2603
  */
 public class CascaraPersistenceTest {
-    
+
 }

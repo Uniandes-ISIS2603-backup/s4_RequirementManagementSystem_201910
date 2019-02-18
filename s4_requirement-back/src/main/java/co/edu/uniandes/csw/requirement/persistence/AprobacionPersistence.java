@@ -18,25 +18,25 @@ import javax.persistence.TypedQuery;
  */
 @Stateless
 public class AprobacionPersistence {
-    
+
     @PersistenceContext(unitName = "requirementPU")
     protected EntityManager em;
-    
-        public AprobacionEntity create(AprobacionEntity aprobacion){
+
+    public AprobacionEntity create(AprobacionEntity aprobacion) {
         em.persist(aprobacion);
         return aprobacion;
     }
-    
-    public AprobacionEntity find(Long aprobacionId){
+
+    public AprobacionEntity find(Long aprobacionId) {
         return em.find(AprobacionEntity.class, aprobacionId);
     }
-    
-    public List<AprobacionEntity> findAll(){
+
+    public List<AprobacionEntity> findAll() {
         TypedQuery<AprobacionEntity> query = em.createQuery("select u from CambioEntity", AprobacionEntity.class);
         return query.getResultList();
     }
-    
-    public AprobacionEntity delete(AprobacionEntity aprobacion){
+
+    public AprobacionEntity delete(AprobacionEntity aprobacion) {
         em.remove(aprobacion);
         return aprobacion;
     }

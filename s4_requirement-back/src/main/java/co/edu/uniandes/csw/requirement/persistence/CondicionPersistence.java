@@ -16,26 +16,25 @@ import javax.persistence.TypedQuery;
  *
  * @author Sofia Sarmiento
  */
-
 @Stateless
 public class CondicionPersistence {
-    
-    @PersistenceContext(unitName = "requirementPU" )
+
+    @PersistenceContext(unitName = "requirementPU")
     protected EntityManager em;
-    
-    public CondicionEntity create (CondicionEntity condicionEntity){
+
+    public CondicionEntity create(CondicionEntity condicionEntity) {
         em.persist(condicionEntity);
         return condicionEntity;
     }
-    
-    public CondicionEntity find (Long condicionId){
+
+    public CondicionEntity find(Long condicionId) {
         return em.find(CondicionEntity.class, condicionId);
     }
-    
-    public List<CondicionEntity> findAll (){
-        
+
+    public List<CondicionEntity> findAll() {
+
         TypedQuery<CondicionEntity> query = em.createQuery("select u from CondicionEntity u", CondicionEntity.class);
         return query.getResultList();
     }
-    
+
 }

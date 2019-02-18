@@ -16,24 +16,23 @@ import javax.persistence.TypedQuery;
  *
  * @author Sofia Sarmiento
  */
-
 @Stateless
 public class CasoDeUsoPersistence {
-    
-    @PersistenceContext(unitName = "requirementPU" )
+
+    @PersistenceContext(unitName = "requirementPU")
     protected EntityManager em;
-    
-    public CasoDeUsoEntity create (CasoDeUsoEntity casoDeUsoEntity){
+
+    public CasoDeUsoEntity create(CasoDeUsoEntity casoDeUsoEntity) {
         em.persist(casoDeUsoEntity);
         return casoDeUsoEntity;
     }
-    
-    public CasoDeUsoEntity find (Long casoDeUsoId){
+
+    public CasoDeUsoEntity find(Long casoDeUsoId) {
         return em.find(CasoDeUsoEntity.class, casoDeUsoId);
     }
-    
-    public List<CasoDeUsoEntity> findAll (){
-        
+
+    public List<CasoDeUsoEntity> findAll() {
+
         TypedQuery<CasoDeUsoEntity> query = em.createQuery("select u from CasoDeUsoEntity u", CasoDeUsoEntity.class);
         return query.getResultList();
     }

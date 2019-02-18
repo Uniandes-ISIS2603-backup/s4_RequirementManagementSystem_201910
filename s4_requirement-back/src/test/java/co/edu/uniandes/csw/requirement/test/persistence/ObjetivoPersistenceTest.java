@@ -24,38 +24,35 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  *
  * @author davidmanosalva
  */
-
 @RunWith(Arquillian.class)
-public class ObjetivoPersistenceTest 
-{
+public class ObjetivoPersistenceTest {
+
     @Inject
     private ObjetivoPersistence op;
-    
+
     @PersistenceContext
     private EntityManager em;
-    
+
     @Deployment
-    public static JavaArchive createDeployment()
-    {
+    public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
                 .addPackage(ObjetivoEntity.class.getPackage())
                 .addPackage(ObjetivoPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
-    
+
     @Test
-    public void createObjetivoTest()
-    {
+    public void createObjetivoTest() {
         PodamFactory factory = new PodamFactoryImpl();
         ObjetivoEntity param = factory.manufacturePojo(ObjetivoEntity.class);
-        
+
         ObjetivoEntity oe = op.create(param);
-        
+
         Assert.assertNotNull(oe);
-        
+
         ObjetivoEntity entity = em.find(ObjetivoEntity.class, oe.getId());
-        
+
         Assert.assertEquals(param.getAutor(), oe.getAutor());
     }
 }
