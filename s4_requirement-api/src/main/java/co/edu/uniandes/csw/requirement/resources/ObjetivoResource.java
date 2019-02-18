@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.requirement.resources;
 
 import co.edu.uniandes.csw.requirement.dtos.ObjetivoDTO;
+import java.util.List;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.Consumes;
@@ -37,7 +38,7 @@ public class ObjetivoResource {
     
     @GET
     @Path("{id: \\d+}")
-    public List<OjetivoDTO> getObjetivo (@PathParam("id") Integer id)
+    public List<ObjetivoDTO> getObjetivo (@PathParam("id") Integer id)
     {
         return null;
     }
