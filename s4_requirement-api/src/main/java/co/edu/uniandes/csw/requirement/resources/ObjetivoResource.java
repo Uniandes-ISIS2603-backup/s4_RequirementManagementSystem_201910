@@ -1,4 +1,5 @@
 /*
+
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -6,7 +7,6 @@
 package co.edu.uniandes.csw.requirement.resources;
 
 import co.edu.uniandes.csw.requirement.dtos.ObjetivoDTO;
-import java.util.List;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.Consumes;
@@ -35,21 +35,21 @@ public class ObjetivoResource {
 
         return objetivo;
     }
-    
+
     @GET
     @Path("{id: \\d+}")
-    public List<ObjetivoDTO> getObjetivo (@PathParam("id") Integer id)
+    public List<ObjetivoDetailDTO> getObjetivo (@PathParam("id") Integer id)
     {
         return null;
     }
-    
+
     @DELETE
     @Path("{id: \\d+}")
     public void deleteObjetivo (@PathParam("id") Integer id)
     {
-        
+
     }
-    
+
     @PUT
     @Path("{id: \\d+}")
     public ObjetivoDTO getObjetivo (@PathParam("id") Integer id, ObjetivoDTO dto)
