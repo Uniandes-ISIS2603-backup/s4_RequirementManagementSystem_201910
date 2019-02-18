@@ -5,16 +5,16 @@
  */
 package co.edu.uniandes.csw.requirement.test.persistence;
 
-import co.edu.uniandes.csw.requirement.entities.CondicionEntity;
-import co.edu.uniandes.csw.requirement.persistence.CondicionPersistence;
+import co.edu.uniandes.csw.requirement.entities.DRSEntity;
+import co.edu.uniandes.csw.requirement.persistence.DRSPersistence;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import junit.framework.Assert;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import uk.co.jemos.podam.api.PodamFactory;
@@ -22,42 +22,40 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
  *
- * @author Sofia Sarmiento
+ * @author Sofia Alvarez
  */
-
 @RunWith(Arquillian.class)
-public class CondicionPersistenceTest {
+
+public class DRSPersistenceTest {
     
-    @Inject
-    private CondicionPersistence ep;
+    @Inject 
+    private DRSPersistence drsep;
     
-    @PersistenceContext    
+    @PersistenceContext
     private EntityManager em;
     
-    @Deployment
-    public static JavaArchive createDeployment()
-    {
+    @Deployment     
+    public static JavaArchive deployment(){
         return ShrinkWrap.create(JavaArchive.class)
-                .addPackage(CondicionEntity.class.getPackage())
-                .addPackage(CondicionPersistence.class.getPackage())
+                .addPackage(DRSEntity.class.getPackage())
+                .addPackage(DRSPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
     
     @Test
-    public void createCondicionTest()
-    {
+    public void createDRSTest(){
+        
         PodamFactory factory = new PodamFactoryImpl();
-        CondicionEntity newEntity = factory.manufacturePojo(CondicionEntity.class);
-        
-        CondicionEntity ce= ep.create(newEntity);
-        
-        Assert.assertNotNull(ce);
-        
-        CondicionEntity entity = em.find(CondicionEntity.class, ce.getId());
-        
-        Assert.assertEquals(newEntity.getDescripcion(), entity.getDescripcion());
-    }
-    
+        DRSEntity newDrse = factory.manufacturePojo(DRSEntity.class); 
+        DRSEntity drse = drsep.create(newDrse);
+
+        Assert.assertNotNull(drse);
+         DRSEntity entity = em.find(DRSEntity.class, drse.getId()); 
+         Assert.assertEquals(newDrse.getVersion(), entity.getVersion());
+
+    } 
     
 }
+
+
