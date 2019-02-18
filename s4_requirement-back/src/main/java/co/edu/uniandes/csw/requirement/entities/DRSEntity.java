@@ -6,7 +6,11 @@
 package co.edu.uniandes.csw.requirement.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -17,6 +21,13 @@ public class DRSEntity extends BaseEntity implements Serializable
 {
     private Integer version;
     private String reporte;
+    
+    //@PodamExclude
+    //@ManyToMany
+   // private List<StakeholderEntity> stakeholders = new ArrayList<StakeholderEntity>();
+    //private List<ObjetivoEntity> objetivos = new ArrayList<ObjetivoEntity>();
+    //private List<RequisitoEntity> requisitos = new ArrayList<RequisitoEntity>();
+    
 
     public DRSEntity(){
     

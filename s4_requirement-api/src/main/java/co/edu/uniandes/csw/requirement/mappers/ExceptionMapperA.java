@@ -31,10 +31,10 @@ import javax.ws.rs.ext.Provider;
 /**
  * Convertidor de Excepciones Exception a mensajes REST.
  *
- * El error se transforma bajo el siguiente modelo:
- * Codigo de respuesta: <code style="color: #c7254e; background-color: #f9f2f4;">401 Unauthorized</code>
- * Respuesta: La razon del error
- * 
+ * El error se transforma bajo el siguiente modelo: Codigo de respuesta:
+ * <code style="color: #c7254e; background-color: #f9f2f4;">401
+ * Unauthorized</code> Respuesta: La razon del error
+ *
  * @author ISIS2603
  */
 @Provider
