@@ -27,19 +27,16 @@ public class ObjetivoEntity extends BaseEntity implements Serializable
     private Integer estabilidad;
     private String comentarios;
     
-    @PodamExclude
     @ManyToOne
     private DRSEntity drs;
     
-    @PodamExclude
-    @OneToMany(mappedBy="objetivo", orphanRemoval = true)
+    //@OneToMany(mappedBy="objetivo")
     private List<CambioEntity> cambios = new ArrayList<CambioEntity>();
     
-    @PodamExclude
-    @OneToMany(mappedBy="objetivo", orphanRemoval = true)
+    //@OneToMany(mappedBy="objetivo")
     private List<AprobacionEntity> aprobaciones= new ArrayList<AprobacionEntity>();
     
-    @ManyToMany(mappedBy="objetivos")
+    //@ManyToMany(mappedBy="objetivos")
     private List<RequisitoEntity> requisitos;
     
     public ObjetivoEntity()
