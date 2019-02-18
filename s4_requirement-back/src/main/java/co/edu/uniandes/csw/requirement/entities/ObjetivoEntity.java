@@ -6,8 +6,11 @@
 package co.edu.uniandes.csw.requirement.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.*;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -23,6 +26,21 @@ public class ObjetivoEntity extends BaseEntity implements Serializable
     private Integer importancia;
     private Integer estabilidad;
     private String comentarios;
+    
+    @PodamExclude
+    @ManyToOne
+    private DRSEntity drs;
+    
+    @PodamExclude
+    @OneToMany(mappedBy="objetivo", orphanRemoval = true)
+    private List<CambioEntity> cambios = new ArrayList<CambioEntity>();
+    
+    @PodamExclude
+    @OneToMany(mappedBy="objetivo", orphanRemoval = true)
+    private List<AprobacionEntity> aprobaciones= new ArrayList<AprobacionEntity>();
+    
+    @ManyToMany(mappedBy="objetivos")
+    private List<RequisitoEntity> requisitos;
     
     public ObjetivoEntity()
     {
