@@ -7,6 +7,8 @@
 package co.edu.uniandes.csw.requirement.resources;
 
 import co.edu.uniandes.csw.requirement.dtos.ObjetivoDTO;
+import co.edu.uniandes.csw.requirement.dtos.ObjetivoDetailDTO;
+import java.util.List;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.Consumes;
