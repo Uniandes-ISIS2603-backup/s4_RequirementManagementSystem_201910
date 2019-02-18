@@ -37,7 +37,7 @@ public class ObjetivoResource {
     
     @GET
     @Path("{id: \\d+}")
-    public ObjetivoDTO getObjetivo (@PathParam("id") Integer id)
+    public List<OjetivoDTO> getObjetivo (@PathParam("id") Integer id)
     {
         return null;
     }
