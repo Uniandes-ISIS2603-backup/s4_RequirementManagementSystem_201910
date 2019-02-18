@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author estudiante
+ * @author David Manosalva
  */
 public class ObjetivoDTO implements Serializable {
 
