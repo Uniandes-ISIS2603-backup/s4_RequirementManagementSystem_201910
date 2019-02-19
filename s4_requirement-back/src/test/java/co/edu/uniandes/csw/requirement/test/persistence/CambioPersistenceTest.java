@@ -51,7 +51,7 @@ public class CambioPersistenceTest {
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
                 .addPackage(CambioEntity.class.getPackage())
-                .addPackage(CambioEntity.class.getPackage())
+                .addPackage(CambioPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
@@ -109,14 +109,13 @@ public class CambioPersistenceTest {
         
         Assert.assertNotNull(addedEntity);
         
-       CambioEntity refEntity = em.find(CambioEntity.class, addedEntity);
-       Assert.assertEquals(newEntity.getId(), refEntity.getId());   
+        CambioEntity refEntity = em.find(CambioEntity.class, addedEntity.getId());
+        Assert.assertEquals(newEntity.getId(), refEntity.getId());   
     }
 
     @Test
-    public void findByIdTest(){
+    public void findCambioByIdTest(){
         CambioEntity newEntity = data.get(0);
-        em.persist(newEntity);
         CambioEntity foundEntity = cambioPersistence.find(newEntity.getId());
         Assert.assertNotNull(foundEntity);
         Assert.assertEquals(newEntity.getId(), foundEntity.getId());
@@ -144,18 +143,15 @@ public class CambioPersistenceTest {
      * Prueba para actualizar un Cambio.
      */
     @Test
-    public void updateEditorialTest() {
+    public void updateCambioTest() {
         CambioEntity entity = data.get(0);
         PodamFactory factory = new PodamFactoryImpl();
         CambioEntity newEntity = factory.manufacturePojo(CambioEntity.class);
 
         newEntity.setId(entity.getId());
-
         cambioPersistence.update(newEntity);
-
         CambioEntity resp = em.find(CambioEntity.class, entity.getId());
-
-        Assert.assertEquals(newEntity.getFechaYHora(), resp.getFechaYHora());
+        Assert.assertEquals(newEntity.getDescripcion(), resp.getDescripcion());
     }
     
      /**

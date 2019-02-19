@@ -51,7 +51,7 @@ public class AprobacionPersistenceTest {
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
                 .addPackage(AprobacionEntity.class.getPackage())
-                .addPackage(AprobacionEntity.class.getPackage())
+                .addPackage(AprobacionPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
@@ -81,7 +81,7 @@ public class AprobacionPersistenceTest {
      * Limpia las tablas que están implicadas en la prueba.
      */
     private void clearData() {
-        em.createQuery("delete from CambioEntity").executeUpdate();
+        em.createQuery("delete from AprobacionEntity").executeUpdate();
     }
 
     /**
@@ -101,7 +101,7 @@ public class AprobacionPersistenceTest {
     }
     
     @Test
-    public void createCambioTest(){
+    public void createAprobacionTest(){
         PodamFactory factory = new PodamFactoryImpl();
         AprobacionEntity newEntity = factory.manufacturePojo(AprobacionEntity.class);
         
@@ -109,25 +109,25 @@ public class AprobacionPersistenceTest {
         
         Assert.assertNotNull(addedEntity);
         
-       AprobacionEntity refEntity = em.find(AprobacionEntity.class, addedEntity);
-       Assert.assertEquals(newEntity.getId(), refEntity.getId());   
+        AprobacionEntity refEntity = em.find(AprobacionEntity.class, addedEntity.getId());
+        Assert.assertEquals(newEntity.getId(), refEntity.getId());   
     }
 
     @Test
-    public void findByIdTest(){
+    public void findAprobacionByIdTest(){
         AprobacionEntity newEntity = data.get(0);
-        em.persist(newEntity);
         AprobacionEntity foundEntity = aprobacionPersistence.find(newEntity.getId());
         Assert.assertNotNull(foundEntity);
         Assert.assertEquals(newEntity.getId(), foundEntity.getId());
     }
     
      /**
-     * Prueba para consultar la lista de Cambios.
+     * Prueba para consultar la lista de Aprobaciones.
      */
     @Test
-    public void getAllCambiosTest() {
-        List<AprobacionEntity> list = aprobacionPersistence.findAll();
+    public void getAllAprobacionesTest() {
+        List<AprobacionEntity> list;
+        list = aprobacionPersistence.findAll();
         Assert.assertEquals(data.size(), list.size());
         for (AprobacionEntity ent : list) {
             boolean found = false;
@@ -144,7 +144,7 @@ public class AprobacionPersistenceTest {
      * Prueba para actualizar un Cambio.
      */
     @Test
-    public void updateEditorialTest() {
+    public void updateAprobacionTest() {
         AprobacionEntity entity = data.get(0);
         PodamFactory factory = new PodamFactoryImpl();
         AprobacionEntity newEntity = factory.manufacturePojo(AprobacionEntity.class);
@@ -162,7 +162,7 @@ public class AprobacionPersistenceTest {
      * Prueba para eliminar un Cambio.
      */
     @Test
-    public void deleteCambioTest() {
+    public void deleteAprobacionTest() {
         AprobacionEntity entity = data.get(0);
         aprobacionPersistence.delete(entity.getId());
         AprobacionEntity deleted = em.find(AprobacionEntity.class, entity.getId());

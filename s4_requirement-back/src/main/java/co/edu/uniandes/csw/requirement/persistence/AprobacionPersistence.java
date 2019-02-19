@@ -22,7 +22,7 @@ public class AprobacionPersistence {
     @PersistenceContext(unitName = "requirementPU")
     protected EntityManager em;
     
-        public AprobacionEntity create(AprobacionEntity aprobacion){
+    public AprobacionEntity create(AprobacionEntity aprobacion){
         em.persist(aprobacion);
         return aprobacion;
     }
@@ -32,7 +32,7 @@ public class AprobacionPersistence {
     }
     
     public List<AprobacionEntity> findAll(){
-        TypedQuery<AprobacionEntity> query = em.createQuery("select u from CambioEntity", AprobacionEntity.class);
+        TypedQuery<AprobacionEntity> query = em.createQuery("select u from AprobacionEntity u", AprobacionEntity.class);
         return query.getResultList();
     }
     

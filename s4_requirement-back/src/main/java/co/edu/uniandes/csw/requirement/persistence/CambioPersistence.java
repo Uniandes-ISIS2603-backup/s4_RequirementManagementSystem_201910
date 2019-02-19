@@ -32,7 +32,7 @@ public class CambioPersistence {
     }
     
     public List<CambioEntity> findAll(){
-        TypedQuery<CambioEntity> query = em.createQuery("select u from CambioEntity", CambioEntity.class);
+        TypedQuery query = em.createQuery("select u from CambioEntity u", CambioEntity.class);
         return query.getResultList();
     }
     
