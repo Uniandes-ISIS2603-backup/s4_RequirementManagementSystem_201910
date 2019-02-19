@@ -5,16 +5,16 @@
  */
 package co.edu.uniandes.csw.requirement.test.persistence;
 
-import co.edu.uniandes.csw.requirement.entities.ObjetivoEntity;
-import co.edu.uniandes.csw.requirement.persistence.ObjetivoPersistence;
+import co.edu.uniandes.csw.requirement.entities.RequisitoEntity;
+import co.edu.uniandes.csw.requirement.persistence.RequisitoPersistence;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import junit.framework.Assert;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import uk.co.jemos.podam.api.PodamFactory;
@@ -22,37 +22,38 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
  *
- * @author davidmanosalva
+ * @author Jorge Esguerra
  */
 @RunWith(Arquillian.class)
-public class ObjetivoPersistenceTest {
+public class RequisitoPersistenceTest {
 
     @Inject
-    private ObjetivoPersistence op;
+    private RequisitoPersistence ep; // como es stateless, no se puede crear. 
+    // Se hace una inyección de dependencias, es un patrón de diseño para manejar los stateless.
 
     @PersistenceContext
     private EntityManager em;
 
     @Deployment
-    public static JavaArchive createDeployment() {
+    public static JavaArchive deployment() // declaración de paquetes para correr pruebas.
+    {
         return ShrinkWrap.create(JavaArchive.class)
-                .addPackage(ObjetivoEntity.class.getPackage())
-                .addPackage(ObjetivoPersistence.class.getPackage())
+                .addPackage(RequisitoEntity.class.getPackage())
+                .addPackage(RequisitoPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
 
     @Test
-    public void createObjetivoTest() {
+    public void createEditorialTest() {
         PodamFactory factory = new PodamFactoryImpl();
-        ObjetivoEntity param = factory.manufacturePojo(ObjetivoEntity.class);
+        RequisitoEntity test = factory.manufacturePojo(RequisitoEntity.class);
 
-        ObjetivoEntity oe = op.create(param);
+        RequisitoEntity re = ep.create(test); //ep fue inyectada
+        Assert.assertNotNull(re);
+        // poder preguntar si el objeto quedó grabado en la DB.
 
-        Assert.assertNotNull(oe);
-
-        ObjetivoEntity entity = em.find(ObjetivoEntity.class, oe.getId());
-
-        Assert.assertEquals(param.getAutor(), oe.getAutor());
+        RequisitoEntity entity = em.find(RequisitoEntity.class, re.getId());
+        Assert.assertEquals(test.getAutor(), entity.getAutor());
     }
 }

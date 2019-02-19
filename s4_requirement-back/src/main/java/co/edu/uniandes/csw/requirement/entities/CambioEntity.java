@@ -15,16 +15,16 @@ import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
- * @author estudiante
+ * @author Emilio
  */
 @Entity
 public class CambioEntity extends BaseEntity implements Serializable {
-    
+
     private String tipo;
-    
+
     @Temporal(TemporalType.DATE)
     private Date fechaYHora;
-    
+
     private String descripcion;
     
     @PodamExclude
@@ -42,8 +42,8 @@ public class CambioEntity extends BaseEntity implements Serializable {
      /**
      * Constructor vacio
      */
-    public CambioEntity(){
-        
+    public CambioEntity() {
+
     }
 
     /**

@@ -5,7 +5,7 @@
  */
 package co.edu.uniandes.csw.requirement.persistence;
 
-import co.edu.uniandes.csw.requirement.entities.CondicionEntity;
+import co.edu.uniandes.csw.requirement.entities.DRSEntity;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -14,26 +14,25 @@ import javax.persistence.TypedQuery;
 
 /**
  *
- * @author Sofia Sarmiento
+ * @author Sofia Alvarez
  */
 @Stateless
-public class CondicionPersistence {
+public class DRSPersistence {
 
     @PersistenceContext(unitName = "requirementPU")
     protected EntityManager em;
 
-    public CondicionEntity create(CondicionEntity condicionEntity) {
-        em.persist(condicionEntity);
-        return condicionEntity;
+    public DRSEntity create(DRSEntity drsEntity) {
+        em.persist(drsEntity);
+        return drsEntity;
     }
 
-    public CondicionEntity find(Long condicionId) {
-        return em.find(CondicionEntity.class, condicionId);
+    public DRSEntity find(Long drsId) {
+        return em.find(DRSEntity.class, drsId);
     }
 
-    public List<CondicionEntity> findAll() {
-
-        TypedQuery<CondicionEntity> query = em.createQuery("select u from CondicionEntity u", CondicionEntity.class);
+    public List<DRSEntity> findAll() {
+        TypedQuery<DRSEntity> query = em.createQuery("select u from DRSEntity u", DRSEntity.class);
         return query.getResultList();
     }
 

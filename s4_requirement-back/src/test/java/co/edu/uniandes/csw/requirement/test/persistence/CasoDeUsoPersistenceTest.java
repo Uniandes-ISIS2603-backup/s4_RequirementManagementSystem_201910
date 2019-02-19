@@ -5,30 +5,31 @@
  */
 package co.edu.uniandes.csw.requirement.test.persistence;
 
-import co.edu.uniandes.csw.requirement.entities.ObjetivoEntity;
-import co.edu.uniandes.csw.requirement.persistence.ObjetivoPersistence;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import co.edu.uniandes.csw.requirement.entities.CasoDeUsoEntity;
+import co.edu.uniandes.csw.requirement.persistence.CasoDeUsoPersistence;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
+import javax.inject.Inject;
+import org.junit.Assert;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author davidmanosalva
+ * @author Sofia Sarmiento
  */
 @RunWith(Arquillian.class)
-public class ObjetivoPersistenceTest {
+
+public class CasoDeUsoPersistenceTest {
 
     @Inject
-    private ObjetivoPersistence op;
+    private CasoDeUsoPersistence ep;
 
     @PersistenceContext
     private EntityManager em;
@@ -36,23 +37,23 @@ public class ObjetivoPersistenceTest {
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
-                .addPackage(ObjetivoEntity.class.getPackage())
-                .addPackage(ObjetivoPersistence.class.getPackage())
+                .addPackage(CasoDeUsoEntity.class.getPackage())
+                .addPackage(CasoDeUsoPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
 
     @Test
-    public void createObjetivoTest() {
+    public void createCasoDeUsoTest() {
         PodamFactory factory = new PodamFactoryImpl();
-        ObjetivoEntity param = factory.manufacturePojo(ObjetivoEntity.class);
+        CasoDeUsoEntity newEntity = factory.manufacturePojo(CasoDeUsoEntity.class);
 
-        ObjetivoEntity oe = op.create(param);
+        CasoDeUsoEntity ce = ep.create(newEntity);
 
-        Assert.assertNotNull(oe);
+        Assert.assertNotNull(ce);
 
-        ObjetivoEntity entity = em.find(ObjetivoEntity.class, oe.getId());
+        CasoDeUsoEntity entity = em.find(CasoDeUsoEntity.class, ce.getId());
 
-        Assert.assertEquals(param.getAutor(), oe.getAutor());
+        Assert.assertEquals(newEntity.getNombre(), entity.getNombre());
     }
 }

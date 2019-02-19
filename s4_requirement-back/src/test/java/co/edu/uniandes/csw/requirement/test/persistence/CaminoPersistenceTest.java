@@ -5,16 +5,16 @@
  */
 package co.edu.uniandes.csw.requirement.test.persistence;
 
-import co.edu.uniandes.csw.requirement.entities.ObjetivoEntity;
-import co.edu.uniandes.csw.requirement.persistence.ObjetivoPersistence;
+import co.edu.uniandes.csw.requirement.entities.CaminoEntity;
+import co.edu.uniandes.csw.requirement.persistence.CaminoPersistence;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import junit.framework.Assert;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import uk.co.jemos.podam.api.PodamFactory;
@@ -22,37 +22,35 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
  *
- * @author davidmanosalva
+ * @author Sofia Alvarez
  */
 @RunWith(Arquillian.class)
-public class ObjetivoPersistenceTest {
+public class CaminoPersistenceTest {
 
     @Inject
-    private ObjetivoPersistence op;
+    private CaminoPersistence cp;
 
     @PersistenceContext
     private EntityManager em;
 
     @Deployment
-    public static JavaArchive createDeployment() {
+    public static JavaArchive deployment() {
         return ShrinkWrap.create(JavaArchive.class)
-                .addPackage(ObjetivoEntity.class.getPackage())
-                .addPackage(ObjetivoPersistence.class.getPackage())
+                .addPackage(CaminoEntity.class.getPackage())
+                .addPackage(CaminoPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
 
     @Test
-    public void createObjetivoTest() {
+    public void createCaminoTest() {
         PodamFactory factory = new PodamFactoryImpl();
-        ObjetivoEntity param = factory.manufacturePojo(ObjetivoEntity.class);
+        CaminoEntity newCaminoEntity = factory.manufacturePojo(CaminoEntity.class);
+        CaminoEntity ce = cp.create(newCaminoEntity);
 
-        ObjetivoEntity oe = op.create(param);
+        Assert.assertNotNull(ce);
 
-        Assert.assertNotNull(oe);
-
-        ObjetivoEntity entity = em.find(ObjetivoEntity.class, oe.getId());
-
-        Assert.assertEquals(param.getAutor(), oe.getAutor());
+        CaminoEntity entity = em.find(CaminoEntity.class, ce.getId());
+        Assert.assertEquals(newCaminoEntity.getDescripcionPaso(), entity.getDescripcionPaso());
     }
 }

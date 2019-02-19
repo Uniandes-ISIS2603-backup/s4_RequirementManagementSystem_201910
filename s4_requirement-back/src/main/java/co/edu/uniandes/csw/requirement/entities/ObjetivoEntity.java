@@ -6,27 +6,44 @@
 package co.edu.uniandes.csw.requirement.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.*;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
  * @author davidmanosalva
  */
 @Entity
-public class ObjetivoEntity extends BaseEntity implements Serializable
-{
-    
+public class ObjetivoEntity extends BaseEntity implements Serializable {
+
     private String autor;
     private String fuente;
     private String descripcion;
     private Integer importancia;
     private Integer estabilidad;
     private String comentarios;
-    
-    public ObjetivoEntity()
-    {
-        
+
+    @PodamExclude
+    @ManyToOne
+    private DRSEntity drs;
+
+    @PodamExclude
+    @OneToMany(mappedBy = "objetivo", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<CambioEntity> cambios = new ArrayList<CambioEntity>();
+
+    @PodamExclude
+    @OneToMany(mappedBy = "objetivo", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<AprobacionEntity> aprobaciones = new ArrayList<AprobacionEntity>();
+
+    @PodamExclude
+    @ManyToMany(mappedBy = "objetivos")
+    private List<RequisitoEntity> requisitos;
+
+    public ObjetivoEntity() {
+
     }
 
     /**
@@ -112,7 +129,5 @@ public class ObjetivoEntity extends BaseEntity implements Serializable
     public void setComentarios(String comentarios) {
         this.comentarios = comentarios;
     }
-    
-    
-    
+
 }

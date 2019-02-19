@@ -18,21 +18,21 @@ import javax.persistence.TypedQuery;
  */
 @Stateless
 public class CambioPersistence {
-    
+
     @PersistenceContext(unitName = "requirementPU")
     protected EntityManager em;
-    
-    public CambioEntity create(CambioEntity cambioEntity){
+
+    public CambioEntity create(CambioEntity cambioEntity) {
         em.persist(cambioEntity);
         return cambioEntity;
     }
-    
-    public CambioEntity find(Long cambioId){
+
+    public CambioEntity find(Long cambioId) {
         return em.find(CambioEntity.class, cambioId);
     }
-    
+
     public List<CambioEntity> findAll(){
-        TypedQuery query = em.createQuery("select u from CambioEntity u", CambioEntity.class);
+        TypedQuery<CambioEntity> query = em.createQuery("select u from CambioEntity u", CambioEntity.class);
         return query.getResultList();
     }
     

@@ -6,19 +6,31 @@
 package co.edu.uniandes.csw.requirement.entities;
 
 import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import uk.co.jemos.podam.common.*;
 
 /**
  *
  * @author Sofia Sarmiento
  */
+@Entity
 public class CondicionEntity extends BaseEntity implements Serializable {
-    
+
     private String descripcion;
-    
+
     private boolean seCumplio;
-    
-    public CondicionEntity(){
-        
+
+    @PodamExclude
+    @ManyToOne
+    private CasoDeUsoEntity casoPrecondiciones;
+
+    @PodamExclude
+    @ManyToOne
+    private CasoDeUsoEntity casoPostcondiciones;
+
+    public CondicionEntity() {
+
     }
 
     /**
@@ -48,7 +60,5 @@ public class CondicionEntity extends BaseEntity implements Serializable {
     public void setSeCumplio(boolean seCumplio) {
         this.seCumplio = seCumplio;
     }
-    
-    
-    
+
 }

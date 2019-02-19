@@ -5,8 +5,8 @@
  */
 package co.edu.uniandes.csw.requirement.test.persistence;
 
-import co.edu.uniandes.csw.requirement.entities.ObjetivoEntity;
-import co.edu.uniandes.csw.requirement.persistence.ObjetivoPersistence;
+import co.edu.uniandes.csw.requirement.entities.CondicionEntity;
+import co.edu.uniandes.csw.requirement.persistence.CondicionPersistence;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -22,13 +22,13 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
  *
- * @author davidmanosalva
+ * @author Sofia Sarmiento
  */
 @RunWith(Arquillian.class)
-public class ObjetivoPersistenceTest {
+public class CondicionPersistenceTest {
 
     @Inject
-    private ObjetivoPersistence op;
+    private CondicionPersistence ep;
 
     @PersistenceContext
     private EntityManager em;
@@ -36,23 +36,24 @@ public class ObjetivoPersistenceTest {
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
-                .addPackage(ObjetivoEntity.class.getPackage())
-                .addPackage(ObjetivoPersistence.class.getPackage())
+                .addPackage(CondicionEntity.class.getPackage())
+                .addPackage(CondicionPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
 
     @Test
-    public void createObjetivoTest() {
+    public void createCondicionTest() {
         PodamFactory factory = new PodamFactoryImpl();
-        ObjetivoEntity param = factory.manufacturePojo(ObjetivoEntity.class);
+        CondicionEntity newEntity = factory.manufacturePojo(CondicionEntity.class);
 
-        ObjetivoEntity oe = op.create(param);
+        CondicionEntity ce = ep.create(newEntity);
 
-        Assert.assertNotNull(oe);
+        Assert.assertNotNull(ce);
 
-        ObjetivoEntity entity = em.find(ObjetivoEntity.class, oe.getId());
+        CondicionEntity entity = em.find(CondicionEntity.class, ce.getId());
 
-        Assert.assertEquals(param.getAutor(), oe.getAutor());
+        Assert.assertEquals(newEntity.getDescripcion(), entity.getDescripcion());
     }
+
 }

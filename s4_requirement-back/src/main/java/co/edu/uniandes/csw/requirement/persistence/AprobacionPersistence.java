@@ -18,7 +18,7 @@ import javax.persistence.TypedQuery;
  */
 @Stateless
 public class AprobacionPersistence {
-    
+
     @PersistenceContext(unitName = "requirementPU")
     protected EntityManager em;
     
@@ -26,8 +26,8 @@ public class AprobacionPersistence {
         em.persist(aprobacion);
         return aprobacion;
     }
-    
-    public AprobacionEntity find(Long aprobacionId){
+
+    public AprobacionEntity find(Long aprobacionId) {
         return em.find(AprobacionEntity.class, aprobacionId);
     }
     

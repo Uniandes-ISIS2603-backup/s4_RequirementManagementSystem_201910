@@ -7,17 +7,17 @@ package co.edu.uniandes.csw.requirement.dtos;
 
 /**
  *
- * @author estudiante
+ * @author Sofia Sarmiento
  */
 public class CondicionDTO {
-    private int id;
+    private Integer id;
     private String descripcion;
     private boolean seCumplio;
 
     /**
      * @return the id
      */
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

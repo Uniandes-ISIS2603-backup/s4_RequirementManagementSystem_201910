@@ -5,7 +5,7 @@
  */
 package co.edu.uniandes.csw.requirement.persistence;
 
-import co.edu.uniandes.csw.requirement.entities.CondicionEntity;
+import co.edu.uniandes.csw.requirement.entities.CaminoEntity;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -14,26 +14,25 @@ import javax.persistence.TypedQuery;
 
 /**
  *
- * @author Sofia Sarmiento
+ * @author Sofia Alvarez
  */
 @Stateless
-public class CondicionPersistence {
+public class CaminoPersistence {
 
     @PersistenceContext(unitName = "requirementPU")
     protected EntityManager em;
 
-    public CondicionEntity create(CondicionEntity condicionEntity) {
-        em.persist(condicionEntity);
-        return condicionEntity;
+    public CaminoEntity create(CaminoEntity caminoEntity) {
+        em.persist(caminoEntity);
+        return caminoEntity;
     }
 
-    public CondicionEntity find(Long condicionId) {
-        return em.find(CondicionEntity.class, condicionId);
+    public CaminoEntity find(Long caminoId) {
+        return em.find(CaminoEntity.class, caminoId);
     }
 
-    public List<CondicionEntity> findAll() {
-
-        TypedQuery<CondicionEntity> query = em.createQuery("select u from CondicionEntity u", CondicionEntity.class);
+    public List<CaminoEntity> findAll() {
+        TypedQuery<CaminoEntity> query = em.createQuery("select u from CaminoEntity u", CaminoEntity.class);
         return query.getResultList();
     }
 

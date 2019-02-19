@@ -6,21 +6,20 @@
 package co.edu.uniandes.csw.requirement.entities;
 
 import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
- * @author estudiante
+ * @author Emilio
  */
 @Entity
 public class AprobacionEntity extends BaseEntity implements Serializable {
-    
+
     private String tipo;
-    
+
     private boolean aprobado;
-    
+
     private String comentario;
     
     @PodamExclude
@@ -39,7 +38,7 @@ public class AprobacionEntity extends BaseEntity implements Serializable {
      * Consrtructor vacío AprobaciónEntity
      */
     public AprobacionEntity() {
-      
+
     }
 
     /**
@@ -83,5 +82,5 @@ public class AprobacionEntity extends BaseEntity implements Serializable {
     public void setComentario(String comentario) {
         this.comentario = comentario;
     }
-    
+
 }

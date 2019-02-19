@@ -18,23 +18,22 @@ import javax.persistence.TypedQuery;
  */
 @Stateless
 public class StakeHolderPersistence {
-    
-    
-    @PersistenceContext (unitName = "requirementPU")
+
+    @PersistenceContext(unitName = "requirementPU")
     protected EntityManager em;
-    
-    public StakeHolderEntity create (StakeHolderEntity stakeHolderEntity){
+
+    public StakeHolderEntity create(StakeHolderEntity stakeHolderEntity) {
         em.persist(stakeHolderEntity);
-       return stakeHolderEntity;
+        return stakeHolderEntity;
     }
-    
-    public StakeHolderEntity find(Long stakeHolderID){
+
+    public StakeHolderEntity find(Long stakeHolderID) {
         return em.find(StakeHolderEntity.class, stakeHolderID);
     }
-    
-    public List<StakeHolderEntity> findAll(){
-        TypedQuery query = em.createQuery("select u from StakeHolderEntity u",StakeHolderEntity.class);
+
+    public List<StakeHolderEntity> findAll() {
+        TypedQuery query = em.createQuery("select u from StakeHolderEntity u", StakeHolderEntity.class);
         return query.getResultList();
     }
-    
+
 }
