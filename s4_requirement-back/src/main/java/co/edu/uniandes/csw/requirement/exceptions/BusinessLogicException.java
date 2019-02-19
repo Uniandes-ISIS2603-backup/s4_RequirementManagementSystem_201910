@@ -20,16 +20,17 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-*/
+ */
 package co.edu.uniandes.csw.requirement.exceptions;
 
 import javax.ejb.ApplicationException;
 
 /**
- * Expeción utilizada para representar errores en la lógica de negocio. 
- * Se utiliza para diferenciar los errores externos de aquellos que provienen
- * de condiciones que no se cumplen, como IDs repetidos, atributos necesarios,
+ * Expeción utilizada para representar errores en la lógica de negocio. Se
+ * utiliza para diferenciar los errores externos de aquellos que provienen de
+ * condiciones que no se cumplen, como IDs repetidos, atributos necesarios,
  * operaciones prohibidas o sin autorización entre otros.
+ *
  * @author ISIS2603
  */
 @ApplicationException(rollback = true)

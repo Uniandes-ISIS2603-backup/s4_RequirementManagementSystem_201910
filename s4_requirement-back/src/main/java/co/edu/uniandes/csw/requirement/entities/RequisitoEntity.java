@@ -6,7 +6,11 @@
 package co.edu.uniandes.csw.requirement.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.*;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -19,10 +23,31 @@ public class RequisitoEntity extends BaseEntity implements Serializable {
 
     private String autor, comentarios, descripcion, tipo;
     private int importancia, estabilidad;
-    public RequisitoEntity ()
-    {
-        
+
+    public RequisitoEntity() {
+
     }
+
+    @PodamExclude
+    @OneToMany(mappedBy= "requisito", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<AprobacionEntity> aprobaciones  = new ArrayList<AprobacionEntity>();
+    
+    @PodamExclude
+    @OneToMany(mappedBy="requisito", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<CambioEntity> cambios = new ArrayList<CambioEntity>();
+    
+    @PodamExclude
+    @ManyToMany
+    private List<ObjetivoEntity> objetivos;
+    
+    @PodamExclude
+    @OneToMany(mappedBy="requisito", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<CasoDeUsoEntity> casosDeUso;
+    
+    @PodamExclude
+    @ManyToOne
+    private DRSEntity drs;
+    
     /**
      * @return the autor
      */

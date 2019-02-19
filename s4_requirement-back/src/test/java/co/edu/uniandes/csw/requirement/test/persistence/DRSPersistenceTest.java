@@ -27,35 +27,33 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 @RunWith(Arquillian.class)
 
 public class DRSPersistenceTest {
-    
-    @Inject 
+
+    @Inject
     private DRSPersistence drsep;
-    
+
     @PersistenceContext
     private EntityManager em;
-    
-    @Deployment     
-    public static JavaArchive deployment(){
+
+    @Deployment
+    public static JavaArchive deployment() {
         return ShrinkWrap.create(JavaArchive.class)
                 .addPackage(DRSEntity.class.getPackage())
                 .addPackage(DRSPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
-    
+
     @Test
-    public void createDRSTest(){
-        
+    public void createDRSTest() {
+
         PodamFactory factory = new PodamFactoryImpl();
-        DRSEntity newDrse = factory.manufacturePojo(DRSEntity.class); 
+        DRSEntity newDrse = factory.manufacturePojo(DRSEntity.class);
         DRSEntity drse = drsep.create(newDrse);
 
         Assert.assertNotNull(drse);
-         DRSEntity entity = em.find(DRSEntity.class, drse.getId()); 
-         Assert.assertEquals(newDrse.getVersion(), entity.getVersion());
+        DRSEntity entity = em.find(DRSEntity.class, drse.getId());
+        Assert.assertEquals(newDrse.getVersion(), entity.getVersion());
 
-    } 
-    
+    }
+
 }
-
-

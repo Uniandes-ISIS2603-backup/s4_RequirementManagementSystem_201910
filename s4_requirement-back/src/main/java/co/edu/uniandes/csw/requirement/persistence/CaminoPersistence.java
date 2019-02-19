@@ -11,29 +11,29 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+
 /**
  *
  * @author Sofia Alvarez
  */
 @Stateless
 public class CaminoPersistence {
-    
-    @PersistenceContext(unitName = "requirementPU") 
+
+    @PersistenceContext(unitName = "requirementPU")
     protected EntityManager em;
-   
-   
-   public CaminoEntity create(CaminoEntity caminoEntity){
-       em.persist(caminoEntity);
-       return caminoEntity;
-   }
-   
-   public CaminoEntity find(Long caminoId){
-       return em.find(CaminoEntity.class, caminoId);
-   }
-   
-   public List<CaminoEntity> findAll(){
-       TypedQuery<CaminoEntity> query = em.createQuery("select u from CaminoEntity u", CaminoEntity.class);
-       return query.getResultList();
-   }
-    
+
+    public CaminoEntity create(CaminoEntity caminoEntity) {
+        em.persist(caminoEntity);
+        return caminoEntity;
+    }
+
+    public CaminoEntity find(Long caminoId) {
+        return em.find(CaminoEntity.class, caminoId);
+    }
+
+    public List<CaminoEntity> findAll() {
+        TypedQuery<CaminoEntity> query = em.createQuery("select u from CaminoEntity u", CaminoEntity.class);
+        return query.getResultList();
+    }
+
 }

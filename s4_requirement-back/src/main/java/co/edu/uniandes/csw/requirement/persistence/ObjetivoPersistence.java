@@ -14,29 +14,25 @@ import javax.persistence.*;
  *
  * @author davidmanosalva
  */
-
 @Stateless
-public class ObjetivoPersistence 
-{
+public class ObjetivoPersistence {
+
     @PersistenceContext(unitName = "requirementPU")
     protected EntityManager em;
-    
-    public ObjetivoEntity create(ObjetivoEntity op)
-    {
+
+    public ObjetivoEntity create(ObjetivoEntity op) {
         em.persist(op);
         return op;
     }
-    
-    public ObjetivoEntity find(Long objetivoId)
-    {
+
+    public ObjetivoEntity find(Long objetivoId) {
         return em.find(ObjetivoEntity.class, objetivoId);
     }
-    
-    public List<ObjetivoEntity> findAll()
-    {
+
+    public List<ObjetivoEntity> findAll() {
         TypedQuery<ObjetivoEntity> query = em.createQuery("select u from ObjetivoEntity u", ObjetivoEntity.class);
-        
+
         return query.getResultList();
     }
-    
+
 }

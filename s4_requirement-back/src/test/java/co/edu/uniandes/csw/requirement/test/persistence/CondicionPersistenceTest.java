@@ -24,40 +24,36 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  *
  * @author Sofia Sarmiento
  */
-
 @RunWith(Arquillian.class)
 public class CondicionPersistenceTest {
-    
+
     @Inject
     private CondicionPersistence ep;
-    
-    @PersistenceContext    
+
+    @PersistenceContext
     private EntityManager em;
-    
+
     @Deployment
-    public static JavaArchive createDeployment()
-    {
+    public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
                 .addPackage(CondicionEntity.class.getPackage())
                 .addPackage(CondicionPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
-    
+
     @Test
-    public void createCondicionTest()
-    {
+    public void createCondicionTest() {
         PodamFactory factory = new PodamFactoryImpl();
         CondicionEntity newEntity = factory.manufacturePojo(CondicionEntity.class);
-        
-        CondicionEntity ce= ep.create(newEntity);
-        
+
+        CondicionEntity ce = ep.create(newEntity);
+
         Assert.assertNotNull(ce);
-        
+
         CondicionEntity entity = em.find(CondicionEntity.class, ce.getId());
-        
+
         Assert.assertEquals(newEntity.getDescripcion(), entity.getDescripcion());
     }
-    
-    
+
 }

@@ -5,7 +5,6 @@
  */
 package co.edu.uniandes.csw.requirement.persistence;
 
-
 import co.edu.uniandes.csw.requirement.entities.OrganizacionEntity;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -19,21 +18,21 @@ import javax.persistence.TypedQuery;
  */
 @Stateless
 public class OrganizacionPersistence {
-    
-     @PersistenceContext (unitName = "requirementPU")
+
+    @PersistenceContext(unitName = "requirementPU")
     protected EntityManager em;
-    
-    public OrganizacionEntity create (OrganizacionEntity organizacionEntity){
+
+    public OrganizacionEntity create(OrganizacionEntity organizacionEntity) {
         em.persist(organizacionEntity);
-       return organizacionEntity;
+        return organizacionEntity;
     }
-    
-    public OrganizacionEntity find(Long stakeHolderID){
+
+    public OrganizacionEntity find(Long stakeHolderID) {
         return em.find(OrganizacionEntity.class, stakeHolderID);
     }
-    
-    public List<OrganizacionEntity> findAll(){
-        TypedQuery query = em.createQuery("select u from OrganizacionEntity u",OrganizacionEntity.class);
+
+    public List<OrganizacionEntity> findAll() {
+        TypedQuery query = em.createQuery("select u from OrganizacionEntity u", OrganizacionEntity.class);
         return query.getResultList();
     }
 }

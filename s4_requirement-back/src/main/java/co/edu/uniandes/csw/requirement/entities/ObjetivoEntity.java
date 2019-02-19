@@ -17,31 +17,33 @@ import uk.co.jemos.podam.common.PodamExclude;
  * @author davidmanosalva
  */
 @Entity
-public class ObjetivoEntity extends BaseEntity implements Serializable
-{
-    
+public class ObjetivoEntity extends BaseEntity implements Serializable {
+
     private String autor;
     private String fuente;
     private String descripcion;
     private Integer importancia;
     private Integer estabilidad;
     private String comentarios;
-    
+
+    @PodamExclude
     @ManyToOne
     private DRSEntity drs;
-    
-    //@OneToMany(mappedBy="objetivo")
+
+    @PodamExclude
+    @OneToMany(mappedBy = "objetivo", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<CambioEntity> cambios = new ArrayList<CambioEntity>();
-    
-    //@OneToMany(mappedBy="objetivo")
-    private List<AprobacionEntity> aprobaciones= new ArrayList<AprobacionEntity>();
-    
-    //@ManyToMany(mappedBy="objetivos")
+
+    @PodamExclude
+    @OneToMany(mappedBy = "objetivo", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<AprobacionEntity> aprobaciones = new ArrayList<AprobacionEntity>();
+
+    @PodamExclude
+    @ManyToMany(mappedBy = "objetivos")
     private List<RequisitoEntity> requisitos;
-    
-    public ObjetivoEntity()
-    {
-        
+
+    public ObjetivoEntity() {
+
     }
 
     /**
@@ -127,7 +129,5 @@ public class ObjetivoEntity extends BaseEntity implements Serializable
     public void setComentarios(String comentarios) {
         this.comentarios = comentarios;
     }
-    
-    
-    
+
 }

@@ -17,25 +17,23 @@ import javax.persistence.TypedQuery;
  * @author Sofia Alvarez
  */
 @Stateless
-public class DRSPersistence
-{
-   @PersistenceContext(unitName = "requirementPU") 
+public class DRSPersistence {
+
+    @PersistenceContext(unitName = "requirementPU")
     protected EntityManager em;
-   
-   
-   public DRSEntity create(DRSEntity drsEntity){
-       em.persist(drsEntity);
-       return drsEntity;
-   }
-   
-   public DRSEntity find(Long drsId){
-       return em.find(DRSEntity.class, drsId);
-   }
-   
-   public List<DRSEntity> findAll(){
-       TypedQuery<DRSEntity> query = em.createQuery("select u from DRSEntity u", DRSEntity.class);
-       return query.getResultList();
-   }
-   
-    
+
+    public DRSEntity create(DRSEntity drsEntity) {
+        em.persist(drsEntity);
+        return drsEntity;
+    }
+
+    public DRSEntity find(Long drsId) {
+        return em.find(DRSEntity.class, drsId);
+    }
+
+    public List<DRSEntity> findAll() {
+        TypedQuery<DRSEntity> query = em.createQuery("select u from DRSEntity u", DRSEntity.class);
+        return query.getResultList();
+    }
+
 }

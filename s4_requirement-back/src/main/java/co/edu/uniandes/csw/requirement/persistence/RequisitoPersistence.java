@@ -17,39 +17,35 @@ import javax.persistence.TypedQuery;
  * @author Jorge Esguerra
  */
 @Stateless
-public class RequisitoPersistence
-{
+public class RequisitoPersistence {
+
     @PersistenceContext(unitName = "requirementPU") // requirement persistence unit.
     protected EntityManager em; // esta hace el acceso a la base de datos.
-    public RequisitoEntity create (RequisitoEntity e)  // la diferencia entre el que recibe y el que devuelve es que en el devuelto la base de datos ya ha dejado un id. 
+
+    public RequisitoEntity create(RequisitoEntity e) // la diferencia entre el que recibe y el que devuelve es que en el devuelto la base de datos ya ha dejado un id. 
     {
         em.persist(e);  // La base de datos le crea el valor al Long ID, gracias a que extiende de BaseEntity
         return e;
     }
-    
-    public RequisitoEntity find(Long id)
-    {
+
+    public RequisitoEntity find(Long id) {
         return em.find(RequisitoEntity.class, id);
     }
-       
-    public List<RequisitoEntity> findAll() 
-    {
+
+    public List<RequisitoEntity> findAll() {
         TypedQuery<RequisitoEntity> query = em.createQuery("select u from RequisitoEntity u", RequisitoEntity.class);
         return query.getResultList();
     }
-    
+
     // Still not implemented
-    public RequisitoPersistence update(RequisitoPersistence r)
-    {
+    public RequisitoPersistence update(RequisitoPersistence r) {
         return r;
     }
-    
+
     // Still not implemented
-    public void delete(Long id)
-    {
-        
+    public void delete(Long id) {
+
     }
-    
-    
+
     // implementacion de pruebas JUNIT
 }

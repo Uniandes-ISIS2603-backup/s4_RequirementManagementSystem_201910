@@ -6,35 +6,39 @@
 package co.edu.uniandes.csw.requirement.entities;
 
 import java.io.Serializable;
-import javax.persistence.Entity;
+import javax.persistence.*;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
- * @author estudiante
+ * @author Emilio
  */
 @Entity
 public class AprobacionEntity extends BaseEntity implements Serializable {
-    
+
     private String tipo;
-    
+
     private boolean aprobado;
-    
+
     private String comentario;
-    
-    //@javax.persistence.ManyToOne()
-    //private StakeHolderEntity aprobador;
-    
-    //@javax.persistence.ManyToOne()
-    //private ObjetivoEntity objetivo;
-    
-    //@javax.persistence.ManyToOne()
-    //private RequisitoEntity aprobador;
-    
-     /**
+
+    @PodamExclude
+    @ManyToOne
+    private StakeHolderEntity aprobador;
+
+    @PodamExclude
+    @ManyToOne
+    private ObjetivoEntity objetivo;
+
+    @PodamExclude
+    @ManyToOne
+    private RequisitoEntity requisito;
+
+    /**
      * Consrtructor vacío AprobaciónEntity
      */
     public AprobacionEntity() {
-      
+
     }
 
     /**
@@ -78,5 +82,5 @@ public class AprobacionEntity extends BaseEntity implements Serializable {
     public void setComentario(String comentario) {
         this.comentario = comentario;
     }
-    
+
 }

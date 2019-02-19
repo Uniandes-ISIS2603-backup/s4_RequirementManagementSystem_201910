@@ -6,7 +6,9 @@
 package co.edu.uniandes.csw.requirement.entities;
 
 import java.io.Serializable;
-import javax.persistence.Entity;
+import java.util.*;
+import javax.persistence.*;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -14,14 +16,30 @@ import javax.persistence.Entity;
  */
 @Entity
 public class StakeHolderEntity extends BaseEntity implements Serializable {
-    
+
     private String tipo;
     private String nombre;
 
-    public StakeHolderEntity(){
-        
-    }
+    @PodamExclude
+    @ManyToOne
+    private DRSEntity drs;
     
+    @PodamExclude
+    @OneToMany (mappedBy = "autor", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<CambioEntity> cambios = new ArrayList<>();
+    
+    @PodamExclude
+    @OneToMany (mappedBy = "aprobador", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<AprobacionEntity> aprobaciones = new ArrayList<>();
+    
+    @PodamExclude
+    @ManyToOne
+    private OrganizacionEntity organizacion;
+    
+    public StakeHolderEntity() {
+
+    }
+
     public String getTipo() {
         return tipo;
     }
@@ -37,7 +55,5 @@ public class StakeHolderEntity extends BaseEntity implements Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    
-    
-    
+
 }

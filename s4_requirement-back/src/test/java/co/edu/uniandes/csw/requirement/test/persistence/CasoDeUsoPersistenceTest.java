@@ -20,44 +20,40 @@ import org.junit.Assert;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-
 /**
  *
  * @author Sofia Sarmiento
  */
-
 @RunWith(Arquillian.class)
 
 public class CasoDeUsoPersistenceTest {
-    
+
     @Inject
     private CasoDeUsoPersistence ep;
-    
-    @PersistenceContext    
+
+    @PersistenceContext
     private EntityManager em;
-    
+
     @Deployment
-    public static JavaArchive createDeployment()
-    {
+    public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
                 .addPackage(CasoDeUsoEntity.class.getPackage())
                 .addPackage(CasoDeUsoPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
-    
+
     @Test
-    public void createCasoDeUsoTest()
-    {
+    public void createCasoDeUsoTest() {
         PodamFactory factory = new PodamFactoryImpl();
         CasoDeUsoEntity newEntity = factory.manufacturePojo(CasoDeUsoEntity.class);
-        
-        CasoDeUsoEntity ce= ep.create(newEntity);
-        
+
+        CasoDeUsoEntity ce = ep.create(newEntity);
+
         Assert.assertNotNull(ce);
-        
+
         CasoDeUsoEntity entity = em.find(CasoDeUsoEntity.class, ce.getId());
-        
+
         Assert.assertEquals(newEntity.getNombre(), entity.getNombre());
     }
 }
