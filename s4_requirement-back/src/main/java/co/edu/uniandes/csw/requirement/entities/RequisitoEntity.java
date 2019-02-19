@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.*;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -27,21 +28,25 @@ public class RequisitoEntity extends BaseEntity implements Serializable {
 
     }
 
-    
-    @OneToMany(mappedBy= "requisito")
+    @PodamExclude
+    @OneToMany(mappedBy= "requisito", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<AprobacionEntity> aprobaciones  = new ArrayList<AprobacionEntity>();
     
-    @OneToMany(mappedBy="requisito")
+    @PodamExclude
+    @OneToMany(mappedBy="requisito", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<CambioEntity> cambios = new ArrayList<CambioEntity>();
     
-    @ManyToMany(mappedBy="requisito")
+    @PodamExclude
+    @ManyToMany
     private List<ObjetivoEntity> objetivos;
     
-    @OneToMany(mappedBy="requisito")
+    @PodamExclude
+    @OneToMany(mappedBy="requisito", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<CasoDeUsoEntity> casosDeUso;
     
+    @PodamExclude
     @ManyToOne
-    private List<DRSEntity> drs;
+    private DRSEntity drs;
     
     /**
      * @return the autor

@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.requirement.entities;
 import java.io.Serializable;
 import java.util.*;
 import javax.persistence.*;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -19,15 +20,19 @@ public class StakeHolderEntity extends BaseEntity implements Serializable {
     private String tipo;
     private String nombre;
 
+    @PodamExclude
     @ManyToOne
     private DRSEntity drs;
     
-    @OneToMany (mappedBy = "autor")
+    @PodamExclude
+    @OneToMany (mappedBy = "autor", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<CambioEntity> cambios = new ArrayList<>();
     
-    @OneToMany (mappedBy = "aprobador")
+    @PodamExclude
+    @OneToMany (mappedBy = "aprobador", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<AprobacionEntity> aprobaciones = new ArrayList<>();
     
+    @PodamExclude
     @ManyToOne
     private OrganizacionEntity organizacion;
     

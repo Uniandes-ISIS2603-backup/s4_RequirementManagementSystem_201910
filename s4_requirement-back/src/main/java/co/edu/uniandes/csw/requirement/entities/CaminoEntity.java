@@ -9,6 +9,7 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -19,12 +20,15 @@ public class CaminoEntity extends BaseEntity implements Serializable {
 
     private String descripcionPaso;
 
+    @PodamExclude
     @OneToOne
     private CasoDeUsoEntity casoCursoBasicoDeEventos;
 
+    @PodamExclude
     @ManyToOne
-    private CasoDeUsoEntity casoCaminosdeExcepecion;
+    private CasoDeUsoEntity casoCaminosDeExcepcion;
 
+    @PodamExclude
     @ManyToOne
     private CasoDeUsoEntity casoCaminosAlternativos;
 

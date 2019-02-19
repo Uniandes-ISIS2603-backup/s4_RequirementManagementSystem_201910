@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.requirement.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -21,13 +22,16 @@ public class AprobacionEntity extends BaseEntity implements Serializable {
 
     private String comentario;
 
-    @ManyToOne()
+    @PodamExclude
+    @ManyToOne
     private StakeHolderEntity aprobador;
 
-    @ManyToOne()
+    @PodamExclude
+    @ManyToOne
     private ObjetivoEntity objetivo;
 
-    @ManyToOne()
+    @PodamExclude
+    @ManyToOne
     private RequisitoEntity requisito;
 
     /**

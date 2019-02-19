@@ -6,8 +6,11 @@
 package co.edu.uniandes.csw.requirement.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.*;
+import javax.persistence.criteria.Fetch;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
@@ -19,25 +22,29 @@ public class CasoDeUsoEntity extends BaseEntity implements Serializable {
 
     private String nombre;
 
-    @ManyToOne
+    //@PodamExclude
+    //@ManyToOne
     private RequisitoEntity requisito;
 
-    @OneToOne
+    @PodamExclude
+    @OneToOne(mappedBy="casoCursoBasicoDeEventos", fetch = FetchType.LAZY)
     private CaminoEntity cursoBasicoDeEventos;
 
-    @OneToMany(mappedBy = "casoCaminosDeExcepcion")
-    private CaminoEntity caminosDeExcepecion;
-
-    @OneToMany(mappedBy = "casoCaminosAlternativos")
-    private CaminoEntity caminosAlternativos;
+    @PodamExclude
+    @OneToMany(mappedBy = "casoCaminosDeExcepcion", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<CaminoEntity> caminosDeExcepcion = new ArrayList<CaminoEntity>();
 
     @PodamExclude
-    @OneToMany(mappedBy = "precondiciones")
-    private CondicionEntity precondiciones;
+    @OneToMany(mappedBy = "casoCaminosAlternativos", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<CaminoEntity> caminosAlternativos = new ArrayList<>();
 
     @PodamExclude
-    @OneToMany(mappedBy = "postcondiciones")
-    private CondicionEntity postcondiciones;
+    @OneToMany(mappedBy = "casoPrecondiciones", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<CondicionEntity> precondiciones = new ArrayList<>();
+
+    @PodamExclude
+    @OneToMany(mappedBy = "casoPostcondiciones", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<CondicionEntity> postcondiciones = new ArrayList<>();
 
     public CasoDeUsoEntity() {
 
