@@ -24,7 +24,7 @@ public class AprobacionEntity extends BaseEntity implements Serializable {
     
     @PodamExclude
     @ManyToOne
-    private StakeHolderEntity aprobador;
+    private StakeHolderEntity stakeholder;
     
     @PodamExclude
     @ManyToOne
@@ -86,15 +86,15 @@ public class AprobacionEntity extends BaseEntity implements Serializable {
     /**
      * @return the aprobador
      */
-    public StakeHolderEntity getAprobador() {
-        return aprobador;
+    public StakeHolderEntity getStakeHolder() {
+        return stakeholder;
     }
 
     /**
      * @param aprobador the aprobador to set
      */
-    public void setAprobador(StakeHolderEntity aprobador) {
-        this.aprobador = aprobador;
+    public void setStakeHolder(StakeHolderEntity stakeholder) {
+        this.stakeholder = stakeholder;
     }
 
     /**
