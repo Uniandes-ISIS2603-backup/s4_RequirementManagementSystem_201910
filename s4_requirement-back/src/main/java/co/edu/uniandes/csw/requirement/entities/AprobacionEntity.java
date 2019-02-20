@@ -24,7 +24,7 @@ public class AprobacionEntity extends BaseEntity implements Serializable {
 
     @PodamExclude
     @ManyToOne
-    private StakeHolderEntity aprobador;
+    private StakeHolderEntity stakeholder;
 
     @PodamExclude
     @ManyToOne
