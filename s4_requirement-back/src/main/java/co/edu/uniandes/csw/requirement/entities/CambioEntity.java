@@ -35,9 +35,9 @@ public class CambioEntity extends BaseEntity implements Serializable {
     @ManyToOne
     private ObjetivoEntity objetivo;
     
-    //@PodamExclude
-    //@ManyToOne
-    //private RequisitoEntity requisito;
+    @PodamExclude
+    @ManyToOne
+    private RequisitoEntity requisito;
     
      /**
      * Constructor vacio
@@ -86,6 +86,48 @@ public class CambioEntity extends BaseEntity implements Serializable {
      */
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    /**
+     * @return the autor
+     */
+    public StakeHolderEntity getAutor() {
+        return autor;
+    }
+
+    /**
+     * @param autor the autor to set
+     */
+    public void setAutor(StakeHolderEntity autor) {
+        this.autor = autor;
+    }
+
+    /**
+     * @return the objetivo
+     */
+    public ObjetivoEntity getObjetivo() {
+        return objetivo;
+    }
+
+    /**
+     * @param objetivo the objetivo to set
+     */
+    public void setObjetivo(ObjetivoEntity objetivo) {
+        this.objetivo = objetivo;
+    }
+
+    /**
+     * @return the requisito
+     */
+    public RequisitoEntity getRequisito() {
+        return requisito;
+    }
+
+    /**
+     * @param requisito the requisito to set
+     */
+    public void setRequisito(RequisitoEntity requisito) {
+        this.requisito = requisito;
     }
 }
 
