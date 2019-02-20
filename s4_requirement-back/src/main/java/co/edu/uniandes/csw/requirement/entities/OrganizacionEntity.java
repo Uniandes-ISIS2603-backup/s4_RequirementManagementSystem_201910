@@ -6,8 +6,10 @@
 package co.edu.uniandes.csw.requirement.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
@@ -21,8 +23,8 @@ public class OrganizacionEntity extends BaseEntity implements Serializable {
     private String nombre;
 
     @PodamExclude
-    @ManyToOne
-    private StakeHolderEntity stakeHolder;
+    @OneToMany(mappedBy = "organizacion", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<StakeHolderEntity> stakeholders = new ArrayList<>();
 
     public OrganizacionEntity() {
     }

@@ -22,8 +22,8 @@ public class CasoDeUsoEntity extends BaseEntity implements Serializable {
 
     private String nombre;
 
-    //@PodamExclude
-    //@ManyToOne
+    @PodamExclude
+    @ManyToOne
     private RequisitoEntity requisito;
 
     @PodamExclude
