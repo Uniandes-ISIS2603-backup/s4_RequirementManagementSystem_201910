@@ -31,12 +31,17 @@ public class CambioPersistence {
         return em.find(CambioEntity.class, cambioId);
     }
 
-    public List<CambioEntity> findAll() {
-        TypedQuery<CambioEntity> query = em.createQuery("select u from CambioEntity", CambioEntity.class);
+    public List<CambioEntity> findAll(){
+        TypedQuery<CambioEntity> query = em.createQuery("select u from CambioEntity u", CambioEntity.class);
         return query.getResultList();
     }
-
-    public CambioEntity delete(CambioEntity cambio) {
+    
+    public CambioEntity update(CambioEntity cambio){
+        return em.merge(cambio);
+    }
+    
+    public CambioEntity delete(Long cambioId){
+        CambioEntity cambio = em.find(CambioEntity.class, cambioId);
         em.remove(cambio);
         return cambio;
     }

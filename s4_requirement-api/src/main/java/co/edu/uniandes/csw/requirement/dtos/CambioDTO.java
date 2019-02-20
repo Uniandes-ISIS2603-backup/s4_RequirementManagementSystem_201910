@@ -13,7 +13,7 @@ import java.util.Date;
  * @author estudiante
  */
 public class CambioDTO implements Serializable {
-    private int id;
+    private Integer id;
     
     private String tipo;
     
@@ -21,11 +21,11 @@ public class CambioDTO implements Serializable {
     
     private String descripcion;
     
-    //private StakeHolder autor;
+    private StakeHolderDTO autor;
     
-    //private Objetivo objetivo;
+    private ObjetivoDTO objetivo;
     
-    //private Requisito requisito;
+    private RequisitoDTO requisito;
     
      /**
      * Constructor vacio
@@ -88,5 +88,47 @@ public class CambioDTO implements Serializable {
      */
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    /**
+     * @return the autor
+     */
+    public StakeHolderDTO getAutor() {
+        return autor;
+    }
+
+    /**
+     * @param autor the autor to set
+     */
+    public void setAutor(StakeHolderDTO autor) {
+        this.autor = autor;
+    }
+
+    /**
+     * @return the objetivo
+     */
+    public ObjetivoDTO getObjetivo() {
+        return objetivo;
+    }
+
+    /**
+     * @param objetivo the objetivo to set
+     */
+    public void setObjetivo(ObjetivoDTO objetivo) {
+        this.objetivo = objetivo;
+    }
+
+    /**
+     * @return the requisito
+     */
+    public RequisitoDTO getRequisito() {
+        return requisito;
+    }
+
+    /**
+     * @param requisito the requisito to set
+     */
+    public void setRequisito(RequisitoDTO requisito) {
+        this.requisito = requisito;
     }
 }

@@ -21,8 +21,8 @@ public class AprobacionPersistence {
 
     @PersistenceContext(unitName = "requirementPU")
     protected EntityManager em;
-
-    public AprobacionEntity create(AprobacionEntity aprobacion) {
+    
+    public AprobacionEntity create(AprobacionEntity aprobacion){
         em.persist(aprobacion);
         return aprobacion;
     }
@@ -30,13 +30,18 @@ public class AprobacionPersistence {
     public AprobacionEntity find(Long aprobacionId) {
         return em.find(AprobacionEntity.class, aprobacionId);
     }
-
-    public List<AprobacionEntity> findAll() {
-        TypedQuery<AprobacionEntity> query = em.createQuery("select u from CambioEntity", AprobacionEntity.class);
+    
+    public List<AprobacionEntity> findAll(){
+        TypedQuery<AprobacionEntity> query = em.createQuery("select u from AprobacionEntity u", AprobacionEntity.class);
         return query.getResultList();
     }
-
-    public AprobacionEntity delete(AprobacionEntity aprobacion) {
+    
+    public AprobacionEntity update(AprobacionEntity aprobacion){
+        return em.merge(aprobacion);
+    }
+    
+    public AprobacionEntity delete(Long aprobacionId){
+        AprobacionEntity aprobacion = em.find(AprobacionEntity.class, aprobacionId);
         em.remove(aprobacion);
         return aprobacion;
     }
