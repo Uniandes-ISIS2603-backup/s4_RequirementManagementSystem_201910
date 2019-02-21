@@ -36,5 +36,15 @@ public class CondicionPersistence {
         TypedQuery<CondicionEntity> query = em.createQuery("select u from CondicionEntity u", CondicionEntity.class);
         return query.getResultList();
     }
+    
+    public CondicionEntity update(CondicionEntity condicion){
+        return em.merge(condicion);
+    }
+    
+    public CondicionEntity delete(Long condicionId){
+        CondicionEntity condicion=em.find(CondicionEntity.class, condicionId);
+        em.remove(condicion);
+        return condicion;
+    }
 
 }
