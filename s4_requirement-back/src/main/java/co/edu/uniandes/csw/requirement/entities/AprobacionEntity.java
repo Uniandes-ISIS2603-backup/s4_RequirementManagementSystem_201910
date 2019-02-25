@@ -21,20 +21,20 @@ public class AprobacionEntity extends BaseEntity implements Serializable {
     private boolean aprobado;
 
     private String comentario;
-
+    
     @PodamExclude
     @ManyToOne
-    private StakeHolderEntity aprobador;
-
+    private StakeHolderEntity stakeholder;
+    
     @PodamExclude
     @ManyToOne
     private ObjetivoEntity objetivo;
-
+    
     @PodamExclude
     @ManyToOne
     private RequisitoEntity requisito;
-
-    /**
+    
+     /**
      * Consrtructor vacío AprobaciónEntity
      */
     public AprobacionEntity() {
@@ -81,6 +81,48 @@ public class AprobacionEntity extends BaseEntity implements Serializable {
      */
     public void setComentario(String comentario) {
         this.comentario = comentario;
+    }
+
+    /**
+     * @return the aprobador
+     */
+    public StakeHolderEntity getStakeHolder() {
+        return stakeholder;
+    }
+
+    /**
+     * @param aprobador the aprobador to set
+     */
+    public void setStakeHolder(StakeHolderEntity stakeholder) {
+        this.stakeholder = stakeholder;
+    }
+
+    /**
+     * @return the objetivo
+     */
+    public ObjetivoEntity getObjetivo() {
+        return objetivo;
+    }
+
+    /**
+     * @param objetivo the objetivo to set
+     */
+    public void setObjetivo(ObjetivoEntity objetivo) {
+        this.objetivo = objetivo;
+    }
+
+    /**
+     * @return the requisito
+     */
+    public RequisitoEntity getRequisito() {
+        return requisito;
+    }
+
+    /**
+     * @param requisito the requisito to set
+     */
+    public void setRequisito(RequisitoEntity requisito) {
+        this.requisito = requisito;
     }
 
 }

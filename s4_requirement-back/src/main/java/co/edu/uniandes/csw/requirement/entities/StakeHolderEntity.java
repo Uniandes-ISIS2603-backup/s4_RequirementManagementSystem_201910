@@ -36,7 +36,7 @@ public class StakeHolderEntity extends BaseEntity implements Serializable {
     
 //Relacion aprobaciones
     @PodamExclude
-    @OneToMany (mappedBy = "aprobador", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany (mappedBy = "stakeholder", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<AprobacionEntity> aprobaciones = new ArrayList<>();
     
 //Relacion organizaciones
