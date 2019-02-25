@@ -7,6 +7,9 @@ package co.edu.uniandes.csw.requirement.test.logic;
 
 import co.edu.uniandes.csw.requirement.ejb.CambioLogic;
 import co.edu.uniandes.csw.requirement.entities.CambioEntity;
+import co.edu.uniandes.csw.requirement.entities.ObjetivoEntity;
+import co.edu.uniandes.csw.requirement.entities.RequisitoEntity;
+import co.edu.uniandes.csw.requirement.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.requirement.persistence.CambioPersistence;
 import java.util.ArrayList;
 import java.util.List;
@@ -103,12 +106,22 @@ public class CambioLogicTest {
      * Prueba para crear un Cambio.
      */
     @Test
-    public void createCambioTest(){
+    public void createCambioTest() throws BusinessLogicException{
         CambioEntity newEntity = factory.manufacturePojo(CambioEntity.class);
         cambioLogic.createCambio(newEntity);
         CambioEntity entity = em.find(CambioEntity.class, newEntity.getId());
         Assert.assertNotNull(entity);
         Assert.assertEquals(entity.getDescripcion(), newEntity.getDescripcion());
+    }
+    
+    @Test(expected = BusinessLogicException.class)
+    public void createCambioConRequisitoYObjetivo() throws BusinessLogicException{
+        CambioEntity newEntity = factory.manufacturePojo(CambioEntity.class);
+        ObjetivoEntity objetivo = factory.manufacturePojo(ObjetivoEntity.class);
+        RequisitoEntity requisito = factory.manufacturePojo(RequisitoEntity.class);
+        newEntity.setRequisito(requisito);
+        newEntity.setObjetivo(objetivo);
+        cambioLogic.createCambio(newEntity);
     }
     
      /**
@@ -145,7 +158,7 @@ public class CambioLogicTest {
      * Prueba para actualizar un Cambio.
      */
     @Test
-    public void updateCambioTest() {
+    public void updateCambioTest() throws BusinessLogicException {
         CambioEntity entity = data.get(0);
         CambioEntity pojoEntity = factory.manufacturePojo(CambioEntity.class);
         pojoEntity.setId(entity.getId());

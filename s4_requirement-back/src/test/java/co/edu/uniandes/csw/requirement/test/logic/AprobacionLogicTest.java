@@ -7,6 +7,9 @@ package co.edu.uniandes.csw.requirement.test.logic;
 
 import co.edu.uniandes.csw.requirement.ejb.AprobacionLogic;
 import co.edu.uniandes.csw.requirement.entities.AprobacionEntity;
+import co.edu.uniandes.csw.requirement.entities.ObjetivoEntity;
+import co.edu.uniandes.csw.requirement.entities.RequisitoEntity;
+import co.edu.uniandes.csw.requirement.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.requirement.persistence.AprobacionPersistence;
 import java.util.ArrayList;
 import java.util.List;
@@ -102,12 +105,22 @@ public class AprobacionLogicTest {
      * Prueba para crear una Aprobacion.
      */
     @Test
-    public void createAprobacionTest(){
+    public void createAprobacionTest() throws BusinessLogicException{
         AprobacionEntity newEntity = factory.manufacturePojo(AprobacionEntity.class);
-        aprobacionLogic.createCambio(newEntity);
+        aprobacionLogic.createAprobacion(newEntity);
         AprobacionEntity entity = em.find(AprobacionEntity.class, newEntity.getId());
         Assert.assertNotNull(entity);
         Assert.assertEquals(entity.getComentario(), newEntity.getComentario());
+    }
+    
+        @Test(expected = BusinessLogicException.class)
+    public void createAprobacionConRequisitoYObjetivo() throws BusinessLogicException{
+        AprobacionEntity newEntity = factory.manufacturePojo(AprobacionEntity.class);
+        ObjetivoEntity objetivo = factory.manufacturePojo(ObjetivoEntity.class);
+        RequisitoEntity requisito = factory.manufacturePojo(RequisitoEntity.class);
+        newEntity.setRequisito(requisito);
+        newEntity.setObjetivo(objetivo);
+        aprobacionLogic.createAprobacion(newEntity);
     }
     
      /**
@@ -115,7 +128,7 @@ public class AprobacionLogicTest {
      */
     @Test
     public void getAllAprobacionesTest(){
-        List<AprobacionEntity> list = aprobacionLogic.findAllCambios();
+        List<AprobacionEntity> list = aprobacionLogic.findAllAprobaciones();
         Assert.assertEquals(data.size(), list.size());
         for (AprobacionEntity entity : list) {
             boolean found = false;
@@ -134,7 +147,7 @@ public class AprobacionLogicTest {
     @Test
     public void getAprobacionTest() {
         AprobacionEntity entity = data.get(0);
-        AprobacionEntity resultEntity = aprobacionLogic.findCambioById(entity.getId());
+        AprobacionEntity resultEntity = aprobacionLogic.findAprobacionById(entity.getId());
         Assert.assertNotNull(resultEntity);
         Assert.assertEquals(entity.getId(), resultEntity.getId());
         Assert.assertEquals(entity.getComentario(), resultEntity.getComentario());
@@ -144,11 +157,11 @@ public class AprobacionLogicTest {
      * Prueba para actualizar una Aprobacion.
      */
     @Test
-    public void updateAprobacionTest() {
+    public void updateAprobacionTest() throws BusinessLogicException {
         AprobacionEntity entity = data.get(0);
         AprobacionEntity pojoEntity = factory.manufacturePojo(AprobacionEntity.class);
         pojoEntity.setId(entity.getId());
-        aprobacionLogic.updateCambio(pojoEntity);
+        aprobacionLogic.updateAprobacion(pojoEntity);
         AprobacionEntity resp = em.find(AprobacionEntity.class, entity.getId());
         Assert.assertEquals(pojoEntity.getId(), resp.getId());
         Assert.assertEquals(pojoEntity.getComentario(), resp.getComentario());
@@ -161,7 +174,7 @@ public class AprobacionLogicTest {
     @Test
     public void deleteAprobacionTest() {
         AprobacionEntity entity = data.get(1);
-        aprobacionLogic.deleteCambio(entity.getId());
+        aprobacionLogic.deleteAprobacion(entity.getId());
         AprobacionEntity deleted = em.find(AprobacionEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
