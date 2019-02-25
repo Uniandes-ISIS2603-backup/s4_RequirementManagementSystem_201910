@@ -19,30 +19,50 @@ import uk.co.jemos.podam.common.PodamExclude;
 @Entity
 public class OrganizacionEntity extends BaseEntity implements Serializable {
 
+ /**
+  * Atributos
+  */
     private String sector;
     private String nombre;
-
+    
+ /**
+ * Relacion con stakeholders
+ */
     @PodamExclude
     @OneToMany(mappedBy = "organizacion", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<StakeHolderEntity> stakeholders = new ArrayList<>();
 
     public OrganizacionEntity() {
     }
-
+    
+/**
+ * 
+ * @return sector
+ */
     public String getSector() {
         return sector;
     }
-
+    
+/**
+ * 
+ * @param sector 
+ */
     public void setSector(String sector) {
         this.sector = sector;
     }
-
+    
+/**
+ * 
+ * @return nombre
+ */
     public String getNombre() {
         return nombre;
     }
-
+    
+/**
+ * @param nombre 
+ */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
 }
