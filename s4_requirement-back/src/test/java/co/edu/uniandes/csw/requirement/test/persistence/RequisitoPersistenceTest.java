@@ -45,7 +45,7 @@ public class RequisitoPersistenceTest {
     }
 
     @Test
-    public void createEditorialTest() {
+    public void createRequisitoTest() {
         PodamFactory factory = new PodamFactoryImpl();
         RequisitoEntity test = factory.manufacturePojo(RequisitoEntity.class);
 
@@ -54,6 +54,6 @@ public class RequisitoPersistenceTest {
         // poder preguntar si el objeto quedó grabado en la DB.
 
         RequisitoEntity entity = em.find(RequisitoEntity.class, re.getId());
-        Assert.assertEquals(test.getAutor(), entity.getAutor());
+        Assert.assertEquals(test.getId(), entity.getId());
     }
 }

@@ -14,14 +14,14 @@ import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
- * @author estudiante
+ * @author Jorge A Esguerra A
  */
 @Entity
 // La tabla en la base de datos se llama RequisitoEntity, porque no se usa anotación para cambiarle el nombre. 
 // Lo mismo pasa con los atributos, pues tampoco son anotados. 
 public class RequisitoEntity extends BaseEntity implements Serializable {
 
-    private String autor, comentarios, descripcion, tipo;
+    private String comentarios, descripcion, tipo;
     private int importancia, estabilidad;
 
     public RequisitoEntity() {
@@ -45,23 +45,17 @@ public class RequisitoEntity extends BaseEntity implements Serializable {
     private List<CasoDeUsoEntity> casosDeUso;
     
     @PodamExclude
+    @OneToOne(mappedBy = "autorRequisito", fetch = FetchType.LAZY)
+    private StakeHolderEntity autor;
+    
+    @PodamExclude
+    @OneToMany(mappedBy = "fuenteRequisito", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<StakeHolderEntity> fuentes = new ArrayList<>();
+    
+    @PodamExclude
     @ManyToOne
     private DRSEntity drs;
-    
-    /**
-     * @return the autor
-     */
-    public String getAutor() {
-        return autor;
-    }
-
-    /**
-     * @param autor the autor to set
-     */
-    public void setAutor(String autor) {
-        this.autor = autor;
-    }
-
+   
     /**
      * @return the comentarios
      */
