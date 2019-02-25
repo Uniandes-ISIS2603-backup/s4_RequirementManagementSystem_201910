@@ -28,23 +28,40 @@ public class StakeHolderEntity extends BaseEntity implements Serializable {
     @PodamExclude
     @ManyToOne
     private DRSEntity drs;
-    
+   
 //Relacion cambios
     @PodamExclude
-    @OneToMany (mappedBy = "autor", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany(mappedBy = "autor", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<CambioEntity> cambios = new ArrayList<>();
-    
+
 //Relacion aprobaciones
+
     @PodamExclude
-    @OneToMany (mappedBy = "stakeholder", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany(mappedBy = "stakeholder", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<AprobacionEntity> aprobaciones = new ArrayList<>();
-    
-//Relacion organizaciones
+
+
     @PodamExclude
     @ManyToOne
     private OrganizacionEntity organizacion;
-    
-//Construcctor vacio
+    @PodamExclude
+    @OneToOne
+    private ObjetivoEntity autorObjetivo;
+
+    @PodamExclude
+    @ManyToOne
+    private ObjetivoEntity fuenteObjetivo;
+
+
+
+    @PodamExclude
+    @OneToOne
+    private RequisitoEntity autorRequisito;
+
+    @PodamExclude
+    @ManyToOne
+    private RequisitoEntity fuenteRequisito;
+
     public StakeHolderEntity() {
 
     }
