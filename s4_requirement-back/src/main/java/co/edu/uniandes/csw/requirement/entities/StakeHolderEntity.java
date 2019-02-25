@@ -36,6 +36,14 @@ public class StakeHolderEntity extends BaseEntity implements Serializable {
     @ManyToOne
     private OrganizacionEntity organizacion;
     
+    @PodamExclude
+    @OneToOne
+    private RequisitoEntity autorRequisito;
+
+    @PodamExclude
+    @ManyToOne
+    private RequisitoEntity fuenteRequisito;
+    
     public StakeHolderEntity() {
 
     }
