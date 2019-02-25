@@ -5,17 +5,18 @@
  */
 package co.edu.uniandes.csw.requirement.dtos;
 
+import co.edu.uniandes.csw.requirement.entities.ObjetivoEntity;
 import java.io.Serializable;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  *
- * @author David Manosalva
+ * @objetivo David Manosalva
  */
 public class ObjetivoDTO implements Serializable {
 
-    private Integer id;
-    private String autor;
-    private String fuente;
+    private Long id;
     private String descripcion;
     private Integer importancia;
     private Integer estabilidad;
@@ -24,47 +25,41 @@ public class ObjetivoDTO implements Serializable {
     public ObjetivoDTO() {
 
     }
+    
+    public ObjetivoDTO(ObjetivoEntity oe)
+    {
+        if(oe != null)
+        {
+            this.id = oe.getId();
+            this.descripcion = oe.getDescripcion();
+            this.importancia = oe.getImportancia();
+            this.estabilidad = oe.getEstabilidad();
+            this.comentarios = oe.getComentarios();
+        }
+    }
+    
+    public ObjetivoEntity toEntity() {
+        ObjetivoEntity objetivoEntity = new ObjetivoEntity();
+        objetivoEntity.setId(this.getId());
+        objetivoEntity.setDescripcion(this.descripcion);
+        objetivoEntity.setImportancia(this.importancia);
+        objetivoEntity.setComentarios(this.comentarios);
+        objetivoEntity.setEstabilidad(this.estabilidad);
+        return objetivoEntity;
+    }
 
     /**
      * @return the id
      */
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
-    }
-
-    /**
-     * @return the autor
-     */
-    public String getAutor() {
-        return autor;
-    }
-
-    /**
-     * @param autor the autor to set
-     */
-    public void setAutor(String autor) {
-        this.autor = autor;
-    }
-
-    /**
-     * @return the fuente
-     */
-    public String getFuente() {
-        return fuente;
-    }
-
-    /**
-     * @param fuente the fuente to set
-     */
-    public void setFuente(String fuente) {
-        this.fuente = fuente;
     }
 
     /**
@@ -123,4 +118,8 @@ public class ObjetivoDTO implements Serializable {
         this.comentarios = comentarios;
     }
 
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+    }
 }
