@@ -37,4 +37,12 @@ public class RequisitoLogicTest {
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
     
+    
+    /**
+     * Escribir pruebas, por ejemplo: 
+     * 1. Creación de requisito
+     * 2. Creación de requisito violando cada una de las reglas de negocio.
+     */
+    
+    
 }

@@ -5,10 +5,30 @@
  */
 package co.edu.uniandes.csw.requirement.ejb;
 
+import co.edu.uniandes.csw.requirement.entities.RequisitoEntity;
+import co.edu.uniandes.csw.requirement.persistence.RequisitoPersistence;
+import javax.ejb.Stateless;
+import javax.inject.Inject;
+
 /**
  *
  * @author jorgeandresesguerraalarcon
  */
-public class RequisitoLogic {
+@Stateless
+public class RequisitoLogic 
+{
+    
+    @Inject
+    private RequisitoPersistence persistence;
+    
+    public RequisitoEntity createRequisito(RequisitoEntity x)
+    {
+        // Aquí ponemos todas las validaciones que hay que hacer al momento de crear un nuevo requisito, según reglas de negocio. 
+        
+        
+        
+        x = persistence.create(x);
+        return x;
+    }
     
 }
