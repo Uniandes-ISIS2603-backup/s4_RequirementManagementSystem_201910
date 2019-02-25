@@ -9,8 +9,12 @@ import co.edu.uniandes.csw.requirement.dtos.OrganizacionDTO;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 /**
@@ -30,6 +34,27 @@ public class OrganizacionResource {
     public OrganizacionDTO createOrganizacion(OrganizacionDTO organizacion){
         
         return organizacion;
+    }
+    
+    @GET
+    @Path("{id: \\d+}")
+    public OrganizacionDTO getOrganizacion(@PathParam("id") Integer id)
+    {
+        return null;
+    }
+    
+    @DELETE
+    @Path("{id: \\d+}")
+    public void deleteOrganizacion(@PathParam("id") Integer id)
+    {
+        return;
+    }
+    
+    @PUT
+    @Path("{id: \\d+}")
+    public OrganizacionDTO putOrganizacion(@PathParam("id") Integer id)
+    {
+        return null;
     }
     
 }

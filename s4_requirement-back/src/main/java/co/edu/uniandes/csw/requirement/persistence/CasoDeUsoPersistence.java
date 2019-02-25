@@ -36,4 +36,14 @@ public class CasoDeUsoPersistence {
         TypedQuery<CasoDeUsoEntity> query = em.createQuery("select u from CasoDeUsoEntity u", CasoDeUsoEntity.class);
         return query.getResultList();
     }
+    
+    public CasoDeUsoEntity update(CasoDeUsoEntity casoDeUso){
+        return em.merge(casoDeUso);
+    }
+    
+    public CasoDeUsoEntity delete(Long casoDeUsoId){
+        CasoDeUsoEntity casoDeUso=em.find(CasoDeUsoEntity.class, casoDeUsoId);
+        em.remove(casoDeUso);
+        return casoDeUso;
+    }
 }
