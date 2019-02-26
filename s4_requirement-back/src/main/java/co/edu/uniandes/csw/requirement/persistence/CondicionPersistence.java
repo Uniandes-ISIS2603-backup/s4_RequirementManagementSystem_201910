@@ -37,6 +37,24 @@ public class CondicionPersistence {
         return query.getResultList();
     }
     
+    public CondicionEntity findByDescripcion(String description){
+        TypedQuery<CondicionEntity> query = em.createQuery("select u from CondicionEntity u where u.descripcion = :descripcion", CondicionEntity.class);
+        query = query.setParameter("descripcion", description);
+        
+        List<CondicionEntity> sameDes= query.getResultList();
+        CondicionEntity resultado;
+        if(sameDes==null){
+            resultado=null;
+        }
+        else if(sameDes.isEmpty()){
+            resultado=null;
+        }
+        else{
+            resultado= sameDes.get(0);
+        }
+        return resultado;
+    }
+    
     public CondicionEntity update(CondicionEntity condicion){
         return em.merge(condicion);
     }
