@@ -35,5 +35,15 @@ public class DRSPersistence {
         TypedQuery<DRSEntity> query = em.createQuery("select u from DRSEntity u", DRSEntity.class);
         return query.getResultList();
     }
+    
+     public DRSEntity update(DRSEntity drs){
+        return em.merge(drs);
+    }
+    
+    public DRSEntity delete(Long drsId){
+        DRSEntity drs=em.find(DRSEntity.class, drsId);
+        em.remove(drs);
+        return drs;
+    }
 
 }
