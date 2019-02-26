@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.requirement.dtos;
 
+import co.edu.uniandes.csw.requirement.entities.AprobacionEntity;
 import java.io.Serializable;
 
 /**
@@ -13,15 +14,15 @@ import java.io.Serializable;
  */
 public class AprobacionDTO implements Serializable{
     
-    private Integer id;
+    private Long id;
     
     private String tipo;
     
-    private boolean aprovado;
+    private boolean aprobado;
     
     private String comentario;
     
-    private StakeHolderDTO aprobador;
+    private StakeHolderDTO stakeholder;
     
     private ObjetivoDTO objetivo;
     
@@ -34,17 +35,41 @@ public class AprobacionDTO implements Serializable{
         
     }
     
+    public AprobacionDTO(AprobacionEntity entity){
+        if(entity != null){
+            this.id = entity.getId();
+            this.tipo = entity.getTipo();
+            this.aprobado = entity.isAprobado();
+            this.comentario = entity.getComentario();
+            //this.autor = new StakeHolderDTO(entity.getAutor());
+            this.objetivo = new ObjetivoDTO(entity.getObjetivo());
+            //this.requisito = new RequisitoDTO(entity.getRequisito());
+        }
+    }
+    
+    public AprobacionEntity toEntity(){
+        AprobacionEntity entity = new AprobacionEntity();
+        entity.setId(this.id);
+        entity.setTipo(this.tipo);
+        entity.setAprobado(this.aprobado);
+        entity.setComentario(this.comentario);
+        //entity.setAutor(this.autor.toEntity());
+        entity.setObjetivo(this.objetivo.toEntity());
+        //entity.setRequisito(this.requisito.toEntity());
+        return entity;
+    }
+    
     /**
      * @return the id
      */
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -66,14 +91,14 @@ public class AprobacionDTO implements Serializable{
      * @return the aprovado
      */
     public boolean isAprovado() {
-        return aprovado;
+        return aprobado;
     }
 
     /**
      * @param aprovado the aprovado to set
      */
     public void setAprovado(boolean aprovado) {
-        this.aprovado = aprovado;
+        this.aprobado = aprovado;
     }
 
     /**
@@ -94,14 +119,14 @@ public class AprobacionDTO implements Serializable{
      * @return the aprobador
      */
     public StakeHolderDTO getAprobador() {
-        return aprobador;
+        return stakeholder;
     }
 
     /**
      * @param aprobador the aprobador to set
      */
     public void setAprobador(StakeHolderDTO aprobador) {
-        this.aprobador = aprobador;
+        this.stakeholder = aprobador;
     }
 
     /**
