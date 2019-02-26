@@ -48,4 +48,7 @@ public class RequisitoPersistence {
     }
 
     // implementacion de pruebas JUNIT
+    
+    
+   // Completar metodos para permitir validación de Reglas de Negocio.
 }

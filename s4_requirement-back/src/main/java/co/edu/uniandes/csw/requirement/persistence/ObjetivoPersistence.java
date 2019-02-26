@@ -34,5 +34,16 @@ public class ObjetivoPersistence {
 
         return query.getResultList();
     }
+    
+    public ObjetivoEntity update(ObjetivoEntity objetivoEntity) {
+        
+        
+         return em.merge(objetivoEntity);
+    }
+    
+    public void delete(Long objetivoId) {
+        ObjetivoEntity objetivoEntity = em.find(ObjetivoEntity.class, objetivoId);
+        em.remove(objetivoEntity);
+    }
 
 }
