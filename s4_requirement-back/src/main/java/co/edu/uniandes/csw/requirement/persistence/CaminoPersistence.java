@@ -32,8 +32,19 @@ public class CaminoPersistence {
     }
 
     public List<CaminoEntity> findAll() {
-        TypedQuery<CaminoEntity> query = em.createQuery("select u from CaminoEntity u", CaminoEntity.class);
+        TypedQuery query = em.createQuery("select u from CaminoEntity u", CaminoEntity.class);
         return query.getResultList();
     }
+    
+     public CaminoEntity update(CaminoEntity camino){
+        return em.merge(camino);
+    }
+    
+    public CaminoEntity delete(Long caminoId){
+        CaminoEntity camino=em.find(CaminoEntity.class, caminoId);
+        em.remove(camino);
+        return camino;
+    }
+
 
 }
