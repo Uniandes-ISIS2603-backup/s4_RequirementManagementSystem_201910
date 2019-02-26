@@ -37,6 +37,24 @@ public class CasoDeUsoPersistence {
         return query.getResultList();
     }
     
+    public CasoDeUsoEntity findByName(String name){
+        TypedQuery<CasoDeUsoEntity> query = em.createQuery("select u from CasoDeUsoEntity u where u.nombre = :nombre", CasoDeUsoEntity.class);
+        query = query.setParameter("nombre", name);
+        
+        List<CasoDeUsoEntity> sameName= query.getResultList();
+        CasoDeUsoEntity resultado;
+        if(sameName==null){
+            resultado=null;
+        }
+        else if(sameName.isEmpty()){
+            resultado=null;
+        }
+        else{
+            resultado= sameName.get(0);
+        }
+        return resultado;
+    }
+    
     public CasoDeUsoEntity update(CasoDeUsoEntity casoDeUso){
         return em.merge(casoDeUso);
     }
