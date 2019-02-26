@@ -65,4 +65,12 @@ public class OrganizacionEntity extends BaseEntity implements Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+    
+    public List<StakeHolderEntity> getStakeHolders(){
+        return stakeholders;
+    }
+    
+    public void setStakeHolders(List<StakeHolderEntity> lista){
+        stakeholders = lista;
+    }
 }

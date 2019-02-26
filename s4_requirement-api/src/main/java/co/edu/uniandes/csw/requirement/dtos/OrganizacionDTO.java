@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.requirement.dtos;
 
+import co.edu.uniandes.csw.requirement.entities.OrganizacionEntity;
 import java.io.Serializable;
 
 /**
@@ -15,10 +16,16 @@ public class OrganizacionDTO implements Serializable{
     
     private String sector;
     private String nombre;
-    private int id;
+    private long id;
 
     public OrganizacionDTO() {
 
+    }
+    
+    public OrganizacionDTO(OrganizacionEntity entidad) {
+        setId(entidad.getId());
+        setNombre(entidad.getNombre());
+        setSector(entidad.getSector());
     }
 
     public String getSector() {
@@ -37,12 +44,20 @@ public class OrganizacionDTO implements Serializable{
         this.nombre = nombre;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    public OrganizacionEntity toEntity() {
+        OrganizacionEntity entidad = new OrganizacionEntity();
+        entidad.setId(this.getId());
+        entidad.setNombre(this.getNombre());
+        entidad.setSector(this.getSector());
+        return entidad;
     }
     
     

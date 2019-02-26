@@ -6,7 +6,9 @@
 package co.edu.uniandes.csw.requirement.persistence;
 
 import co.edu.uniandes.csw.requirement.entities.OrganizacionEntity;
+import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 import java.util.List;
+import java.util.logging.Level;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -75,5 +77,28 @@ public class OrganizacionPersistence {
         }
         
         return result;   
+    }
+
+    public OrganizacionEntity update(OrganizacionEntity organizacionEntity) {
+        return em.merge(organizacionEntity);
+    }
+    
+        
+     /**
+     * Borra una organizacion de la base de datos recibiendo como argumento el
+     * id de la organizacion
+     *
+     * @param organizacionId: id correspondiente a la organizacion a borrar.
+     */
+    public void delete(Long organizacionId) {
+        LOGGER.log(Level.INFO, "Borrando organizacion con id={0}", organizacionId);
+        // Se hace uso OrganizationEntity de mismo método que esta explicado en public OrganizationEntity find(Long id) para obtener la organizacion a borrar.
+        TypedQuery<OrganizacionEntity> query = em.createQuery("Select e From OrganizacionEntity e where e.id = :id", OrganizacionEntity.class);
+        query = query.setParameter("id", organizacionId);
+        OrganizacionEntity organizationEntity = query.getSingleResult();
+        /* Note que una vez obtenido el objeto desde la base de datos llamado "entity", volvemos hacer uso de un método propio del
+        EntityManager para eliminar de la base de datos el objeto que encontramos y queremos borrar.
+        Es similar a "delete from OrganizationEntity where id=id;" - "DELETE FROM table_name WHERE condition;" en SQL.*/
+        em.remove(organizationEntity);
     }
 }
