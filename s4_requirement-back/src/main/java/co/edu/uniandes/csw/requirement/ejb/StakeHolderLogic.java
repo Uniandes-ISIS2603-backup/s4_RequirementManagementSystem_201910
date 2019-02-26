@@ -8,8 +8,6 @@ package co.edu.uniandes.csw.requirement.ejb;
 import co.edu.uniandes.csw.requirement.entities.StakeHolderEntity;
 import co.edu.uniandes.csw.requirement.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.requirement.persistence.StakeHolderPersistence;
-import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
-import java.util.logging.Level;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -48,13 +46,9 @@ public class StakeHolderLogic {
      * @return la organizacion solicitada por medio de su id.
      */
     public StakeHolderEntity getStakeHolder(Long stakeholderId) {
-        LOGGER.log(Level.INFO, "Inicia proceso de consultar organizacion con id = {0}", stakeholderId);
-        // Note que, por medio de la inyección de dependencias se llama al método "find(id)" que se encuentra en la persistencia.
         StakeHolderEntity organizacion = persistence.find(stakeholderId);
         if (organizacion == null) {
-            LOGGER.log(Level.SEVERE, "La organizacion con el id = {0} no existe", stakeholderId);
         }
-        LOGGER.log(Level.INFO, "Termina proceso de consultar organizacion con id = {0}", stakeholderId);
         return organizacion;
     }
     
@@ -68,10 +62,7 @@ public class StakeHolderLogic {
      * @return la organizacion con los cambios actualizados en la base de datos.
      */
     public StakeHolderEntity updateStakeHolder(Long stakeholderId, StakeHolderEntity stakeholderEntity) {
-        LOGGER.log(Level.INFO, "Inicia proceso de actualizar organizacion con id = {0}", stakeholderId);
-        // Note que, por medio de la inyección de dependencias se llama al método "update(entity)" que se encuentra en la persistencia.
         StakeHolderEntity newEntity = persistence.update(stakeholderEntity);
-        LOGGER.log(Level.INFO, "Termina proceso de actualizar organizacion con id={0}", stakeholderEntity.getId());
         return newEntity;
     }
     
@@ -83,11 +74,9 @@ public class StakeHolderLogic {
      * asociado.
      */
     public void deleteStakeHolder(Long organizacionsId) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Inicia proceso de borrar organizacion con id = {0}", organizacionsId);
         // Note que, por medio de la inyección de dependencias se llama al método "delete(id)" que se encuentra en la persistencia.
         StakeHolderEntity organizacionEntity = persistence.find(organizacionsId);
         persistence.delete(organizacionsId);
-        LOGGER.log(Level.INFO, "Termina proceso de borrar organizacion con id = {0}", organizacionsId);
     }
     
     
