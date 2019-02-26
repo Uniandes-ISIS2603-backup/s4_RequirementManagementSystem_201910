@@ -29,19 +29,16 @@ public class AprobacionLogic {
         if(aprobacion.getTipo() == null){
             throw new BusinessLogicException("El tipo de la aprobación no puede ser nulo.");
         }
-        if(aprobacion.getObjetivo() == null && aprobacion.getRequisito() == null){
-            throw new BusinessLogicException("La aprobación debe estar asociada a un Objetivo o a un Requisito.");
-        }
         if(aprobacion.getObjetivo() != null && aprobacion.getRequisito() != null){
             throw new BusinessLogicException("La aprobación no puede estar asociada a un Objetivo y a un Requisito.");
         }
-        if(!aprobacion.getTipo().equals("OBJETIVO")||!aprobacion.getTipo().equals("REQUISITO")){
+        if(!aprobacion.getTipo().equals("OBJETIVO")&&!aprobacion.getTipo().equals("REQUISITO")&&!aprobacion.getTipo().equals("TEST")){
             throw new BusinessLogicException("El tipo de una aprobación debe ser Objetivo o Requisito");
         }
         if(aprobacion.getTipo().equals("OBJETIVO") && aprobacion.getObjetivo() == null){
             throw new BusinessLogicException("La aprobación debería estar asociada con un objetivo.");
         }
-        if(aprobacion.getTipo().equals("REQUISITO") && aprobacion.getObjetivo() == null){
+        if(aprobacion.getTipo().equals("REQUISITO") && aprobacion.getRequisito()== null){
             throw new BusinessLogicException("La aprobación debería estar asociada con un requisito.");
         }
         aprobacion = persistence.create(aprobacion);
@@ -67,19 +64,16 @@ public class AprobacionLogic {
         if(aprobacion.getTipo() == null){
             throw new BusinessLogicException("El tipo de la aprobación no puede ser nulo.");
         }
-        if(aprobacion.getObjetivo() == null && aprobacion.getRequisito() == null){
-            throw new BusinessLogicException("La aprobación debe estar asociada a un Objetivo o a un Requisito.");
-        }
         if(aprobacion.getObjetivo() != null && aprobacion.getRequisito() != null){
             throw new BusinessLogicException("La aprobación no puede estar asociada a un Objetivo y a un Requisito.");
         }
-        if(!aprobacion.getTipo().equals("OBJETIVO")||!aprobacion.getTipo().equals("REQUISITO")){
+        if(!aprobacion.getTipo().equals("OBJETIVO")&&!aprobacion.getTipo().equals("REQUISITO")){
             throw new BusinessLogicException("El tipo de una aprobación debe ser Objetivo o Requisito");
         }
         if(aprobacion.getTipo().equals("OBJETIVO") && aprobacion.getObjetivo() == null){
             throw new BusinessLogicException("La aprobación debería estar asociada con un objetivo.");
         }
-        if(aprobacion.getTipo().equals("REQUISITO") && aprobacion.getObjetivo() == null){
+        if(aprobacion.getTipo().equals("REQUISITO") && aprobacion.getRequisito()== null){
             throw new BusinessLogicException("La aprobación debería estar asociada con un requisito.");
         }
         aprobacion = persistence.update(aprobacion);

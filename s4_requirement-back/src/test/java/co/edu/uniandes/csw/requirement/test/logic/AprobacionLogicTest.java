@@ -34,6 +34,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  */
 @RunWith(Arquillian.class)
 public class AprobacionLogicTest {
+    
     private PodamFactory factory = new PodamFactoryImpl();
 
     @Inject
@@ -107,13 +108,14 @@ public class AprobacionLogicTest {
     @Test
     public void createAprobacionTest() throws BusinessLogicException{
         AprobacionEntity newEntity = factory.manufacturePojo(AprobacionEntity.class);
+        newEntity.setTipo("TEST");
         aprobacionLogic.createAprobacion(newEntity);
         AprobacionEntity entity = em.find(AprobacionEntity.class, newEntity.getId());
         Assert.assertNotNull(entity);
         Assert.assertEquals(entity.getComentario(), newEntity.getComentario());
     }
     
-        @Test(expected = BusinessLogicException.class)
+    @Test(expected = BusinessLogicException.class)
     public void createAprobacionConRequisitoYObjetivo() throws BusinessLogicException{
         AprobacionEntity newEntity = factory.manufacturePojo(AprobacionEntity.class);
         ObjetivoEntity objetivo = factory.manufacturePojo(ObjetivoEntity.class);
@@ -161,6 +163,9 @@ public class AprobacionLogicTest {
         AprobacionEntity entity = data.get(0);
         AprobacionEntity pojoEntity = factory.manufacturePojo(AprobacionEntity.class);
         pojoEntity.setId(entity.getId());
+        ObjetivoEntity objetivo = factory.manufacturePojo(ObjetivoEntity.class);
+        pojoEntity.setObjetivo(objetivo);
+        pojoEntity.setTipo("OBJETIVO");
         aprobacionLogic.updateAprobacion(pojoEntity);
         AprobacionEntity resp = em.find(AprobacionEntity.class, entity.getId());
         Assert.assertEquals(pojoEntity.getId(), resp.getId());
