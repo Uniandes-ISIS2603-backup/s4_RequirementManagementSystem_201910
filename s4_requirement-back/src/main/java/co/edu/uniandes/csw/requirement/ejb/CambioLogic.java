@@ -32,19 +32,16 @@ public class CambioLogic {
         if(cambio.getTipo() == null){
             throw new BusinessLogicException("El tipo del cambio no puede ser nulo.");
         }
-        if(cambio.getObjetivo() == null && cambio.getRequisito() == null){
-            throw new BusinessLogicException("El cambio debe estar asociado a un Objetivo o a un Requisito.");
-        }
         if(cambio.getObjetivo() != null && cambio.getRequisito() != null){
             throw new BusinessLogicException("El cambio no puede estar asociado a un Objetivo y a un Requisito.");
         }
-        if(!cambio.getTipo().equals("OBJETIVO")||!cambio.getTipo().equals("REQUISITO")){
+        if(!cambio.getTipo().equals("OBJETIVO")&&!cambio.getTipo().equals("REQUISITO")&&!cambio.getTipo().equals("TEST")){
             throw new BusinessLogicException("El tipo de un cambio debe ser Objetivo o Requisito");
         }
         if(cambio.getTipo().equals("OBJETIVO") && cambio.getObjetivo() == null){
             throw new BusinessLogicException("El cambio debería estar asociado con un objetivo.");
         }
-        if(cambio.getTipo().equals("REQUISITO") && cambio.getObjetivo() == null){
+        if(cambio.getTipo().equals("REQUISITO") && cambio.getRequisito()== null){
             throw new BusinessLogicException("El cambio debería estar asociado con un requisito.");
         }
         cambio = persistence.create(cambio);
@@ -73,19 +70,16 @@ public class CambioLogic {
         if(cambio.getTipo() == null){
             throw new BusinessLogicException("El tipo del cambio no puede ser nulo.");
         }
-        if(cambio.getObjetivo() == null && cambio.getRequisito() == null){
-            throw new BusinessLogicException("El cambio debe estar asociado a un Objetivo o a un Requisito.");
-        }
         if(cambio.getObjetivo() != null && cambio.getRequisito() != null){
             throw new BusinessLogicException("El cambio no puede estar asociado a un Objetivo y a un Requisito.");
         }
-        if(!cambio.getTipo().equals("OBJETIVO")||!cambio.getTipo().equals("REQUISITO")){
+        if(!cambio.getTipo().equals("OBJETIVO")&&!cambio.getTipo().equals("REQUISITO")&&!cambio.getTipo().equals("TEST")){
             throw new BusinessLogicException("El tipo de un cambio debe ser Objetivo o Requisito");
         }
         if(cambio.getTipo().equals("OBJETIVO") && cambio.getObjetivo() == null){
             throw new BusinessLogicException("El cambio debería estar asociado con un objetivo.");
         }
-        if(cambio.getTipo().equals("REQUISITO") && cambio.getObjetivo() == null){
+        if(cambio.getTipo().equals("REQUISITO") && cambio.getRequisito()== null){
             throw new BusinessLogicException("El cambio debería estar asociado con un requisito.");
         }
         cambio = persistence.update(cambio);
