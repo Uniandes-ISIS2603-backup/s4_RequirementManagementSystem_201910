@@ -6,8 +6,10 @@
 package co.edu.uniandes.csw.requirement.resources;
 
 import co.edu.uniandes.csw.requirement.dtos.CambioDTO;
+import co.edu.uniandes.csw.requirement.ejb.CambioLogic;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -27,6 +29,9 @@ import javax.ws.rs.Produces;
 public class CambioResource{
     
     private static final Logger LOGGER = Logger.getLogger(CambioResource.class.getName());
+    
+    @Inject
+    private CambioLogic logica;
     
     @POST
     public CambioDTO createCambio(CambioDTO cambio){
