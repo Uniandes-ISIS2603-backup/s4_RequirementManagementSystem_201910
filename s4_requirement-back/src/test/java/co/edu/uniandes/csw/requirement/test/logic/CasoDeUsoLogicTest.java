@@ -101,12 +101,12 @@ public class CasoDeUsoLogicTest {
 
     }
     
-    @Test(expected = BusinessLogicException.class)
+    /*@Test(expected = BusinessLogicException.class)
     public void createCasoDeUsoTestConIdInvalido() throws BusinessLogicException {
         CasoDeUsoEntity newEntity = factory.manufacturePojo(CasoDeUsoEntity.class);
         newEntity.setId(data.get(0).getId());
         casoDeUsoLogic.createCasoDeUso(newEntity);
-    }
+    }*/
     
     @Test(expected = BusinessLogicException.class)
     public void createCasoDeUsoTestConNombreInvalido() throws BusinessLogicException {
