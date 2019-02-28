@@ -42,7 +42,7 @@ public class RequisitoLogicTest {
     @PersistenceContext
     private EntityManager em;
     
-    private ArrayList<RequisitoEntity> data; 
+    private ArrayList<RequisitoEntity> data = new ArrayList<>(); 
     
     @Inject
     UserTransaction utx;
@@ -72,7 +72,6 @@ public class RequisitoLogicTest {
     
     private void insertData(){
         
-        data = new ArrayList<RequisitoEntity>();
         
         for (int i = 0; i < 3; i++) {
             RequisitoEntity entity = factory.manufacturePojo(RequisitoEntity.class);
