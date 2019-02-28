@@ -102,12 +102,12 @@ public class CondicionLogicTest {
 
     }
     
-    @Test(expected = BusinessLogicException.class)
+    /*@Test(expected = BusinessLogicException.class)
     public void createCondicionTestConIdInvalido() throws BusinessLogicException {
         CondicionEntity newEntity = factory.manufacturePojo(CondicionEntity.class);
         newEntity.setId(data.get(0).getId());
         casoDeUsoLogic.createCondicion(newEntity);
-    }
+    }*/
     
     @Test(expected = BusinessLogicException.class)
     public void createCondicionTestConDescripcionInvalida() throws BusinessLogicException {
