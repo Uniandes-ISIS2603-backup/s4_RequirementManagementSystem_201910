@@ -9,7 +9,7 @@ import co.edu.uniandes.csw.requirement.entities.RequisitoEntity;
 import co.edu.uniandes.csw.requirement.persistence.RequisitoPersistence;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-
+import co.edu.uniandes.csw.requirement.exceptions.BusinessLogicException;
 /**
  *
  * @author jorgeandresesguerraalarcon
