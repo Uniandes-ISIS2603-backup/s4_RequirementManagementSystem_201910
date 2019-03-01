@@ -9,6 +9,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 import co.edu.uniandes.csw.requirement.ejb.RequisitoLogic;
 import co.edu.uniandes.csw.requirement.entities.RequisitoEntity;
 import co.edu.uniandes.csw.requirement.exceptions.BusinessLogicException;
+import co.edu.uniandes.csw.requirement.persistence.RequisitoPersistence;
 import java.util.ArrayList;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -42,7 +43,7 @@ public class RequisitoLogicTest {
     @PersistenceContext
     private EntityManager em;
     
-    private ArrayList<RequisitoEntity> data; 
+    private ArrayList<RequisitoEntity> data = new ArrayList<>(); 
     
     @Inject
     UserTransaction utx;
@@ -59,6 +60,7 @@ public class RequisitoLogicTest {
         return ShrinkWrap.create(JavaArchive.class)
                 .addPackage(RequisitoEntity.class.getPackage())
                 .addPackage(RequisitoLogic.class.getPackage())
+                .addPackage(RequisitoPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
@@ -71,9 +73,6 @@ public class RequisitoLogicTest {
      */
     
     private void insertData(){
-        
-        data = new ArrayList<RequisitoEntity>();
-        
         for (int i = 0; i < 3; i++) {
             RequisitoEntity entity = factory.manufacturePojo(RequisitoEntity.class);
             em.persist(entity);
@@ -105,7 +104,7 @@ public class RequisitoLogicTest {
     }
     
     @Test
-    public void createRequisitoTest() throws BusinessLogicException {
+    public void createRequisitoTest() {
         RequisitoEntity newEntity = factory.manufacturePojo(RequisitoEntity.class);
         RequisitoEntity result = reqLogic.createRequisito(newEntity);
         Assert.assertNotNull(result);
