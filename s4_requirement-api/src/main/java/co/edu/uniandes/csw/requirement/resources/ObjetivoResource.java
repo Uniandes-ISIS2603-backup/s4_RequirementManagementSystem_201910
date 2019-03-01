@@ -35,10 +35,16 @@ public class ObjetivoResource {
 
     @POST
     public ObjetivoDTO createObjetivo(ObjetivoDTO objetivo) {
+        try{
         LOGGER.log(Level.INFO, "ObjetivoResource createObjetivo: input: {0}", objetivo);
         ObjetivoDTO objetivoDTO = new ObjetivoDTO(objetivoLogic.createObjetivo(objetivo.toEntity()));
         LOGGER.log(Level.INFO, "ObjetivoResource createObjetivo: output: {0}", objetivoDTO);
         return objetivoDTO;
+        }
+        catch(Exception e)
+        {
+            return null;
+        }
     }
 
     /*
