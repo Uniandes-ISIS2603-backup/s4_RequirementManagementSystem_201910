@@ -45,48 +45,67 @@ public class ObjetivoLogic {
     @Inject
     private ObjetivoPersistence objetivoPersistence;
 
-    public ObjetivoEntity createObjetivo(ObjetivoEntity authorEntity) {
+    public ObjetivoEntity createObjetivo(ObjetivoEntity objetivoEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de creación del autor");
-        ObjetivoEntity newObjetivoEntity = objetivoPersistence.create(authorEntity);
+        if (objetivoEntity.getEstabilidad() < 0 || objetivoEntity.getEstabilidad() > 2) {
+            throw new BusinessLogicException("La estabilidad debe de ser un valor entre 0 y 2");
+        }
+        if (objetivoEntity.getImportancia() < 0 || objetivoEntity.getImportancia() > 2) {
+            throw new BusinessLogicException("La importancia debe de ser un valor entre 0 y 2");
+        }
+        if (objetivoEntity.getDescripcion().equals("") || objetivoEntity.getDescripcion() == null) {
+            throw new BusinessLogicException("La descripcion no pueden ser nulo o vacio");
+        }
+
+        ObjetivoEntity newObjetivoEntity = objetivoPersistence.create(objetivoEntity);
         LOGGER.log(Level.INFO, "Termina proceso de creación del autor");
         return newObjetivoEntity;
     }
-    
+
     public List<ObjetivoEntity> getObjetivos() {
         LOGGER.log(Level.INFO, "Inicia proceso de consultar todos los objetivos");
         List<ObjetivoEntity> lista = objetivoPersistence.findAll();
         LOGGER.log(Level.INFO, "Termina proceso de consultar todos los objetivos");
         return lista;
     }
-    
-    public ObjetivoEntity getObjetivo(Long authorsId) {
-        LOGGER.log(Level.INFO, "Inicia proceso de consultar el autor con id = {0}", authorsId);
-        ObjetivoEntity authorEntity = objetivoPersistence.find(authorsId);
-        if (authorEntity == null) {
-            LOGGER.log(Level.SEVERE, "La editorial con el id = {0} no existe", authorsId);
+
+    public ObjetivoEntity getObjetivo(Long objetivoId) {
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar el objetivo con id = {0}", objetivoId);
+        ObjetivoEntity objetivoEntity = objetivoPersistence.find(objetivoId);
+        if (objetivoEntity == null) {
+            LOGGER.log(Level.SEVERE, "La editorial con el id = {0} no existe", objetivoId);
         }
-        LOGGER.log(Level.INFO, "Termina proceso de consultar el autor con id = {0}", authorsId);
-        return authorEntity;
+        LOGGER.log(Level.INFO, "Termina proceso de consultar el autor con id = {0}", objetivoId);
+        return objetivoEntity;
     }
-    
-    public ObjetivoEntity updateObjetivo(Long authorsId, ObjetivoEntity authorEntity) {
-        LOGGER.log(Level.INFO, "Inicia proceso de actualizar el autor con id = {0}", authorsId);
-        ObjetivoEntity newObjetivoEntity = objetivoPersistence.update(authorEntity);
-        LOGGER.log(Level.INFO, "Termina proceso de actualizar el autor con id = {0}", authorsId);
+
+    public ObjetivoEntity updateObjetivo(Long objetivoId, ObjetivoEntity objetivoEntity) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "Inicia proceso de actualizar el autor con id = {0}", objetivoId);
+        if (objetivoEntity.getEstabilidad() < 0 || objetivoEntity.getEstabilidad() > 2) {
+            throw new BusinessLogicException("La estabilidad debe de ser un valor entre 0 y 2");
+        }
+        if (objetivoEntity.getImportancia() < 0 || objetivoEntity.getImportancia() > 2) {
+            throw new BusinessLogicException("La importancia debe de ser un valor entre 0 y 2");
+        }
+        if (objetivoEntity.getDescripcion().equals("") || objetivoEntity.getDescripcion() == null) {
+            throw new BusinessLogicException("La descripcion no pueden ser nulo o vacio");
+        }
+        ObjetivoEntity newObjetivoEntity = objetivoPersistence.update(objetivoEntity);
+        LOGGER.log(Level.INFO, "Termina proceso de actualizar el autor con id = {0}", objetivoId);
         return newObjetivoEntity;
     }
-    
-    public void deleteObjetivo(Long authorsId) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Inicia proceso de borrar el autor con id = {0}", authorsId);
-        /*List<BookEntity> books = getObjetivo(authorsId).getBooks();
+
+    public void deleteObjetivo(Long objetivoId) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "Inicia proceso de borrar el autor con id = {0}", objetivoId);
+        /*List<BookEntity> books = getObjetivo(objetivoId).getBooks();
         if (books != null && !books.isEmpty()) {
-            throw new BusinessLogicException("No se puede borrar el autor con id = " + authorsId + " porque tiene books asociados");
+            throw new BusinessLogicException("No se puede borrar el autor con id = " + objetivoId + " porque tiene books asociados");
         }
-        List<PrizeEntity> prizes = getObjetivo(authorsId).getPrizes();
+        List<PrizeEntity> prizes = getObjetivo(objetivoId).getPrizes();
         if (prizes != null && !prizes.isEmpty()) {
-            throw new BusinessLogicException("No se puede borrar el autor con id = " + authorsId + " porque tiene premios asociados");
+            throw new BusinessLogicException("No se puede borrar el autor con id = " + objetivoId + " porque tiene premios asociados");
         }*/
-        objetivoPersistence.delete(authorsId);
-        LOGGER.log(Level.INFO, "Termina proceso de borrar el autor con id = {0}", authorsId);
+        objetivoPersistence.delete(objetivoId);
+        LOGGER.log(Level.INFO, "Termina proceso de borrar el autor con id = {0}", objetivoId);
     }
 }

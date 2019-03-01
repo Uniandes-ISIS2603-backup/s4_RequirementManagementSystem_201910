@@ -20,7 +20,7 @@ import javax.ws.rs.*;
 
 /**
  *
- * @objetivo David Manosalva
+ * @author David Manosalva
  */
 @Path("objetivos")
 @Produces("application/json")
