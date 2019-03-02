@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.requirement.ejb;
 import co.edu.uniandes.csw.requirement.entities.StakeHolderEntity;
 import co.edu.uniandes.csw.requirement.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.requirement.persistence.StakeHolderPersistence;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -17,29 +18,29 @@ import javax.inject.Inject;
  */
 @Stateless
 public class StakeHolderLogic {
-    
-/**
- * Atributo persistence creado
- */    
+
+    /**
+     * Atributo persistence creado
+     */
     @Inject
     private StakeHolderPersistence persistence;
-    
+
     /**
-     * 
+     *
      * @param stakeHolder
      * @return stakeholder creado
      */
-    public StakeHolderEntity createStakeHolder (StakeHolderEntity stakeHolder) throws BusinessLogicException{
-       
-        if (stakeHolder.getNombre()== null){
+    public StakeHolderEntity createStakeHolder(StakeHolderEntity stakeHolder) throws BusinessLogicException {
+
+        if (stakeHolder.getNombre() == null) {
             throw new BusinessLogicException("El nombre del stakeholder no puede ser nulo");
         }
-        
+
         stakeHolder = persistence.create(stakeHolder);
         return stakeHolder;
     }
 
-     /**
+    /**
      * Obtener una organizacion por medio de su id.
      *
      * @param stakeholderId: id de la organizacion para ser buscada.
@@ -51,8 +52,8 @@ public class StakeHolderLogic {
         }
         return organizacion;
     }
-    
-        /**
+
+    /**
      * Actualizar una organizacion.
      *
      * @param stakeholderId: id de la organizacion para buscarla en la base de
@@ -65,8 +66,8 @@ public class StakeHolderLogic {
         StakeHolderEntity newEntity = persistence.update(stakeholderEntity);
         return newEntity;
     }
-    
-     /**
+
+    /**
      * Borrar un organizacion
      *
      * @param organizacionsId: id de la organizacion a borrar
@@ -78,6 +79,16 @@ public class StakeHolderLogic {
         StakeHolderEntity organizacionEntity = persistence.find(organizacionsId);
         persistence.delete(organizacionsId);
     }
-    
-    
+
+    /**
+     *
+     * Obtener todas las editoriales existentes en la base de datos.
+     *
+     * @return una lista de editoriales.
+     */
+    public List<StakeHolderEntity> getStakeHolders() {
+        List<StakeHolderEntity> stakeholders = persistence.findAll();
+        return stakeholders;
+    }
+
 }

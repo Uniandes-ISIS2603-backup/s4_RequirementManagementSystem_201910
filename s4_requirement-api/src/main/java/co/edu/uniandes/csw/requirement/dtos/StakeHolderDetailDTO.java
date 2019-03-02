@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  *
- * @author estudiante
+ * @author Mateo Pedroza
  */
 public class StakeHolderDetailDTO extends StakeHolderDTO implements Serializable{
     //private List<>
@@ -33,13 +33,13 @@ public class StakeHolderDetailDTO extends StakeHolderDTO implements Serializable
             if(stakeholderEntity.getCambios()!=null){
                 cambios = new ArrayList<>();
                 for(CambioEntity cambio : stakeholderEntity.getCambios()){
-                    //cambios.add(new CambioDTO(cambio));
+                    cambios.add(new CambioDTO(cambio));
                 }
             }
             if(stakeholderEntity.getAprobaciones()!=null){
                 aprobaciones = new ArrayList<>();
                 for(AprobacionEntity aprobacion : stakeholderEntity.getAprobaciones()){
-                    //aprobaciones.add(new AprobacionDTO(aprobacion));
+                    aprobaciones.add(new AprobacionDTO(aprobacion));
                 }
             }
             

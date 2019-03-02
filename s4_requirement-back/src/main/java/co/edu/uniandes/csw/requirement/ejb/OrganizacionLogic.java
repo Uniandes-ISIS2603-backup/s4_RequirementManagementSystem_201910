@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.requirement.ejb;
 import co.edu.uniandes.csw.requirement.entities.OrganizacionEntity;
 import co.edu.uniandes.csw.requirement.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.requirement.persistence.OrganizacionPersistence;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -76,6 +77,15 @@ public class OrganizacionLogic {
         persistence.delete(organizacionsId);
     }
     
-    
+     /**
+     *
+     * Obtener todas las editoriales existentes en la base de datos.
+     *
+     * @return una lista de editoriales.
+     */
+    public List<OrganizacionEntity> getOrganizaciones() {
+        List<OrganizacionEntity> organizaciones = persistence.findAll();
+        return organizaciones;
+    }
     
 }
