@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.requirement.dtos;
 
+import co.edu.uniandes.csw.requirement.entities.CambioEntity;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -13,7 +14,7 @@ import java.util.Date;
  * @author estudiante
  */
 public class CambioDTO implements Serializable {
-    private Integer id;
+    private Long id;
     
     private String tipo;
     
@@ -34,17 +35,41 @@ public class CambioDTO implements Serializable {
         
     }
     
+    public CambioDTO(CambioEntity entity){
+        if(entity != null){
+            this.id = entity.getId();
+            this.tipo = entity.getTipo();
+            this.fechaYHora = entity.getFechaYHora();
+            this.descripcion = entity.getDescripcion();
+            //this.autor = new StakeHolderDTO(entity.getAutor());
+            this.objetivo = new ObjetivoDTO(entity.getObjetivo());
+            //this.requisito = new RequisitoDTO(entity.getRequisito());
+        }
+    }
+    
+    public CambioEntity toEntity(){
+        CambioEntity entity = new CambioEntity();
+        entity.setId(this.id);
+        entity.setTipo(this.tipo);
+        entity.setFechaYHora(this.fechaYHora);
+        entity.setDescripcion(this.descripcion);
+        //entity.setAutor(this.autor.toEntity());
+        entity.setObjetivo(this.objetivo.toEntity());
+        //entity.setRequisito(this.requisito.toEntity());
+        return entity;
+    }
+    
     /**
      * @return the id
      */
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
