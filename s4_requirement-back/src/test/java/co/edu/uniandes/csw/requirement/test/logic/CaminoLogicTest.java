@@ -19,6 +19,7 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -105,15 +106,23 @@ public class CaminoLogicTest {
      * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
      */
     @Test
-    public void createCaminoTest() throws BusinessLogicException {
+    public void createCaminoTest(){
+        try{
         CaminoEntity newEntity = factory.manufacturePojo(CaminoEntity.class);
-         newEntity.setTipoPaso("BASICO");
-        Assert.assertEquals(newEntity.getTipoPaso(), CaminoEntity.BASICO);
+         newEntity.setTipoPaso(CaminoEntity.BASICO);
+         System.out.println("ACA" + newEntity.getTipoPaso());
+        Assert.assertEquals(CaminoEntity.BASICO, newEntity.getTipoPaso());
         CaminoEntity result = caminoLogic.createCamino(newEntity);
+        result.setTipoPaso("BASICO");
         Assert.assertNotNull(result);
         CaminoEntity entity = em.find(CaminoEntity.class, result.getId());
         Assert.assertEquals(newEntity.getId(), entity.getId());
-        
+        }
+        catch (BusinessLogicException e)   
+        {
+            e.printStackTrace();
+            fail("No debería generar excepción");
+        }
         
     }
 
