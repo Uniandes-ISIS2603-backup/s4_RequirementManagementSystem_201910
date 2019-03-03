@@ -114,5 +114,50 @@ public class OrganizacionLogicTest {
         newEntity.setNombre(data.get(0).getNombre());
         organizacionLogic.createOrganizacion(newEntity);
 
+    }
+
+    /**
+     * Prueba para consultar un Organization.
+     */
+    @Test
+    public void getOrganizationTest() {
+        OrganizacionEntity entity = data.get(0);
+        OrganizacionEntity resultEntity = organizacionLogic.getOrganizacion(entity.getId());
+        org.junit.Assert.assertNotNull(resultEntity);
+        org.junit.Assert.assertEquals(entity.getId(), resultEntity.getId());
+        org.junit.Assert.assertEquals(entity.getNombre(), resultEntity.getNombre());
+        org.junit.Assert.assertEquals(entity.getSector(), resultEntity.getSector());
+    }
+
+    /**
+     * Prueba para actualizar un Organization.
+     */
+    @Test
+    public void updateOrganizationTest() {
+        OrganizacionEntity entity = data.get(0);
+        OrganizacionEntity pojoEntity = factory.manufacturePojo(OrganizacionEntity.class);
+
+        pojoEntity.setId(entity.getId());
+
+        organizacionLogic.updateOrganizacion(pojoEntity.getId(), pojoEntity);
+
+        OrganizacionEntity resp = em.find(OrganizacionEntity.class, entity.getId());
+
+        org.junit.Assert.assertEquals(pojoEntity.getId(), resp.getId());
+        org.junit.Assert.assertEquals(pojoEntity.getNombre(), resp.getNombre());
+        org.junit.Assert.assertEquals(pojoEntity.getSector(), resp.getSector());
+    }
+
+    /**
+     * Prueba para eliminar un Organization.
+     *
+     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
+     */
+    @Test
+    public void deleteOrganizationTest() throws BusinessLogicException {
+        OrganizacionEntity entity = data.get(0);
+        organizacionLogic.deleteOrganizacion(entity.getId());
+        OrganizacionEntity deleted = em.find(OrganizacionEntity.class, entity.getId());
+        org.junit.Assert.assertNull(deleted);
     }    
 }

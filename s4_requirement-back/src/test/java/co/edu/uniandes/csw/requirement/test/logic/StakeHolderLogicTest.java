@@ -37,7 +37,7 @@ public class StakeHolderLogicTest {
      * Atributos 
      */
     @Inject
-    private StakeHolderLogic organizacionLogic; 
+    private StakeHolderLogic stakeholderLogic; 
     
     PodamFactory factory = new PodamFactoryImpl();
     
@@ -97,11 +97,57 @@ public class StakeHolderLogicTest {
     @Test
     public void createStakeHolderTest() throws BusinessLogicException {
         StakeHolderEntity newEntity = factory.manufacturePojo(StakeHolderEntity.class);
-        StakeHolderEntity result = organizacionLogic.createStakeHolder(newEntity);
+        StakeHolderEntity result = stakeholderLogic.createStakeHolder(newEntity);
         Assert.assertNotNull(result);
         StakeHolderEntity entity = em.find(StakeHolderEntity.class, result.getId());
         Assert.assertEquals(newEntity.getId(), entity.getId());
         Assert.assertEquals(newEntity.getNombre(), entity.getNombre());
+        Assert.assertEquals(newEntity.getTipo(), entity.getTipo());
     }
+    
+    /**
+     * Prueba para consultar un Organization.
+     */
+    @Test
+    public void getOrganizationTest() {
+        StakeHolderEntity entity = data.get(0);
+        StakeHolderEntity resultEntity = stakeholderLogic.getStakeHolder(entity.getId());
+        org.junit.Assert.assertNotNull(resultEntity);
+        org.junit.Assert.assertEquals(entity.getId(), resultEntity.getId());
+        org.junit.Assert.assertEquals(entity.getNombre(), resultEntity.getNombre());
+        org.junit.Assert.assertEquals(entity.getTipo(), resultEntity.getTipo());
+    }
+
+    /**
+     * Prueba para actualizar un Organization.
+     */
+    @Test
+    public void updateOrganizationTest() {
+        StakeHolderEntity entity = data.get(0);
+        StakeHolderEntity pojoEntity = factory.manufacturePojo(StakeHolderEntity.class);
+
+        pojoEntity.setId(entity.getId());
+
+        stakeholderLogic.updateStakeHolder(pojoEntity.getId(), pojoEntity);
+
+        StakeHolderEntity resp = em.find(StakeHolderEntity.class, entity.getId());
+
+        org.junit.Assert.assertEquals(pojoEntity.getId(), resp.getId());
+        org.junit.Assert.assertEquals(pojoEntity.getNombre(), resp.getNombre());
+        org.junit.Assert.assertEquals(pojoEntity.getTipo(), resp.getTipo());
+    }
+
+    /**
+     * Prueba para eliminar un Organization.
+     *
+     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
+     */
+    @Test
+    public void deleteOrganizationTest() throws BusinessLogicException {
+        StakeHolderEntity entity = data.get(0);
+        stakeholderLogic.deleteStakeHolder(entity.getId());
+        StakeHolderEntity deleted = em.find(StakeHolderEntity.class, entity.getId());
+        org.junit.Assert.assertNull(deleted);
+    }  
    
 }

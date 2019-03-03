@@ -44,6 +44,7 @@ public class StakeHolderEntity extends BaseEntity implements Serializable {
     @PodamExclude
     @ManyToOne
     private OrganizacionEntity organizacion;
+    
     @PodamExclude
     @OneToOne
     private ObjetivoEntity autorObjetivo;
@@ -93,6 +94,71 @@ public class StakeHolderEntity extends BaseEntity implements Serializable {
  */
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+    
+        public DRSEntity getDrs() {
+        return drs;
+    }
+
+    public void setDrs(DRSEntity drs) {
+        this.drs = drs;
+    }
+
+    public List<CambioEntity> getCambios() {
+        return cambios;
+    }
+
+    public void setCambios(List<CambioEntity> cambios) {
+        this.cambios = cambios;
+    }
+
+    public List<AprobacionEntity> getAprobaciones() {
+        return aprobaciones;
+    }
+
+    public void setAprobaciones(List<AprobacionEntity> aprobaciones) {
+        this.aprobaciones = aprobaciones;
+    }
+
+    public ObjetivoEntity getAutorObjetivo() {
+        return autorObjetivo;
+    }
+
+    public void setAutorObjetivo(ObjetivoEntity autorObjetivo) {
+        this.autorObjetivo = autorObjetivo;
+    }
+
+    public ObjetivoEntity getFuenteObjetivo() {
+        return fuenteObjetivo;
+    }
+
+    public void setFuenteObjetivo(ObjetivoEntity fuenteObjetivo) {
+        this.fuenteObjetivo = fuenteObjetivo;
+    }
+
+    public RequisitoEntity getAutorRequisito() {
+        return autorRequisito;
+    }
+
+    public void setAutorRequisito(RequisitoEntity autorRequisito) {
+        this.autorRequisito = autorRequisito;
+    }
+
+    public RequisitoEntity getFuenteRequisito() {
+        return fuenteRequisito;
+    }
+
+    public void setFuenteRequisito(RequisitoEntity fuenteRequisito) {
+        this.fuenteRequisito = fuenteRequisito;
+    }
+    
+    
+    public OrganizacionEntity getOrganizacion() {
+        return organizacion;
+    }
+
+    public void setOrganizacion(OrganizacionEntity organizacion) {
+        this.organizacion = organizacion;
     }
 
 }

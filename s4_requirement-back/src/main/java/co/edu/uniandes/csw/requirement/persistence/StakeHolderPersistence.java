@@ -5,7 +5,6 @@
  */
 package co.edu.uniandes.csw.requirement.persistence;
 
-import co.edu.uniandes.csw.requirement.entities.OrganizacionEntity;
 import co.edu.uniandes.csw.requirement.entities.StakeHolderEntity;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -52,5 +51,23 @@ public class StakeHolderPersistence {
     public List<StakeHolderEntity> findAll() {
         TypedQuery query = em.createQuery("select u from StakeHolderEntity u", StakeHolderEntity.class);
         return query.getResultList();
+    }
+    
+    
+    public StakeHolderEntity update(StakeHolderEntity stakeholderEntity) {
+        return em.merge(stakeholderEntity);
+    }
+
+    /**
+     * Borra una organizacion de la base de datos recibiendo como argumento el
+     * id de la organizacion
+     *
+     * @param stakeholderId: id correspondiente a la organizacion a borrar.
+     */
+    public void delete(Long stakeholderId) {
+        TypedQuery<StakeHolderEntity> query = em.createQuery("Select e From StakeHolderEntity e where e.id = :id", StakeHolderEntity.class);
+        query = query.setParameter("id", stakeholderId);
+        StakeHolderEntity stakeholderEntity = query.getSingleResult();
+        em.remove(stakeholderEntity);
     }
 }

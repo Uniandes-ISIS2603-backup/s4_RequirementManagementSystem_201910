@@ -76,4 +76,22 @@ public class OrganizacionPersistence {
         
         return result;   
     }
+
+    public OrganizacionEntity update(OrganizacionEntity organizacionEntity) {
+        return em.merge(organizacionEntity);
+    }
+    
+        
+     /**
+     * Borra una organizacion de la base de datos recibiendo como argumento el
+     * id de la organizacion
+     *
+     * @param organizacionId: id correspondiente a la organizacion a borrar.
+     */
+    public void delete(Long organizacionId) {
+        TypedQuery<OrganizacionEntity> query = em.createQuery("Select e From OrganizacionEntity e where e.id = :id", OrganizacionEntity.class);
+        query = query.setParameter("id", organizacionId);
+        OrganizacionEntity organizationEntity = query.getSingleResult();
+        em.remove(organizationEntity);
+    }
 }
