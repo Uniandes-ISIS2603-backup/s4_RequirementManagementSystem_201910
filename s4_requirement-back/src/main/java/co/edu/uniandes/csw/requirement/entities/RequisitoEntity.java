@@ -24,10 +24,11 @@ public class RequisitoEntity extends BaseEntity implements Serializable {
     private String comentarios, descripcion, tipo;
     private int importancia, estabilidad;
 
-    public RequisitoEntity() {
+    public RequisitoEntity()
+    {
 
     }
-
+    
     @PodamExclude
     @OneToMany(mappedBy= "requisito", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<AprobacionEntity> aprobaciones  = new ArrayList<AprobacionEntity>();
@@ -124,5 +125,103 @@ public class RequisitoEntity extends BaseEntity implements Serializable {
      */
     public void setEstabilidad(int estabilidad) {
         this.estabilidad = estabilidad;
+    }
+
+    /**
+     * @return the aprobaciones
+     */
+    public List<AprobacionEntity> getAprobaciones() {
+        return aprobaciones;
+    }
+
+    /**
+     * @param aprobaciones the aprobaciones to set
+     */
+    public void setAprobaciones(List<AprobacionEntity> aprobaciones) {
+        this.aprobaciones = aprobaciones;
+    }
+
+    /**
+     * @return the cambios
+     */
+    public List<CambioEntity> getCambios() {
+        return cambios;
+    }
+
+    /**
+     * @param cambios the cambios to set
+     */
+    public void setCambios(List<CambioEntity> cambios) {
+        this.cambios = cambios;
+    }
+
+    /**
+     * @return the objetivos
+     */
+    public List<ObjetivoEntity> getObjetivos() {
+        return objetivos;
+    }
+
+    /**
+     * @param objetivos the objetivos to set
+     */
+    public void setObjetivos(List<ObjetivoEntity> objetivos) {
+        this.objetivos = objetivos;
+    }
+
+    /**
+     * @return the casosDeUso
+     */
+    public List<CasoDeUsoEntity> getCasosDeUso() {
+        return casosDeUso;
+    }
+
+    /**
+     * @param casosDeUso the casosDeUso to set
+     */
+    public void setCasosDeUso(List<CasoDeUsoEntity> casosDeUso) {
+        this.casosDeUso = casosDeUso;
+    }
+
+    /**
+     * @return the autor
+     */
+    public StakeHolderEntity getAutor() {
+        return autor;
+    }
+
+    /**
+     * @param autor the autor to set
+     */
+    public void setAutor(StakeHolderEntity autor) {
+        this.autor = autor;
+    }
+
+    /**
+     * @return the fuentes
+     */
+    public List<StakeHolderEntity> getFuentes() {
+        return fuentes;
+    }
+
+    /**
+     * @param fuentes the fuentes to set
+     */
+    public void setFuentes(List<StakeHolderEntity> fuentes) {
+        this.fuentes = fuentes;
+    }
+
+    /**
+     * @return the drs
+     */
+    public DRSEntity getDrs() {
+        return drs;
+    }
+
+    /**
+     * @param drs the drs to set
+     */
+    public void setDrs(DRSEntity drs) {
+        this.drs = drs;
     }
 }
