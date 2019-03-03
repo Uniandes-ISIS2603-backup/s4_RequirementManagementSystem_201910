@@ -36,6 +36,7 @@ public class RequisitoDTO implements Serializable{
             this.importancia = re.getImportancia();
             this.estabilidad = re.getEstabilidad();
             this.comentarios = re.getComentarios();
+            this.tipo = re.getTipo();
         }
     }
     

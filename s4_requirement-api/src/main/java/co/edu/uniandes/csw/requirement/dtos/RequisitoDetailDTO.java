@@ -5,6 +5,8 @@
  */
 package co.edu.uniandes.csw.requirement.dtos;
 
+import co.edu.uniandes.csw.requirement.entities.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,7 +25,7 @@ public class RequisitoDetailDTO extends RequisitoDTO {
         super();
     }
     
-    /*public RequisitoDetailDTO(RequisitoEntity reqEntity) {
+    public RequisitoDetailDTO(RequisitoEntity reqEntity) {
         super(reqEntity);
         if (reqEntity != null) {
             aprobaciones = new ArrayList<>();
@@ -40,13 +42,13 @@ public class RequisitoDetailDTO extends RequisitoDTO {
             }
             
             fuentes = new ArrayList<>();
-            for (StakeHolderEntity stakeholderEntity : reqEntity.getFuentes()) {
-                fuentes.add(new StakeHolderEntity(stakeHolderEntity));
+            for (StakeHolderEntity stakeholderEntity : reqEntity.getFuentes()){
+                fuentes.add(new StakeHolderDTO(stakeholderEntity));
             }
         }
-    }*/
+    }
     
-    /*@Override
+    @Override
     public RequisitoEntity toEntity() {
         RequisitoEntity reqEntity = super.toEntity();
         if (aprobaciones != null) {
@@ -54,31 +56,31 @@ public class RequisitoDetailDTO extends RequisitoDTO {
             for (AprobacionDTO dtoAprobacion : aprobaciones) {
                 aprobacionesEntity.add(dtoAprobacion.toEntity());
             }
-            requisitoEntity.setAprobaciones(aprobacionesEntity);
+            reqEntity.setAprobaciones(aprobacionesEntity);
         }
         if (cambios != null) {
             List<CambioEntity> cambiosEntity = new ArrayList<>();
             for (CambioDTO dtoCambio : cambios) {
                 cambiosEntity.add(dtoCambio.toEntity());
             }
-            requisitoEntity.setCambios(cambiosEntity);
+            reqEntity.setCambios(cambiosEntity);
         }
         if (objetivos != null) {
             List<ObjetivoEntity> objetivosEntity = new ArrayList<>();
             for (ObjetivoDTO dtoObjetivo : objetivos) {
-                objetivosEntity.add(dtoRequisito.toEntity());
+                objetivosEntity.add(dtoObjetivo.toEntity());
             }
-            requisitoEntity.setRequisitos(objetivosEntity);
+            reqEntity.setObjetivos(objetivosEntity);
         }
         if (fuentes != null) {
             List<StakeHolderEntity> fuentesEntity = new ArrayList<>();
             for (StakeHolderDTO dtoFuentes : fuentes) {
                 fuentesEntity.add(dtoFuentes.toEntity());
             }
-            requisitoEntity.setFuentes(fuentesEntity);
+            reqEntity.setFuentes(fuentesEntity);
         }
-        return requisitoEntity;
-    }*/
+        return reqEntity;
+    }
 
     /**
      * @return the aprobaciones
