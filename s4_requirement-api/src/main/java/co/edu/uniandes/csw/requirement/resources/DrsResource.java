@@ -36,21 +36,21 @@ public class DrsResource
     
      @GET
     @Path("{id: \\d+}")
-    public DrsDTO getDrs (@PathParam("id") Integer id)
+    public DrsDTO getDrs (@PathParam("id") Long id)
     {
         return null;
     }
     
      @DELETE
     @Path("{id: \\d+}")
-    public void deleteDrs (@PathParam("id") Integer id)
+    public void deleteDrs (@PathParam("id") Long id)
     {
         
     }
     
     @PUT
     @Path("{id: \\d+}")
-    public DrsDTO getDrs (@PathParam("id") Integer id, DrsDTO dto)
+    public DrsDTO getDrs (@PathParam("id") Long id, DrsDTO dto)
     {
         return null;
     }

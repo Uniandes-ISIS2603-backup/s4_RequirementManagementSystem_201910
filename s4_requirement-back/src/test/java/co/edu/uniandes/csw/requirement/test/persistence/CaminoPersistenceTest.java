@@ -94,7 +94,7 @@ public class CaminoPersistenceTest {
         Assert.assertNotNull(ce);
 
         CaminoEntity entity = em.find(CaminoEntity.class, ce.getId());
-        Assert.assertEquals(newCaminoEntity.getDescripcionPaso(), entity.getDescripcionPaso());
+        Assert.assertEquals(newCaminoEntity.getPasos(), entity.getPasos());
     }
     
     /*
