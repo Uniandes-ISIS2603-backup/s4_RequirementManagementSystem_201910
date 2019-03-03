@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.requirement.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
@@ -18,7 +19,12 @@ import uk.co.jemos.podam.common.PodamExclude;
 @Entity
 public class CaminoEntity extends BaseEntity implements Serializable {
 
-    private String descripcionPaso;
+   public final static String BASICO = "BASICO";
+   public final static String EXCEPCION = "EXCEPCION";
+   public final static String ALTERNATIVO = "ALTERNATIVO";
+
+    private String tipoPaso;
+    private ArrayList<String> pasos;
 
     @PodamExclude
     @OneToOne
@@ -39,15 +45,29 @@ public class CaminoEntity extends BaseEntity implements Serializable {
     /**
      * @return the descripcionPaso
      */
-    public String getDescripcionPaso() {
-        return descripcionPaso;
+    public ArrayList<String> getPasos() {
+        return pasos;
     }
 
     /**
      * @param descripcionPaso to set
      */
-    public void setDescripcionPaso(String descripPaso) {
-        this.descripcionPaso = descripPaso;
+    public void setPasos(ArrayList<String> pasitos) {
+        this.pasos = pasitos;
+    }
+    
+      /**
+     * @return the descripcionPaso
+     */
+    public String getTipoPaso() {
+        return tipoPaso;
+    }
+
+    /**
+     * @param descripcionPaso to set
+     */
+    public void setTipoPaso(String tipoPasito) {
+        this.tipoPaso = tipoPasito;
     }
 
 }

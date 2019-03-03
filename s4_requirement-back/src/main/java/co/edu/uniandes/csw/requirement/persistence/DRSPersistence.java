@@ -30,6 +30,26 @@ public class DRSPersistence {
     public DRSEntity find(Long drsId) {
         return em.find(DRSEntity.class, drsId);
     }
+    
+    public DRSEntity findByVersion(Integer drsVersion) {
+            TypedQuery query = em.createQuery("Select e From DRSEntity e where e.version = :version", DRSEntity.class);
+             query = query.setParameter("version", drsVersion);
+             List<DRSEntity> sameVersion = query.getResultList();
+             DRSEntity result;
+             if(sameVersion == null)
+             {
+                 result = null;
+             }
+             else if(sameVersion.isEmpty())
+             {
+                 result = null;
+             }
+             else
+             {
+                 result = sameVersion.get(0);
+             }
+            return result;
+    }
 
     public List<DRSEntity> findAll() {
         TypedQuery<DRSEntity> query = em.createQuery("select u from DRSEntity u", DRSEntity.class);
