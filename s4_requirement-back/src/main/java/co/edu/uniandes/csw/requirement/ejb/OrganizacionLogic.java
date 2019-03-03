@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package co.edu.uniandes.csw.requirement.ejb;
 
 import co.edu.uniandes.csw.requirement.entities.OrganizacionEntity;
@@ -51,13 +46,12 @@ public class OrganizacionLogic {
         return organizacion;
     }
     
-        /**
+     /**
      * Actualizar una organizacion.
      *
      * @param organizationsId: id de la organizacion para buscarla en la base de
      * datos.
-     * @param organizationEntity: organizacion con los cambios para ser
-     * actualizada, por ejemplo el nombre.
+     * @param organizationEntity: organizacion con los cambios
      * @return la organizacion con los cambios actualizados en la base de datos.
      */
     public OrganizacionEntity updateOrganizacion(Long organizationsId, OrganizacionEntity organizationEntity) {
@@ -69,8 +63,7 @@ public class OrganizacionLogic {
      * Borrar un organizacion
      *
      * @param organizacionsId: id de la organizacion a borrar
-     * @throws BusinessLogicException si la organizacion tiene un premio
-     * asociado.
+     * @throws BusinessLogicException
      */
     public void deleteOrganizacion(Long organizacionsId) throws BusinessLogicException {
         OrganizacionEntity organizacionEntity = persistence.find(organizacionsId);
@@ -78,9 +71,7 @@ public class OrganizacionLogic {
     }
     
      /**
-     *
      * Obtener todas las organizaciones existentes en la base de datos.
-     *
      * @return una lista de organizaciones.
      */
     public List<OrganizacionEntity> getOrganizaciones() {

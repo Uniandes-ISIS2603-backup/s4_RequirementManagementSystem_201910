@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package co.edu.uniandes.csw.requirement.test.persistence;
 
 import co.edu.uniandes.csw.requirement.entities.StakeHolderEntity;
@@ -31,9 +26,9 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 @RunWith(Arquillian.class)
 public class StakeHolderPersistenceTest {
 
-   /**
-    * Se crea atributo tipo stakeholder
-    */ 
+    /**
+     * Se crea atributo tipo stakeholder
+     */
     @Inject
     private StakeHolderPersistence ep;
 
@@ -43,23 +38,23 @@ public class StakeHolderPersistenceTest {
     @PersistenceContext
     private EntityManager em;
 
-    
-    private ArrayList<StakeHolderEntity> data; 
-    
+    private ArrayList<StakeHolderEntity> data;
+
     PodamFactory factory = new PodamFactoryImpl();
-    
+
     @Inject
     private UserTransaction utx;
-    
-    private void insertData(){
+
+    private void insertData() {
         for (int i = 0; i < 3; i++) {
             StakeHolderEntity entity = factory.manufacturePojo(StakeHolderEntity.class);
             em.persist(entity);
             data.add(entity);
-        }  
+        }
     }
+
     /**
-     * 
+     *
      * @return el deployment creado
      */
     @Deployment
@@ -70,27 +65,33 @@ public class StakeHolderPersistenceTest {
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
-    
+
+    /**
+     * configuracion del test
+     */
     @Before
-    public void configTest(){
+    public void configTest() {
         data = new ArrayList<StakeHolderEntity>();
-        
-        try{
+
+        try {
             utx.begin();
             clearData();
             insertData();
             utx.commit();
-        } catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-            try{
+            try {
                 utx.rollback();
-            } catch(Exception e1){
+            } catch (Exception e1) {
                 e1.printStackTrace();
             }
-        }        
+        }
     }
-    
-    private void clearData(){
+
+    /**
+     * Limpia las tablas que están implicadas en la prueba.
+     */
+    private void clearData() {
         em.createQuery("delete from OrganizacionEntity").executeUpdate();
     }
 
@@ -107,9 +108,9 @@ public class StakeHolderPersistenceTest {
         StakeHolderEntity entity = em.find(StakeHolderEntity.class, ee.getId());
         Assert.assertEquals(newEntity.getNombre(), entity.getNombre());
     }
-    
-     /**
-     * Prueba para consultar la lista de premios.
+
+    /**
+     * Prueba para consultar los stakeholders
      */
     @Test
     public void getStakeHolderTest() {
@@ -126,9 +127,9 @@ public class StakeHolderPersistenceTest {
             org.junit.Assert.assertTrue(found);
         }
     }
-    
+
     /**
-     * Prueba para eliminar un Organization.
+     * Prueba para eliminar un stakeholder.
      */
     @Test
     public void deleteStakeHolderTest() {
@@ -137,9 +138,9 @@ public class StakeHolderPersistenceTest {
         StakeHolderEntity deleted = em.find(StakeHolderEntity.class, entity.getId());
         org.junit.Assert.assertNull(deleted);
     }
-    
-     /**
-     * Prueba para actualizar un Organization.
+
+    /**
+     * Prueba para actualizar un stakeholder.
      */
     @Test
     public void updateStakeHolderTest() {

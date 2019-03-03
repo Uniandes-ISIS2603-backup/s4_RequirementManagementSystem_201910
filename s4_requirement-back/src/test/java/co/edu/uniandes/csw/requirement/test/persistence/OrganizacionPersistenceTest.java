@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package co.edu.uniandes.csw.requirement.test.persistence;
 
 import co.edu.uniandes.csw.requirement.entities.OrganizacionEntity;
@@ -31,27 +26,27 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 @RunWith(Arquillian.class)
 public class OrganizacionPersistenceTest {
 
-   /**
-    * Se crea atributo tipo organizacion persistence
-    */ 
+    /**
+     * Se crea atributo tipo organizacion persistence
+     */
     @Inject
     private OrganizacionPersistence ep;
 
     /**
-    * Se crea el entity manager
-    */ 
+     * Se crea el entity manager
+     */
     @PersistenceContext
     private EntityManager em;
-    
+
     @Inject
     UserTransaction utx;
-    
-    private ArrayList<OrganizacionEntity> data; 
-    
+
+    private ArrayList<OrganizacionEntity> data;
+
     PodamFactory factory = new PodamFactoryImpl();
 
     /**
-     * 
+     *
      * @return el deployent creado
      */
     @Deployment
@@ -62,8 +57,8 @@ public class OrganizacionPersistenceTest {
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
-    
-        /**
+
+    /**
      * Configuración inicial de la prueba.
      */
     @Before
@@ -83,22 +78,22 @@ public class OrganizacionPersistenceTest {
             }
         }
     }
-    
-        /**
+
+    /**
      * Limpia las tablas que están implicadas en la prueba.
      */
     private void clearData() {
         em.createQuery("delete from OrganizacionEntity").executeUpdate();
     }
-    
-     /**
+
+    /**
      * Inserta los datos iniciales para el correcto funcionamiento de las
      * pruebas.
      */
-    private void insertData(){
-        
+    private void insertData() {
+
         data = new ArrayList<OrganizacionEntity>();
-        
+
         for (int i = 0; i < 3; i++) {
             OrganizacionEntity entity = factory.manufacturePojo(OrganizacionEntity.class);
             em.persist(entity);
@@ -119,8 +114,8 @@ public class OrganizacionPersistenceTest {
         OrganizacionEntity entity = em.find(OrganizacionEntity.class, ee.getId());
         Assert.assertEquals(newEntity.getNombre(), entity.getNombre());
     }
-    
-     /**
+
+    /**
      * Prueba para consultar la lista de premios.
      */
     @Test
@@ -138,7 +133,7 @@ public class OrganizacionPersistenceTest {
             org.junit.Assert.assertTrue(found);
         }
     }
-    
+
     /**
      * Prueba para eliminar un Organization.
      */
@@ -149,8 +144,8 @@ public class OrganizacionPersistenceTest {
         OrganizacionEntity deleted = em.find(OrganizacionEntity.class, entity.getId());
         org.junit.Assert.assertNull(deleted);
     }
-    
-     /**
+
+    /**
      * Prueba para actualizar un Organization.
      */
     @Test
@@ -167,5 +162,5 @@ public class OrganizacionPersistenceTest {
         org.junit.Assert.assertEquals(newEntity.getNombre(), resp.getNombre());
         org.junit.Assert.assertEquals(newEntity.getSector(), resp.getSector());
     }
- 
+
 }
