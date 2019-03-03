@@ -22,22 +22,29 @@ public class ObjetivoDTO implements Serializable {
     private Integer estabilidad;
     private String comentarios;
 
+    private StakeHolderDTO autor;
+
     public ObjetivoDTO() {
 
     }
-    
-    public ObjetivoDTO(ObjetivoEntity oe)
-    {
-        if(oe != null)
-        {
+
+    public ObjetivoDTO(ObjetivoEntity oe) {
+
+        if (oe != null) {
             this.id = oe.getId();
             this.descripcion = oe.getDescripcion();
             this.importancia = oe.getImportancia();
             this.estabilidad = oe.getEstabilidad();
             this.comentarios = oe.getComentarios();
+            if (oe.getAutor() != null) {
+                this.autor = new StakeHolderDTO(oe.getAutor());
+            } else {
+                oe.setAutor(null);
+            }
+            
         }
     }
-    
+
     public ObjetivoEntity toEntity() {
         ObjetivoEntity objetivoEntity = new ObjetivoEntity();
         objetivoEntity.setId(this.getId());
@@ -45,6 +52,9 @@ public class ObjetivoDTO implements Serializable {
         objetivoEntity.setImportancia(this.importancia);
         objetivoEntity.setComentarios(this.comentarios);
         objetivoEntity.setEstabilidad(this.estabilidad);
+        if (autor != null) {
+            objetivoEntity.setAutor(autor.toEntity());
+        }
         return objetivoEntity;
     }
 
@@ -116,6 +126,20 @@ public class ObjetivoDTO implements Serializable {
      */
     public void setComentarios(String comentarios) {
         this.comentarios = comentarios;
+    }
+
+    /**
+     * @return the autor
+     */
+    public StakeHolderDTO getAutor() {
+        return autor;
+    }
+
+    /**
+     * @param autor the autor to set
+     */
+    public void setAutor(StakeHolderDTO autor) {
+        this.autor = autor;
     }
 
     @Override

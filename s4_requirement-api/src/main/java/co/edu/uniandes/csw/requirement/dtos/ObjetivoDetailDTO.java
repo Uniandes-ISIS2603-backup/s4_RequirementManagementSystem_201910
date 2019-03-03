@@ -19,7 +19,6 @@ public class ObjetivoDetailDTO extends ObjetivoDTO implements Serializable {
     private List<AprobacionDTO> aprobaciones;
     private List<CambioDTO> cambios;
     private List<RequisitoDTO> requisitos;
-    private StakeHolderDTO autor;
     private List<StakeHolderDTO> fuentes;
     
     public ObjetivoDetailDTO() {
@@ -42,11 +41,11 @@ public class ObjetivoDetailDTO extends ObjetivoDTO implements Serializable {
                 requisitos.add(new RequisitoDTO(requisitoEntities));
             }
             
-            autor = new StakeHolderEntity(objetivoEntity.getAutor());
+
             
             fuentes = new ArrayList<>();
             for (StakeHolderEntity stakeHolderEntities : objetivoEntity.getFuentes()) {
-                fuentes.add(new StakeHolderEntity(stakeHolderEntities));
+                fuentes.add(new StakeHolderDTO(stakeHolderEntities));
             }
         }
     }*/
@@ -75,9 +74,7 @@ public class ObjetivoDetailDTO extends ObjetivoDTO implements Serializable {
             }
             objetivoEntity.setRequisitos(requisitosEntity);
         }
-        if (autor != null) {
-            objetivoEntity.setAutor(autor.toEntity());
-        }
+        
         if (fuentes != null) {
             List<StakeHolderEntity> fuentesEntity = new ArrayList<>();
             for (StakeHolderDTO dtoFuentes : fuentes) {
@@ -130,19 +127,7 @@ public class ObjetivoDetailDTO extends ObjetivoDTO implements Serializable {
         this.requisitos = requisitos;
     }
 
-    /**
-     * @return the autor
-     */
-    public StakeHolderDTO getAutor() {
-        return autor;
-    }
-
-    /**
-     * @param autor the autor to set
-     */
-    public void setAutor(StakeHolderDTO autor) {
-        this.autor = autor;
-    }
+    
 
     /**
      * @return the fuentes
