@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package co.edu.uniandes.csw.requirement.ejb;
 
 import co.edu.uniandes.csw.requirement.entities.StakeHolderEntity;
@@ -26,7 +21,7 @@ public class StakeHolderLogic {
     private StakeHolderPersistence persistence;
 
     /**
-     *
+     * crea un stakeholder
      * @param stakeHolder
      * @return stakeholder creado
      */
@@ -41,10 +36,10 @@ public class StakeHolderLogic {
     }
 
     /**
-     * Obtener una organizacion por medio de su id.
+     * Obtener un stakeholder por medio de su id.
      *
-     * @param stakeholderId: id de la organizacion para ser buscada.
-     * @return la organizacion solicitada por medio de su id.
+     * @param stakeholderId: id del stakeholder para ser buscado.
+     * @return el stakeholder solicitado por medio de su id.
      */
     public StakeHolderEntity getStakeHolder(Long stakeholderId) {
         StakeHolderEntity organizacion = persistence.find(stakeholderId);
@@ -54,13 +49,11 @@ public class StakeHolderLogic {
     }
 
     /**
-     * Actualizar una organizacion.
+     * Actualizar un stakeholder
      *
-     * @param stakeholderId: id de la organizacion para buscarla en la base de
-     * datos.
-     * @param stakeholderEntity: organizacion con los cambios para ser
-     * actualizada, por ejemplo el nombre.
-     * @return la organizacion con los cambios actualizados en la base de datos.
+     * @param stakeholderId: id del stakeholder buscado
+     * @param stakeholderEntity: stakeholder con los cambios
+     * @return el stakeholder con los cambios actualizados en la base de datos.
      */
     public StakeHolderEntity updateStakeHolder(Long stakeholderId, StakeHolderEntity stakeholderEntity) {
         StakeHolderEntity newEntity = persistence.update(stakeholderEntity);
@@ -68,22 +61,21 @@ public class StakeHolderLogic {
     }
 
     /**
-     * Borrar un organizacion
+     * Borrar un stakeholder
      *
-     * @param organizacionsId: id de la organizacion a borrar
-     * @throws BusinessLogicException si la organizacion tiene un premio
-     * asociado.
+     * @param stakeholderId: id del stakeholder a borrar
+     * @throws BusinessLogicException
      */
-    public void deleteStakeHolder(Long organizacionsId) throws BusinessLogicException {
-        StakeHolderEntity organizacionEntity = persistence.find(organizacionsId);
-        persistence.delete(organizacionsId);
+    public void deleteStakeHolder(Long stakeholderId) throws BusinessLogicException {
+        StakeHolderEntity organizacionEntity = persistence.find(stakeholderId);
+        persistence.delete(stakeholderId);
     }
 
     /**
      *
-     * Obtener todas las editoriales existentes en la base de datos.
+     * retorna los stakeholders existentes
      *
-     * @return una lista de editoriales.
+     * @return una lista de stakeholders.
      */
     public List<StakeHolderEntity> getStakeHolders() {
         List<StakeHolderEntity> stakeholders = persistence.findAll();

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package co.edu.uniandes.csw.requirement.test.logic;
 
 import co.edu.uniandes.csw.requirement.ejb.StakeHolderLogic;
@@ -49,6 +44,9 @@ public class StakeHolderLogicTest {
     @Inject
     private UserTransaction utx;
     
+    /**
+     * crea datos para ser probados
+     */
     private void insertData(){
         for (int i = 0; i < 3; i++) {
             StakeHolderEntity entity = factory.manufacturePojo(StakeHolderEntity.class);
@@ -59,7 +57,7 @@ public class StakeHolderLogicTest {
     
     /**
      * 
-     * @return java archive creado
+     * @return deployment creado
      */
     @Deployment
     public static JavaArchive createDeployment() {
@@ -71,6 +69,9 @@ public class StakeHolderLogicTest {
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
 
+    /**
+     * Configuracion de la prueba
+     */
     @Before
     public void configTest(){
         data = new ArrayList<StakeHolderEntity>();
@@ -90,10 +91,17 @@ public class StakeHolderLogicTest {
         }        
     }
     
+    /**
+     * borra datos creados previamente
+     */
     private void clearData(){
         em.createQuery("delete from OrganizacionEntity").executeUpdate();
     }
     
+    /**
+     * prueba creacion de stakeholder
+     * @throws BusinessLogicException 
+     */
     @Test
     public void createStakeHolderTest() throws BusinessLogicException {
         StakeHolderEntity newEntity = factory.manufacturePojo(StakeHolderEntity.class);
@@ -106,10 +114,10 @@ public class StakeHolderLogicTest {
     }
     
     /**
-     * Prueba para consultar un Organization.
+     * Prueba para consultar un stakeholder.
      */
     @Test
-    public void getOrganizationTest() {
+    public void getStakeHolderTest() {
         StakeHolderEntity entity = data.get(0);
         StakeHolderEntity resultEntity = stakeholderLogic.getStakeHolder(entity.getId());
         org.junit.Assert.assertNotNull(resultEntity);
@@ -119,10 +127,10 @@ public class StakeHolderLogicTest {
     }
 
     /**
-     * Prueba para actualizar un Organization.
+     * Prueba para actualizar un stakeholder.
      */
     @Test
-    public void updateOrganizationTest() {
+    public void updateStakeHolderTest() {
         StakeHolderEntity entity = data.get(0);
         StakeHolderEntity pojoEntity = factory.manufacturePojo(StakeHolderEntity.class);
 
@@ -137,13 +145,12 @@ public class StakeHolderLogicTest {
         org.junit.Assert.assertEquals(pojoEntity.getTipo(), resp.getTipo());
     }
 
-    /**
-     * Prueba para eliminar un Organization.
-     *
-     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
-     */
+/**
+ * Prueba para eliminar un stakeholder.
+ * @throws BusinessLogicException 
+ */
     @Test
-    public void deleteOrganizationTest() throws BusinessLogicException {
+    public void deleteStakeHolderTest() throws BusinessLogicException {
         StakeHolderEntity entity = data.get(0);
         stakeholderLogic.deleteStakeHolder(entity.getId());
         StakeHolderEntity deleted = em.find(StakeHolderEntity.class, entity.getId());

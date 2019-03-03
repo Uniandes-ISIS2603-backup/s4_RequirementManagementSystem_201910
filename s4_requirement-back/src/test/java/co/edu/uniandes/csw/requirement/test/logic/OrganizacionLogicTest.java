@@ -51,7 +51,7 @@ public class OrganizacionLogicTest {
 
     /**
      * 
-     * @return java archive creado
+     * @return deployment creado
      */
     @Deployment
     public static JavaArchive createDeployment() {
@@ -64,6 +64,9 @@ public class OrganizacionLogicTest {
     }
     
         
+    /**
+     * crea datos para ser probados
+     */
     private void insertData(){
         
         data = new ArrayList<OrganizacionEntity>();
@@ -75,7 +78,9 @@ public class OrganizacionLogicTest {
         }
     }
     
-
+    /**
+     * Configuracion de la prueba
+     */
     @Before
     public void configTest(){
         try{
@@ -93,10 +98,17 @@ public class OrganizacionLogicTest {
         }        
     }
     
+        /**
+     * borra datos creados previamente
+     */
     private void clearData(){
         em.createQuery("delete from OrganizacionEntity").executeUpdate();
     }
     
+    /**
+     * test de crear organizacion
+     * @throws BusinessLogicException 
+     */
     @Test
     public void createOrganizacionTest() throws BusinessLogicException {
         OrganizacionEntity newEntity = factory.manufacturePojo(OrganizacionEntity.class);
@@ -107,6 +119,10 @@ public class OrganizacionLogicTest {
         Assert.assertEquals(newEntity.getNombre(), entity.getNombre());
     }
         
+    /**
+     * test de crear organizacion con mismo nombre
+     * @throws BusinessLogicException 
+     */
     @Test(expected = BusinessLogicException.class)
     public void createOrganizacionConMismoNombreTest() throws BusinessLogicException{
         
@@ -148,11 +164,10 @@ public class OrganizacionLogicTest {
         org.junit.Assert.assertEquals(pojoEntity.getSector(), resp.getSector());
     }
 
-    /**
-     * Prueba para eliminar un Organization.
-     *
-     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
-     */
+/**
+ * Prueba para eliminar un Organization.
+ * @throws BusinessLogicException 
+ */
     @Test
     public void deleteOrganizationTest() throws BusinessLogicException {
         OrganizacionEntity entity = data.get(0);
