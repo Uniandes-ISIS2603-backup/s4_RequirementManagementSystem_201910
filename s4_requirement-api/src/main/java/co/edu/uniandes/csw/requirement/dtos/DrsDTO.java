@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.requirement.dtos;
 
+import co.edu.uniandes.csw.requirement.entities.DRSEntity;
 import java.io.Serializable;
 
 /**
@@ -13,7 +14,7 @@ import java.io.Serializable;
  */
 public class DrsDTO implements Serializable {
     
-    private Integer id;
+    private Long id;
     private Integer version;
     private String reporte;
     
@@ -21,11 +22,29 @@ public class DrsDTO implements Serializable {
     {
     }
     
-    public Integer getId(){
+    public DrsDTO(DRSEntity drse)
+    {
+        if(drse != null)
+        {
+            this.id = drse.getId();
+            this.version = drse.getVersion();
+            this.reporte = drse.getReporte();
+        }
+    }
+    
+    public DRSEntity toEntity() {
+        DRSEntity drsEntity = new DRSEntity();
+        drsEntity.setId(this.getId());
+        drsEntity.setVersion(this.version);
+        drsEntity.setReporte(this.reporte);
+        return drsEntity;
+    }
+    
+    public Long getId(){
         return id;
     }
     
-    public void setId(Integer pId){
+    public void setId(Long pId){
         id = pId;
     }
     

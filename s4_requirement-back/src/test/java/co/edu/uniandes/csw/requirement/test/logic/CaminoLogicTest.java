@@ -107,10 +107,14 @@ public class CaminoLogicTest {
     @Test
     public void createCaminoTest() throws BusinessLogicException {
         CaminoEntity newEntity = factory.manufacturePojo(CaminoEntity.class);
+         newEntity.setTipoPaso("BASICO");
+        Assert.assertEquals(newEntity.getTipoPaso(), CaminoEntity.BASICO);
         CaminoEntity result = caminoLogic.createCamino(newEntity);
         Assert.assertNotNull(result);
         CaminoEntity entity = em.find(CaminoEntity.class, result.getId());
         Assert.assertEquals(newEntity.getId(), entity.getId());
+        
+        
     }
 
     /**

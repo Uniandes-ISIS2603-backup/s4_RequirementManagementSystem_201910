@@ -167,6 +167,20 @@ public class DRSPersistenceTest {
 
         Assert.assertEquals(newEntity.getId(), resp.getId());
     }
+    
+    /**
+     * Prueba para consultar una Editorial por nombre.
+     */
+    @Test
+    public void findDRSByVersionTest() {
+        DRSEntity entity = data.get(0);
+        DRSEntity newEntity = drsep.findByVersion(entity.getVersion());
+        Assert.assertNotNull(newEntity);
+        Assert.assertEquals(entity.getVersion(), newEntity.getVersion());
+
+        newEntity = drsep.findByVersion(null);
+        Assert.assertNull(newEntity);
+    }
 
 
 }

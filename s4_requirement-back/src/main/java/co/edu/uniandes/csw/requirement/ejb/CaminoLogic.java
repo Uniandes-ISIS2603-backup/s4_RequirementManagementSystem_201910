@@ -43,6 +43,24 @@ public class CaminoLogic {
         if (persistence.find(caminoEntity.getId()) != null) {
             throw new BusinessLogicException("Ya existe un Camino con el id \"" + caminoEntity.getId() + "\"");
         }
+        if (caminoEntity.getTipoPaso() == null)
+        {
+           throw new BusinessLogicException("El tipo de camino no puede ser null");
+        }
+        if (caminoEntity.getTipoPaso() != caminoEntity.BASICO || caminoEntity.getTipoPaso() != caminoEntity.EXCEPCION || caminoEntity.getTipoPaso() != caminoEntity.ALTERNATIVO){
+            throw new BusinessLogicException("El tipo de camino sólo puede ser básico, de excepción o alternativo");
+        }
+        if(caminoEntity.getPasos().isEmpty()){
+            throw new BusinessLogicException("Debe haber por lo menos un paso");
+        }
+        for (int i = 0; i < caminoEntity.getPasos().size(); i++) {
+            for (int j = i+1; j < caminoEntity.getPasos().size(); j++) {
+                if(caminoEntity.getPasos().get(i).equals(caminoEntity.getPasos().get(j)))
+                {
+                    throw new BusinessLogicException("No puede haber pasos repetidos");
+                }
+            }
+        }
         // Invoca la persistencia para crear la editorial
         persistence.create(caminoEntity);
         LOGGER.log(Level.INFO, "Termina proceso de creación del camino");
