@@ -39,14 +39,15 @@ public class RequisitoDTO implements Serializable{
         }
     }
     
-    public ObjetivoEntity toEntity() {
-        ObjetivoEntity objetivoEntity = new ObjetivoEntity();
-        objetivoEntity.setId(this.getId());
-        objetivoEntity.setDescripcion(this.descripcion);
-        objetivoEntity.setImportancia(this.importancia);
-        objetivoEntity.setComentarios(this.comentarios);
-        objetivoEntity.setEstabilidad(this.estabilidad);
-        return objetivoEntity;
+    public RequisitoEntity toEntity() 
+    {
+        RequisitoEntity requisitoEntity = new RequisitoEntity();
+        requisitoEntity.setId(this.getId());
+        requisitoEntity.setDescripcion(this.descripcion);
+        requisitoEntity.setImportancia(this.importancia);
+        requisitoEntity.setComentarios(this.comentarios);
+        requisitoEntity.setEstabilidad(this.estabilidad);
+        return requisitoEntity;
     }
     /**
      * @return the tipo

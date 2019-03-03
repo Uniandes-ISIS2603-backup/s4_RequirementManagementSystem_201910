@@ -25,7 +25,7 @@ public class ObjetivoDetailDTO extends ObjetivoDTO implements Serializable {
         super();
     }
 
-    /*public ObjetivoDetailDTO(ObjetivoEntity objetivoEntity) {
+    public ObjetivoDetailDTO(ObjetivoEntity objetivoEntity) {
         super(objetivoEntity);
         if (objetivoEntity != null) {
             aprobaciones = new ArrayList<>();
@@ -41,16 +41,14 @@ public class ObjetivoDetailDTO extends ObjetivoDTO implements Serializable {
                 requisitos.add(new RequisitoDTO(requisitoEntities));
             }
             
-
-            
             fuentes = new ArrayList<>();
             for (StakeHolderEntity stakeHolderEntities : objetivoEntity.getFuentes()) {
                 fuentes.add(new StakeHolderDTO(stakeHolderEntities));
             }
         }
-    }*/
+    }
     
-    /*@Override
+    @Override
     public ObjetivoEntity toEntity() {
         ObjetivoEntity objetivoEntity = super.toEntity();
         if (aprobaciones != null) {
@@ -83,7 +81,7 @@ public class ObjetivoDetailDTO extends ObjetivoDTO implements Serializable {
             objetivoEntity.setFuentes(fuentesEntity);
         }
         return objetivoEntity;
-    }*/
+    }
 
     /**
      * @return the aprobaciones
