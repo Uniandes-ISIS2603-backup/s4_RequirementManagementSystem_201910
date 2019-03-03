@@ -10,7 +10,7 @@ import java.io.Serializable;
 /**
  * Representa el recurso requisito, en su versión básica.
  *
- * @author estudiante
+ * @author Jorge Esguerra
  */
 public class RequisitoDTO implements Serializable{
 
