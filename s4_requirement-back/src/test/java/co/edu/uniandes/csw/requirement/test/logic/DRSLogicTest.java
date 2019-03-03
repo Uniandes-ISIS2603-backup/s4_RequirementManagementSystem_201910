@@ -118,12 +118,12 @@ public class DRSLogicTest {
      * Prueba para crear un Editorial con el mismo nombre de un Editorial que ya
      * existe.
      *
-     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
+     * @throws BusinessLogicException
      */
     @Test(expected = BusinessLogicException.class)
-    public void createDRSConMismoIdTest() throws BusinessLogicException {
+    public void createDRSConMismaVersionTest() throws BusinessLogicException {
         DRSEntity newEntity = factory.manufacturePojo(DRSEntity.class);
-        newEntity.setId(data.get(0).getId());
+        newEntity.setVersion(data.get(0).getVersion());
         drsLogic.createDRS(newEntity);
     }
 
