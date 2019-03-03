@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package co.edu.uniandes.csw.requirement.dtos;
 
 import co.edu.uniandes.csw.requirement.entities.OrganizacionEntity;
@@ -13,7 +8,7 @@ import java.util.List;
 
 /**
  *
- * @author estudiante
+ * @author Mateo Pedroza
  */
 public class OrganizacionDetailDTO extends OrganizacionDTO implements Serializable{
     
@@ -26,6 +21,10 @@ public class OrganizacionDetailDTO extends OrganizacionDTO implements Serializab
         
     }
     
+    /**
+     * Metodo constructor, agregar todas las relaciones que dependen de organizacion
+     * @param organizacionEntity 
+     */
     public OrganizacionDetailDTO(OrganizacionEntity organizacionEntity){
         super(organizacionEntity);
         if(organizacionEntity != null){
@@ -38,6 +37,10 @@ public class OrganizacionDetailDTO extends OrganizacionDTO implements Serializab
         }
     }
     
+    /**
+     * Convierte el DTO en una entidad
+     * @return entidad organizacion
+     */
     public OrganizacionEntity toEntity(){
         OrganizacionEntity entidad = super.toEntity();
         

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package co.edu.uniandes.csw.requirement.dtos;
 
 import co.edu.uniandes.csw.requirement.entities.AprobacionEntity;
@@ -17,7 +12,8 @@ import java.util.List;
  * @author Mateo Pedroza
  */
 public class StakeHolderDetailDTO extends StakeHolderDTO implements Serializable{
-    //private List<>
+    
+//private List<>
     //relacion 1 a 1
     private List<CambioDTO> cambios;
     private List<AprobacionDTO> aprobaciones;
@@ -26,7 +22,10 @@ public class StakeHolderDetailDTO extends StakeHolderDTO implements Serializable
         super();   
         
     }
-    
+    /**
+     * Metodo constructor, agregar todas las relaciones que dependen de stakeholder
+     * @param stakeholderEntity 
+     */
     public StakeHolderDetailDTO(StakeHolderEntity stakeholderEntity){
         super(stakeholderEntity);
         if(stakeholderEntity != null){
@@ -46,13 +45,17 @@ public class StakeHolderDetailDTO extends StakeHolderDTO implements Serializable
         }
     }
     
+    /*
+    Convierte el DTO en una entidad
+    */
+    @Override
     public StakeHolderEntity toEntity(){
         StakeHolderEntity entidad = super.toEntity();
         
         if(cambios != null){
             List<CambioEntity> cambioEntity = new ArrayList();
             for(CambioDTO dtoCambio : cambios){
-                //CambioEntity.add(dtoCambio.toEntity());
+                cambioEntity.add(dtoCambio.toEntity());
             }
             
             entidad.setCambios(cambioEntity);

@@ -75,7 +75,6 @@ public class StakeHolderLogic {
      * asociado.
      */
     public void deleteStakeHolder(Long organizacionsId) throws BusinessLogicException {
-        // Note que, por medio de la inyección de dependencias se llama al método "delete(id)" que se encuentra en la persistencia.
         StakeHolderEntity organizacionEntity = persistence.find(organizacionsId);
         persistence.delete(organizacionsId);
     }

@@ -79,9 +79,9 @@ public class OrganizacionLogic {
     
      /**
      *
-     * Obtener todas las editoriales existentes en la base de datos.
+     * Obtener todas las organizaciones existentes en la base de datos.
      *
-     * @return una lista de editoriales.
+     * @return una lista de organizaciones.
      */
     public List<OrganizacionEntity> getOrganizaciones() {
         List<OrganizacionEntity> organizaciones = persistence.findAll();

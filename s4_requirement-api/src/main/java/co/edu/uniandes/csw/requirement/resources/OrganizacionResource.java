@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package co.edu.uniandes.csw.requirement.resources;
 
 import co.edu.uniandes.csw.requirement.dtos.OrganizacionDTO;
@@ -26,7 +21,7 @@ import javax.ws.rs.WebApplicationException;
 
 /**
  *
- * @author estudiante
+ * @author Mateo Pedroza
  */
 @Path("organizaciones")
 @Produces("application/json")
@@ -37,6 +32,12 @@ public class OrganizacionResource {
     @Inject
     private OrganizacionLogic logica;
 
+    /**
+     * Agrega una organizacion a la base de datos
+     * @param organizacion
+     * @return organizacion creada
+     * @throws BusinessLogicException 
+     */
     @POST
     public OrganizacionDTO createOrganizacion(OrganizacionDTO organizacion) throws BusinessLogicException {
 
@@ -46,12 +47,22 @@ public class OrganizacionResource {
         return nuevaOrganizacionDTO;
     }
 
+    /**
+     * retorna todas las organizaciones existentes en base de datos
+     * @return lista de organizaciones
+     */
     @GET
     public List<OrganizacionDetailDTO> getStakeholders() {
         List<OrganizacionDetailDTO> listaOrganizacion = entity2DTO(logica.getOrganizaciones());
         return listaOrganizacion;
     }
 
+    /**
+     * retorna la organizacion con el id del parametro, si no existe retorna null
+     * @param organizacionId
+     * @return organizacion encontrada, null si no existe
+     * @throws WebApplicationException 
+     */
     @GET
     @Path("{organizacionId: \\d+}")
     public OrganizacionDetailDTO getOrganizacion(@PathParam("organizacionId") Long organizacionId) throws WebApplicationException {
@@ -63,6 +74,11 @@ public class OrganizacionResource {
         return detailDTO;
     }
 
+    /**
+     * elimina la organizacion identificada por un id pasado por parametro
+     * @param organizacionId
+     * @throws BusinessLogicException 
+     */
     @DELETE
     @Path("{organizacionId: \\d+}")
     public void deleteOrganizacion(@PathParam("organizacionId") Long organizacionId) throws BusinessLogicException {
@@ -72,6 +88,13 @@ public class OrganizacionResource {
         logica.deleteOrganizacion(organizacionId);
     }
 
+    /**
+     * actualiza organizacion existente con valores pasados por parametro
+     * @param organizacionId
+     * @param organizacion
+     * @return la organizacion actualizada
+     * @throws WebApplicationException 
+     */
     @PUT
     @Path("{organizacionId: \\d+}")
     public OrganizacionDetailDTO updateOrganizacion(@PathParam("organizacionId") Long organizacionId, OrganizacionDetailDTO organizacion) throws WebApplicationException {
@@ -84,6 +107,11 @@ public class OrganizacionResource {
 
     }
 
+    /**
+     * convierte entidades en DTOS
+     * @param entityList
+     * @return lista de DTO
+     */
     private List<OrganizacionDetailDTO> entity2DTO(List<OrganizacionEntity> entityList) {
         List<OrganizacionDetailDTO> list = new ArrayList<>();
         for (OrganizacionEntity entity : entityList) {

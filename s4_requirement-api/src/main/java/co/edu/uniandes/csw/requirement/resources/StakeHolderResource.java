@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package co.edu.uniandes.csw.requirement.resources;
 
 import co.edu.uniandes.csw.requirement.dtos.StakeHolderDTO;
@@ -26,7 +21,7 @@ import javax.ws.rs.WebApplicationException;
 
 /**
  *
- * @author estudiante
+ * @author Mateo Pedroza
  */
 @Path("stakeholders")
 @Produces("application/json")
@@ -37,6 +32,12 @@ public class StakeHolderResource {
     @Inject
     private StakeHolderLogic logica;
 
+    /**
+     * Agrega una organizacion a la base de datos  
+     * @param stakeHolder
+     * @return
+     * @throws BusinessLogicException 
+     */
     @POST
     public StakeHolderDTO createStakeHolder(StakeHolderDTO stakeHolder) throws BusinessLogicException {
 
@@ -47,12 +48,22 @@ public class StakeHolderResource {
 
     }
 
+    /**
+     * retorna todos los stakeholders existentes en base de datos
+     * @return lista de stakeholders
+     */
     @GET
     public List<StakeHolderDetailDTO> getStakeholders() {
         List<StakeHolderDetailDTO> listaStakeHolders = entity2DTO(logica.getStakeHolders());
         return listaStakeHolders;
     }
 
+    /**
+     * retorna el stakeholder con id por parametro, null si no existe
+     * @param stakeholdersId
+     * @return stakeholder con id por parametro, null si no existe
+     * @throws WebApplicationException 
+     */
     @GET
     @Path("{stakeholdersId: \\d+}")
     public StakeHolderDetailDTO getStakeHolder(@PathParam("stakeholdersId") Long stakeholdersId) throws WebApplicationException {
@@ -64,6 +75,11 @@ public class StakeHolderResource {
         return detailDTO;
     }
 
+    /**
+     * elimina el stakeholder con id pasado por parametro
+     * @param stakeholdersId
+     * @throws BusinessLogicException 
+     */
     @DELETE
     @Path("{stakeholdersId: \\d+}")
     public void deleteStakeHolder(@PathParam("stakeholdersId") Long stakeholdersId) throws BusinessLogicException {
@@ -73,6 +89,13 @@ public class StakeHolderResource {
         logica.deleteStakeHolder(stakeholdersId);
     }
 
+    /**
+     * actualiza stakeholder identificado por id dado por parametro
+     * @param stakeholdersId
+     * @param stakeholder
+     * @return el stakeholder actualizado
+     * @throws WebApplicationException 
+     */
     @PUT
     @Path("{stakeholdersId: \\d+}")
     public StakeHolderDetailDTO updateStakeHolder(@PathParam("stakeholdersId") Long stakeholdersId, StakeHolderDetailDTO stakeholder) throws WebApplicationException {
@@ -85,6 +108,11 @@ public class StakeHolderResource {
 
     }
     
+    /**
+     * convierte entidades en DTOs
+     * @param entityList
+     * @return lista de DTOs
+     */
         private List<StakeHolderDetailDTO> entity2DTO(List<StakeHolderEntity> entityList) {
         List<StakeHolderDetailDTO> list = new ArrayList<>();
         for (StakeHolderEntity entity : entityList) {
