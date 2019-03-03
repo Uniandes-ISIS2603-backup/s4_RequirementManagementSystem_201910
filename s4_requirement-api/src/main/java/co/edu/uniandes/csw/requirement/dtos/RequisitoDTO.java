@@ -5,6 +5,8 @@
  */
 package co.edu.uniandes.csw.requirement.dtos;
 
+import co.edu.uniandes.csw.requirement.entities.ObjetivoEntity;
+import co.edu.uniandes.csw.requirement.entities.RequisitoEntity;
 import java.io.Serializable;
 
 /**
@@ -14,12 +16,37 @@ import java.io.Serializable;
  */
 public class RequisitoDTO implements Serializable{
 
-    private String tipo, autor, descripcion, comentarios;
-    private int id, importancia, estabilidad;
+    private String tipo, descripcion, comentarios;
+    private Long id;
+    private Integer importancia, estabilidad;
+    
+    private StakeHolderDTO autor;
     
     public RequisitoDTO()
     {
         
+    }
+    
+    public RequisitoDTO(RequisitoEntity re)
+    {
+        if(re != null)
+        {
+            this.id = re.getId();
+            this.descripcion = re.getDescripcion();
+            this.importancia = re.getImportancia();
+            this.estabilidad = re.getEstabilidad();
+            this.comentarios = re.getComentarios();
+        }
+    }
+    
+    public ObjetivoEntity toEntity() {
+        ObjetivoEntity objetivoEntity = new ObjetivoEntity();
+        objetivoEntity.setId(this.getId());
+        objetivoEntity.setDescripcion(this.descripcion);
+        objetivoEntity.setImportancia(this.importancia);
+        objetivoEntity.setComentarios(this.comentarios);
+        objetivoEntity.setEstabilidad(this.estabilidad);
+        return objetivoEntity;
     }
     /**
      * @return the tipo
@@ -33,20 +60,6 @@ public class RequisitoDTO implements Serializable{
      */
     public void setTipo(String tipo) {
         this.tipo = tipo;
-    }
-
-    /**
-     * @return the autor
-     */
-    public String getAutor() {
-        return autor;
-    }
-
-    /**
-     * @param autor the autor to set
-     */
-    public void setAutor(String autor) {
-        this.autor = autor;
     }
 
     /**
@@ -80,14 +93,14 @@ public class RequisitoDTO implements Serializable{
     /**
      * @return the id
      */
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -101,7 +114,7 @@ public class RequisitoDTO implements Serializable{
     /**
      * @param importancia the importancia to set
      */
-    public void setImportancia(int importancia) {
+    public void setImportancia(Integer importancia) {
         this.importancia = importancia;
     }
 
@@ -115,12 +128,24 @@ public class RequisitoDTO implements Serializable{
     /**
      * @param estabilidad the estabilidad to set
      */
-    public void setEstabilidad(int estabilidad) {
+    public void setEstabilidad(Integer estabilidad) {
         this.estabilidad = estabilidad;
     }
-    
-    //private List<CasoDeUsoDTO> casos;
-    
-    
 
+    /**
+     * @return the autor
+     */
+    public StakeHolderDTO getAutor() {
+        return autor;
+    }
+
+    /**
+     * @param autor the autor to set
+     */
+    public void setAutor(StakeHolderDTO autor) {
+        this.autor = autor;
+    }
+    
+    
+    
 }
