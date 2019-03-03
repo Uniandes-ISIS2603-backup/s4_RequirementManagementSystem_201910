@@ -52,8 +52,9 @@ public class RequisitoResource
     @POST
     public RequisitoDTO createRequisito(RequisitoDTO req) throws BusinessLogicException
     {
-        LOGGER.log(Level.INFO, "RequisitoResource createResource: input: {0}", req);
-        RequisitoDTO newReqDTO = new RequisitoDTO(reqLogic.createRequisito(req.toEntity()));
+        LOGGER.log(Level.INFO, "RequisitoResource createRequisito: input: {0}", req);
+        RequisitoEntity reqEntity = reqLogic.createRequisito(req.toEntity());
+        RequisitoDTO newReqDTO = new RequisitoDTO(reqEntity);
         LOGGER.log(Level.INFO, "RequisitoResource createRequisito: output: {0}", newReqDTO);
         return newReqDTO;
     }
@@ -68,7 +69,7 @@ public class RequisitoResource
      * Error de lógica que se genera cuando no se encuentra el requisito.
      */
     @GET
-    @Path("{requisitoId: \\d+}")
+    @Path("{requisitosId: \\d+}")
     public RequisitoDTO getRequisito(@PathParam("requisitosId") Long requisitosId)
     {
         LOGGER.log(Level.INFO, "RequisitoResource getRequisito: input: {0}", requisitosId);
