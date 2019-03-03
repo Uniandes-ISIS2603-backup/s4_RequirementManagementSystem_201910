@@ -88,17 +88,17 @@ public class AprobacionDTO implements Serializable{
     }
 
     /**
-     * @return the aprovado
+     * @return the aprobado
      */
-    public boolean isAprovado() {
+    public boolean isAprobado() {
         return aprobado;
     }
 
     /**
-     * @param aprovado the aprovado to set
+     * @param aprobado the aprovado to set
      */
-    public void setAprovado(boolean aprovado) {
-        this.aprobado = aprovado;
+    public void setAprobado(boolean aprobado) {
+        this.aprobado = aprobado;
     }
 
     /**
@@ -118,14 +118,14 @@ public class AprobacionDTO implements Serializable{
     /**
      * @return the aprobador
      */
-    public StakeHolderDTO getAprobador() {
+    public StakeHolderDTO getStakeholder() {
         return stakeholder;
     }
 
     /**
      * @param aprobador the aprobador to set
      */
-    public void setAprobador(StakeHolderDTO aprobador) {
+    public void setStakeholder(StakeHolderDTO aprobador) {
         this.stakeholder = aprobador;
     }
 

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package co.edu.uniandes.csw.requirement.persistence;
 
 import co.edu.uniandes.csw.requirement.entities.OrganizacionEntity;
@@ -26,7 +21,7 @@ public class OrganizacionPersistence {
     protected EntityManager em;
 
     /**
-     * 
+     * crea una organizacion
      * @param organizacionEntity
      * @return organizacion creada 
      */
@@ -36,7 +31,7 @@ public class OrganizacionPersistence {
     }
 
     /**
-     * 
+     * busca una organizacion con id dado por parametro
      * @param organizacionID
      * @return organizacion encontrada
      */
@@ -45,7 +40,7 @@ public class OrganizacionPersistence {
     }
 
     /**
-     * 
+     * retorna lista de todas las organizaciones
      * @return todas las organizaciones
      */
     public List<OrganizacionEntity> findAll() {
@@ -54,7 +49,7 @@ public class OrganizacionPersistence {
     }
     
     /**
-     * 
+     * encuetra organizacion por nombre
      * @param nombre
      * @return organizacion con nombre buscado, null si no hay
      */
@@ -75,5 +70,26 @@ public class OrganizacionPersistence {
         }
         
         return result;   
+    }
+
+/**
+ * acutaliza organizacion
+ * @param organizacionEntity
+ * @return organizacion actualizada
+ */
+    public OrganizacionEntity update(OrganizacionEntity organizacionEntity) {
+        return em.merge(organizacionEntity);
+    }
+    
+        
+     /**
+     * Borra una organizacion de la base de datos identificada por id
+     * @param organizacionId: id correspondiente a la organizacion a borrar.
+     */
+    public void delete(Long organizacionId) {
+        TypedQuery<OrganizacionEntity> query = em.createQuery("Select e From OrganizacionEntity e where e.id = :id", OrganizacionEntity.class);
+        query = query.setParameter("id", organizacionId);
+        OrganizacionEntity organizationEntity = query.getSingleResult();
+        em.remove(organizationEntity);
     }
 }
