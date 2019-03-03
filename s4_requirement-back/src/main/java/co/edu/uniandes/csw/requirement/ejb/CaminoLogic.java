@@ -32,7 +32,7 @@ public class CaminoLogic {
     /**
      * Crea una editorial en la persistencia.
      *
-     * @param editorialEntity La entidad que representa la editorial a
+     * @param caminoEntity La entidad que representa la editorial a
      * persistir.
      * @return La entiddad de la editorial luego de persistirla.
      * @throws BusinessLogicException Si la editorial a persistir ya existe.
@@ -47,7 +47,7 @@ public class CaminoLogic {
         {
            throw new BusinessLogicException("El tipo de camino no puede ser null");
         }
-        if (caminoEntity.getTipoPaso() != caminoEntity.BASICO || caminoEntity.getTipoPaso() != caminoEntity.EXCEPCION || caminoEntity.getTipoPaso() != caminoEntity.ALTERNATIVO){
+        if (!(caminoEntity.getTipoPaso().equals(CaminoEntity.BASICO) || caminoEntity.getTipoPaso().equals(CaminoEntity.ALTERNATIVO) || caminoEntity.getTipoPaso().equals(CaminoEntity.EXCEPCION)) ){
             throw new BusinessLogicException("El tipo de camino sólo puede ser básico, de excepción o alternativo");
         }
         if(caminoEntity.getPasos().isEmpty()){
