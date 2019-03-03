@@ -98,7 +98,7 @@ public class AprobacionResource {
     }
     
     @PUT 
-    @Path("{id1: \\d+}/aprobador/{id2: \\d+}")
+    @Path("{id1: \\d+}/stakeholder/{id2: \\d+}")
     public AprobacionDTO changeStakeHolder(@PathParam("id1") Long idAprobacion, @PathParam("id2") Long idAprobador){
         AprobacionEntity aprobacion = aprobacionLogic.findAprobacionById(idAprobacion);
         if(aprobacion == null){
@@ -115,7 +115,7 @@ public class AprobacionResource {
     }
     
     @GET
-    @Path("{id1: \\d+}/aprobador")
+    @Path("{id1: \\d+}/stakeholder")
     public StakeHolderDetailDTO getStakeHolder(@PathParam("id1")Long  idAprobacion){
         AprobacionEntity entity = aprobacionLogic.findAprobacionById(idAprobacion);
         if(entity == null){
