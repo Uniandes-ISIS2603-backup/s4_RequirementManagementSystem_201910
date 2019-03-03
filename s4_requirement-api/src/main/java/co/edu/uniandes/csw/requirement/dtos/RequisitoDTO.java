@@ -5,9 +5,10 @@
  */
 package co.edu.uniandes.csw.requirement.dtos;
 
-import co.edu.uniandes.csw.requirement.entities.ObjetivoEntity;
 import co.edu.uniandes.csw.requirement.entities.RequisitoEntity;
 import java.io.Serializable;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  * Representa el recurso requisito, en su versión básica.
@@ -36,6 +37,14 @@ public class RequisitoDTO implements Serializable{
             this.importancia = re.getImportancia();
             this.estabilidad = re.getEstabilidad();
             this.comentarios = re.getComentarios();
+            if(re.getAutor() != null)
+            {
+                this.autor = new StakeHolderDTO(re.getAutor());
+            }
+            else
+            {
+                re.setAutor(null);
+            }
             this.tipo = re.getTipo();
         }
     }
@@ -148,6 +157,9 @@ public class RequisitoDTO implements Serializable{
         this.autor = autor;
     }
     
-    
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+    }
     
 }
