@@ -9,6 +9,7 @@ import co.edu.uniandes.csw.requirement.ejb.CambioLogic;
 import co.edu.uniandes.csw.requirement.entities.CambioEntity;
 import co.edu.uniandes.csw.requirement.entities.ObjetivoEntity;
 import co.edu.uniandes.csw.requirement.entities.RequisitoEntity;
+import co.edu.uniandes.csw.requirement.entities.StakeHolderEntity;
 import co.edu.uniandes.csw.requirement.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.requirement.persistence.CambioPersistence;
 import java.util.ArrayList;
@@ -48,6 +49,12 @@ public class CambioLogicTest {
 
     private List<CambioEntity> data = new ArrayList<CambioEntity>();
     
+    StakeHolderEntity sh;
+    
+    RequisitoEntity requisito;
+    
+    ObjetivoEntity objetivo;
+    
         /**
      * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
      * El jar contiene las clases, el descriptor de la base de datos y el
@@ -59,6 +66,9 @@ public class CambioLogicTest {
                 .addPackage(CambioEntity.class.getPackage())
                 .addPackage(CambioLogic.class.getPackage())
                 .addPackage(CambioPersistence.class.getPackage())
+                .addPackage(StakeHolderEntity.class.getPackage())
+                .addPackage(RequisitoEntity.class.getPackage())
+                .addPackage(ObjetivoEntity.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
@@ -88,6 +98,9 @@ public class CambioLogicTest {
      */
     private void clearData() {
         em.createQuery("delete from CambioEntity").executeUpdate();
+        em.createQuery("delete from StakeHolderEntity").executeUpdate();
+        em.createQuery("delete from RequisitoEntity").executeUpdate();
+        em.createQuery("delete from ObjetivoEntity").executeUpdate();
     }
 
     /**
@@ -100,6 +113,12 @@ public class CambioLogicTest {
             em.persist(entity);
             data.add(entity);
         }
+        sh = factory.manufacturePojo(StakeHolderEntity.class);
+        requisito = factory.manufacturePojo(RequisitoEntity.class);
+        objetivo = factory.manufacturePojo(ObjetivoEntity.class);
+        em.persist(sh);
+        em.persist(requisito);
+        em.persist(objetivo);
     }
     
      /**
@@ -181,5 +200,38 @@ public class CambioLogicTest {
         cambioLogic.deleteCambio(entity.getId());
         CambioEntity deleted = em.find(CambioEntity.class, entity.getId());
         Assert.assertNull(deleted);
+    }
+    
+    /**
+     * Prueba para cambir el dueño de un cambio.
+     */
+    @Test
+    public void changeStakeHolderTest(){
+        CambioEntity entity = data.get(1);
+        entity = cambioLogic.changeStakeHolder(entity.getId(), sh.getId());
+        StakeHolderEntity entitySH = entity.getAutor();
+        Assert.assertEquals(sh.getId(), entitySH.getId());
+    }
+    
+     /**
+     * Prueba para cambir el objetivo de una aprobación
+     */
+    @Test
+    public void changeObjetivoTest(){
+        CambioEntity entity = data.get(1);
+        entity = cambioLogic.changeObjetivo(entity.getId(), objetivo.getId());
+        ObjetivoEntity entityObjetivo = entity.getObjetivo();
+        Assert.assertEquals(objetivo.getId(), entityObjetivo.getId());
+    }
+    
+     /**
+     * Prueba para cambir el requisito de una aprobación
+     */
+    @Test
+    public void changeRequisitoTest(){
+        CambioEntity entity = data.get(1);
+        entity = cambioLogic.changeRequisito(entity.getId(), requisito.getId());
+        RequisitoEntity entityRequisito = entity.getRequisito();
+        Assert.assertEquals(requisito.getId(), entityRequisito.getId());
     }
 }
