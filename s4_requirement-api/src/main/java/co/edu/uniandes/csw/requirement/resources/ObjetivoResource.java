@@ -10,6 +10,7 @@ import co.edu.uniandes.csw.requirement.dtos.ObjetivoDTO;
 import co.edu.uniandes.csw.requirement.dtos.ObjetivoDetailDTO;
 import co.edu.uniandes.csw.requirement.ejb.ObjetivoLogic;
 import co.edu.uniandes.csw.requirement.entities.ObjetivoEntity;
+import co.edu.uniandes.csw.requirement.exceptions.BusinessLogicException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -34,20 +35,14 @@ public class ObjetivoResource {
     private ObjetivoLogic objetivoLogic;
 
     @POST
-    public ObjetivoDTO createObjetivo(ObjetivoDTO objetivo) {
-        try{
+    public ObjetivoDTO createObjetivo(ObjetivoDTO objetivo) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "ObjetivoResource createObjetivo: input: {0}", objetivo);
         ObjetivoDTO objetivoDTO = new ObjetivoDTO(objetivoLogic.createObjetivo(objetivo.toEntity()));
         LOGGER.log(Level.INFO, "ObjetivoResource createObjetivo: output: {0}", objetivoDTO);
         return objetivoDTO;
-        }
-        catch(Exception e)
-        {
-            return null;
-        }
     }
 
-    /*
+    
     @GET
     public List<ObjetivoDetailDTO> getObjetivos() {
         LOGGER.info("ObjetivoResource getObjetivos: input: void");
@@ -71,7 +66,7 @@ public class ObjetivoResource {
 
     @PUT
     @Path("{objetivosId: \\d+}")
-    public ObjetivoDetailDTO updateObjetivo(@PathParam("objetivosId") Long objetivosId, ObjetivoDetailDTO objetivo) {
+    public ObjetivoDetailDTO updateObjetivo(@PathParam("objetivosId") Long objetivosId, ObjetivoDetailDTO objetivo) throws BusinessLogicException{
         LOGGER.log(Level.INFO, "ObjetivoResource updateObjetivo: input: objetivosId: {0} , objetivo: {1}", new Object[]{objetivosId, objetivo});
         objetivo.setId(objetivosId);
         if (objetivoLogic.getObjetivo(objetivosId) == null) {
@@ -93,14 +88,14 @@ public class ObjetivoResource {
         LOGGER.info("ObjetivoResource deleteObjetivo: output: void");
     }
     
-    //TODO Uno
+    /*TODO Uno
     @Path("{objetivosId: \\d+}/books")
     public Class<ObjetivoBooksResource> getObjetivoBooksResource(@PathParam("objetivosId") Long objetivosId) {
         if (objetivoLogic.getObjetivo(objetivosId) == null) {
             throw new WebApplicationException("El recurso /objetivos/" + objetivosId + " no existe.", 404);
         }
         return ObjetivoBooksResource.class;
-    }
+    }*/
     
     private List<ObjetivoDetailDTO> listEntity2DTO(List<ObjetivoEntity> entityList) {
         List<ObjetivoDetailDTO> list = new ArrayList<>();
@@ -109,5 +104,5 @@ public class ObjetivoResource {
         }
         return list;
     }
-    */
+    
 }

@@ -47,11 +47,11 @@ public class ObjetivoLogic {
 
     public ObjetivoEntity createObjetivo(ObjetivoEntity objetivoEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de creación del autor");
-        if (objetivoEntity.getEstabilidad() < 0 || objetivoEntity.getEstabilidad() > 2) {
-            throw new BusinessLogicException("La estabilidad debe de ser un valor entre 0 y 2");
+        if (objetivoEntity.getEstabilidad() < 1 || objetivoEntity.getEstabilidad() > 3) {
+            throw new BusinessLogicException("La estabilidad debe de ser un valor entre 1 y 3");
         }
-        if (objetivoEntity.getImportancia() < 0 || objetivoEntity.getImportancia() > 2) {
-            throw new BusinessLogicException("La importancia debe de ser un valor entre 0 y 2");
+        if (objetivoEntity.getImportancia() < 1 || objetivoEntity.getImportancia() > 3) {
+            throw new BusinessLogicException("La importancia debe de ser un valor entre 1 y 3");
         }
         if (objetivoEntity.getDescripcion().equals("") || objetivoEntity.getDescripcion() == null) {
             throw new BusinessLogicException("La descripcion no pueden ser nulo o vacio");
@@ -81,11 +81,11 @@ public class ObjetivoLogic {
 
     public ObjetivoEntity updateObjetivo(Long objetivoId, ObjetivoEntity objetivoEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de actualizar el autor con id = {0}", objetivoId);
-        if (objetivoEntity.getEstabilidad() < 0 || objetivoEntity.getEstabilidad() > 2) {
-            throw new BusinessLogicException("La estabilidad debe de ser un valor entre 0 y 2");
+        if (objetivoEntity.getEstabilidad() < 1 || objetivoEntity.getEstabilidad() > 3) {
+            throw new BusinessLogicException("La estabilidad debe de ser un valor entre 1 y 3");
         }
-        if (objetivoEntity.getImportancia() < 0 || objetivoEntity.getImportancia() > 2) {
-            throw new BusinessLogicException("La importancia debe de ser un valor entre 0 y 2");
+        if (objetivoEntity.getImportancia() < 1 || objetivoEntity.getImportancia() > 3) {
+            throw new BusinessLogicException("La importancia debe de ser un valor entre 1 y 3");
         }
         if (objetivoEntity.getDescripcion().equals("") || objetivoEntity.getDescripcion() == null) {
             throw new BusinessLogicException("La descripcion no pueden ser nulo o vacio");
