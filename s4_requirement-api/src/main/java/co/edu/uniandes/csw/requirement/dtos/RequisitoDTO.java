@@ -57,6 +57,7 @@ public class RequisitoDTO implements Serializable{
         requisitoEntity.setImportancia(this.importancia);
         requisitoEntity.setComentarios(this.comentarios);
         requisitoEntity.setEstabilidad(this.estabilidad);
+        requisitoEntity.setTipo(this.tipo);
         return requisitoEntity;
     }
     /**
@@ -118,7 +119,7 @@ public class RequisitoDTO implements Serializable{
     /**
      * @return the importancia
      */
-    public int getImportancia() {
+    public Integer getImportancia() {
         return importancia;
     }
 
@@ -132,7 +133,7 @@ public class RequisitoDTO implements Serializable{
     /**
      * @return the estabilidad
      */
-    public int getEstabilidad() {
+    public Integer getEstabilidad() {
         return estabilidad;
     }
 
