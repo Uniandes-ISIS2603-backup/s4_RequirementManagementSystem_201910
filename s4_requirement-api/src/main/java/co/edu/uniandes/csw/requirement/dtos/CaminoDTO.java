@@ -16,13 +16,29 @@ import java.util.ArrayList;
  */
 public class CaminoDTO implements Serializable
 {
+   /**
+    * Id del paso
+    */
  private Long idPaso;
+ /**
+  * El tipo del paso. Puede ser básico, alternativo o de excepción.
+  */
  private String tipoPaso;
+ /**
+  * Lista de pasos a seguir en un camino.
+  */
  private ArrayList<String> pasos;
  
+ /**
+  * Constructor por defecto.
+  */
  public CaminoDTO(){
  }
  
+ /**
+  * Constructor a partir de la entidad
+  * @param ce la entidad del libro
+  */
  public CaminoDTO(CaminoEntity ce)
     {
         if(ce != null)
@@ -32,7 +48,10 @@ public class CaminoDTO implements Serializable
             this.tipoPaso = ce.getTipoPaso();
         }
  }
- 
+ /**
+  * Método para transformar el DTO a una Entidad
+  * @return la entidad del camino asociado.
+  */
   public CaminoEntity toEntity() {
         CaminoEntity caminoEntity = new CaminoEntity();
         caminoEntity.setId(this.getIdPaso());
@@ -41,28 +60,50 @@ public class CaminoDTO implements Serializable
         return caminoEntity;
     }
  
+  /**
+   * Id del paso.
+   * @return el id del paso.
+   */
  public Long getIdPaso(){
      return idPaso;
  }
   
-  
+  /**
+   * Modifica el id del paso
+   * @param pId el id por el que se quiere cambiar
+   */
   public void setIdPaso(Long pId)
  {
      idPaso = pId;
  }
  
+  /**
+   * El tipo del paso
+   * @return el tipo del paso 
+   */
  public String getTipoPaso(){
      return tipoPaso;
  }
- 
+ /**
+  * Modifica el tipo del paso
+  * @param tipoPasito el tipo de paso por el que se quiere cambiar
+  */
  public void setTipoPaso(String tipoPasito){
      tipoPaso = tipoPasito;
  }
  
+ /**
+  * Lista de pasos de un camino
+  * @return la lista de pasos de un camino 
+  */
   public ArrayList<String> getPasos(){
      return pasos;
  }
  
+  /**
+   * Modifica la lista de pasos de un camino
+   * @param pasitos la lista de pasos a poner
+   */
  public void setPasos(ArrayList<String> pasitos){
      pasos = pasitos;
  }

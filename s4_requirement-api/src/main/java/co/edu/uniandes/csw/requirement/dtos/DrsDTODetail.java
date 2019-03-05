@@ -19,10 +19,16 @@ import java.util.List;
  */
 public class DrsDTODetail extends DrsDTO implements Serializable
 {
+    //Relacion cero a muchos
   private List<ObjetivoDTO> objetivos;
+  //Relacion cero a muchos
   private List<RequisitoDTO> requisitos;
+  //Relacion cero a muchos
   private List<StakeHolderDTO> stakeholders;
     
+  /**
+   * Constructor por defecto
+   */
     public DrsDTODetail(){
         
     }
