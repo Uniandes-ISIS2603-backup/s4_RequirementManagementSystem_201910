@@ -6,8 +6,13 @@
 package co.edu.uniandes.csw.requirement.resources;
 
 import co.edu.uniandes.csw.requirement.dtos.CasoDeUsoDTO;
+import co.edu.uniandes.csw.requirement.ejb.CasoDeUsoLogic;
+import co.edu.uniandes.csw.requirement.entities.CasoDeUsoEntity;
+import co.edu.uniandes.csw.requirement.exceptions.BusinessLogicException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -16,6 +21,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
 
 /**
  *
@@ -25,14 +31,35 @@ import javax.ws.rs.Produces;
 @Produces("application/json")
 @Consumes("application/json")
 @RequestScoped
-public class CasoDeUsoResource {
+public class CasoDeUsoResource {    
     private static final Logger LOGGER = Logger.getLogger(CasoDeUsoResource.class.getName());
     
+    @Inject
+    private CasoDeUsoLogic casoDeUsoLogic;
+    
     @POST
-    public CasoDeUsoDTO crearCasoDeUso(CasoDeUsoDTO casoDeUso)
+    public CasoDeUsoDTO crearCasoDeUso(CasoDeUsoDTO casoDeUso)throws BusinessLogicException
     {
-        return casoDeUso;
+        LOGGER.log(Level.INFO, "CasoDeUsoResource createCasoDeUso: input: {0}", casoDeUso);
+        CasoDeUsoEntity casoEntity = casoDeUso.toEntity();
+        CasoDeUsoEntity nuevocasoEntity = casoDeUsoLogic.createCasoDeUso(casoEntity);
+        CasoDeUsoDTO nuevocasoDTO = new CasoDeUsoDTO(nuevocasoEntity);
+        LOGGER.log(Level.INFO, "CasoDeUsoResource createCasoDeUso: output: {0}", nuevocasoDTO);
+        return nuevocasoDTO;
     }
+    
+    /*@GET
+    @Path("{id: \\d+}")
+    public CasoDeUsoDetailDTO getCasoDeUso(@PathParam("id") Long casoDeUsoId) throws WebApplicationException {
+        LOGGER.log(Level.INFO, "EditorialResource getEditorial: input: {0}", casoDeUsoId);
+        CasoDeUsoEntity casoEntity = casoDeUsoLogic.getCasoDeUso(casoDeUsoId);
+        if (casoEntity == null) {
+            throw new WebApplicationException("El recurso /casos/" + casoDeUsoId + " no existe.", 404);
+        }
+        CasoDeUsoDetailDTO detailDTO = new CasoDeUsoDetailDTO(casoEntity);
+        LOGGER.log(Level.INFO, "CasoDeUsoResource getCasoDeUso: output: {0}", detailDTO);
+        return detailDTO;
+    }*/
     
     @GET
     @Path("{id: \\d+}")
@@ -43,14 +70,14 @@ public class CasoDeUsoResource {
     
      @DELETE
     @Path("{id: \\d+}")
-    public void deleteCasoDeUso (@PathParam("id") Integer id)
+    public void deleteCasoDeUso (@PathParam("id") Long id)
     {
         
     }
     
     @PUT
     @Path("{id: \\d+}")
-    public CasoDeUsoDTO putCasoDeUso (@PathParam("id") Integer id, CasoDeUsoDTO dto)
+    public CasoDeUsoDTO putCasoDeUso (@PathParam("id") Long id, CasoDeUsoDTO dto)
     {
         return null;
     }
