@@ -5,7 +5,6 @@
  */
 package co.edu.uniandes.csw.requirement.dtos;
 
-import co.edu.uniandes.csw.requirement.entities.CasoDeUsoEntity;
 import java.io.Serializable;
 
 /**
@@ -15,29 +14,12 @@ import java.io.Serializable;
 public class CasoDeUsoDTO implements Serializable {
     
     private String nombre;
-    private Long id;
+    private Integer id;
     //private List<CaminoDTO> cursoBasicoEventos;
     
     public CasoDeUsoDTO(){
-                
+        
     }
-    
-    public CasoDeUsoDTO(CasoDeUsoEntity entidad){
-        if (entidad != null) {
-            this.id = entidad.getId();
-            this.nombre = entidad.getNombre();
-            
-        }
-    }
-    
-   public CasoDeUsoEntity toEntity()
-   {
-       CasoDeUsoEntity entidad = new CasoDeUsoEntity();
-       entidad.setId(this.getId());
-       entidad.setNombre(this.getNombre());
-       return entidad;
-   }
-    
 
     /**
      * @return the nombre
@@ -56,14 +38,14 @@ public class CasoDeUsoDTO implements Serializable {
     /**
      * @return the id
      */
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
     
