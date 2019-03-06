@@ -6,8 +6,13 @@
 package co.edu.uniandes.csw.requirement.resources;
 
 import co.edu.uniandes.csw.requirement.dtos.CondicionDTO;
+import co.edu.uniandes.csw.requirement.ejb.CondicionLogic;
+import co.edu.uniandes.csw.requirement.entities.CondicionEntity;
+import co.edu.uniandes.csw.requirement.exceptions.BusinessLogicException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -29,11 +34,18 @@ public class CondicionResource {
     
     private static final Logger LOGGER = Logger.getLogger(CondicionResource.class.getName());
     
+    @Inject
+    private CondicionLogic condicionLogic;
+    
     @POST
-    public CondicionDTO crearCondicion(CondicionDTO condicion)
+    public CondicionDTO crearCondicion(CondicionDTO condicion) throws BusinessLogicException
     {
-        return condicion;
-    }
+        LOGGER.log(Level.INFO, "CondicionResource createCondicion: input: {0}", condicion);
+        CondicionEntity condicionEntity = condicion.toEntity();
+        CondicionEntity nuevaCondicionEntity = condicionLogic.createCondicion(condicionEntity);
+        CondicionDTO nuevacondicionDTO = new CondicionDTO(nuevaCondicionEntity);
+        LOGGER.log(Level.INFO, "CondicionResource createCondicion: output: {0}", nuevacondicionDTO);
+        return nuevacondicionDTO;    }
     
     @GET
     @Path("{id: \\d+}")
