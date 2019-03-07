@@ -11,7 +11,7 @@ import java.util.Date;
 
 /**
  *
- * @author estudiante
+ * @author Emilio
  */
 public class CambioDTO implements Serializable {
     private Long id;
