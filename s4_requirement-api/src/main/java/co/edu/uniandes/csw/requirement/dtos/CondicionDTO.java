@@ -5,26 +5,50 @@
  */
 package co.edu.uniandes.csw.requirement.dtos;
 
+import co.edu.uniandes.csw.requirement.entities.CondicionEntity;
+
 /**
  *
  * @author Sofia Sarmiento
  */
 public class CondicionDTO {
-    private Integer id;
+    private Long id;
     private String descripcion;
     private boolean seCumplio;
 
+    public CondicionDTO(){
+
+    }
+
+    public CondicionDTO(CondicionEntity ce)
+    {
+        if(ce != null)
+        {
+            this.id=ce.getId();
+            this.descripcion=ce.getDescripcion();
+            this.seCumplio=ce.isSeCumplio();
+        }
+    }
+
+  public CondicionEntity toEntity() {
+        CondicionEntity condicionEntity = new CondicionEntity();
+        condicionEntity.setId(this.id);
+        condicionEntity.setDescripcion(this.descripcion);
+        condicionEntity.setSeCumplio(this.seCumplio);
+        return condicionEntity;
+    }
+    
     /**
      * @return the id
      */
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

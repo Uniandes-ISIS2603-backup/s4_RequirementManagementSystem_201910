@@ -61,4 +61,32 @@ public class CondicionEntity extends BaseEntity implements Serializable {
         this.seCumplio = seCumplio;
     }
 
+    /**
+     * @return the casoPrecondiciones
+     */
+    public CasoDeUsoEntity getCasoPrecondiciones() {
+        return casoPrecondiciones;
+    }
+
+    /**
+     * @param casoPrecondiciones the casoPrecondiciones to set
+     */
+    public void setCasoPrecondiciones(CasoDeUsoEntity casoPrecondiciones) {
+        this.casoPrecondiciones = casoPrecondiciones;
+    }
+
+    /**
+     * @return the casoPostcondiciones
+     */
+    public CasoDeUsoEntity getCasoPostcondiciones() {
+        return casoPostcondiciones;
+    }
+
+    /**
+     * @param casoPostcondiciones the casoPostcondiciones to set
+     */
+    public void setCasoPostcondiciones(CasoDeUsoEntity casoPostcondiciones) {
+        this.casoPostcondiciones = casoPostcondiciones;
+    }
+
 }
