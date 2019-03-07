@@ -14,7 +14,7 @@ import javax.persistence.TypedQuery;
 
 /**
  *
- * @author estudiante
+ * @author Emilio
  */
 @Stateless
 public class CambioPersistence {
