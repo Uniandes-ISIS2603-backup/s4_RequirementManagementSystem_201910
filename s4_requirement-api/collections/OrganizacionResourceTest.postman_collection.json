@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "30fb904a-6fcc-4853-a725-7c40cbe0a722",
-		"name": "StakeHolderResourceTest",
+		"_postman_id": "3a524b8b-5b9d-4679-bb81-1fb408d4f1dc",
+		"name": "OrganizacionResourceTest",
 		"description": "StakeHolder Resource Test",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -39,7 +39,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/stakeholders",
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/organizaciones",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -48,7 +48,7 @@
 					"path": [
 						"s4_requirement-api",
 						"api",
-						"stakeholders"
+						"organizaciones"
 					]
 				}
 			},
@@ -62,8 +62,8 @@
 					"script": {
 						"id": "f7402c7b-bc1c-4c52-9c08-29eba5340695",
 						"exec": [
-							"",
-							"tests[\"No genera error en el Get\"] = responseCode.code === 200;"
+							"tests[\"No genera error en el Get\"] = responseCode.code === 200;",
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -87,7 +87,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/stakeholders/100",
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/organizacion/110",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -96,8 +96,8 @@
 					"path": [
 						"s4_requirement-api",
 						"api",
-						"stakeholders",
-						"100"
+						"organizacion",
+						"110"
 					]
 				}
 			},
@@ -111,8 +111,8 @@
 					"script": {
 						"id": "f7402c7b-bc1c-4c52-9c08-29eba5340695",
 						"exec": [
-							"",
-							"tests[\"No se encuentra entidad, id invalido\"] = responseCode.code === 404;"
+							"tests[\"No genera error en el Get\"] = responseCode.code === 200;",
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -136,7 +136,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/stakeholders/000",
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/organizaciones/000",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -145,7 +145,7 @@
 					"path": [
 						"s4_requirement-api",
 						"api",
-						"stakeholders",
+						"organizaciones",
 						"000"
 					]
 				}
@@ -153,14 +153,14 @@
 			"response": []
 		},
 		{
-			"name": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/stakeholders Copy Copy",
+			"name": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/stakeholders Copy Copy Copy",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"id": "f7402c7b-bc1c-4c52-9c08-29eba5340695",
 						"exec": [
-							"tests[\"Se genera error al tratar de agregar la entidad con id existente\"] = responseCode.code === 412;",
+							"tests[\"Se genera error pues el nombre de la entidad ya existe\"] = responseCode.code === 412;",
 							""
 						],
 						"type": "text/javascript"
@@ -179,10 +179,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "    {\n        \"type\": \"stakeHolderDetailDTO\",\n        \"id\": 100,\n        \"nombre\": \"Mateo\",\n        \"tipo\": \"Financiero\"\n    }"
+					"raw": "\t{\n        \"type\": \"organizacionDetailDTO\",\n        \"id\": 330,\n        \"nombre\": \"Tec\",\n        \"sector\": \"Tecnologico\"\n    }"
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/stakeholders",
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/organizaciones",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -191,7 +191,52 @@
 					"path": [
 						"s4_requirement-api",
 						"api",
-						"stakeholders"
+						"organizaciones"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/stakeholders Copy Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f7402c7b-bc1c-4c52-9c08-29eba5340695",
+						"exec": [
+							"tests[\"Se genera error pues el id ya existe\"] = responseCode.code === 412;",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"disabled": false
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\t{\n        \"type\": \"organizacionDetailDTO\",\n        \"id\": 110,\n        \"nombre\": \"Test\",\n        \"sector\": \"Tecnologico\"\n    }"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/organizaciones",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"organizaciones"
 					]
 				}
 			},
@@ -224,10 +269,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "    {\n        \"id\": 300,\n        \"nombre\": \"Jorge\",\n        \"tipo\": \"Ambiental\"\n    }"
+					"raw": "\t{\n        \"type\": \"organizacionDetailDTO\",\n        \"id\": 130,\n        \"nombre\": \"Ambie\",\n        \"sector\": \"Ambiental\"\n    }"
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/stakeholders",
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/organizaciones",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -236,7 +281,7 @@
 					"path": [
 						"s4_requirement-api",
 						"api",
-						"stakeholders"
+						"organizaciones"
 					]
 				}
 			},
@@ -250,8 +295,7 @@
 					"script": {
 						"id": "f7402c7b-bc1c-4c52-9c08-29eba5340695",
 						"exec": [
-							"",
-							"tests[\"Se elimina correctamente la entidad\"] = responseCode.code === 204;"
+							"tests[\"No se encuentra entidad a borrar, id invalido\"] = responseCode.code === 404;"
 						],
 						"type": "text/javascript"
 					}
@@ -272,7 +316,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/stakeholders/100",
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/organizaciones/100",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -281,7 +325,7 @@
 					"path": [
 						"s4_requirement-api",
 						"api",
-						"stakeholders",
+						"organizaciones",
 						"100"
 					]
 				}
@@ -296,7 +340,8 @@
 					"script": {
 						"id": "f7402c7b-bc1c-4c52-9c08-29eba5340695",
 						"exec": [
-							"tests[\"No se encuentra entidad a borrar, id invalido\"] = responseCode.code === 404;"
+							"tests[\"No genera error en el Get\"] = responseCode.code === 200;",
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -334,7 +379,7 @@
 			"response": []
 		},
 		{
-			"name": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/stakeholders Copy Copy Copy Copy Copy",
+			"name": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/stakeholders Copy Copy Copy Copy",
 			"event": [
 				{
 					"listen": "test",
@@ -360,10 +405,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "    {\n        \"type\": \"stakeHolderDetailDTO\",\n        \"id\": 200,\n        \"nombre\": \"Franco\",\n        \"tipo\": \"Logistico\"\n    }"
+					"raw": "\t{\n        \"type\": \"organizacionDetailDTO\",\n        \"id\": 110,\n        \"nombre\": \"Actualizacion\",\n        \"sector\": \"Tecnologico\"\n    }"
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/stakeholders/200",
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/organizaciones/110",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -372,23 +417,23 @@
 					"path": [
 						"s4_requirement-api",
 						"api",
-						"stakeholders",
-						"200"
+						"organizaciones",
+						"110"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/stakeholders Copy Copy Copy Copy",
+			"name": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/stakeholders Copy Copy Copy Copy Copy",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"id": "f7402c7b-bc1c-4c52-9c08-29eba5340695",
 						"exec": [
-							"",
-							"tests[\"No se encuentra entidad a actualizar, id invalido\"] = responseCode.code === 404;"
+							"tests[\"No se encuentra entidad a actualizar, id invalido\"] = responseCode.code === 404;",
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -406,10 +451,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "    {\n        \"type\": \"stakeHolderDetailDTO\",\n        \"id\": 100,\n        \"nombre\": \"Franco\",\n        \"tipo\": \"Logistico\"\n    }"
+					"raw": "\t{\n        \"type\": \"organizacionDetailDTO\",\n        \"id\": 110,\n        \"nombre\": \"Actualizacion\",\n        \"sector\": \"Tecnologico\"\n    }"
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/stakeholders/100",
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/organizaciones/120",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -418,8 +463,8 @@
 					"path": [
 						"s4_requirement-api",
 						"api",
-						"stakeholders",
-						"100"
+						"organizaciones",
+						"120"
 					]
 				}
 			},

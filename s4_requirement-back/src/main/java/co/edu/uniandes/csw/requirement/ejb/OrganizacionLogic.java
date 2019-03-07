@@ -13,29 +13,32 @@ import javax.inject.Inject;
  */
 @Stateless
 public class OrganizacionLogic {
-    
-/**
- * Atributo persistence creado
- */    
+
+    /**
+     * Atributo persistence creado
+     */
     @Inject
     private OrganizacionPersistence persistence;
-    
-    
+
     /**
-     * 
+     *
      * @param organizacion
      * @return organizacion creada
      */
-    public OrganizacionEntity createOrganizacion (OrganizacionEntity organizacion) throws BusinessLogicException{
-       
-        if ((persistence.findByName(organizacion.getNombre()))!= null){
-            throw new BusinessLogicException("Ya existe una organizacion con el nombre: "+organizacion.getNombre());
+    public OrganizacionEntity createOrganizacion(OrganizacionEntity organizacion) throws BusinessLogicException {
+
+        if ((persistence.findByName(organizacion.getNombre())) != null) {
+            throw new BusinessLogicException("Ya existe una organizacion con el nombre: " + organizacion.getNombre());
+        }
+
+        if (persistence.find(organizacion.getId()) != null) {
+            throw new BusinessLogicException("Ya existe una organizacion con ese id: " + organizacion.getId());
         }
         organizacion = persistence.create(organizacion);
         return organizacion;
-    } 
-    
-     /**
+    }
+
+    /**
      * Obtener una organizacion por medio de su id.
      *
      * @param organizacionId: id de la organizacion para ser buscada.
@@ -43,10 +46,13 @@ public class OrganizacionLogic {
      */
     public OrganizacionEntity getOrganizacion(Long organizacionId) {
         OrganizacionEntity organizacion = persistence.find(organizacionId);
+        if (organizacion == null) {
+            return null;
+        }
         return organizacion;
     }
-    
-     /**
+
+    /**
      * Actualizar una organizacion.
      *
      * @param organizationsId: id de la organizacion para buscarla en la base de
@@ -58,8 +64,8 @@ public class OrganizacionLogic {
         OrganizacionEntity newEntity = persistence.update(organizationEntity);
         return newEntity;
     }
-    
-     /**
+
+    /**
      * Borrar un organizacion
      *
      * @param organizacionsId: id de la organizacion a borrar
@@ -69,14 +75,15 @@ public class OrganizacionLogic {
         OrganizacionEntity organizacionEntity = persistence.find(organizacionsId);
         persistence.delete(organizacionsId);
     }
-    
-     /**
+
+    /**
      * Obtener todas las organizaciones existentes en la base de datos.
+     *
      * @return una lista de organizaciones.
      */
     public List<OrganizacionEntity> getOrganizaciones() {
         List<OrganizacionEntity> organizaciones = persistence.findAll();
         return organizaciones;
     }
-    
+
 }

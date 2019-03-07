@@ -41,6 +41,7 @@ public class OrganizacionDetailDTO extends OrganizacionDTO implements Serializab
      * Convierte el DTO en una entidad
      * @return entidad organizacion
      */
+    @Override
     public OrganizacionEntity toEntity(){
         OrganizacionEntity entidad = super.toEntity();
         
