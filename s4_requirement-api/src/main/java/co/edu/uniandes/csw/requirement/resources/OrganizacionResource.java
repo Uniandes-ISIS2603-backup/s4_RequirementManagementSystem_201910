@@ -41,8 +41,8 @@ public class OrganizacionResource {
     @POST
     public OrganizacionDTO createOrganizacion(OrganizacionDTO organizacion) throws BusinessLogicException {
 
-        OrganizacionEntity organizacionntity = organizacion.toEntity();
-        OrganizacionEntity nuevaOrganizacion = logica.createOrganizacion(organizacionntity);
+        OrganizacionEntity organizacioEntity = organizacion.toEntity();
+        OrganizacionEntity nuevaOrganizacion = logica.createOrganizacion(organizacioEntity);
         OrganizacionDTO nuevaOrganizacionDTO = new OrganizacionDTO(nuevaOrganizacion);
         return nuevaOrganizacionDTO;
     }
