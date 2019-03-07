@@ -7,29 +7,45 @@ import java.io.Serializable;
  *
  * @author Mateo Pedroza
  */
-public class OrganizacionDTO implements Serializable{
-    
+public class OrganizacionDTO implements Serializable {
+
     private String sector;
     private String nombre;
-    private long id;
+    private Long id;
 
     public OrganizacionDTO() {
 
     }
-    
+
     /**
      * Constructor a partir de la entidad con pertenencias necesarias
-     * @param entidad 
+     *
+     * @param entidad
      */
     public OrganizacionDTO(OrganizacionEntity entidad) {
-        setId(entidad.getId());
-        setNombre(entidad.getNombre());
-        setSector(entidad.getSector());
+        if (entidad != null) {
+            this.id = entidad.getId();
+            this.nombre = entidad.getNombre();
+            this.sector = entidad.getSector();
+        }
+    }
+
+    /**
+     * Método para transformar el DTO a una entidad.
+     *
+     * @return entidad organizacion
+     */
+    public OrganizacionEntity toEntity() {
+        OrganizacionEntity entidad = new OrganizacionEntity();
+        entidad.setId(this.id);
+        entidad.setNombre(this.nombre);
+        entidad.setSector(this.sector);
+        return entidad;
     }
 
     /*
     Getters y Setter de atributos
-    */
+     */
     public String getSector() {
         return sector;
     }
@@ -46,7 +62,7 @@ public class OrganizacionDTO implements Serializable{
         this.nombre = nombre;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -54,17 +70,4 @@ public class OrganizacionDTO implements Serializable{
         this.id = id;
     }
 
-    /**
-     * Método para transformar el DTO a una entidad.
-     * @return entidad organizacion
-     */
-    public OrganizacionEntity toEntity() {
-        OrganizacionEntity entidad = new OrganizacionEntity();
-        entidad.setId(this.getId());
-        entidad.setNombre(this.getNombre());
-        entidad.setSector(this.getSector());
-        return entidad;
-    }
-    
-    
 }
