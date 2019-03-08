@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.requirement.dtos;
 
 import co.edu.uniandes.csw.requirement.entities.CaminoEntity;
+import co.edu.uniandes.csw.requirement.entities.CaminoEntity.TipoCamino;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -22,7 +23,7 @@ public class CaminoDTO implements Serializable
  /**
   * El tipo del paso. Puede ser básico, alternativo o de excepción.
   */
- private String tipoPaso;
+ private TipoCamino tipoPaso;
  /**
   * Lista de pasos a seguir en un camino.
   */
@@ -44,7 +45,7 @@ public class CaminoDTO implements Serializable
         {
             this.idPaso = ce.getId();
             this.pasos = ce.getPasos();
-            this.tipoPaso = ce.getTipoPaso();
+            this.tipoPaso = ce.getTipoCamino();
         }
  }
  /**
@@ -55,7 +56,7 @@ public class CaminoDTO implements Serializable
         CaminoEntity caminoEntity = new CaminoEntity();
         caminoEntity.setId(this.getIdPaso());
         caminoEntity.setPasos(this.pasos);
-        caminoEntity.setTipoPaso(this.tipoPaso);
+        caminoEntity.setTipoCamino(this.tipoPaso);
         return caminoEntity;
     }
  
@@ -80,14 +81,14 @@ public class CaminoDTO implements Serializable
    * El tipo del paso
    * @return el tipo del paso 
    */
- public String getTipoPaso(){
+ public TipoCamino getTipoPaso(){
      return tipoPaso;
  }
  /**
   * Modifica el tipo del paso
   * @param tipoPasito el tipo de paso por el que se quiere cambiar
   */
- public void setTipoPaso(String tipoPasito){
+ public void setTipoPaso(TipoCamino tipoPasito){
      tipoPaso = tipoPasito;
  }
  

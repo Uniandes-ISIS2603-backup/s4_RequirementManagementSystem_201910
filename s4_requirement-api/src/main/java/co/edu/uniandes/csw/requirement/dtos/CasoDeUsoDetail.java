@@ -19,9 +19,8 @@ import java.util.List;
 public class CasoDeUsoDetail extends CasoDeUsoDTO implements Serializable
 {
     
-    private CaminoDTO caminoBasico;
-    private List<CaminoDTO> caminosExcepcion;
-    private List<CaminoDTO> caminosAlternativos;
+ 
+    private List<CaminoDTO> caminos;
     private List<CondicionDTO> precondiciones;
     private List<CondicionDTO> postcondiciones;
 
@@ -35,16 +34,9 @@ public class CasoDeUsoDetail extends CasoDeUsoDTO implements Serializable
         super(casoDeUsoEntity);
         if(casoDeUsoEntity!=null)
         {
-            if (casoDeUsoEntity.getCursoBasicoDeEventos() != null) {
-            this.caminoBasico = new CaminoDTO(casoDeUsoEntity.getCursoBasicoDeEventos());
-            }
-            caminosExcepcion = new ArrayList<>();
-            for (CaminoEntity actual : casoDeUsoEntity.getCaminosDeExcepcion()) {
-                caminosExcepcion.add(new CaminoDTO(actual));
-            }
-            caminosAlternativos = new ArrayList<>();
-            for (CaminoEntity actual : casoDeUsoEntity.getCaminosAlternativos()) {
-                caminosAlternativos.add(new CaminoDTO(actual));
+            caminos = new ArrayList<>();
+            for (CaminoEntity actual : casoDeUsoEntity.getCaminos()) {
+                caminos.add(new CaminoDTO(actual));
             }
             precondiciones = new ArrayList<>();
             for (CondicionEntity actual : casoDeUsoEntity.getPrecondiciones()) {
@@ -62,22 +54,12 @@ public class CasoDeUsoDetail extends CasoDeUsoDTO implements Serializable
     @Override
     public CasoDeUsoEntity toEntity() {
         CasoDeUsoEntity casoEntity = super.toEntity();
-        if (getCaminoBasico()!= null) {
-            casoEntity.setCursoBasicoDeEventos(getCaminoBasico().toEntity());
-        }
-        if (caminosExcepcion != null) {
+        if (caminos != null) {
             List<CaminoEntity> caminosEEntity = new ArrayList<>();
-            for (CaminoDTO dtoCaminoE : caminosExcepcion) {
+            for (CaminoDTO dtoCaminoE : caminos) {
                 caminosEEntity.add(dtoCaminoE.toEntity());
             }
-            casoEntity.setCaminosDeExcepcion(caminosEEntity);
-        }
-        if (caminosAlternativos != null) {
-            List<CaminoEntity> caminosAEntity = new ArrayList<>();
-            for (CaminoDTO dtoCaminoA : caminosAlternativos) {
-                caminosAEntity.add(dtoCaminoA.toEntity());
-            }
-            casoEntity.setCaminosDeExcepcion(caminosAEntity);
+            casoEntity.setCaminos(caminosEEntity);
         }
 
         if (precondiciones != null) {
@@ -97,47 +79,24 @@ public class CasoDeUsoDetail extends CasoDeUsoDTO implements Serializable
         return casoEntity;
     }
     
+  
+
+  
     /**
-     * @return the caminoBasico
+     * @return the caminos
      */
-    public CaminoDTO getCaminoBasico() {
-        return caminoBasico;
+    public List<CaminoDTO> getCaminos() {
+        return caminos;
     }
 
     /**
-     * @param caminoBasico the caminoBasico to set
+     * @param caminosExcepcion the caminos to set
      */
-    public void setCaminoBasico(CaminoDTO caminoBasico) {
-        this.caminoBasico = caminoBasico;
+    public void setCaminosExcepcion(List<CaminoDTO> caminos) {
+        this.caminos = caminos;
     }
 
-    /**
-     * @return the caminosExcepcion
-     */
-    public List<CaminoDTO> getCaminosExcepcion() {
-        return caminosExcepcion;
-    }
-
-    /**
-     * @param caminosExcepcion the caminosExcepcion to set
-     */
-    public void setCaminosExcepcion(List<CaminoDTO> caminosExcepcion) {
-        this.caminosExcepcion = caminosExcepcion;
-    }
-
-    /**
-     * @return the caminosAlternativos
-     */
-    public List<CaminoDTO> getCaminosAlternativos() {
-        return caminosAlternativos;
-    }
-
-    /**
-     * @param caminosAlternativos the caminosAlternativos to set
-     */
-    public void setCaminosAlternativos(List<CaminoDTO> caminosAlternativos) {
-        this.caminosAlternativos = caminosAlternativos;
-    }
+ 
 
     /**
      * @return the precondiciones

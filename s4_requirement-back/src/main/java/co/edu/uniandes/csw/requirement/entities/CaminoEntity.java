@@ -19,25 +19,26 @@ import uk.co.jemos.podam.common.PodamExclude;
 @Entity
 public class CaminoEntity extends BaseEntity implements Serializable {
 
-   public final static String BASICO = "BASICO";
-   public final static String EXCEPCION = "EXCEPCION";
-   public final static String ALTERNATIVO = "ALTERNATIVO";
+    public enum TipoCamino
+    {
+        BASICO,
+        EXCEPCION,
+        ALTERNATIVO
+    }
+    
 
-    private String tipoPaso;
+    private TipoCamino tipoCamino;
     private ArrayList<String> pasos;
 
-    @PodamExclude
-    @OneToOne
-    private CasoDeUsoEntity casoCursoBasicoDeEventos;
+
 
     @PodamExclude
     @ManyToOne
-    private CasoDeUsoEntity casoCaminosDeExcepcion;
+    private CasoDeUsoEntity caminos;
 
-    @PodamExclude
-    @ManyToOne
-    private CasoDeUsoEntity casoCaminosAlternativos;
-
+    /**
+     * Constructor vacío por defecto
+     */
     public CaminoEntity() {
 
     }
@@ -59,15 +60,15 @@ public class CaminoEntity extends BaseEntity implements Serializable {
       /**
      * @return the descripcionPaso
      */
-    public String getTipoPaso() {
-        return tipoPaso;
+    public TipoCamino getTipoCamino() {
+        return tipoCamino;
     }
 
     /**
-     * @param descripcionPaso to set
+     * @param tipoPasito to set
      */
-    public void setTipoPaso(String tipoPasito) {
-        this.tipoPaso = tipoPasito;
+    public void setTipoCamino(TipoCamino tipoPasito) {
+        this.tipoCamino = tipoPasito;
     }
 
 }

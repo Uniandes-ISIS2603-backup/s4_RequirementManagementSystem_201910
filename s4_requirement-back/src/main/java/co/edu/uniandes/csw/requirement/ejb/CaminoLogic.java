@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.requirement.ejb;
 
 
 import co.edu.uniandes.csw.requirement.entities.CaminoEntity;
+import co.edu.uniandes.csw.requirement.entities.CaminoEntity.TipoCamino;
 import co.edu.uniandes.csw.requirement.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.requirement.persistence.CaminoPersistence;
 import java.util.List;
@@ -43,11 +44,11 @@ public class CaminoLogic {
         if (persistence.find(caminoEntity.getId()) != null) {
             throw new BusinessLogicException("Ya existe un Camino con el id \"" + caminoEntity.getId() + "\"");
         }
-        if (caminoEntity.getTipoPaso() == null)
+        if (caminoEntity.getTipoCamino() == null)
         {
            throw new BusinessLogicException("El tipo de camino no puede ser null");
         }
-        if (!(caminoEntity.getTipoPaso().equals(CaminoEntity.BASICO) || caminoEntity.getTipoPaso().equals(CaminoEntity.ALTERNATIVO) || caminoEntity.getTipoPaso().equals(CaminoEntity.EXCEPCION)) ){
+        if (!(caminoEntity.getTipoCamino().equals(TipoCamino.BASICO) || caminoEntity.getTipoCamino().equals(TipoCamino.ALTERNATIVO) || caminoEntity.getTipoCamino().equals(TipoCamino.EXCEPCION)) ){
             throw new BusinessLogicException("El tipo de camino sólo puede ser básico, de excepción o alternativo");
         }
         if(caminoEntity.getPasos().isEmpty()){
