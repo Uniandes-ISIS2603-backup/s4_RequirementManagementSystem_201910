@@ -27,16 +27,8 @@ public class CasoDeUsoEntity extends BaseEntity implements Serializable {
     private RequisitoEntity requisito;
 
     @PodamExclude
-    @OneToOne(mappedBy="casoCursoBasicoDeEventos", fetch = FetchType.LAZY)
-    private CaminoEntity cursoBasicoDeEventos;
-
-    @PodamExclude
-    @OneToMany(mappedBy = "casoCaminosDeExcepcion", cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private List<CaminoEntity> caminosDeExcepcion = new ArrayList<CaminoEntity>();
-
-    @PodamExclude
-    @OneToMany(mappedBy = "casoCaminosAlternativos", cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private List<CaminoEntity> caminosAlternativos = new ArrayList<>();
+    @OneToMany(mappedBy = "caminos", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<CaminoEntity> caminos = new ArrayList<CaminoEntity>();
 
     @PodamExclude
     @OneToMany(mappedBy = "casoPrecondiciones", cascade = CascadeType.PERSIST, orphanRemoval = true)
@@ -78,47 +70,7 @@ public class CasoDeUsoEntity extends BaseEntity implements Serializable {
         this.requisito = requisito;
     }
 
-    /**
-     * @return the cursoBasicoDeEventos
-     */
-    public CaminoEntity getCursoBasicoDeEventos() {
-        return cursoBasicoDeEventos;
-    }
-
-    /**
-     * @param cursoBasicoDeEventos the cursoBasicoDeEventos to set
-     */
-    public void setCursoBasicoDeEventos(CaminoEntity cursoBasicoDeEventos) {
-        this.cursoBasicoDeEventos = cursoBasicoDeEventos;
-    }
-
-    /**
-     * @return the caminosDeExcepcion
-     */
-    public List<CaminoEntity> getCaminosDeExcepcion() {
-        return caminosDeExcepcion;
-    }
-
-    /**
-     * @param caminosDeExcepcion the caminosDeExcepcion to set
-     */
-    public void setCaminosDeExcepcion(List<CaminoEntity> caminosDeExcepcion) {
-        this.caminosDeExcepcion = caminosDeExcepcion;
-    }
-
-    /**
-     * @return the caminosAlternativos
-     */
-    public List<CaminoEntity> getCaminosAlternativos() {
-        return caminosAlternativos;
-    }
-
-    /**
-     * @param caminosAlternativos the caminosAlternativos to set
-     */
-    public void setCaminosAlternativos(List<CaminoEntity> caminosAlternativos) {
-        this.caminosAlternativos = caminosAlternativos;
-    }
+    
 
     /**
      * @return the precondiciones
@@ -146,6 +98,20 @@ public class CasoDeUsoEntity extends BaseEntity implements Serializable {
      */
     public void setPostcondiciones(List<CondicionEntity> postcondiciones) {
         this.postcondiciones = postcondiciones;
+    }
+
+    /**
+     * @return the caminos
+     */
+    public List<CaminoEntity> getCaminos() {
+        return caminos;
+    }
+    
+     /**
+     * @return the caminos
+     */
+    public void setCaminos(List<CaminoEntity> caminitos) {
+       this.caminos = caminitos;
     }
 
 }
