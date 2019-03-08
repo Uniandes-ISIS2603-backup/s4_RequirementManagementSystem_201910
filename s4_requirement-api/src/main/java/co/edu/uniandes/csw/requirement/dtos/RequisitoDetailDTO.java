@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.requirement.dtos;
 
 import co.edu.uniandes.csw.requirement.entities.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,7 @@ import java.util.List;
  *
  * @author Jorge Esguerra
  */
-public class RequisitoDetailDTO extends RequisitoDTO {
+public class RequisitoDetailDTO extends RequisitoDTO implements Serializable{
     
     private List<CambioDTO> cambios;
     private List<ObjetivoDTO> objetivos;
