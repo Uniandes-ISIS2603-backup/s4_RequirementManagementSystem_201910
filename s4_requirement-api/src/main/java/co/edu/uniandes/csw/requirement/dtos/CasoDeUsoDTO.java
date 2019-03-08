@@ -22,13 +22,14 @@ public class CasoDeUsoDTO implements Serializable {
         
     }
 
-        public CasoDeUsoDTO(CasoDeUsoEntity entidad){
+    public CasoDeUsoDTO(CasoDeUsoEntity entidad){
         if (entidad != null) {
             this.id = entidad.getId();
             this.nombre = entidad.getNombre();
 
         }
     }
+    
 
    public CasoDeUsoEntity toEntity()
    {
