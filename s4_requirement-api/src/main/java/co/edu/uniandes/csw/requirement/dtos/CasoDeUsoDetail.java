@@ -21,8 +21,7 @@ public class CasoDeUsoDetail extends CasoDeUsoDTO implements Serializable
     
  
     private List<CaminoDTO> caminos;
-    private List<CondicionDTO> precondiciones;
-    private List<CondicionDTO> postcondiciones;
+    private List<CondicionDTO> condiciones;
 
     public CasoDeUsoDetail()
     {
@@ -38,13 +37,9 @@ public class CasoDeUsoDetail extends CasoDeUsoDTO implements Serializable
             for (CaminoEntity actual : casoDeUsoEntity.getCaminos()) {
                 caminos.add(new CaminoDTO(actual));
             }
-            precondiciones = new ArrayList<>();
-            for (CondicionEntity actual : casoDeUsoEntity.getPrecondiciones()) {
-                precondiciones.add(new CondicionDTO(actual));
-            }
-            postcondiciones = new ArrayList<>();
-            for (CondicionEntity actual : casoDeUsoEntity.getPrecondiciones()) {
-                postcondiciones.add(new CondicionDTO(actual));
+            condiciones = new ArrayList<>();
+            for (CondicionEntity actual : casoDeUsoEntity.getCondiciones()) {
+                condiciones.add(new CondicionDTO(actual));
             }
 
         }
@@ -62,20 +57,14 @@ public class CasoDeUsoDetail extends CasoDeUsoDTO implements Serializable
             casoEntity.setCaminos(caminosEEntity);
         }
 
-        if (precondiciones != null) {
-            List<CondicionEntity> condicionesPreEntity = new ArrayList<>();
-            for (CondicionDTO dtoCondicionPre : precondiciones) {
-                condicionesPreEntity.add(dtoCondicionPre.toEntity());
+        if (condiciones != null) {
+            List<CondicionEntity> condicionesEntity = new ArrayList<>();
+            for (CondicionDTO dtoCondicion : condiciones) {
+                condicionesEntity.add(dtoCondicion.toEntity());
             }
-            casoEntity.setPrecondiciones(condicionesPreEntity);
+            casoEntity.setCondiciones(condicionesEntity);
         }
-        if (postcondiciones != null) {
-            List<CondicionEntity> condicionesPosEntity = new ArrayList<>();
-            for (CondicionDTO dtoCondicionPos : precondiciones) {
-                condicionesPosEntity.add(dtoCondicionPos.toEntity());
-            }
-            casoEntity.setPrecondiciones(condicionesPosEntity);
-        }
+        
         return casoEntity;
     }
     
@@ -101,29 +90,16 @@ public class CasoDeUsoDetail extends CasoDeUsoDTO implements Serializable
     /**
      * @return the precondiciones
      */
-    public List<CondicionDTO> getPrecondiciones() {
-        return precondiciones;
+    public List<CondicionDTO> getCondiciones() {
+        return condiciones;
     }
 
     /**
      * @param precondiciones the precondiciones to set
      */
-    public void setPrecondiciones(List<CondicionDTO> precondiciones) {
-        this.precondiciones = precondiciones;
+    public void setCondiciones(List<CondicionDTO> condiciones) {
+        this.condiciones = condiciones;
     }
 
-    /**
-     * @return the postcondiciones
-     */
-    public List<CondicionDTO> getPostcondiciones() {
-        return postcondiciones;
-    }
-
-    /**
-     * @param postcondiciones the postcondiciones to set
-     */
-    public void setPostcondiciones(List<CondicionDTO> postcondiciones) {
-        this.postcondiciones = postcondiciones;
-    }
 
 }
