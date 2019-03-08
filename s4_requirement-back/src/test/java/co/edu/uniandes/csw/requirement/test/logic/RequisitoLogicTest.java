@@ -8,7 +8,6 @@ import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 import co.edu.uniandes.csw.requirement.ejb.RequisitoLogic;
 import co.edu.uniandes.csw.requirement.entities.RequisitoEntity;
-import co.edu.uniandes.csw.requirement.entities.StakeHolderEntity;
 import co.edu.uniandes.csw.requirement.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.requirement.persistence.RequisitoPersistence;
 import java.util.ArrayList;
@@ -136,7 +135,7 @@ public class RequisitoLogicTest {
         {
             RequisitoEntity result = reqLogic.createRequisito(newEntity);
             Assert.assertNotNull(result);
-            System.out.println("Aquí llego");
+            //System.out.println("Aquí llego");
             RequisitoEntity entity = em.find(RequisitoEntity.class, result.getId());
             Assert.assertEquals(newEntity.getId(), entity.getId());
             Assert.assertEquals(newEntity.getComentarios(), (entity.getComentarios()));
