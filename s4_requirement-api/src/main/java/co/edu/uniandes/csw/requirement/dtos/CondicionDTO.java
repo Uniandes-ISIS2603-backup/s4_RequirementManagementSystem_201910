@@ -15,7 +15,7 @@ import java.io.Serializable;
 public class CondicionDTO implements Serializable{
     private Long id;
     private String descripcion;
-    private boolean seCumplio;
+    private Boolean seCumplio;
 
     public CondicionDTO(){
 
@@ -70,7 +70,7 @@ public class CondicionDTO implements Serializable{
     /**
      * @return the seCumplio
      */
-    public boolean isSeCumplio() {
+    public Boolean isSeCumplio() {
         return seCumplio;
     }
 
