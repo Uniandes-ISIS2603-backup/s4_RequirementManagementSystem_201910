@@ -19,7 +19,7 @@ public class CondicionEntity extends BaseEntity implements Serializable {
 
     private String descripcion;
 
-    private boolean seCumplio;
+    private Boolean seCumplio;
 
     @PodamExclude
     @ManyToOne
@@ -50,7 +50,7 @@ public class CondicionEntity extends BaseEntity implements Serializable {
     /**
      * @return the seCumplio
      */
-    public boolean isSeCumplio() {
+    public Boolean isSeCumplio() {
         return seCumplio;
     }
 
