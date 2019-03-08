@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 @Stateless
 public class RequisitoLogic {
 
-    private static final Logger LOGGER = Logger.getLogger(CascaraLogic.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(RequisitoLogic.class.getName());
     @Inject
     private RequisitoPersistence persistence;
 

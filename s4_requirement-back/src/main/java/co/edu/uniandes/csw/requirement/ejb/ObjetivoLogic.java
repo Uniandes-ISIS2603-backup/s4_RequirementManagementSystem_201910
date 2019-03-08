@@ -40,7 +40,7 @@ import javax.inject.Inject;
 @Stateless
 public class ObjetivoLogic {
 
-    private static final Logger LOGGER = Logger.getLogger(CascaraLogic.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(ObjetivoLogic.class.getName());
 
     @Inject
     private ObjetivoPersistence objetivoPersistence;
