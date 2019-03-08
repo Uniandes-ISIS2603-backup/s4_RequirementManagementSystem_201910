@@ -126,8 +126,7 @@ public class RequisitoLogicTest {
     public void createRequisitoTest() 
     {
         RequisitoEntity newEntity = factory.manufacturePojo(RequisitoEntity.class);
-        // StakeHolderEntity x = factory.manufacturePojo(StakeHolderEntity.class); 
-        newEntity.setEstabilidad(0);
+        newEntity.setEstabilidad(1);
         newEntity.setDescripcion("Hola, soy correcta");
         newEntity.setImportancia(2);
         newEntity.setTipo("FUNCIONAL");
@@ -136,7 +135,6 @@ public class RequisitoLogicTest {
         {
             RequisitoEntity result = reqLogic.createRequisito(newEntity);
             Assert.assertNotNull(result);
-            System.out.println("Aquí llego");
             RequisitoEntity entity = em.find(RequisitoEntity.class, result.getId());
             Assert.assertEquals(newEntity.getId(), entity.getId());
             Assert.assertEquals(newEntity.getComentarios(), (entity.getComentarios()));
