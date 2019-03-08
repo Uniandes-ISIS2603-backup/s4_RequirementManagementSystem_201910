@@ -31,7 +31,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
  *
- * @author estudiante
+ * @author Emilio
  */
 @RunWith(Arquillian.class)
 public class CambioLogicTest {

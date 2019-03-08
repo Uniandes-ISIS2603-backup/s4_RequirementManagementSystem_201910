@@ -36,7 +36,7 @@ import javax.ws.rs.core.MediaType;
 
 /**
  *
- * @author estudiante
+ * @author Emilio
  */
 @Path("cambios")
 @Produces(MediaType.APPLICATION_JSON)
@@ -103,7 +103,7 @@ public class CambioResource{
         if(aprobacion == null){
             throw new WebApplicationException("El recurso /aprobaciones/"+idCambio+" no existe.", 404);
         }
-        /*StakeHolderEntity stakeHolder = requisitoLogic.find(idRequisito);
+        /*StakeHolderEntity stakeHolder = stakeholderLogic.find(idAprobador);
         if(stakeholder == null){
             throw new WebApplicationException("El recurso /stakeholders/"+idAprobador+" no existe.", 404);
         }

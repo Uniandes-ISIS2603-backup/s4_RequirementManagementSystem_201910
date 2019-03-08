@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author estudiante
+ * @author Emilio
  */
 public class AprobacionDTO implements Serializable{
     

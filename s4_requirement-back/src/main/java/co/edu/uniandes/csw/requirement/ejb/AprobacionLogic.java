@@ -22,7 +22,7 @@ import javax.inject.Inject;
 
 /**
  *
- * @author estudiante
+ * @author Emilio
  */
 @Stateless
 public class AprobacionLogic {

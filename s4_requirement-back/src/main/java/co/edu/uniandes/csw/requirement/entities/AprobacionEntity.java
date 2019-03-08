@@ -23,15 +23,15 @@ public class AprobacionEntity extends BaseEntity implements Serializable {
     private String comentario;
     
     @PodamExclude
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private StakeHolderEntity stakeholder;
     
     @PodamExclude
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private ObjetivoEntity objetivo;
     
     @PodamExclude
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private RequisitoEntity requisito;
     
      /**

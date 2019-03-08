@@ -21,7 +21,7 @@ import javax.inject.Inject;
 
 /**
  *
- * @author estudiante
+ * @author Emilio
  */
 @Stateless
 public class CambioLogic {
@@ -41,9 +41,9 @@ public class CambioLogic {
     private static final Logger LOGGER = Logger.getLogger(CambioLogic.class.getName());
     
     public CambioEntity createCambio(CambioEntity cambio) throws BusinessLogicException{
-        if(cambio.getFechaYHora() == null){
+        /*if(cambio.getFechaYHora() == null){
             throw new BusinessLogicException("La fecha y hora del cambio no pueden ser nulos.");
-        }
+        }*/
         if(cambio.getTipo() == null){
             throw new BusinessLogicException("El tipo del cambio no puede ser nulo.");
         }
