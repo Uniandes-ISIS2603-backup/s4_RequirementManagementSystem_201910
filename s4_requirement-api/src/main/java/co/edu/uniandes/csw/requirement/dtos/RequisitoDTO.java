@@ -15,42 +15,35 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  *
  * @author Jorge Esguerra
  */
-public class RequisitoDTO implements Serializable{
+public class RequisitoDTO implements Serializable {
 
     private String tipo, descripcion, comentarios;
     private Long id;
     private Integer importancia, estabilidad;
-    
+
     private StakeHolderDTO autor;
-    
-    public RequisitoDTO()
-    {
-        
+
+    public RequisitoDTO() {
+
     }
-    
-    public RequisitoDTO(RequisitoEntity re)
-    {
-        if(re != null)
-        {
+
+    public RequisitoDTO(RequisitoEntity re) {
+        if (re != null) {
             this.id = re.getId();
             this.descripcion = re.getDescripcion();
             this.importancia = re.getImportancia();
             this.estabilidad = re.getEstabilidad();
             this.comentarios = re.getComentarios();
-            if(re.getAutor() != null)
-            {
+            this.tipo = re.getTipo();
+            if (re.getAutor() != null) {
                 this.autor = new StakeHolderDTO(re.getAutor());
-            }
-            else
-            {
+            } else {
                 re.setAutor(null);
             }
-            this.tipo = re.getTipo();
         }
     }
-    
-    public RequisitoEntity toEntity() 
-    {
+
+    public RequisitoEntity toEntity() {
         RequisitoEntity requisitoEntity = new RequisitoEntity();
         requisitoEntity.setId(this.getId());
         requisitoEntity.setDescripcion(this.descripcion);
@@ -60,6 +53,7 @@ public class RequisitoDTO implements Serializable{
         requisitoEntity.setTipo(this.tipo);
         return requisitoEntity;
     }
+
     /**
      * @return the tipo
      */
@@ -157,10 +151,10 @@ public class RequisitoDTO implements Serializable{
     public void setAutor(StakeHolderDTO autor) {
         this.autor = autor;
     }
-    
+
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
-    
+
 }

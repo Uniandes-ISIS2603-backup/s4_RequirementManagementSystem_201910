@@ -15,7 +15,7 @@ import javax.inject.Inject;
 
 /**
  *
- * @author davidmanosalva
+ * @author David Manosalva & Sofia Alvarez
  */
 @Stateless
 public class ObjetivoDRSLogic {

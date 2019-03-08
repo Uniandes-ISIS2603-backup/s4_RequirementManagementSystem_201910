@@ -91,7 +91,7 @@ public class ObjetivoLogicTest {
         try {
             ObjetivoEntity newEntity = factory.manufacturePojo(ObjetivoEntity.class);
             newEntity.setEstabilidad(1);
-            newEntity.setImportancia(0);
+            newEntity.setImportancia(3);
             ObjetivoEntity result = objetivoLogic.createObjetivo(newEntity);
             Assert.assertNotNull(result);
             ObjetivoEntity entity = em.find(ObjetivoEntity.class, result.getId());
