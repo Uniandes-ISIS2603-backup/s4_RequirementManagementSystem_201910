@@ -37,7 +37,7 @@ import javax.ws.rs.core.MediaType;
 
 /**
  *
- * @author estudiante
+ * @author Emilio
  */
 @Path("aprobaciones")
 @Produces(MediaType.APPLICATION_JSON)

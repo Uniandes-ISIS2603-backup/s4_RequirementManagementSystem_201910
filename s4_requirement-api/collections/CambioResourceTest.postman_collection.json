@@ -1,0 +1,135 @@
+{
+	"info": {
+		"_postman_id": "7fc39a98-a548-440d-ba4f-1f79edd39cb1",
+		"name": "CambioResourceTest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/cambios",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "44675d04-27fc-4055-8b87-e45f19e8343a",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"id_Cambio1\",data.id);",
+							"tests[\"no genera error el Post de Cambio\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"tipo\": \"TEST\", \r\n\"descripcion\": \"Modificacion de importancia de un objetivo\",\r\n\"requisito\":{},\r\n\"autor\":{},\r\n\"objetivo\":{}\r\n}\r\n\r\n"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/cambios",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"cambios"
+					]
+				},
+				"description": "Post Cambio"
+			},
+			"response": []
+		},
+		{
+			"name": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/cambios",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "aeff5451-d336-4f20-b900-bdf5f866caf8",
+						"exec": [
+							"tests[\"No genera error en el Get de cambios\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/cambios",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"cambios"
+					]
+				},
+				"description": "Get cambios"
+			},
+			"response": []
+		},
+		{
+			"name": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/cambios/{{id_Cambio1}}",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5cf29d0b-fe23-4eb8-8e22-76011bc072ee",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Get de un cambio\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/cambios/{{id_Cambio1}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"cambios",
+						"{{id_Cambio1}}"
+					]
+				},
+				"description": "Get de un cambio con por id"
+			},
+			"response": []
+		}
+	]
+}

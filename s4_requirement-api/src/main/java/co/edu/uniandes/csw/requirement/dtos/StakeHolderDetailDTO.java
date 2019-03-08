@@ -14,7 +14,7 @@ import java.util.List;
 public class StakeHolderDetailDTO extends StakeHolderDTO implements Serializable{
     
 //private List<>
-    //relacion 1 a 1
+
     private List<CambioDTO> cambios;
     private List<AprobacionDTO> aprobaciones;
     
@@ -59,6 +59,15 @@ public class StakeHolderDetailDTO extends StakeHolderDTO implements Serializable
             }
             
             entidad.setCambios(cambioEntity);
+        }
+        
+        if(aprobaciones != null){
+            List<AprobacionEntity> aprobacionEntity = new ArrayList();
+            for(AprobacionDTO dtoCambio : aprobaciones){
+                aprobacionEntity.add(dtoCambio.toEntity());
+            }
+            
+            entidad.setAprobaciones(aprobacionEntity);
         }
         return entidad;
     }

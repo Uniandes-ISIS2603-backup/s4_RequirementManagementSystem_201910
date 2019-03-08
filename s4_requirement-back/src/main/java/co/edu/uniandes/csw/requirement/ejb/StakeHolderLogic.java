@@ -27,10 +27,14 @@ public class StakeHolderLogic {
      */
     public StakeHolderEntity createStakeHolder(StakeHolderEntity stakeHolder) throws BusinessLogicException {
 
-        if (stakeHolder.getNombre() == null) {
+        if (stakeHolder.getNombre() == "" || stakeHolder.getNombre() == null) {
             throw new BusinessLogicException("El nombre del stakeholder no puede ser nulo");
         }
 
+        if(persistence.find(stakeHolder.getId()) != null){
+            throw new BusinessLogicException("El id del stakeholder ya esta siendo usado: "+stakeHolder.getId());
+        }
+        
         stakeHolder = persistence.create(stakeHolder);
         return stakeHolder;
     }
@@ -42,10 +46,11 @@ public class StakeHolderLogic {
      * @return el stakeholder solicitado por medio de su id.
      */
     public StakeHolderEntity getStakeHolder(Long stakeholderId) {
-        StakeHolderEntity organizacion = persistence.find(stakeholderId);
-        if (organizacion == null) {
+        StakeHolderEntity entidad = persistence.find(stakeholderId);
+        if (entidad == null) {
+        return null;
         }
-        return organizacion;
+        return entidad;
     }
 
     /**
