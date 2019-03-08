@@ -23,20 +23,12 @@ public class CasoDeUsoEntity extends BaseEntity implements Serializable {
     private String nombre;
 
     @PodamExclude
-    @ManyToOne
-    private RequisitoEntity requisito;
-
-    @PodamExclude
     @OneToMany(mappedBy = "caminos", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<CaminoEntity> caminos = new ArrayList<CaminoEntity>();
 
     @PodamExclude
-    @OneToMany(mappedBy = "casoPrecondiciones", cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private List<CondicionEntity> precondiciones = new ArrayList<>();
-
-    @PodamExclude
-    @OneToMany(mappedBy = "casoPostcondiciones", cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private List<CondicionEntity> postcondiciones = new ArrayList<>();
+    @OneToMany(mappedBy = "condiciones", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<CondicionEntity> condiciones = new ArrayList<>();
 
     public CasoDeUsoEntity() {
 
@@ -56,49 +48,6 @@ public class CasoDeUsoEntity extends BaseEntity implements Serializable {
         this.nombre = nombre;
     }
 
-    /**
-     * @return the requisito
-     */
-    public RequisitoEntity getRequisito() {
-        return requisito;
-    }
-
-    /**
-     * @param requisito the requisito to set
-     */
-    public void setRequisito(RequisitoEntity requisito) {
-        this.requisito = requisito;
-    }
-
-    
-
-    /**
-     * @return the precondiciones
-     */
-    public List<CondicionEntity> getPrecondiciones() {
-        return precondiciones;
-    }
-
-    /**
-     * @param precondiciones the precondiciones to set
-     */
-    public void setPrecondiciones(List<CondicionEntity> precondiciones) {
-        this.precondiciones = precondiciones;
-    }
-
-    /**
-     * @return the postcondiciones
-     */
-    public List<CondicionEntity> getPostcondiciones() {
-        return postcondiciones;
-    }
-
-    /**
-     * @param postcondiciones the postcondiciones to set
-     */
-    public void setPostcondiciones(List<CondicionEntity> postcondiciones) {
-        this.postcondiciones = postcondiciones;
-    }
 
     /**
      * @return the caminos
@@ -112,6 +61,20 @@ public class CasoDeUsoEntity extends BaseEntity implements Serializable {
      */
     public void setCaminos(List<CaminoEntity> caminitos) {
        this.caminos = caminitos;
+    }
+
+    /**
+     * @return the condiciones
+     */
+    public List<CondicionEntity> getCondiciones() {
+        return condiciones;
+    }
+
+    /**
+     * @param condiciones the condiciones to set
+     */
+    public void setCondiciones(List<CondicionEntity> condiciones) {
+        this.condiciones = condiciones;
     }
 
 }

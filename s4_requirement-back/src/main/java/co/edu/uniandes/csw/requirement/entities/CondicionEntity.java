@@ -20,14 +20,13 @@ public class CondicionEntity extends BaseEntity implements Serializable {
     private String descripcion;
 
     private Boolean seCumplio;
+    
+    private Boolean esPrecondicion;
 
     @PodamExclude
     @ManyToOne
-    private CasoDeUsoEntity casoPrecondiciones;
+    private CasoDeUsoEntity condiciones;
 
-    @PodamExclude
-    @ManyToOne
-    private CasoDeUsoEntity casoPostcondiciones;
 
     public CondicionEntity() {
 
@@ -57,36 +56,36 @@ public class CondicionEntity extends BaseEntity implements Serializable {
     /**
      * @param seCumplio the seCumplio to set
      */
-    public void setSeCumplio(boolean seCumplio) {
+    public void setSeCumplio(Boolean seCumplio) {
         this.seCumplio = seCumplio;
     }
 
     /**
-     * @return the casoPrecondiciones
+     * @return the condiciones
      */
-    public CasoDeUsoEntity getCasoPrecondiciones() {
-        return casoPrecondiciones;
+    public CasoDeUsoEntity getCondiciones() {
+        return condiciones;
     }
 
     /**
-     * @param casoPrecondiciones the casoPrecondiciones to set
+     * @param condiciones the condiciones to set
      */
-    public void setCasoPrecondiciones(CasoDeUsoEntity casoPrecondiciones) {
-        this.casoPrecondiciones = casoPrecondiciones;
+    public void setCondiciones(CasoDeUsoEntity condiciones) {
+        this.condiciones = condiciones;
     }
 
     /**
-     * @return the casoPostcondiciones
+     * @return the esPrecondicion
      */
-    public CasoDeUsoEntity getCasoPostcondiciones() {
-        return casoPostcondiciones;
+    public Boolean isEsPrecondicion() {
+        return esPrecondicion;
     }
 
     /**
-     * @param casoPostcondiciones the casoPostcondiciones to set
+     * @param esPrecondicion the esPrecondicion to set
      */
-    public void setCasoPostcondiciones(CasoDeUsoEntity casoPostcondiciones) {
-        this.casoPostcondiciones = casoPostcondiciones;
+    public void setEsPrecondicion(Boolean esPrecondicion) {
+        this.esPrecondicion = esPrecondicion;
     }
 
 }
