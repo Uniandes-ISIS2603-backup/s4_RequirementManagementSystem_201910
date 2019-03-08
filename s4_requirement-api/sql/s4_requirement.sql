@@ -4,7 +4,7 @@ delete from OrganizacionEntity;
 delete from AprobacionEntity;
 delete from CambioEntity;
 
-delete from ObjetivoEntity
+delete from ObjetivoEntity;
 
 insert into StakeHolderEntity (id, tipo, nombre) values (100, 'Financiero', 'Mateo');
 insert into StakeHolderEntity (id, tipo, nombre) values (200, 'Tecnologico', 'Juan');
