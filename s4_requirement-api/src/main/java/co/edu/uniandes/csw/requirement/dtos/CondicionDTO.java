@@ -15,7 +15,8 @@ import java.io.Serializable;
 public class CondicionDTO implements Serializable{
     private Long id;
     private String descripcion;
-    private boolean seCumplio;
+    private Boolean seCumplio;
+    private Boolean esPrecondicion; 
 
     public CondicionDTO(){
 
@@ -28,6 +29,7 @@ public class CondicionDTO implements Serializable{
             this.id=ce.getId();
             this.descripcion=ce.getDescripcion();
             this.seCumplio=ce.isSeCumplio();
+            this.esPrecondicion=ce.isEsPrecondicion();
         }
     }
 
@@ -36,6 +38,7 @@ public class CondicionDTO implements Serializable{
         condicionEntity.setId(this.id);
         condicionEntity.setDescripcion(this.descripcion);
         condicionEntity.setSeCumplio(this.seCumplio);
+        condicionEntity.setEsPrecondicion(this.esPrecondicion);
         return condicionEntity;
     }
     
@@ -70,15 +73,29 @@ public class CondicionDTO implements Serializable{
     /**
      * @return the seCumplio
      */
-    public boolean isSeCumplio() {
+    public Boolean isSeCumplio() {
         return seCumplio;
     }
 
     /**
      * @param seCumplio the seCumplio to set
      */
-    public void setSeCumplio(boolean seCumplio) {
+    public void setSeCumplio(Boolean seCumplio) {
         this.seCumplio = seCumplio;
+    }
+
+    /**
+     * @return the esPrecondicion
+     */
+    public Boolean isEsPrecondicion() {
+        return esPrecondicion;
+    }
+
+    /**
+     * @param esPrecondicion the esPrecondicion to set
+     */
+    public void setEsPrecondicion(Boolean esPrecondicion) {
+        this.esPrecondicion = esPrecondicion;
     }
     
 }

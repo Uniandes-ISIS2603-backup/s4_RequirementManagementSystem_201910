@@ -70,7 +70,7 @@ public class DRSLogic {
      *
      * Obtener una editorial por medio de su id.
      *
-     * @param editorialsId: id de la editorial para ser buscada.
+     * @param drsId: id de la editorial para ser buscada.
      * @return la editorial solicitada por medio de su id.
      */
     public DRSEntity getDRS(Long drsId) {
@@ -115,4 +115,5 @@ public class DRSLogic {
         persistence.delete(drsId);
         LOGGER.log(Level.INFO, "Termina proceso de borrar la editorial con id = {0}", drsId);
     }
+
 }

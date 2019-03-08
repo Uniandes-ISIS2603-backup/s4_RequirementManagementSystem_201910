@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.requirement.test.logic;
 import co.edu.uniandes.csw.requirement.ejb.CaminoLogic;
 import co.edu.uniandes.csw.requirement.entities.CaminoEntity;
+import co.edu.uniandes.csw.requirement.entities.CaminoEntity.TipoCamino;
 import co.edu.uniandes.csw.requirement.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.requirement.persistence.CaminoPersistence;
 import java.util.ArrayList;
@@ -109,11 +110,10 @@ public class CaminoLogicTest {
     public void createCaminoTest(){
         try{
         CaminoEntity newEntity = factory.manufacturePojo(CaminoEntity.class);
-         newEntity.setTipoPaso(CaminoEntity.BASICO);
-         System.out.println("ACA" + newEntity.getTipoPaso());
-        Assert.assertEquals(CaminoEntity.BASICO, newEntity.getTipoPaso());
+         newEntity.setTipoCamino(TipoCamino.BASICO);
+        Assert.assertEquals(TipoCamino.BASICO, newEntity.getTipoCamino());
         CaminoEntity result = caminoLogic.createCamino(newEntity);
-        result.setTipoPaso("BASICO");
+        result.setTipoCamino(TipoCamino.BASICO);
         Assert.assertNotNull(result);
         CaminoEntity entity = em.find(CaminoEntity.class, result.getId());
         Assert.assertEquals(newEntity.getId(), entity.getId());
