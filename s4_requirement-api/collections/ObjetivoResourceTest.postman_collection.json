@@ -1,0 +1,47 @@
+{
+	"info": {
+		"_postman_id": "5ed1c115-f51e-43a5-b54c-c9d131f6ef10",
+		"name": "ObjetivoResourceTest",
+		"description": "Objetivo Resource Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/objetivos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fe9eda36-b00f-4fb5-972d-e9af913e9903",
+						"exec": [
+							" tests[\"No genera error el GET\"] = responseCode.code === 200"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/objetivos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"objetivos"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

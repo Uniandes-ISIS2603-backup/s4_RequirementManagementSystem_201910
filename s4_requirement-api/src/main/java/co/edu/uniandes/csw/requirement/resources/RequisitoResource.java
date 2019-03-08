@@ -16,15 +16,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.*;
+
 
 @Path("requisitos")
 @Produces("application/json")
@@ -52,11 +45,20 @@ public class RequisitoResource
     @POST
     public RequisitoDTO createRequisito(RequisitoDTO req) throws BusinessLogicException
     {
+        try{
         LOGGER.log(Level.INFO, "RequisitoResource createRequisito: input: {0}", req);
+        LOGGER.log(Level.INFO, "RequisitoResource createRequisito: input: {0}", req.getEstabilidad());
         RequisitoEntity reqEntity = reqLogic.createRequisito(req.toEntity());
-        RequisitoDTO newReqDTO = new RequisitoDTO(reqEntity);
-        LOGGER.log(Level.INFO, "RequisitoResource createRequisito: output: {0}", newReqDTO);
-        return newReqDTO;
+        RequisitoDTO reqDTO = new RequisitoDTO(reqEntity);
+        //RequisitoDTO reqDTO = new RequisitoDTO(reqLogic.createRequisito(req.toEntity()));
+        LOGGER.log(Level.INFO, "RequisitoResource createRequisito: output: {0}", reqDTO);
+        return reqDTO;
+        }
+        catch(BusinessLogicException e)
+        {
+            e.printStackTrace();
+            throw e;
+        }
     }
     
     /**
@@ -126,9 +128,9 @@ public class RequisitoResource
      * Actualiza el requisito con el id recibido en la URL con la información que se
      * recibe en el cuerpo de la petición.
      *
-     * @param requisitosId Identificador del requisito que se desea actualizar. Este debe
+     * @param id Identificador del requisito que se desea actualizar. Este debe
      * ser una cadena de dígitos.
-     * @param requisito {@link RequisitoDTO} El requisito que se desea guardar.
+     * @param req {@link RequisitoDTO} El requisito que se desea guardar.
      * @return JSON {@link RequisitoDetailDTO} - El requisito guardado.
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
      * Error de lógica que se genera cuando no se encuentra el requisito a

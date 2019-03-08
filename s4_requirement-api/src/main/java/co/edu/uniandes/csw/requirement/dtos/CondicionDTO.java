@@ -6,12 +6,13 @@
 package co.edu.uniandes.csw.requirement.dtos;
 
 import co.edu.uniandes.csw.requirement.entities.CondicionEntity;
+import java.io.Serializable;
 
 /**
  *
  * @author Sofia Sarmiento
  */
-public class CondicionDTO {
+public class CondicionDTO implements Serializable{
     private Long id;
     private String descripcion;
     private boolean seCumplio;
