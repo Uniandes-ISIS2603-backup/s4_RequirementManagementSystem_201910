@@ -41,11 +41,11 @@ public class OrganizacionLogic {
     /**
      * Obtener una organizacion por medio de su id.
      *
-     * @param organizacionId: id de la organizacion para ser buscada.
+     * @param StakeHolderEntity: id de la organizacion para ser buscada.
      * @return la organizacion solicitada por medio de su id.
      */
-    public OrganizacionEntity getOrganizacion(Long organizacionId) {
-        OrganizacionEntity organizacion = persistence.find(organizacionId);
+    public OrganizacionEntity getOrganizacion(Long StakeHolderEntity) {
+        OrganizacionEntity organizacion = persistence.find(StakeHolderEntity);
         if (organizacion == null) {
             return null;
         }

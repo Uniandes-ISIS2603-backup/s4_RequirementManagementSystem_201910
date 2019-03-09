@@ -72,7 +72,7 @@ public class RequisitoResource
      */
     @GET
     @Path("{requisitosId: \\d+}")
-    public RequisitoDTO getRequisito(@PathParam("requisitosId") Long requisitosId)
+    public RequisitoDetailDTO getRequisito(@PathParam("requisitosId") Long requisitosId)
     {
         LOGGER.log(Level.INFO, "RequisitoResource getRequisito: input: {0}", requisitosId);
         RequisitoEntity requisitoEntity = reqLogic.getRequisito(requisitosId);
@@ -172,6 +172,5 @@ public class RequisitoResource
         return list;
     }
     
-    // TODO: COMPLETAR CON ASOCIACIONES A OTRAS CLASES.
     
 }

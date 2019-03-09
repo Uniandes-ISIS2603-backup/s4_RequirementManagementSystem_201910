@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
@@ -34,7 +33,7 @@ public class CaminoEntity extends BaseEntity implements Serializable {
 
     @PodamExclude
     @ManyToOne
-    private CasoDeUsoEntity caminos;
+    private CasoDeUsoEntity casos;
 
     /**
      * Constructor vacío por defecto
@@ -69,6 +68,20 @@ public class CaminoEntity extends BaseEntity implements Serializable {
      */
     public void setTipoCamino(TipoCamino tipoPasito) {
         this.tipoCamino = tipoPasito;
+    }
+
+    /**
+     * @return the casos
+     */
+    public CasoDeUsoEntity getCasos() {
+        return casos;
+    }
+
+    /**
+     * @param casos the casos to set
+     */
+    public void setCasos(CasoDeUsoEntity casos) {
+        this.casos = casos;
     }
 
 }
