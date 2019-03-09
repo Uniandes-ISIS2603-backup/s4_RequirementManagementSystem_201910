@@ -101,5 +101,4 @@ public class CasoDeUsoDetail extends CasoDeUsoDTO implements Serializable
         this.condiciones = condiciones;
     }
 
-
 }

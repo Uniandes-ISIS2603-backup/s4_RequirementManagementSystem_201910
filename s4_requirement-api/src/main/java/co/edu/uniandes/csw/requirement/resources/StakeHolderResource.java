@@ -1,7 +1,7 @@
 package co.edu.uniandes.csw.requirement.resources;
 
 import co.edu.uniandes.csw.requirement.dtos.StakeHolderDTO;
-import co.edu.uniandes.csw.requirement.dtos.StakeHolderDetailDTO;
+import co.edu.uniandes.csw.requirement.dtos.StakeHolderDTO;
 import co.edu.uniandes.csw.requirement.ejb.StakeHolderLogic;
 import co.edu.uniandes.csw.requirement.entities.StakeHolderEntity;
 import co.edu.uniandes.csw.requirement.exceptions.BusinessLogicException;
@@ -53,8 +53,8 @@ public class StakeHolderResource {
      * @return lista de stakeholders
      */
     @GET
-    public List<StakeHolderDetailDTO> getStakeholders() {
-        List<StakeHolderDetailDTO> listaStakeHolders = entity2DTO(logica.getStakeHolders());
+    public List<StakeHolderDTO> getStakeholders() {
+        List<StakeHolderDTO> listaStakeHolders = entity2DTO(logica.getStakeHolders());
         return listaStakeHolders;
     }
 
@@ -66,12 +66,12 @@ public class StakeHolderResource {
      */
     @GET
     @Path("{stakeholdersId: \\d+}")
-    public StakeHolderDetailDTO getStakeHolder(@PathParam("stakeholdersId") Long stakeholdersId) throws WebApplicationException {
+    public StakeHolderDTO getStakeHolder(@PathParam("stakeholdersId") Long stakeholdersId) throws WebApplicationException {
         StakeHolderEntity stakeholderEntity = logica.getStakeHolder(stakeholdersId);
         if (stakeholderEntity == null) {
             throw new WebApplicationException("El recurso /stakeholders/" + stakeholdersId + " no existe.", 404);
         }
-        StakeHolderDetailDTO detailDTO = new StakeHolderDetailDTO(stakeholderEntity);
+        StakeHolderDTO detailDTO = new StakeHolderDTO(stakeholderEntity);
         return detailDTO;
     }
 
@@ -98,12 +98,12 @@ public class StakeHolderResource {
      */
     @PUT
     @Path("{stakeholdersId: \\d+}")
-    public StakeHolderDetailDTO updateStakeHolder(@PathParam("stakeholdersId") Long stakeholdersId, StakeHolderDetailDTO stakeholder) throws WebApplicationException {
+    public StakeHolderDTO updateStakeHolder(@PathParam("stakeholdersId") Long stakeholdersId, StakeHolderDTO stakeholder) throws WebApplicationException {
         stakeholder.setId(stakeholdersId);
         if (logica.getStakeHolder(stakeholdersId) == null) {
             throw new WebApplicationException("El recurso /stakeholders/" + stakeholdersId + " no existe.", 404);
         }
-        StakeHolderDetailDTO detailDTO = new StakeHolderDetailDTO(logica.updateStakeHolder(stakeholdersId, stakeholder.toEntity()));
+        StakeHolderDTO detailDTO = new StakeHolderDTO(logica.updateStakeHolder(stakeholdersId, stakeholder.toEntity()));
         return detailDTO;
 
     }
@@ -113,10 +113,10 @@ public class StakeHolderResource {
      * @param entityList
      * @return lista de DTOs
      */
-        private List<StakeHolderDetailDTO> entity2DTO(List<StakeHolderEntity> entityList) {
-        List<StakeHolderDetailDTO> list = new ArrayList<>();
+        private List<StakeHolderDTO> entity2DTO(List<StakeHolderEntity> entityList) {
+        List<StakeHolderDTO> list = new ArrayList<>();
         for (StakeHolderEntity entity : entityList) {
-            list.add(new StakeHolderDetailDTO(entity));
+            list.add(new StakeHolderDTO(entity));
         }
         return list;
     }

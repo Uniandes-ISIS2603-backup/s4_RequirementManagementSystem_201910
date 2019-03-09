@@ -8,7 +8,7 @@ package co.edu.uniandes.csw.requirement.resources;
 import co.edu.uniandes.csw.requirement.dtos.AprobacionDTO;
 import co.edu.uniandes.csw.requirement.dtos.ObjetivoDetailDTO;
 import co.edu.uniandes.csw.requirement.dtos.RequisitoDetailDTO;
-import co.edu.uniandes.csw.requirement.dtos.StakeHolderDetailDTO;
+import co.edu.uniandes.csw.requirement.dtos.StakeHolderDTO;
 import co.edu.uniandes.csw.requirement.ejb.AprobacionLogic;
 import co.edu.uniandes.csw.requirement.ejb.CambioLogic;
 import co.edu.uniandes.csw.requirement.ejb.ObjetivoLogic;
@@ -117,13 +117,13 @@ public class AprobacionResource {
     /*
     @GET
     @Path("{id1: \\d+}/stakeholder")
-    public StakeHolderDetailDTO getStakeHolder(@PathParam("id1")Long  idAprobacion){
+    public StakeHolderDTO getStakeHolder(@PathParam("id1")Long  idAprobacion){
         AprobacionEntity entity = aprobacionLogic.findAprobacionById(idAprobacion);
         if(entity == null){
             throw new WebApplicationException("El recurso /aprobaciones/"+idAprobacion+" no existe.", 404);
         }
         StakeHolderEntity sh = entity.getStakeHolder();
-        StakeHolderDetailDTO dto = new StakeHolderDetailDTO(); //Falta constructor con entity como parámetro.
+        StakeHolderDTO dto = new StakeHolderDTO(); //Falta constructor con entity como parámetro.
         return dto;
     }
     */

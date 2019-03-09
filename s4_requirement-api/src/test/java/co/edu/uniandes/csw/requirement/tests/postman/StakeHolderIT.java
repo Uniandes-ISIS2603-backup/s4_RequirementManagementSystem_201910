@@ -24,9 +24,9 @@ SOFTWARE.
 package co.edu.uniandes.csw.requirement.tests.postman;
 
 import co.edu.uniandes.csw.requirement.mappers.BusinessLogicExceptionMapper;
-import co.edu.uniandes.csw.requirement.dtos.StakeHolderDTO;
 import co.edu.uniandes.csw.requirement.resources.RestConfig;
 import co.edu.uniandes.csw.postman.tests.PostmanTestBuilder;
+import co.edu.uniandes.csw.requirement.dtos.StakeHolderDTO;
 import java.io.File;
 import java.io.IOException;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -47,7 +47,7 @@ import org.junit.runner.RunWith;
 @RunWith(Arquillian.class)
 public class StakeHolderIT {
 
-    private static final String COLLECTION = "Cascara-Tests.postman_collection";
+    private static final String COLLECTION = "StakeHolderResourceTest.postman_collection";
 
     @Deployment(testable = true)
     public static WebArchive createDeployment() {

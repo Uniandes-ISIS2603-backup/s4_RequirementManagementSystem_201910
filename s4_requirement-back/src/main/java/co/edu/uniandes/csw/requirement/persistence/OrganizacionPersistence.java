@@ -32,11 +32,11 @@ public class OrganizacionPersistence {
 
     /**
      * busca una organizacion con id dado por parametro
-     * @param organizacionID
+     * @param StakeHolderEntity
      * @return organizacion encontrada
      */
-    public OrganizacionEntity find(Long organizacionID) {
-        return em.find(OrganizacionEntity.class, organizacionID);
+    public OrganizacionEntity find(Long StakeHolderEntity) {
+        return em.find(OrganizacionEntity.class, StakeHolderEntity);
     }
 
     /**
@@ -84,11 +84,11 @@ public class OrganizacionPersistence {
         
      /**
      * Borra una organizacion de la base de datos identificada por id
-     * @param organizacionId: id correspondiente a la organizacion a borrar.
+     * @param StakeHolderEntity: id correspondiente a la organizacion a borrar.
      */
-    public void delete(Long organizacionId) {
+    public void delete(Long StakeHolderEntity) {
         TypedQuery<OrganizacionEntity> query = em.createQuery("Select e From OrganizacionEntity e where e.id = :id", OrganizacionEntity.class);
-        query = query.setParameter("id", organizacionId);
+        query = query.setParameter("id", StakeHolderEntity);
         OrganizacionEntity organizationEntity = query.getSingleResult();
         em.remove(organizationEntity);
     }
