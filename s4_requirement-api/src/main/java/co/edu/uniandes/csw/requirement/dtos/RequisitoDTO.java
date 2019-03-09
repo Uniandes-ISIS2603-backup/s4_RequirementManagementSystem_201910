@@ -5,22 +5,55 @@
  */
 package co.edu.uniandes.csw.requirement.dtos;
 
+import co.edu.uniandes.csw.requirement.entities.RequisitoEntity;
 import java.io.Serializable;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  * Representa el recurso requisito, en su versión básica.
  *
- * @author estudiante
+ * @author Jorge Esguerra
  */
-public class RequisitoDTO implements Serializable{
+public class RequisitoDTO implements Serializable {
 
-    private String tipo, autor, descripcion, comentarios;
-    private int id, importancia, estabilidad;
-    
-    public RequisitoDTO()
-    {
-        
+    private String tipo, descripcion, comentarios;
+    private Long id;
+    private Integer importancia, estabilidad;
+
+    private StakeHolderDTO autor;
+
+    public RequisitoDTO() {
+
     }
+
+    public RequisitoDTO(RequisitoEntity re) {
+        if (re != null) {
+            this.id = re.getId();
+            this.descripcion = re.getDescripcion();
+            this.importancia = re.getImportancia();
+            this.estabilidad = re.getEstabilidad();
+            this.comentarios = re.getComentarios();
+            this.tipo = re.getTipo();
+            if (re.getAutor() != null) {
+                this.autor = new StakeHolderDTO(re.getAutor());
+            } else {
+                re.setAutor(null);
+            }
+        }
+    }
+
+    public RequisitoEntity toEntity() {
+        RequisitoEntity requisitoEntity = new RequisitoEntity();
+        requisitoEntity.setId(this.getId());
+        requisitoEntity.setDescripcion(this.descripcion);
+        requisitoEntity.setImportancia(this.importancia);
+        requisitoEntity.setComentarios(this.comentarios);
+        requisitoEntity.setEstabilidad(this.estabilidad);
+        requisitoEntity.setTipo(this.tipo);
+        return requisitoEntity;
+    }
+
     /**
      * @return the tipo
      */
@@ -33,20 +66,6 @@ public class RequisitoDTO implements Serializable{
      */
     public void setTipo(String tipo) {
         this.tipo = tipo;
-    }
-
-    /**
-     * @return the autor
-     */
-    public String getAutor() {
-        return autor;
-    }
-
-    /**
-     * @param autor the autor to set
-     */
-    public void setAutor(String autor) {
-        this.autor = autor;
     }
 
     /**
@@ -80,47 +99,62 @@ public class RequisitoDTO implements Serializable{
     /**
      * @return the id
      */
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
     /**
      * @return the importancia
      */
-    public int getImportancia() {
+    public Integer getImportancia() {
         return importancia;
     }
 
     /**
      * @param importancia the importancia to set
      */
-    public void setImportancia(int importancia) {
+    public void setImportancia(Integer importancia) {
         this.importancia = importancia;
     }
 
     /**
      * @return the estabilidad
      */
-    public int getEstabilidad() {
+    public Integer getEstabilidad() {
         return estabilidad;
     }
 
     /**
      * @param estabilidad the estabilidad to set
      */
-    public void setEstabilidad(int estabilidad) {
+    public void setEstabilidad(Integer estabilidad) {
         this.estabilidad = estabilidad;
     }
-    
-    //private List<CasoDeUsoDTO> casos;
-    
-    
+
+    /**
+     * @return the autor
+     */
+    public StakeHolderDTO getAutor() {
+        return autor;
+    }
+
+    /**
+     * @param autor the autor to set
+     */
+    public void setAutor(StakeHolderDTO autor) {
+        this.autor = autor;
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+    }
 
 }

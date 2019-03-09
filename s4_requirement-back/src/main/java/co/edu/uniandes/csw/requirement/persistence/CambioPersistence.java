@@ -14,7 +14,7 @@ import javax.persistence.TypedQuery;
 
 /**
  *
- * @author estudiante
+ * @author Emilio
  */
 @Stateless
 public class CambioPersistence {
@@ -45,4 +45,5 @@ public class CambioPersistence {
         em.remove(cambio);
         return cambio;
     }
+    
 }

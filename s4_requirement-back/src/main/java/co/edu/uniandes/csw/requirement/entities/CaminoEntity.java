@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.requirement.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
@@ -18,20 +19,26 @@ import uk.co.jemos.podam.common.PodamExclude;
 @Entity
 public class CaminoEntity extends BaseEntity implements Serializable {
 
-    private String descripcionPaso;
+    public enum TipoCamino
+    {
+        BASICO,
+        EXCEPCION,
+        ALTERNATIVO
+    }
+    
 
-    @PodamExclude
-    @OneToOne
-    private CasoDeUsoEntity casoCursoBasicoDeEventos;
+    private TipoCamino tipoCamino;
+    private ArrayList<String> pasos;
+
+
 
     @PodamExclude
     @ManyToOne
-    private CasoDeUsoEntity casoCaminosDeExcepcion;
+    private CasoDeUsoEntity caminos;
 
-    @PodamExclude
-    @ManyToOne
-    private CasoDeUsoEntity casoCaminosAlternativos;
-
+    /**
+     * Constructor vacío por defecto
+     */
     public CaminoEntity() {
 
     }
@@ -39,15 +46,29 @@ public class CaminoEntity extends BaseEntity implements Serializable {
     /**
      * @return the descripcionPaso
      */
-    public String getDescripcionPaso() {
-        return descripcionPaso;
+    public ArrayList<String> getPasos() {
+        return pasos;
     }
 
     /**
      * @param descripcionPaso to set
      */
-    public void setDescripcionPaso(String descripPaso) {
-        this.descripcionPaso = descripPaso;
+    public void setPasos(ArrayList<String> pasitos) {
+        this.pasos = pasitos;
+    }
+    
+      /**
+     * @return the descripcionPaso
+     */
+    public TipoCamino getTipoCamino() {
+        return tipoCamino;
+    }
+
+    /**
+     * @param tipoPasito to set
+     */
+    public void setTipoCamino(TipoCamino tipoPasito) {
+        this.tipoCamino = tipoPasito;
     }
 
 }

@@ -65,4 +65,48 @@ public class DRSEntity extends BaseEntity implements Serializable {
     public void setReporte(String reporte) {
         this.reporte = reporte;
     }
+
+    /**
+     * @return the stakeholders
+     */
+    public List<StakeHolderEntity> getStakeholders() {
+        return stakeholders;
+    }
+
+    /**
+     * @param stakeholders the stakeholders to set
+     */
+    public void setStakeholders(List<StakeHolderEntity> stakeholders) {
+        this.stakeholders = stakeholders;
+    }
+
+    /**
+     * @return the objetivos
+     */
+    public List<ObjetivoEntity> getObjetivos() {
+        return objetivos;
+    }
+
+    /**
+     * @param objetivos the objetivos to set
+     */
+    public void setObjetivos(List<ObjetivoEntity> objetivos) {
+        this.objetivos = objetivos;
+    }
+
+    /**
+     * @return the requisitos
+     */
+    public List<RequisitoEntity> getRequisitos() {
+        return requisitos;
+    }
+
+    /**
+     * @param requisitos the requisitos to set
+     */
+    public void setRequisitos(List<RequisitoEntity> requisitos) {
+        this.requisitos = requisitos;
+    }
+    
+    
 }

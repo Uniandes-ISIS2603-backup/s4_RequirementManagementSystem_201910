@@ -7,7 +7,7 @@ package co.edu.uniandes.csw.requirement.ejb;
 
 /**
  *
- * @author estudiante
+ * @author Sofia Alvarez
  */
 import co.edu.uniandes.csw.requirement.entities.DRSEntity;
 import co.edu.uniandes.csw.requirement.exceptions.BusinessLogicException;
@@ -33,17 +33,17 @@ public class DRSLogic {
     private DRSPersistence persistence; // Variable para acceder a la persistencia de la aplicación. Es una inyección de dependencias.
 
     /**
-     * Crea una editorial en la persistencia.
+     * Crea un DRS en la persistencia.
      *
-     * @param editorialEntity La entidad que representa la editorial a
+     * @param drsEntity La entidad que representa el drs a
      * persistir.
-     * @return La entiddad de la editorial luego de persistirla.
-     * @throws BusinessLogicException Si la editorial a persistir ya existe.
+     * @return La entiddad del drs luego de persistirla.
+     * @throws BusinessLogicException Si la versión del drs a persistir ya existe.
      */
     public DRSEntity createDRS(DRSEntity drsEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de creación de la editorial");
         // Verifica la regla de negocio que dice que no puede haber dos editoriales con el mismo nombre
-        if (persistence.find(drsEntity.getId()) != null) {
+        if (persistence.findByVersion(drsEntity.getVersion()) != null) {
             throw new BusinessLogicException("Ya existe un Camino con el id \"" + drsEntity.getId() + "\"");
         }
         // Invoca la persistencia para crear la editorial
@@ -70,7 +70,7 @@ public class DRSLogic {
      *
      * Obtener una editorial por medio de su id.
      *
-     * @param editorialsId: id de la editorial para ser buscada.
+     * @param drsId: id de la editorial para ser buscada.
      * @return la editorial solicitada por medio de su id.
      */
     public DRSEntity getDRS(Long drsId) {
@@ -115,4 +115,5 @@ public class DRSLogic {
         persistence.delete(drsId);
         LOGGER.log(Level.INFO, "Termina proceso de borrar la editorial con id = {0}", drsId);
     }
+
 }

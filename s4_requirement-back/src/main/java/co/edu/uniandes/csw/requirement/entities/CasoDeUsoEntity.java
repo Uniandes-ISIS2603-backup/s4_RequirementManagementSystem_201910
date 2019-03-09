@@ -23,28 +23,12 @@ public class CasoDeUsoEntity extends BaseEntity implements Serializable {
     private String nombre;
 
     @PodamExclude
-    @ManyToOne
-    private RequisitoEntity requisito;
+    @OneToMany(mappedBy = "caminos", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<CaminoEntity> caminos = new ArrayList<CaminoEntity>();
 
     @PodamExclude
-    @OneToOne(mappedBy="casoCursoBasicoDeEventos", fetch = FetchType.LAZY)
-    private CaminoEntity cursoBasicoDeEventos;
-
-    @PodamExclude
-    @OneToMany(mappedBy = "casoCaminosDeExcepcion", cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private List<CaminoEntity> caminosDeExcepcion = new ArrayList<CaminoEntity>();
-
-    @PodamExclude
-    @OneToMany(mappedBy = "casoCaminosAlternativos", cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private List<CaminoEntity> caminosAlternativos = new ArrayList<>();
-
-    @PodamExclude
-    @OneToMany(mappedBy = "casoPrecondiciones", cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private List<CondicionEntity> precondiciones = new ArrayList<>();
-
-    @PodamExclude
-    @OneToMany(mappedBy = "casoPostcondiciones", cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private List<CondicionEntity> postcondiciones = new ArrayList<>();
+    @OneToMany(mappedBy = "condiciones", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<CondicionEntity> condiciones = new ArrayList<>();
 
     public CasoDeUsoEntity() {
 
@@ -62,6 +46,35 @@ public class CasoDeUsoEntity extends BaseEntity implements Serializable {
      */
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+
+    /**
+     * @return the caminos
+     */
+    public List<CaminoEntity> getCaminos() {
+        return caminos;
+    }
+    
+     /**
+     * @return the caminos
+     */
+    public void setCaminos(List<CaminoEntity> caminitos) {
+       this.caminos = caminitos;
+    }
+
+    /**
+     * @return the condiciones
+     */
+    public List<CondicionEntity> getCondiciones() {
+        return condiciones;
+    }
+
+    /**
+     * @param condiciones the condiciones to set
+     */
+    public void setCondiciones(List<CondicionEntity> condiciones) {
+        this.condiciones = condiciones;
     }
 
 }

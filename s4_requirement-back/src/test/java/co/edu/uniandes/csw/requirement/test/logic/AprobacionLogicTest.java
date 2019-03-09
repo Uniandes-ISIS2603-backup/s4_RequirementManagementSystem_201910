@@ -9,6 +9,7 @@ import co.edu.uniandes.csw.requirement.ejb.AprobacionLogic;
 import co.edu.uniandes.csw.requirement.entities.AprobacionEntity;
 import co.edu.uniandes.csw.requirement.entities.ObjetivoEntity;
 import co.edu.uniandes.csw.requirement.entities.RequisitoEntity;
+import co.edu.uniandes.csw.requirement.entities.StakeHolderEntity;
 import co.edu.uniandes.csw.requirement.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.requirement.persistence.AprobacionPersistence;
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
  *
- * @author estudiante
+ * @author Emilio
  */
 @RunWith(Arquillian.class)
 public class AprobacionLogicTest {
@@ -48,6 +49,12 @@ public class AprobacionLogicTest {
 
     private List<AprobacionEntity> data = new ArrayList<AprobacionEntity>();
     
+    StakeHolderEntity sh;
+    
+    RequisitoEntity requisito;
+    
+    ObjetivoEntity objetivo;
+    
         /**
      * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
      * El jar contiene las clases, el descriptor de la base de datos y el
@@ -59,6 +66,9 @@ public class AprobacionLogicTest {
                 .addPackage(AprobacionEntity.class.getPackage())
                 .addPackage(AprobacionLogic.class.getPackage())
                 .addPackage(AprobacionPersistence.class.getPackage())
+                .addPackage(StakeHolderEntity.class.getPackage())
+                .addPackage(RequisitoEntity.class.getPackage())
+                .addPackage(ObjetivoEntity.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
@@ -88,6 +98,9 @@ public class AprobacionLogicTest {
      */
     private void clearData() {
         em.createQuery("delete from AprobacionEntity").executeUpdate();
+        em.createQuery("delete from StakeHolderEntity").executeUpdate();
+        em.createQuery("delete from RequisitoEntity").executeUpdate();
+        em.createQuery("delete from ObjetivoEntity").executeUpdate();
     }
 
     /**
@@ -100,6 +113,12 @@ public class AprobacionLogicTest {
             em.persist(entity);
             data.add(entity);
         }
+        sh = factory.manufacturePojo(StakeHolderEntity.class);
+        requisito = factory.manufacturePojo(RequisitoEntity.class);
+        objetivo = factory.manufacturePojo(ObjetivoEntity.class);
+        em.persist(sh);
+        em.persist(requisito);
+        em.persist(objetivo);
     }
     
      /**
@@ -182,5 +201,38 @@ public class AprobacionLogicTest {
         aprobacionLogic.deleteAprobacion(entity.getId());
         AprobacionEntity deleted = em.find(AprobacionEntity.class, entity.getId());
         Assert.assertNull(deleted);
+    }
+    
+     /**
+     * Prueba para cambir el dueño de una aprobación
+     */
+    @Test
+    public void changeStakeHolderTest(){
+        AprobacionEntity entity = data.get(1);
+        entity = aprobacionLogic.changeStakeHolder(entity.getId(), sh.getId());
+        StakeHolderEntity entitySH = entity.getStakeHolder();
+        Assert.assertEquals(sh.getId(), entitySH.getId());
+    }
+    
+     /**
+     * Prueba para cambir el objetivo de una aprobación
+     */
+    @Test
+    public void changeObjetivoTest(){
+        AprobacionEntity entity = data.get(1);
+        entity = aprobacionLogic.changeObjetivo(entity.getId(), objetivo.getId());
+        ObjetivoEntity entityObjetivo = entity.getObjetivo();
+        Assert.assertEquals(objetivo.getId(), entityObjetivo.getId());
+    }
+    
+     /**
+     * Prueba para cambir el requisito de una aprobación
+     */
+    @Test
+    public void changeRequisitoTest(){
+        AprobacionEntity entity = data.get(1);
+        entity = aprobacionLogic.changeRequisito(entity.getId(), requisito.getId());
+        RequisitoEntity entityRequisito = entity.getRequisito();
+        Assert.assertEquals(requisito.getId(), entityRequisito.getId());
     }
 }

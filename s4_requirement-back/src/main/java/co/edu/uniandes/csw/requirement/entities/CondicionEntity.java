@@ -19,15 +19,14 @@ public class CondicionEntity extends BaseEntity implements Serializable {
 
     private String descripcion;
 
-    private boolean seCumplio;
+    private Boolean seCumplio;
+    
+    private Boolean esPrecondicion;
 
     @PodamExclude
     @ManyToOne
-    private CasoDeUsoEntity casoPrecondiciones;
+    private CasoDeUsoEntity condiciones;
 
-    @PodamExclude
-    @ManyToOne
-    private CasoDeUsoEntity casoPostcondiciones;
 
     public CondicionEntity() {
 
@@ -50,15 +49,43 @@ public class CondicionEntity extends BaseEntity implements Serializable {
     /**
      * @return the seCumplio
      */
-    public boolean isSeCumplio() {
+    public Boolean isSeCumplio() {
         return seCumplio;
     }
 
     /**
      * @param seCumplio the seCumplio to set
      */
-    public void setSeCumplio(boolean seCumplio) {
+    public void setSeCumplio(Boolean seCumplio) {
         this.seCumplio = seCumplio;
+    }
+
+    /**
+     * @return the condiciones
+     */
+    public CasoDeUsoEntity getCondiciones() {
+        return condiciones;
+    }
+
+    /**
+     * @param condiciones the condiciones to set
+     */
+    public void setCondiciones(CasoDeUsoEntity condiciones) {
+        this.condiciones = condiciones;
+    }
+
+    /**
+     * @return the esPrecondicion
+     */
+    public Boolean isEsPrecondicion() {
+        return esPrecondicion;
+    }
+
+    /**
+     * @param esPrecondicion the esPrecondicion to set
+     */
+    public void setEsPrecondicion(Boolean esPrecondicion) {
+        this.esPrecondicion = esPrecondicion;
     }
 
 }

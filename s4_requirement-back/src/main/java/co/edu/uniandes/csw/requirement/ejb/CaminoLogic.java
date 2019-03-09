@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.requirement.ejb;
 
 
 import co.edu.uniandes.csw.requirement.entities.CaminoEntity;
+import co.edu.uniandes.csw.requirement.entities.CaminoEntity.TipoCamino;
 import co.edu.uniandes.csw.requirement.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.requirement.persistence.CaminoPersistence;
 import java.util.List;
@@ -32,7 +33,7 @@ public class CaminoLogic {
     /**
      * Crea una editorial en la persistencia.
      *
-     * @param editorialEntity La entidad que representa la editorial a
+     * @param caminoEntity La entidad que representa la editorial a
      * persistir.
      * @return La entiddad de la editorial luego de persistirla.
      * @throws BusinessLogicException Si la editorial a persistir ya existe.
@@ -42,6 +43,24 @@ public class CaminoLogic {
         // Verifica la regla de negocio que dice que no puede haber dos editoriales con el mismo nombre
         if (persistence.find(caminoEntity.getId()) != null) {
             throw new BusinessLogicException("Ya existe un Camino con el id \"" + caminoEntity.getId() + "\"");
+        }
+        if (caminoEntity.getTipoCamino() == null)
+        {
+           throw new BusinessLogicException("El tipo de camino no puede ser null");
+        }
+        if (!(caminoEntity.getTipoCamino().equals(TipoCamino.BASICO) || caminoEntity.getTipoCamino().equals(TipoCamino.ALTERNATIVO) || caminoEntity.getTipoCamino().equals(TipoCamino.EXCEPCION)) ){
+            throw new BusinessLogicException("El tipo de camino sólo puede ser básico, de excepción o alternativo");
+        }
+        if(caminoEntity.getPasos().isEmpty()){
+            throw new BusinessLogicException("Debe haber por lo menos un paso");
+        }
+        for (int i = 0; i < caminoEntity.getPasos().size(); i++) {
+            for (int j = i+1; j < caminoEntity.getPasos().size(); j++) {
+                if(caminoEntity.getPasos().get(i).equals(caminoEntity.getPasos().get(j)))
+                {
+                    throw new BusinessLogicException("No puede haber pasos repetidos");
+                }
+            }
         }
         // Invoca la persistencia para crear la editorial
         persistence.create(caminoEntity);
