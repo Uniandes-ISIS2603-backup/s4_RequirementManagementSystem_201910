@@ -1,8 +1,6 @@
 /*
 MIT License
 
-Copyright (c) 2017 Universidad de los Andes - ISIS2603
-
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -25,6 +23,7 @@ package co.edu.uniandes.csw.requirement.ejb;
 
 import co.edu.uniandes.csw.requirement.entities.RequisitoEntity;
 import co.edu.uniandes.csw.requirement.entities.AprobacionEntity;
+import co.edu.uniandes.csw.requirement.entities.ObjetivoEntity;
 import co.edu.uniandes.csw.requirement.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.requirement.persistence.RequisitoPersistence;
 import co.edu.uniandes.csw.requirement.persistence.AprobacionPersistence;
@@ -37,7 +36,7 @@ import javax.inject.Inject;
  * Clase que implementa la conexion con la persistencia para la relación entre
  * la entidad de Aprobacion y Requisito
  *
- * @requisito ISIS2603
+ * @requisito Jorgeandresesguerraalarcon
  */
 @Stateless
 public class AprobacionRequisitoLogic {
@@ -54,21 +53,25 @@ public class AprobacionRequisitoLogic {
      * Agregar un requisito a un aprobacion
      *
      * @param aprobacionsId El id aprobacion a guardar
-     * @param requisitosId El id del requisito al cual se le va a guardar el aprobacion.
+     * @param requisitosId El id del requisito al cual se le va a guardar el
+     * aprobacion.
      * @return El requisito que fue agregado al aprobacion.
      */
     public RequisitoEntity addRequisito(Long requisitosId, Long aprobacionsId) {
         LOGGER.log(Level.INFO, "Inicia proceso de asociar el requisito con id = {0} al aprobacion con id = " + aprobacionsId, requisitosId);
+
         RequisitoEntity requisitoEntity = requisitoPersistence.find(requisitosId);
         AprobacionEntity aprobacionEntity = aprobacionPersistence.find(aprobacionsId);
         aprobacionEntity.setRequisito(requisitoEntity);
+        requisitoEntity.getAprobaciones().add(aprobacionEntity);
+
         LOGGER.log(Level.INFO, "Termina proceso de asociar el requisito con id = {0} al aprobacion con id = " + aprobacionsId, requisitosId);
         return requisitoPersistence.find(requisitosId);
     }
 
     /**
      *
-     * Obtener un aprobacion por medio de su id y el de su requisito.
+     * Servicio 1: Obtener un requisito por medio de su id y el de su aprobacion.
      *
      * @param aprobacionsId id del aprobacion a ser buscado.
      * @return el requisito solicitada por medio de su id.
@@ -81,36 +84,18 @@ public class AprobacionRequisitoLogic {
     }
 
     /**
-     * Remplazar requisito de un aprobacion
+     * Servicio 2: Desasocia el requisito y la aprobación.
      *
-     * @param aprobacionsId el id del aprobacion que se quiere actualizar.
-     * @param requisitosId El id del nuebo requisito asociado al aprobacion.
-     * @return el nuevo requisito asociado.
+     * @param objID el id del objetivo a remover
+     * @param aprID el id de la aprobación de la cual se remueve la asociación
      */
-    public RequisitoEntity replaceRequisito(Long aprobacionsId, Long requisitosId) {
-        LOGGER.log(Level.INFO, "Inicia proceso de actualizar el requisito del aprobacion aprobacion con id = {0}", aprobacionsId);
-        RequisitoEntity requisitoEntity = requisitoPersistence.find(requisitosId);
-        AprobacionEntity aprobacionEntity = aprobacionPersistence.find(aprobacionsId);
-        aprobacionEntity.setRequisito(requisitoEntity);
-        LOGGER.log(Level.INFO, "Termina proceso de asociar el requisito con id = {0} al aprobacion con id = " + aprobacionsId, requisitosId);
-        return requisitoPersistence.find(requisitosId);
+    public void removeRequisito(Long objID, Long aprID) {
+        LOGGER.log(Level.INFO, "Inicia proceso de borrar un Requisito de la aprobación con id = {0}", aprID);
+        RequisitoEntity reqEntity = requisitoPersistence.find(objID);
+        AprobacionEntity aprEntity = aprobacionPersistence.find(aprID);
+        reqEntity.getAprobaciones().remove(aprEntity);
+        aprEntity.setObjetivo(null);
+        LOGGER.log(Level.INFO, "Termina proceso de borrar un Requisito de la aprobación con id = {0}", aprID);
     }
 
-    /**
-     * Borrar el requisito de un aprobacion
-     *
-     * @param aprobacionsId El aprobacion que se desea borrar del requisito.
-     * @throws BusinessLogicException si el aprobacion no tiene requisito
-     */
-    public void removeRequisito(Long aprobacionsId) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Inicia proceso de borrar el requisito del aprobacion con id = {0}", aprobacionsId);
-        AprobacionEntity aprobacionEntity = aprobacionPersistence.find(aprobacionsId);
-        if (aprobacionEntity.getRequisito() == null) {
-            throw new BusinessLogicException("El aprobacion no tiene requisito");
-        }
-        RequisitoEntity requisitoEntity = requisitoPersistence.find(aprobacionEntity.getRequisito().getId());
-        aprobacionEntity.setRequisito(null);
-        requisitoEntity.getAprobaciones().remove(aprobacionEntity);
-        LOGGER.log(Level.INFO, "Termina proceso de borrar el requisito con id = {0} del aprobacion con id = " + aprobacionsId, requisitoEntity.getId());
-    }
 }
