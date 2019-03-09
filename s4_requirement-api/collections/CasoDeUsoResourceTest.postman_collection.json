@@ -1,0 +1,47 @@
+{
+	"info": {
+		"_postman_id": "f0df1fce-7c58-4fc6-8585-be215b107070",
+		"name": "CasoDeUsoResourceTest",
+		"description": "CasoDeUsoResourceTest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/casos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4876d4c8-f84e-44ad-9b1f-bc8598f49b82",
+						"exec": [
+							"tests[\"no genera error en el get\"]=responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/casos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"casos"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
