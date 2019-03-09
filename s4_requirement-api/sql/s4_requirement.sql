@@ -8,6 +8,7 @@ delete from CasoDeUsoEntity;
 delete from CondicionEntity;
 
 delete from ObjetivoEntity;
+delete from RequisitoEntity;
 
 insert into StakeHolderEntity (id, tipo, nombre) values (100, 'Financiero', 'Mateo');
 insert into StakeHolderEntity (id, tipo, nombre) values (200, 'Tecnologico', 'Juan');
