@@ -8,7 +8,8 @@ package co.edu.uniandes.csw.requirement.resources;
 import co.edu.uniandes.csw.requirement.dtos.CambioDTO;
 import co.edu.uniandes.csw.requirement.dtos.ObjetivoDetailDTO;
 import co.edu.uniandes.csw.requirement.dtos.RequisitoDetailDTO;
-import co.edu.uniandes.csw.requirement.dtos.StakeHolderDetailDTO;
+import co.edu.uniandes.csw.requirement.dtos.StakeHolderDTO;
+
 import co.edu.uniandes.csw.requirement.ejb.CambioLogic;
 import co.edu.uniandes.csw.requirement.ejb.ObjetivoLogic;
 import co.edu.uniandes.csw.requirement.ejb.RequisitoLogic;
@@ -115,13 +116,13 @@ public class CambioResource{
     
     @GET
     @Path("{id1: \\d+}/stakeholder")
-    public StakeHolderDetailDTO getAutor(@PathParam("id1")Long  idCambio){
+    public StakeHolderDTO getAutor(@PathParam("id1")Long  idCambio){
         CambioEntity entity = cambioLogic.findCambioById(idCambio);
         if(entity == null){
             throw new WebApplicationException("El recurso /aprobaciones/"+idCambio+" no existe.", 404);
         }
         StakeHolderEntity sh = entity.getAutor();
-        StakeHolderDetailDTO dto = new StakeHolderDetailDTO(); //Falta constructor con entity como parámetro.
+        StakeHolderDTO dto = new StakeHolderDTO(); //Falta constructor con entity como parámetro.
         return dto;
     }
     
