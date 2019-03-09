@@ -44,7 +44,7 @@ public class DRSLogic {
         LOGGER.log(Level.INFO, "Inicia proceso de creación de la editorial");
         // Verifica la regla de negocio que dice que no puede haber dos editoriales con el mismo nombre
         if (persistence.findByVersion(drsEntity.getVersion()) != null) {
-            throw new BusinessLogicException("Ya existe un Camino con el id \"" + drsEntity.getId() + "\"");
+            throw new BusinessLogicException("Ya existe un Camino con la version \"" + drsEntity.getVersion() + "\"");
         }
         // Invoca la persistencia para crear la editorial
         persistence.create(drsEntity);
