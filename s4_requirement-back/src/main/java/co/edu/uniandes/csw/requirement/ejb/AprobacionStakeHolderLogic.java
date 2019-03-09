@@ -50,19 +50,21 @@ public class AprobacionStakeHolderLogic {
     private StakeHolderPersistence stakeholderPersistence;
 
     /**
-     * Remplazar la stakeholder de un aprobacion.
+     * Añade la relacion con stakeholder de una aprobacion.
      *
      * @param aprobacionsId id del aprobacion que se quiere actualizar.
      * @param stakeholdersId El id de la stakeholder que se será del aprobacion.
-     * @return el nuevo aprobacion.
+     * @return El StakeHolder agregado a la relación
      */
-    public AprobacionEntity replaceStakeHolder(Long aprobacionsId, Long stakeholdersId) {
-        LOGGER.log(Level.INFO, "Inicia proceso de actualizar aprobacion con id = {0}", aprobacionsId);
+    public StakeHolderEntity addStakeHolder(Long aprobacionsId, Long stakeholdersId) {
+        LOGGER.log(Level.INFO, "Inicia proceso de asociar stakeholder con id = {0}" +  "a aprobacion con id" + aprobacionsId, stakeholdersId);
         StakeHolderEntity stakeholderEntity = stakeholderPersistence.find(stakeholdersId);
         AprobacionEntity aprobacionEntity = aprobacionPersistence.find(aprobacionsId);
         aprobacionEntity.setStakeHolder(stakeholderEntity);
-        LOGGER.log(Level.INFO, "Termina proceso de actualizar aprobacion con id = {0}", aprobacionEntity.getId());
-        return aprobacionEntity;
+        
+        
+        LOGGER.log(Level.INFO, "Termina proceso de asociar aprobacion con id = {0}", aprobacionsId);
+        return stakeholderEntity;
     }
 
     /**
@@ -76,7 +78,22 @@ public class AprobacionStakeHolderLogic {
         AprobacionEntity aprobacionEntity = aprobacionPersistence.find(aprobacionsId);
         StakeHolderEntity stakeholderEntity = stakeholderPersistence.find(aprobacionEntity.getStakeHolder().getId());
         aprobacionEntity.setStakeHolder(null);
-        stakeholderEntity.getAprobaciones().remove(aprobacionEntity);
+        
         LOGGER.log(Level.INFO, "Termina proceso de borrar la StakeHolder del aprobacion con id = {0}", aprobacionEntity.getId());
     }
+    
+    /**
+     * Obtener un stakeholder asociado a la aprobación
+     * @param 
+     * @return el stakeholder
+     */
+    
+    public StakeHolderEntity getStakeholder(Long aprobacionId)     
+    {
+        LOGGER.log(Level.INFO, "Inicia proceso de obtener el StakeHolder de la aprobacion con id = {0}", aprobacionId);
+        AprobacionEntity aprobacionEntity = aprobacionPersistence.find(aprobacionId);
+        LOGGER.log(Level.INFO, "Termina proceso de borrar la StakeHolder del aprobacion con id = {0}", aprobacionEntity.getId());
+        return aprobacionEntity.getStakeHolder();
+    }
+    
 }
