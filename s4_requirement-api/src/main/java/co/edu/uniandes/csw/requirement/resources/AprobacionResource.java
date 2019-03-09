@@ -97,24 +97,24 @@ public class AprobacionResource {
         return dto;
     }
     
-    /*@PUT 
+    @PUT 
     @Path("{id1: \\d+}/stakeholder/{id2: \\d+}")
     public AprobacionDTO changeStakeHolder(@PathParam("id1") Long idAprobacion, @PathParam("id2") Long idAprobador){
         AprobacionEntity aprobacion = aprobacionLogic.findAprobacionById(idAprobacion);
         if(aprobacion == null){
             throw new WebApplicationException("El recurso /aprobaciones/"+idAprobacion+" no existe.", 404);
         }
-        /*StakeHolderEntity stakeHolder = requisitoLogic.find(idRequisito);
-        if(stakeholder == null){
+        StakeHolderEntity stakeHolder = stakeHolderLogic.getStakeHolder(idAprobador);
+        if(stakeHolder == null){
             throw new WebApplicationException("El recurso /stakeholders/"+idAprobador+" no existe.", 404);
         }
         aprobacionLogic.changeStakeHolder(idAprobacion, idAprobador); 
         
         AprobacionDTO dto = new AprobacionDTO(aprobacion);
         return dto;
-    }*/
+    }
     
-    /*
+    
     @GET
     @Path("{id1: \\d+}/stakeholder")
     public StakeHolderDTO getStakeHolder(@PathParam("id1")Long  idAprobacion){
@@ -126,25 +126,25 @@ public class AprobacionResource {
         StakeHolderDTO dto = new StakeHolderDTO(); //Falta constructor con entity como parámetro.
         return dto;
     }
-    */
-    /*@PUT
+    
+    @PUT
     @Path("{id1: \\d+}/requisito/{id2: \\d+}")
     public AprobacionDTO changeRequisito(@PathParam("id1") Long idAprobacion, @PathParam("id2") Long idRequisito){
         AprobacionEntity aprobacion = aprobacionLogic.findAprobacionById(idAprobacion);
         if(aprobacion == null){
             throw new WebApplicationException("El recurso /aprobaciones/"+idAprobacion+" no existe.", 404);
         }
-        RequisitoEntity requisito = requisitoLogic.find(idRequisito);
+        RequisitoEntity requisito = requisitoLogic.getRequisito(idRequisito);
         if(requisito == null){
             throw new WebApplicationException("El recurso /requisitos/"+idRequisito+" no existe.", 404);
         }
-        aprobacionLogic.changeRequisito(idApobacion, idRequisito);
+        aprobacionLogic.changeRequisito(idAprobacion, idRequisito);
         
         AprobacionDTO dto = new AprobacionDTO(aprobacion);
         return dto;
-    }*/
+    }
     
-    /*@GET
+    @GET
     @Path("{id1: \\d+}/requisito")
     public RequisitoDetailDTO getRequisito(@PathParam("id1") Long idAprobacion){
         AprobacionEntity entity = aprobacionLogic.findAprobacionById(idAprobacion);
@@ -154,9 +154,9 @@ public class AprobacionResource {
         RequisitoEntity requisito = entity.getRequisito();
         RequisitoDetailDTO dto = new RequisitoDetailDTO(); //Falta constructor con entity como parámetro.
         return dto;
-    }*/
+    }
     
-    /*@PUT 
+    @PUT 
     @Path("{id1: \\d+}/objetivo/{id2: \\d+}")
     public AprobacionDTO changeObjetivo(@PathParam("id1") Long idAprobacion, @PathParam("id2") Long idObjetivo){
         AprobacionEntity aprobacion = aprobacionLogic.findAprobacionById(idAprobacion);
@@ -170,9 +170,9 @@ public class AprobacionResource {
         aprobacionLogic.changeRequisito(idAprobacion, idObjetivo);
         AprobacionDTO dto = new AprobacionDTO(aprobacion);
         return dto;
-    }*/
+    }
     
-    /*@GET
+    @GET
     @Path("{id1: \\d+}/objetivo")
     public ObjetivoDetailDTO getObjetivo(@PathParam("id1") Long idAprobacion){
         AprobacionEntity entity = aprobacionLogic.findAprobacionById(idAprobacion);
@@ -182,7 +182,7 @@ public class AprobacionResource {
         ObjetivoEntity requisito = entity.getObjetivo();
         ObjetivoDetailDTO dto = new ObjetivoDetailDTO(); //Falta constructor con entity como parámetro.
         return dto;
-    }*/
+    }
     
     /**
      * Convierte una lista de entidades a DTO.
@@ -194,6 +194,7 @@ public class AprobacionResource {
      * vamos a convertir a DTO.
      * @return la lista de premios en forma DTO (json)
      */
+    
     private List<AprobacionDTO> listEntity2DetailDTO(List<AprobacionEntity> entityList) {
         List<AprobacionDTO> list = new ArrayList<>();
         for (AprobacionEntity entity : entityList) {
