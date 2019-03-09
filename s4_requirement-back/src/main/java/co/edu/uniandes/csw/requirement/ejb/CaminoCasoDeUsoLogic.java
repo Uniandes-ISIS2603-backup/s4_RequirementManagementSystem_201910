@@ -17,7 +17,7 @@ import javax.inject.Inject;
 
 /**
  *
- * @author estudiante
+ * @author Sofia Sarmiento
  */
 @Stateless
 public class CaminoCasoDeUsoLogic {
