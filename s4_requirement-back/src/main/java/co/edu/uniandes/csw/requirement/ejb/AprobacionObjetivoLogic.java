@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.requirement.ejb;
 
 import co.edu.uniandes.csw.requirement.entities.AprobacionEntity;
 import co.edu.uniandes.csw.requirement.entities.ObjetivoEntity;
+import co.edu.uniandes.csw.requirement.entities.RequisitoEntity;
 import co.edu.uniandes.csw.requirement.persistence.AprobacionPersistence;
 import co.edu.uniandes.csw.requirement.persistence.ObjetivoPersistence;
 import java.util.logging.Level;
@@ -48,6 +49,20 @@ public class AprobacionObjetivoLogic
         
         LOGGER.log(Level.INFO, "Termina proceso de asociarle un Objetivo  a la aprobación con id = {0}", aprID);
         return objetivoPersistence.find(aprID);
+    }
+    
+    /**
+     *
+     * Servicio 2: Obtener un Objetivo por medio del id de su aprobación.
+     *
+     * @param aprobacionsId id del aprobacion a ser buscado.
+     * @return el requisito solicitada por medio de su id.
+     */
+    public ObjetivoEntity getObjetivo(Long aprobacionsId) {
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar el objetivo de la aprobacion con id = {0}", aprobacionsId);
+        ObjetivoEntity objEntity = aprobacionPersistence.find(aprobacionsId).getObjetivo();
+        LOGGER.log(Level.INFO, "Termina proceso de consultar el objetivo de ka aprobacion con id = {0}", aprobacionsId);
+        return objEntity;
     }
     
     /**
