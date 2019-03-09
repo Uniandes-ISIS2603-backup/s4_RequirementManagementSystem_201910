@@ -87,7 +87,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/organizacion/110",
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/organizaciones/110",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -96,7 +96,7 @@
 					"path": [
 						"s4_requirement-api",
 						"api",
-						"organizacion",
+						"organizaciones",
 						"110"
 					]
 				}
@@ -109,10 +109,9 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "f7402c7b-bc1c-4c52-9c08-29eba5340695",
+						"id": "ac5952e2-330b-4302-a088-9b65b0a2afbc",
 						"exec": [
-							"tests[\"No genera error en el Get\"] = responseCode.code === 200;",
-							""
+							"tests[\"No se encuentra entidad, id invalido\"] = responseCode.code === 404;"
 						],
 						"type": "text/javascript"
 					}
@@ -153,14 +152,14 @@
 			"response": []
 		},
 		{
-			"name": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/stakeholders Copy Copy Copy",
+			"name": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/organizaciones",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"id": "f7402c7b-bc1c-4c52-9c08-29eba5340695",
 						"exec": [
-							"tests[\"Se genera error pues el nombre de la entidad ya existe\"] = responseCode.code === 412;",
+							"tests[\"Se agrega correctamente\"] = responseCode.code === 200;",
 							""
 						],
 						"type": "text/javascript"
@@ -179,7 +178,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "\t{\n        \"type\": \"organizacionDetailDTO\",\n        \"id\": 330,\n        \"nombre\": \"Tec\",\n        \"sector\": \"Tecnologico\"\n    }"
+					"raw": "\t{\n        \"type\": \"organizacionDetailDTO\",\n        \"id\": 330,\n        \"nombre\": \"Tesla\",\n        \"sector\": \"Tecnologico\"\n    }"
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/organizaciones",
@@ -198,7 +197,7 @@
 			"response": []
 		},
 		{
-			"name": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/stakeholders Copy Copy",
+			"name": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/organizaciones",
 			"event": [
 				{
 					"listen": "test",
@@ -250,7 +249,7 @@
 					"script": {
 						"id": "f7402c7b-bc1c-4c52-9c08-29eba5340695",
 						"exec": [
-							"tests[\"Se agregar correctamente la entidad\"] = responseCode.code === 200;",
+							"tests[\"No se puede agregar entidad con mismo nombre\"] = responseCode.code === 412;",
 							""
 						],
 						"type": "text/javascript"
@@ -269,7 +268,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "\t{\n        \"type\": \"organizacionDetailDTO\",\n        \"id\": 130,\n        \"nombre\": \"Ambie\",\n        \"sector\": \"Ambiental\"\n    }"
+					"raw": "\t{\n        \"type\": \"organizacionDetailDTO\",\n        \"id\": 130,\n        \"nombre\": \"Tec\",\n        \"sector\": \"Ambiental\"\n    }"
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/organizaciones",
@@ -338,9 +337,9 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "f7402c7b-bc1c-4c52-9c08-29eba5340695",
+						"id": "0062fbbd-a4c0-4c31-994f-7de9d84a8ff5",
 						"exec": [
-							"tests[\"No genera error en el Get\"] = responseCode.code === 200;",
+							"tests[\"Se elimina correctamente la entidad\"] = responseCode.code === 204;",
 							""
 						],
 						"type": "text/javascript"
@@ -362,7 +361,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/stakeholders/000",
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/organizaciones/120",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -371,8 +370,8 @@
 					"path": [
 						"s4_requirement-api",
 						"api",
-						"stakeholders",
-						"000"
+						"organizaciones",
+						"120"
 					]
 				}
 			},

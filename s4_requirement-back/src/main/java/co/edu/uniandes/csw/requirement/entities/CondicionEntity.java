@@ -25,7 +25,7 @@ public class CondicionEntity extends BaseEntity implements Serializable {
 
     @PodamExclude
     @ManyToOne
-    private CasoDeUsoEntity condiciones;
+    private CasoDeUsoEntity casos;
 
 
     public CondicionEntity() {
@@ -63,15 +63,15 @@ public class CondicionEntity extends BaseEntity implements Serializable {
     /**
      * @return the condiciones
      */
-    public CasoDeUsoEntity getCondiciones() {
-        return condiciones;
+    public CasoDeUsoEntity getCasos() {
+        return casos;
     }
 
     /**
      * @param condiciones the condiciones to set
      */
-    public void setCondiciones(CasoDeUsoEntity condiciones) {
-        this.condiciones = condiciones;
+    public void setCasos(CasoDeUsoEntity casos) {
+        this.casos = casos;
     }
 
     /**

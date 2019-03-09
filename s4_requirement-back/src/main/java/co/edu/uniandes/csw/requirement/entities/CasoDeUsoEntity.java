@@ -23,11 +23,15 @@ public class CasoDeUsoEntity extends BaseEntity implements Serializable {
     private String nombre;
 
     @PodamExclude
-    @OneToMany(mappedBy = "caminos", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @ManyToOne
+    private RequisitoEntity requisito;
+    
+    @PodamExclude
+    @OneToMany(mappedBy = "casos", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<CaminoEntity> caminos = new ArrayList<CaminoEntity>();
 
     @PodamExclude
-    @OneToMany(mappedBy = "condiciones", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany(mappedBy = "casos", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<CondicionEntity> condiciones = new ArrayList<>();
 
     @PodamExclude
