@@ -1,0 +1,492 @@
+{
+	"info": {
+		"_postman_id": "9d9a0b5a-04c0-46f5-98ef-fbdafbfa2c87",
+		"name": "RequisitoResourceTest",
+		"description": "Requisito Resource Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Guardar un requisito 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a2a1e56e-af41-4c40-ac3e-de9f776d5e0a",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_a\",data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"descripcion\" : \"Descripcion 1\",\n\t\"estabilidad\" : 1,\n\t\"importancia\" : 3,\n\t\"comentarios\" : \"Comentario 1\",\n\t\"tipo\": \"FUNCIONAL\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/requisitos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"requisitos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Guardar un requisito 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a2a1e56e-af41-4c40-ac3e-de9f776d5e0a",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_b\",data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"descripcion\" : \"Descripcion 2\",\n\t\"estabilidad\" : 2,\n\t\"importancia\" : 2,\n\t\"comentarios\" : \"Comentario 2\",\n\t\"tipo\" : \"NOFUNCIONAL\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/requisitos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"requisitos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Guardar un requisito falllido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a2a1e56e-af41-4c40-ac3e-de9f776d5e0a",
+						"exec": [
+							"tests[\"Debe generar error en el Post\"] = responseCode.code === 412;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"descripcion\" : \"Descripcion 2\",\n\t\"estabilidad\" : 0,\n\t\"importancia\" : 5,\n\t\"comentarios\" : \"Comentario 2\",\n\t\"tipo\": \"NUEVO\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/requisitos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"requisitos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener la lista de Requisitos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fe9eda36-b00f-4fb5-972d-e9af913e9903",
+						"exec": [
+							" tests[\"No genera error el GET\"] = responseCode.code === 200"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/requisitos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"requisitos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un requisito 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a9e443e7-2f88-4dff-ba2f-a980c483670f",
+						"exec": [
+							" tests[\"No deberia encontrar el objetivo\"] = responseCode.code === 200"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/requisitos/{{new_id_a}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"requisitos",
+						"{{new_id_a}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un requisito inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a9e443e7-2f88-4dff-ba2f-a980c483670f",
+						"exec": [
+							" tests[\"No deberia encontrar el objetivo\"] = responseCode.code === 404"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/requisitos/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"requisitos",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modificar un requisito",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b1d1f272-2e3a-41ef-9456-c5da5ff2e1cd",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Put\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"descripcion\" : \"Descripcion JAJAJA\",\n\t\"estabilidad\" : 2,\n\t\"importancia\" : 2,\n\t\"comentarios\" : \"Comment\",\n\t\"tipo\": \"FUNCIONAL\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/requisitos/{{new_id_b}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"requisitos",
+						"{{new_id_b}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modificar un requisito inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b1b90e90-49af-4c89-96b5-0dd67184457b",
+						"exec": [
+							"tests[\"No se deberia actualizar un autor con id que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /objetivos/0 no existe.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"descripcion\" : \"Descripcion JAJAJA\",\n\t\"estabilidad\" : 2,\n\t\"importancia\" : 2,\n\t\"comentarios\" : \"Comment\",\n\t\"tipo\" : \"FUNCIONAL\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/objetivos/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"objetivos",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar un requisito 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "032c2688-97c1-43f3-ae48-d1833887de87",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/requisitos/{{new_id_a}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"requisitos",
+						"{{new_id_a}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar un requisito 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "032c2688-97c1-43f3-ae48-d1833887de87",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/requisitos/{{new_id_b}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"requisitos",
+						"{{new_id_b}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar un requisito inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "032c2688-97c1-43f3-ae48-d1833887de87",
+						"exec": [
+							"tests[\"No se deberia borrar un autor con un id que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /requisitos/0 no existe.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/requisitos/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"requisitos",
+						"0"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "491408ce-fdea-4c64-a839-9e40fa67eae4",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "c4d6c3d0-2db9-45ef-a39b-078343a4470f",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
