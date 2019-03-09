@@ -38,7 +38,7 @@ public class CondicionLogicTest {
  
     
     @Inject
-    private CondicionLogic casoDeUsoLogic;
+    private CondicionLogic condicionLogic;
     
     @PersistenceContext
     private EntityManager em;
@@ -78,7 +78,7 @@ public class CondicionLogicTest {
     }
     
     private void clearData() {
-        em.createQuery("delete from CasoDeUsoEntity").executeUpdate();
+        em.createQuery("delete from CondicionEntity").executeUpdate();
     }
     
     public void insertData(){
@@ -94,7 +94,7 @@ public class CondicionLogicTest {
     @Test
     public void createCondicionTest() throws BusinessLogicException {
         CondicionEntity newEntity = factory.manufacturePojo(CondicionEntity.class);
-        CondicionEntity result = casoDeUsoLogic.createCondicion(newEntity);
+        CondicionEntity result = condicionLogic.createCondicion(newEntity);
         Assert.assertNotNull(result);
         CondicionEntity entity = em.find(CondicionEntity.class, result.getId());
         Assert.assertEquals(newEntity.getId(), entity.getId());
@@ -113,11 +113,11 @@ public class CondicionLogicTest {
     public void createCondicionTestConDescripcionInvalida() throws BusinessLogicException {
         CondicionEntity newEntity = factory.manufacturePojo(CondicionEntity.class);
         newEntity.setDescripcion(data.get(0).getDescripcion());
-        casoDeUsoLogic.createCondicion(newEntity);
+        condicionLogic.createCondicion(newEntity);
     }
     
      public void getCondicionesTest() {
-        List<CondicionEntity> list = casoDeUsoLogic.getCondiciones();
+        List<CondicionEntity> list = condicionLogic.getCondiciones();
         Assert.assertEquals(data.size(), list.size());
         for (CondicionEntity entity : list) {
             boolean found = false;
@@ -133,7 +133,7 @@ public class CondicionLogicTest {
     @Test
     public void getCondicionTest() {
         CondicionEntity entity = data.get(0);
-        CondicionEntity resultEntity = casoDeUsoLogic.getCondicion(entity.getId());
+        CondicionEntity resultEntity = condicionLogic.getCondicion(entity.getId());
         Assert.assertNotNull(resultEntity);
         Assert.assertEquals(entity.getId(), resultEntity.getId());
         Assert.assertEquals(entity.getDescripcion(), resultEntity.getDescripcion());
@@ -143,7 +143,7 @@ public class CondicionLogicTest {
     @Test
     public void getCasoDeUsoPorDescripcionTest() {
         CondicionEntity entity = data.get(0);
-        CondicionEntity resultEntity = casoDeUsoLogic.getCondicionDescripcion(entity.getDescripcion());
+        CondicionEntity resultEntity = condicionLogic.getCondicionDescripcion(entity.getDescripcion());
         Assert.assertNotNull(resultEntity);
         Assert.assertEquals(entity.getId(), resultEntity.getId());
         Assert.assertEquals(entity.getDescripcion(), resultEntity.getDescripcion());
@@ -155,7 +155,7 @@ public class CondicionLogicTest {
         CondicionEntity entity = data.get(0);
         CondicionEntity pojoEntity = factory.manufacturePojo(CondicionEntity.class);
         pojoEntity.setId(entity.getId());
-        casoDeUsoLogic.updateCondicion(pojoEntity.getId(), pojoEntity);
+        condicionLogic.updateCondicion(pojoEntity.getId(), pojoEntity);
         CondicionEntity resp = em.find(CondicionEntity.class, entity.getId());
         Assert.assertEquals(pojoEntity.getId(), resp.getId());
     }
@@ -164,7 +164,7 @@ public class CondicionLogicTest {
     @Test
     public void deleteCaminoTest() throws BusinessLogicException {
         CondicionEntity entity = data.get(1);
-        casoDeUsoLogic.deleteCondicion(entity.getId());
+        condicionLogic.deleteCondicion(entity.getId());
         CondicionEntity deleted = em.find(CondicionEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
