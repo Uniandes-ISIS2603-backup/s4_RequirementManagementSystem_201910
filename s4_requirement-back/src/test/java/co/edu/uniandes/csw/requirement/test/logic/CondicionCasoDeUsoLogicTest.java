@@ -5,36 +5,37 @@
  */
 package co.edu.uniandes.csw.requirement.test.logic;
 
+import javax.inject.Inject;
+import org.jboss.arquillian.junit.Arquillian;
+import org.junit.runner.RunWith;
+import uk.co.jemos.podam.api.PodamFactory;
+import uk.co.jemos.podam.api.PodamFactoryImpl;
 import co.edu.uniandes.csw.requirement.ejb.*;
 import co.edu.uniandes.csw.requirement.entities.*;
 import co.edu.uniandes.csw.requirement.persistence.CasoDeUsoPersistence;
 import java.util.ArrayList;
 import java.util.List;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.EntityManager;
 import javax.transaction.UserTransaction;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import uk.co.jemos.podam.api.PodamFactory;
-import uk.co.jemos.podam.api.PodamFactoryImpl;
+
 /**
  *
- * @author davidmanosalva
+ * @author Sofia Sarmiento
  */
 @RunWith(Arquillian.class)
-public class CaminoCasoDeUsoLogicTest {
-
+public class CondicionCasoDeUsoLogicTest {
+    
     private PodamFactory factory = new PodamFactoryImpl();
 
     @Inject
-    private CaminoCasoDeUsoLogic caminoCasoLogic;
+    private CondicionCasoDeUsoLogic condicionCasoLogic;
 
     @Inject
     private CasoDeUsoLogic casoUsoLogic;
@@ -45,14 +46,14 @@ public class CaminoCasoDeUsoLogicTest {
     @Inject
     private UserTransaction utx;
 
-    private List<CaminoEntity> data = new ArrayList<CaminoEntity>();
+    private List<CondicionEntity> data = new ArrayList<CondicionEntity>();
     private CasoDeUsoEntity casoUso = new CasoDeUsoEntity();
 
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
-                .addPackage(CaminoEntity.class.getPackage())
-                .addPackage(CaminoLogic.class.getPackage())
+                .addPackage(CondicionEntity.class.getPackage())
+                .addPackage(CondicionLogic.class.getPackage())
                 .addPackage(CasoDeUsoPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
@@ -77,27 +78,28 @@ public class CaminoCasoDeUsoLogicTest {
 
     private void clearData() {
         em.createQuery("delete from CasoDeUsoEntity").executeUpdate();
-        em.createQuery("delete from CaminoEntity").executeUpdate();
+        em.createQuery("delete from CondicionEntity").executeUpdate();
     }
 
     private void insertData() {
         casoUso = factory.manufacturePojo(CasoDeUsoEntity.class);
         em.persist(casoUso);
         for (int i = 0; i < 3; i++) {
-            CaminoEntity camino = factory.manufacturePojo(CaminoEntity.class);
+            CondicionEntity condicion = factory.manufacturePojo(CondicionEntity.class);
 
-            em.persist(camino);
-            data.add(camino);
+            em.persist(condicion);
+            data.add(condicion);
 
         }
     }
     
     @Test
     public void addCasoDeUsoTest() {
-        CaminoEntity caminEntity = data.get(0);
-        CasoDeUsoEntity response = caminoCasoLogic.addCasoDeUso(casoUso.getId(), caminEntity.getId());
+        CondicionEntity condicionEntity = data.get(0);
+        CasoDeUsoEntity response = condicionCasoLogic.addCasoDeUso(casoUso.getId(), condicionEntity.getId());
 
         Assert.assertNotNull(response);
         Assert.assertEquals(casoUso.getId(), response.getId());
     }
+    
 }
