@@ -66,9 +66,6 @@ public class AprobacionLogicTest {
                 .addPackage(AprobacionEntity.class.getPackage())
                 .addPackage(AprobacionLogic.class.getPackage())
                 .addPackage(AprobacionPersistence.class.getPackage())
-                .addPackage(StakeHolderEntity.class.getPackage())
-                .addPackage(RequisitoEntity.class.getPackage())
-                .addPackage(ObjetivoEntity.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
@@ -127,21 +124,11 @@ public class AprobacionLogicTest {
     @Test
     public void createAprobacionTest() throws BusinessLogicException{
         AprobacionEntity newEntity = factory.manufacturePojo(AprobacionEntity.class);
-        newEntity.setTipo("TEST");
+        newEntity.setTipo("REQUISITO");
         aprobacionLogic.createAprobacion(newEntity);
         AprobacionEntity entity = em.find(AprobacionEntity.class, newEntity.getId());
         Assert.assertNotNull(entity);
         Assert.assertEquals(entity.getComentario(), newEntity.getComentario());
-    }
-    
-    @Test(expected = BusinessLogicException.class)
-    public void createAprobacionConRequisitoYObjetivo() throws BusinessLogicException{
-        AprobacionEntity newEntity = factory.manufacturePojo(AprobacionEntity.class);
-        ObjetivoEntity objetivo = factory.manufacturePojo(ObjetivoEntity.class);
-        RequisitoEntity requisito = factory.manufacturePojo(RequisitoEntity.class);
-        newEntity.setRequisito(requisito);
-        newEntity.setObjetivo(objetivo);
-        aprobacionLogic.createAprobacion(newEntity);
     }
     
      /**
@@ -203,36 +190,4 @@ public class AprobacionLogicTest {
         Assert.assertNull(deleted);
     }
     
-     /**
-     * Prueba para cambir el dueño de una aprobación
-     */
-    @Test
-    public void changeStakeHolderTest(){
-        AprobacionEntity entity = data.get(1);
-        entity = aprobacionLogic.changeStakeHolder(entity.getId(), sh.getId());
-        StakeHolderEntity entitySH = entity.getStakeHolder();
-        Assert.assertEquals(sh.getId(), entitySH.getId());
-    }
-    
-     /**
-     * Prueba para cambir el objetivo de una aprobación
-     */
-    @Test
-    public void changeObjetivoTest(){
-        AprobacionEntity entity = data.get(1);
-        entity = aprobacionLogic.changeObjetivo(entity.getId(), objetivo.getId());
-        ObjetivoEntity entityObjetivo = entity.getObjetivo();
-        Assert.assertEquals(objetivo.getId(), entityObjetivo.getId());
-    }
-    
-     /**
-     * Prueba para cambir el requisito de una aprobación
-     */
-    @Test
-    public void changeRequisitoTest(){
-        AprobacionEntity entity = data.get(1);
-        entity = aprobacionLogic.changeRequisito(entity.getId(), requisito.getId());
-        RequisitoEntity entityRequisito = entity.getRequisito();
-        Assert.assertEquals(requisito.getId(), entityRequisito.getId());
-    }
 }
