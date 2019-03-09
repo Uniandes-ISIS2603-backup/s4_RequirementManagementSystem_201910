@@ -33,10 +33,6 @@ public class CasoDeUsoEntity extends BaseEntity implements Serializable {
     @PodamExclude
     @OneToMany(mappedBy = "casos", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<CondicionEntity> condiciones = new ArrayList<>();
-
-    @PodamExclude
-    @ManyToOne
-    private RequisitoEntity requisito;
     
     public CasoDeUsoEntity() {
 
