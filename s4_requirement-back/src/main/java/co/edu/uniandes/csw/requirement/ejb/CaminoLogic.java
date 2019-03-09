@@ -62,7 +62,7 @@ public class CaminoLogic {
                 }
             }
         }
-        // Invoca la persistencia para crear la editorial
+        // Invoca la persistencia para crear el camino
         persistence.create(caminoEntity);
         LOGGER.log(Level.INFO, "Termina proceso de creación del camino");
         return caminoEntity;
@@ -90,21 +90,16 @@ public class CaminoLogic {
      * @return la editorial solicitada por medio de su id.
      */
     public CaminoEntity getCamino(Long caminoId) {
-        LOGGER.log(Level.INFO, "Inicia proceso de consultar el camino con id = {0}", caminoId);
         // Note que, por medio de la inyección de dependencias se llama al método "find(id)" que se encuentra en la persistencia.
         CaminoEntity caminoEntity = persistence.find(caminoId);
-        if (caminoEntity == null) {
-            LOGGER.log(Level.SEVERE, "La editorial con el id = {0} no existe", caminoId);
-        }
-        LOGGER.log(Level.INFO, "Termina proceso de consultar la editorial con id = {0}", caminoId);
         return caminoEntity;
     }
 
     /**
      *
-     * Actualizar una editorial.
+     * Actualizar un camino.
      *
-     * @param editorialsId: id de la editorial para buscarla en la base de
+     * @param caminoId: id de la editorial para buscarla en la base de
      * datos.
      * @param editorialEntity: editorial con los cambios para ser actualizada,
      * por ejemplo el nombre.

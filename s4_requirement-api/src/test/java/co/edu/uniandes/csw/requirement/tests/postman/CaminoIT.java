@@ -4,9 +4,8 @@
  * and open the template in the editor.
  */
 package co.edu.uniandes.csw.requirement.tests.postman;
-
 import co.edu.uniandes.csw.postman.tests.PostmanTestBuilder;
-import co.edu.uniandes.csw.requirement.dtos.ObjetivoDTO;
+import co.edu.uniandes.csw.requirement.dtos.CaminoDTO;
 import co.edu.uniandes.csw.requirement.mappers.BusinessLogicExceptionMapper;
 import co.edu.uniandes.csw.requirement.resources.RestConfig;
 import java.io.File;
@@ -20,14 +19,13 @@ import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
 /**
  *
- * @author Sofia Alvarez
+ * @author Sofia A
  */
 @RunWith(Arquillian.class)
-public class DRSIT 
-{
+public class CaminoIT {
+    /**
     private static final String COLLECTION = "DRSResourceTest.postman_collection";
 
     @Deployment(testable = true)
@@ -39,7 +37,7 @@ public class DRSIT
                         .withTransitivity().asFile())
                 // Se agregan los compilados de los paquetes de servicios
                 .addPackage(RestConfig.class.getPackage()) //No importa cual recurso usar, lo importante es agregar el paquet
-                .addPackage(ObjetivoDTO.class.getPackage()) //No importa cual dto usar, lo importante es agregar el paquete.
+                .addPackage(CaminoDTO.class.getPackage()) //No importa cual dto usar, lo importante es agregar el paquete.
                 .addPackage(BusinessLogicExceptionMapper.class.getPackage())
                 // El archivo que contiene la configuracion a la base de datos.
                 .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
@@ -64,4 +62,5 @@ public class DRSIT
 
         Assert.assertEquals("Error en Assertions de: " + COLLECTION, desiredResult, tp.getAssertions_failed());
     }
+    */
 }
