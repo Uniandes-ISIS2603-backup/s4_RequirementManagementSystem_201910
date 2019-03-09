@@ -5,10 +5,8 @@
  */
 package co.edu.uniandes.csw.requirement.test.logic;
 
-import co.edu.uniandes.csw.requirement.ejb.CaminoCasoDeUsoLogic;
-import co.edu.uniandes.csw.requirement.entities.CaminoEntity;
-import co.edu.uniandes.csw.requirement.entities.CasoDeUsoEntity;
-import co.edu.uniandes.csw.requirement.exceptions.BusinessLogicException;
+import co.edu.uniandes.csw.requirement.ejb.*;
+import co.edu.uniandes.csw.requirement.entities.*;
 import co.edu.uniandes.csw.requirement.persistence.CasoDeUsoPersistence;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,17 +24,20 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
-
 /**
  *
- * @author estudiante
+ * @author davidmanosalva
  */
 @RunWith(Arquillian.class)
 public class CaminoCasoDeUsoLogicTest {
+
     private PodamFactory factory = new PodamFactoryImpl();
 
     @Inject
     private CaminoCasoDeUsoLogic caminoCasoLogic;
+
+    @Inject
+    private CasoDeUsoLogic casoUsoLogic;
 
     @PersistenceContext
     private EntityManager em;
@@ -44,28 +45,19 @@ public class CaminoCasoDeUsoLogicTest {
     @Inject
     private UserTransaction utx;
 
-    private List<CasoDeUsoEntity> data = new ArrayList<CasoDeUsoEntity>();
+    private List<CaminoEntity> data = new ArrayList<CaminoEntity>();
+    private CasoDeUsoEntity casoUso = new CasoDeUsoEntity();
 
-    private List<CaminoEntity> caminosData = new ArrayList();
-
-    /**
-     * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
-     * El jar contiene las clases, el descriptor de la base de datos y el
-     * archivo beans.xml para resolver la inyección de dependencias.
-     */
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
-                .addPackage(CasoDeUsoEntity.class.getPackage())
-                .addPackage(CaminoCasoDeUsoLogicTest.class.getPackage())
+                .addPackage(CaminoEntity.class.getPackage())
+                .addPackage(CaminoLogic.class.getPackage())
                 .addPackage(CasoDeUsoPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
-
-    /**
-     * Configuración inicial de la prueba.
-     */
+    
     @Before
     public void configTest() {
         try {
@@ -83,79 +75,29 @@ public class CaminoCasoDeUsoLogicTest {
         }
     }
 
-    /**
-     * Limpia las tablas que están implicadas en la prueba.
-     */
     private void clearData() {
-        em.createQuery("delete from CaminoEntity").executeUpdate();
-        //em.createQuery("delete from OrganizationEntity ").executeUpdate();
         em.createQuery("delete from CasoDeUsoEntity").executeUpdate();
+        em.createQuery("delete from CaminoEntity").executeUpdate();
     }
 
-    /**
-     * Inserta los datos iniciales para el correcto funcionamiento de las
-     * pruebas.
-     */
     private void insertData() {
+        casoUso = factory.manufacturePojo(CasoDeUsoEntity.class);
+        em.persist(casoUso);
         for (int i = 0; i < 3; i++) {
-            CaminoEntity caminos = factory.manufacturePojo(CaminoEntity.class);
+            CaminoEntity camino = factory.manufacturePojo(CaminoEntity.class);
 
-            em.persist(caminos);
-            caminosData.add(caminos);
-        }
-        for (int i = 0; i < 3; i++) {
-            CasoDeUsoEntity entity = factory.manufacturePojo(CasoDeUsoEntity.class);
-            em.persist(entity);
-            data.add(entity);
-            if (i == 0) {
-                caminosData.get(i).setCasos(entity);
-            }
+            em.persist(camino);
+            data.add(camino);
+
         }
     }
-
-    /**
-     * Prueba para asociar un Prizes existente a un Author.
-     */
+    
     @Test
-    public void addCasoDeUsoTest() {
-        CasoDeUsoEntity entity = data.get(0);
-        CaminoEntity caminoEntity = caminosData.get(1);
-        CasoDeUsoEntity response = caminoCasoLogic.addCasoDeUso(entity.getId(), caminoEntity.getId());
+    public void addAuthorTest() {
+        CaminoEntity caminEntity = data.get(0);
+        CasoDeUsoEntity response = caminoCasoLogic.addCasoDeUso(casoUso.getId(), caminEntity.getId());
 
         Assert.assertNotNull(response);
-        Assert.assertEquals(entity.getId(), response.getId());
-    }
-
-    /**
-     * Prueba para consultar un Author.
-     */
-    @Test
-    public void getCasoDeUsoTest() {
-        CaminoEntity entity = caminosData.get(0);
-        CasoDeUsoEntity resultEntity = caminoCasoLogic.getCasoDeUso(entity.getId());
-        Assert.assertNotNull(resultEntity);
-        Assert.assertEquals(entity.getCasos().getId(), resultEntity.getId());
-    }
-
-
-    /**
-     * Prueba para desasociar un Prize existente de un Author existente.
-     *
-     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
-     */
-    @Test
-    public void removeCasoDeUsoTest() throws BusinessLogicException {
-        caminoCasoLogic.removeCasoDeUso(caminosData.get(0).getId());
-        Assert.assertNull(caminoCasoLogic.getCasoDeUso(caminosData.get(0).getId()));
-    }
-
-    /**
-     * Prueba para desasociar un Prize existente de un Author existente.
-     *
-     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
-     */
-    @Test(expected = BusinessLogicException.class)
-    public void removeCaminoSinCasoDeUsoTest() throws BusinessLogicException {
-        caminoCasoLogic.removeCasoDeUso(caminosData.get(1).getId());
+        Assert.assertEquals(casoUso.getId(), response.getId());
     }
 }
