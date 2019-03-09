@@ -190,4 +190,36 @@ public class AprobacionLogicTest {
         Assert.assertNull(deleted);
     }
     
+     /**
+     * Prueba para cambir el dueño de un cambio.
+     */
+    @Test
+    public void changeStakeHolderTest(){
+        AprobacionEntity entity = data.get(1);
+        entity = aprobacionLogic.changeStakeHolder(entity.getId(), sh.getId());
+        StakeHolderEntity entitySH = entity.getStakeHolder();
+        Assert.assertEquals(sh.getId(), entitySH.getId());
+    }
+    
+     /**
+     * Prueba para cambir el objetivo de una aprobación
+     */
+    @Test
+    public void changeObjetivoTest(){
+        AprobacionEntity entity = data.get(1);
+        entity = aprobacionLogic.changeObjetivo(entity.getId(), objetivo.getId());
+        ObjetivoEntity entityObjetivo = entity.getObjetivo();
+        Assert.assertEquals(objetivo.getId(), entityObjetivo.getId());
+    }
+    
+     /**
+     * Prueba para cambir el requisito de una aprobación
+     */
+    @Test
+    public void changeRequisitoTest(){
+        AprobacionEntity entity = data.get(1);
+        entity = aprobacionLogic.changeRequisito(entity.getId(), requisito.getId());
+        RequisitoEntity entityRequisito = entity.getRequisito();
+        Assert.assertEquals(requisito.getId(), entityRequisito.getId());
+    }
 }
