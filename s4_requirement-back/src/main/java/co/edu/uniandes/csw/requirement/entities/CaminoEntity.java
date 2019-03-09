@@ -37,10 +37,9 @@ public class CaminoEntity extends BaseEntity implements Serializable {
 
     /**
      * Constructor vacío por defecto
+     * 
      */
-    public CaminoEntity() {
-
-    }
+  
 
     /**
      * @return the descripcionPaso
