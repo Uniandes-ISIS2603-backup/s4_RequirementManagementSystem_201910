@@ -97,14 +97,6 @@ public class ObjetivoLogic {
 
     public void deleteObjetivo(Long objetivoId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de borrar el autor con id = {0}", objetivoId);
-        /*List<BookEntity> books = getObjetivo(objetivoId).getBooks();
-        if (books != null && !books.isEmpty()) {
-            throw new BusinessLogicException("No se puede borrar el autor con id = " + objetivoId + " porque tiene books asociados");
-        }
-        List<PrizeEntity> prizes = getObjetivo(objetivoId).getPrizes();
-        if (prizes != null && !prizes.isEmpty()) {
-            throw new BusinessLogicException("No se puede borrar el autor con id = " + objetivoId + " porque tiene premios asociados");
-        }*/
         objetivoPersistence.delete(objetivoId);
         LOGGER.log(Level.INFO, "Termina proceso de borrar el autor con id = {0}", objetivoId);
     }

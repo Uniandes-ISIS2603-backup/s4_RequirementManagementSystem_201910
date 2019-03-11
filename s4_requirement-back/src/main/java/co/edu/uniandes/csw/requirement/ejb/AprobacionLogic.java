@@ -30,8 +30,6 @@ public class AprobacionLogic {
     @Inject
     private AprobacionPersistence aprobacionPersistence;
     
-    
-    /*
     @Inject 
     private StakeHolderPersistence shPersistence;
     
@@ -40,7 +38,6 @@ public class AprobacionLogic {
     
     @Inject 
     private RequisitoPersistence requisitoPersistence;
-    */
     
     private static final Logger LOGGER = Logger.getLogger(AprobacionLogic.class.getName());
     
@@ -104,8 +101,7 @@ public class AprobacionLogic {
         return aprobacion;
     }
     
-    
-    /*
+   
     public AprobacionEntity changeStakeHolder(Long aprobacionId, Long shId){
         StakeHolderEntity nuevo = shPersistence.find(shId);
         AprobacionEntity aprobacion = aprobacionPersistence.find(aprobacionId);
@@ -126,5 +122,4 @@ public class AprobacionLogic {
         aprobacion.setRequisito(nuevo);
         return aprobacion;
     }
-*/
 }

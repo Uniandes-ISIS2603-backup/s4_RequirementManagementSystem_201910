@@ -8,6 +8,10 @@ delete from CasoDeUsoEntity;
 delete from CondicionEntity;
 
 delete from ObjetivoEntity;
+delete from RequisitoEntity;
+
+delete from DRSEntity;
+delete from CaminoEntity;
 
 insert into StakeHolderEntity (id, tipo, nombre) values (100, 'Financiero', 'Mateo');
 insert into StakeHolderEntity (id, tipo, nombre) values (200, 'Tecnologico', 'Juan');
@@ -22,6 +26,10 @@ insert into CambioEntity (id, tipo, descripcion) values (1, 'TEST', 'Cambio 1');
 insert into CasoDeUsoEntity (id, nombre) values (10, 'casoPrueba');
 insert into CasoDeUsoEntity (id, nombre) values (20, 'casoPrueba2');
 
+insert into DRSEntity (id, version, reporte) values (55, 1, 'Este es un reporte');
+insert into DRSEntity (id, version, reporte) values (28, 2, 'Este e la version 2 del reporte');
+
+insert into CaminoEntity(pasos) values ('Paso 1');
 
 insert into CondicionEntity (id, descripcion, seCumplio) values (30, 'condicionPrueba1', 1);
 insert into CondicionEntity (id, descripcion, seCumplio) values (40, 'condicionPrueba2', 0);

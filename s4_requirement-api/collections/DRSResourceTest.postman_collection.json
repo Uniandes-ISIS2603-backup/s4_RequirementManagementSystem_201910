@@ -1,0 +1,464 @@
+{
+	"info": {
+		"_postman_id": "0c3bc31d-9c41-47e9-ab8a-113a9a57f6a6",
+		"name": "DRSResourceTest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear un nuevo DRS",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a2a1e56e-af41-4c40-ac3e-de9f776d5e0a",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_a\",data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"version\" : 1,\n\t\"reporte\" : \"Este es el reporte\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/drs",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"drs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un nuevo DRS 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a2a1e56e-af41-4c40-ac3e-de9f776d5e0a",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_b\",data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"version\" : 15,\n\t\"reporte\" : \"Este es el reporte de la version 15\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/drs",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"drs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un nuevo DRS Fallido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a2a1e56e-af41-4c40-ac3e-de9f776d5e0a",
+						"exec": [
+							"tests[\"No genera error en el Post\"] = responseCode.code === 412;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"version\" : 15,\n\t\"reporte\" : \"Este es el reporte de la version 15\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/drs",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"drs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener todos los DRS",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f55cce3d-5ef6-4ee3-9ad0-f23076edf6ce",
+						"exec": [
+							"tests[\"No genera error en el GET\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/drs",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"drs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener el DRS 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f55cce3d-5ef6-4ee3-9ad0-f23076edf6ce",
+						"exec": [
+							"tests[\"No genera error en el GET\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/drs/{{new_id_a}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"drs",
+						"{{new_id_a}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un DRS invalido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f55cce3d-5ef6-4ee3-9ad0-f23076edf6ce",
+						"exec": [
+							"tests[\"Genera error en el GET\"] = responseCode.code === 404;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/drs/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"drs",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar un DRS",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5f5ecd57-0a5f-4e1d-83da-024c71dfb19e",
+						"exec": [
+							"tests[\"No genera error en el PUT\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"version\" : 16,\n\t\"reporte\" : \"Este es el reporte de la version 16\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/drs/{{new_id_b}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"drs",
+						"{{new_id_b}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar un DRS Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5f5ecd57-0a5f-4e1d-83da-024c71dfb19e",
+						"exec": [
+							"tests[\"Genera error en el PUT\"] = responseCode.code === 404;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"version\" : 16,\n\t\"reporte\" : \"Este es el reporte de la version 16\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/drs/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"drs",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar el DRS 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f55cce3d-5ef6-4ee3-9ad0-f23076edf6ce",
+						"exec": [
+							"tests[\"No genera error en el DELETE\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/drs/{{new_id_a}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"drs",
+						"{{new_id_a}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar el DRS 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f55cce3d-5ef6-4ee3-9ad0-f23076edf6ce",
+						"exec": [
+							"tests[\"No genera error en el DELETE\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/drs/{{new_id_b}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"drs",
+						"{{new_id_b}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar un DRS Inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f55cce3d-5ef6-4ee3-9ad0-f23076edf6ce",
+						"exec": [
+							"tests[\"Genera error en el DELETE\"] = responseCode.code === 404;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/drs/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"drs",
+						"0"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
