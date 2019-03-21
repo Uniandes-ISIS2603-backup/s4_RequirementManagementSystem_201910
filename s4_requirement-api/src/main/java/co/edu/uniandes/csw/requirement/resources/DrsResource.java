@@ -73,7 +73,7 @@ public class DrsResource
      */
      @GET
     @Path("{id: \\d+}")
-    public DrsDTO getDrs (@PathParam("id") Long id) throws WebApplicationException {
+    public DrsDTODetail getDrs (@PathParam("id") Long id) throws WebApplicationException {
         DRSEntity drsEntity = drsLogic.getDRS(id);
         if (drsEntity == null) {
             throw new WebApplicationException("El recurso /drs/" + id + " no existe.", 404);

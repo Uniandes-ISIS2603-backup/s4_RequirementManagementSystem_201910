@@ -36,15 +36,15 @@ public class DrsDTO implements Serializable {
     /**
      * Conviertir Entity a DTO (Crea un nuevo DTO con los valores que recibe en
      * la entidad que viene de argumento.
-     * @param drse Es la entidad que se va a convertir a DTO
+     * @param entity Es la entidad que se va a convertir a DTO
      */
-    public DrsDTO(DRSEntity drse)
+    public DrsDTO(DRSEntity entity)
     {
-        if(drse != null)
+        if(entity != null)
         {
-            this.id = drse.getId();
-            this.version = drse.getVersion();
-            this.reporte = drse.getReporte();
+            this.id = entity.getId();
+            this.version = entity.getVersion();
+            this.reporte = entity.getReporte();
         }
     }
     /**

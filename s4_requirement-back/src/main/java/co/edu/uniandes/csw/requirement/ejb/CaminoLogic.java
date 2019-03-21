@@ -7,7 +7,6 @@ package co.edu.uniandes.csw.requirement.ejb;
 
 
 import co.edu.uniandes.csw.requirement.entities.CaminoEntity;
-import co.edu.uniandes.csw.requirement.entities.CaminoEntity.TipoCamino;
 import co.edu.uniandes.csw.requirement.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.requirement.persistence.CaminoPersistence;
 import java.util.List;
@@ -39,32 +38,19 @@ public class CaminoLogic {
      * @throws BusinessLogicException Si la editorial a persistir ya existe.
      */
     public CaminoEntity createCamino(CaminoEntity caminoEntity) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Inicia proceso de creación de la editorial");
         // Verifica la regla de negocio que dice que no puede haber dos editoriales con el mismo nombre
         if (persistence.find(caminoEntity.getId()) != null) {
             throw new BusinessLogicException("Ya existe un Camino con el id \"" + caminoEntity.getId() + "\"");
         }
-        if (caminoEntity.getTipoCamino() == null)
+        if (caminoEntity.getTipoPaso() == null)
         {
            throw new BusinessLogicException("El tipo de camino no puede ser null");
         }
-        if (!(caminoEntity.getTipoCamino().equals(TipoCamino.BASICO) || caminoEntity.getTipoCamino().equals(TipoCamino.ALTERNATIVO) || caminoEntity.getTipoCamino().equals(TipoCamino.EXCEPCION)) ){
+        if (!(caminoEntity.getTipoPaso().equals("BASICO") || caminoEntity.getTipoPaso().equals("ALTERNATIVO") || caminoEntity.getTipoPaso().equals("EXCEPCION")) ){
             throw new BusinessLogicException("El tipo de camino sólo puede ser básico, de excepción o alternativo");
-        }
-        if(caminoEntity.getPasos().isEmpty()){
-            throw new BusinessLogicException("Debe haber por lo menos un paso");
-        }
-        for (int i = 0; i < caminoEntity.getPasos().size(); i++) {
-            for (int j = i+1; j < caminoEntity.getPasos().size(); j++) {
-                if(caminoEntity.getPasos().get(i).equals(caminoEntity.getPasos().get(j)))
-                {
-                    throw new BusinessLogicException("No puede haber pasos repetidos");
-                }
-            }
         }
         // Invoca la persistencia para crear el camino
         persistence.create(caminoEntity);
-        LOGGER.log(Level.INFO, "Termina proceso de creación del camino");
         return caminoEntity;
     }
 

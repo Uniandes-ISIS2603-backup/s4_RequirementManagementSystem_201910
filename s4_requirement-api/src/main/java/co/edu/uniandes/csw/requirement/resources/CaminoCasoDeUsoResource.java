@@ -23,6 +23,7 @@ import javax.ws.rs.WebApplicationException;
  * @author Sofia Sarmiento
  */
 
+@Path("casoDeUso/camino")
 @Consumes("application/json")
 @Produces("application/json")
 public class CaminoCasoDeUsoResource {
