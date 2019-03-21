@@ -42,6 +42,8 @@ public class DrsDTODetail extends DrsDTO implements Serializable
      */
     public DrsDTODetail(DRSEntity drsEntity) {
         super(drsEntity);
+        if(drsEntity != null)
+        {
         if (drsEntity.getObjetivos() != null) {
             objetivos = new ArrayList<>();
             for (ObjetivoEntity entityObjetivo : drsEntity.getObjetivos()) {
@@ -59,7 +61,9 @@ public class DrsDTODetail extends DrsDTO implements Serializable
             for (StakeHolderEntity entityStakeholder : drsEntity.getStakeholders()) {
                 stakeholders.add(new StakeHolderDTO(entityStakeholder));
             }
-        }
+        }             
+    }
+        
 
     }
     

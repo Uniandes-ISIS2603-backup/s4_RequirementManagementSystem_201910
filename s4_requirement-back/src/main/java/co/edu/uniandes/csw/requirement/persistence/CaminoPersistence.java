@@ -14,38 +14,41 @@ import javax.persistence.TypedQuery;
 
 /**
  *
- * @author Sofia Alvarez
+ * @author sofiaalvarez
  */
 @Stateless
 public class CaminoPersistence {
-
-    @PersistenceContext(unitName = "requirementPU")
+    
+     @PersistenceContext(unitName = "requirementPU")
     protected EntityManager em;
-
+    
+    public CaminoEntity create(CaminoEntity camino){
+        em.persist(camino);
+        return camino;
+    }
+    
+    
     public CaminoEntity find(Long caminoId){
         return em.find(CaminoEntity.class, caminoId);
     }
-
-    public CaminoEntity create(CaminoEntity caminoEntity) {
-        em.persist(caminoEntity);
-        return caminoEntity;
-    }
-
-
-    public List<CaminoEntity> findAll() {
-        TypedQuery query = em.createQuery("select u from CaminoEntity u", CaminoEntity.class);
-        return query.getResultList();
+    
+    public List<CaminoEntity> findAll(){
+        TypedQuery<CaminoEntity> q = em.createQuery("select u from CaminoEntity u", CaminoEntity.class);
+        return q.getResultList();
     }
     
-     public CaminoEntity update(CaminoEntity camino){
+    public CaminoEntity update(CaminoEntity camino){
         return em.merge(camino);
     }
     
     public CaminoEntity delete(Long caminoId){
-        CaminoEntity camino=em.find(CaminoEntity.class, caminoId);
+        CaminoEntity camino = em.find(CaminoEntity.class, caminoId);
         em.remove(camino);
         return camino;
     }
-
-
+     
+     
+    
+    
+    
 }

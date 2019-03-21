@@ -6,67 +6,60 @@
 package co.edu.uniandes.csw.requirement.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
- * @author Sofia Alvarez
+ * @author sofiaalvarez
  */
 @Entity
 public class CaminoEntity extends BaseEntity implements Serializable {
-
-    public enum TipoCamino
-    {
-        BASICO,
-        EXCEPCION,
-        ALTERNATIVO
-    }
+    /*
+    public final static String BASICO = "BASICO";
+    public final static String ALTERNATIVO = "ALTERNATIVO";
+    public final static String EXCEPCION = "EXCEPCION";*/
     
-
-    private TipoCamino tipoCamino;
-    private ArrayList<String> pasos;
-
-
-
+    
+    private String tipoPaso;
+    
+    private String pasos;
+    
     @PodamExclude
-    @ManyToOne
+    @ManyToOne 
     private CasoDeUsoEntity casos;
+    
+    public CaminoEntity(){
+        
+    }
 
     /**
-     * Constructor vacío por defecto
-     * 
+     * @return the tipoPaso
      */
-  
+    public String getTipoPaso() {
+        return tipoPaso;
+    }
 
     /**
-     * @return the descripcionPaso
+     * @param tipoPaso the tipoPaso to set
      */
-    public ArrayList<String> getPasos() {
+    public void setTipoPaso(String tipoPaso) {
+        this.tipoPaso = tipoPaso;
+    }
+
+    /**
+     * @return the pasos
+     */
+    public String getPasos() {
         return pasos;
     }
 
     /**
-     * @param descripcionPaso to set
+     * @param pasos the pasos to set
      */
-    public void setPasos(ArrayList<String> pasitos) {
-        this.pasos = pasitos;
-    }
-    
-      /**
-     * @return the descripcionPaso
-     */
-    public TipoCamino getTipoCamino() {
-        return tipoCamino;
-    }
-
-    /**
-     * @param tipoPasito to set
-     */
-    public void setTipoCamino(TipoCamino tipoPasito) {
-        this.tipoCamino = tipoPasito;
+    public void setPasos(String pasos) {
+        this.pasos = pasos;
     }
 
     /**
@@ -83,4 +76,5 @@ public class CaminoEntity extends BaseEntity implements Serializable {
         this.casos = casos;
     }
 
+    
 }
