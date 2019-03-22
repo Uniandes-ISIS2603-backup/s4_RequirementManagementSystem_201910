@@ -24,6 +24,7 @@ import javax.ws.rs.core.MediaType;
  *
  * @author Sofia Alvarez
  */
+@Path("stakeholders/DRS")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class StakeholderDRSResource {
@@ -47,11 +48,11 @@ public class StakeholderDRSResource {
      */
     @POST
     @Path("{drsId: \\d+}")
-    public DrsDTO addDrs(@PathParam("stakeholdersId") Long reqsId, @PathParam("drsId") Long drsId) {
+    public DrsDTODetail addDrs(@PathParam("stakeholdersId") Long reqsId, @PathParam("drsId") Long drsId) {
         if (drsLogic.getDRS(drsId) == null) {
             throw new WebApplicationException("El recurso /drs/" + drsId + " no existe.", 404);
         }
-        DrsDTO drsDTO = new DrsDTO(stakeholderDrsLogic.addDrs(drsId, reqsId));
+        DrsDTODetail drsDTO = new DrsDTODetail(stakeholderDrsLogic.addDrs(drsId, reqsId));
         return drsDTO;
     }
 
