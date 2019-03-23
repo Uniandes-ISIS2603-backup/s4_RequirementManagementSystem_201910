@@ -6,7 +6,7 @@
 package co.edu.uniandes.csw.requirement.tests.postman;
 
 import co.edu.uniandes.csw.postman.tests.PostmanTestBuilder;
-import co.edu.uniandes.csw.requirement.dtos.CasoDeUsoDTO;
+import co.edu.uniandes.csw.requirement.dtos.CondicionDTO;
 import co.edu.uniandes.csw.requirement.mappers.BusinessLogicExceptionMapper;
 import co.edu.uniandes.csw.requirement.resources.RestConfig;
 import java.io.File;
@@ -26,8 +26,8 @@ import org.junit.runner.RunWith;
  * @author Sofia Sarmiento
  */
 @RunWith(Arquillian.class)
-public class CasoDeUsoIT {
-    private static final String COLLECTION = "CasoDeUsoResourceTest.postman_collection";
+public class CondicionIT {
+    /*private static final String COLLECTION = "CondicionResourceTest.postman_collection";
 
     @Deployment(testable = true)
     public static WebArchive createDeployment() {
@@ -38,7 +38,7 @@ public class CasoDeUsoIT {
                         .withTransitivity().asFile())
                 // Se agregan los compilados de los paquetes de servicios
                 .addPackage(RestConfig.class.getPackage()) //No importa cual recurso usar, lo importante es agregar el paquet
-                .addPackage(CasoDeUsoDTO.class.getPackage()) //No importa cual dto usar, lo importante es agregar el paquete.
+                .addPackage(CondicionDTO.class.getPackage()) //No importa cual dto usar, lo importante es agregar el paquete.
                 .addPackage(BusinessLogicExceptionMapper.class.getPackage())
                 // El archivo que contiene la configuracion a la base de datos.
                 .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
@@ -61,5 +61,5 @@ public class CasoDeUsoIT {
         Assert.assertEquals("Error en Test-Scripts de: " + COLLECTION, desiredResult, tp.getTest_scripts_failed());
 
         Assert.assertEquals("Error en Assertions de: " + COLLECTION, desiredResult, tp.getAssertions_failed());
-    }
+    }*/
 }
