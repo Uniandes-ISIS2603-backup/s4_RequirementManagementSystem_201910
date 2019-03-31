@@ -7,7 +7,7 @@
 	},
 	"item": [
 		{
-			"name": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/casos",
+			"name": "Obtener todos los casos de uso",
 			"event": [
 				{
 					"listen": "test",
@@ -44,7 +44,7 @@
 			"response": []
 		},
 		{
-			"name": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/casos",
+			"name": "Crea un caso de uso",
 			"event": [
 				{
 					"listen": "test",
@@ -90,7 +90,7 @@
 			"response": []
 		},
 		{
-			"name": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/casos/{{new_id_e}}",
+			"name": "Obtiene un caso de uso",
 			"event": [
 				{
 					"listen": "test",
@@ -130,7 +130,7 @@
 			"response": []
 		},
 		{
-			"name": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/casos",
+			"name": "Intenta crear un caso de uso con el nombre anterior",
 			"event": [
 				{
 					"listen": "test",
@@ -170,6 +170,44 @@
 						"s4_requirement-api",
 						"api",
 						"casos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "eliminar un caso de uso",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dea46fb7-a38b-4142-8c8e-b56ef37df95c",
+						"exec": [
+							"tests[\"Se elimina correctamente la entidad\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/casos/{{new_id_e}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"casos",
+						"{{new_id_e}}"
 					]
 				}
 			},
