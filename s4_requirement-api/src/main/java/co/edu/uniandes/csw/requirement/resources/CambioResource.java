@@ -104,12 +104,11 @@ public class CambioResource{
         if(aprobacion == null){
             throw new WebApplicationException("El recurso /aprobaciones/"+idCambio+" no existe.", 404);
         }
-        /*StakeHolderEntity stakeHolder = stakeholderLogic.find(idAprobador);
-        if(stakeholder == null){
+        StakeHolderEntity stakeHolder = stakeHolderLogic.getStakeHolder(idAprobador);
+        if(stakeHolder == null){
             throw new WebApplicationException("El recurso /stakeholders/"+idAprobador+" no existe.", 404);
         }
-        aprobacionLogic.changeStakeHolder(idAprobacion, idAprobador); 
-        */
+        cambioLogic.changeStakeHolder(idCambio, idAprobador); 
         CambioDTO dto = new CambioDTO(aprobacion);
         return dto;
     }
@@ -122,7 +121,7 @@ public class CambioResource{
             throw new WebApplicationException("El recurso /aprobaciones/"+idCambio+" no existe.", 404);
         }
         StakeHolderEntity sh = entity.getAutor();
-        StakeHolderDTO dto = new StakeHolderDTO(); //Falta constructor con entity como parámetro.
+        StakeHolderDTO dto = new StakeHolderDTO(sh); 
         return dto;
     }
     
@@ -133,12 +132,11 @@ public class CambioResource{
         if(aprobacion == null){
             throw new WebApplicationException("El recurso /aprobaciones/"+idCambio+" no existe.", 404);
         }
-        /*RequisitoEntity requisito = requisitoLogic.find(idRequisito);
+        RequisitoEntity requisito = requisitoLogic.getRequisito(idRequisito);
         if(requisito == null){
             throw new WebApplicationException("El recurso /requisitos/"+idRequisito+" no existe.", 404);
         }
-        aprobacionLogic.changeRequisito(idApobacion, idRequisito);
-        */
+        cambioLogic.changeRequisito(idCambio, idRequisito);
         CambioDTO dto = new CambioDTO(aprobacion);
         return dto;
     }
@@ -151,7 +149,7 @@ public class CambioResource{
             throw new WebApplicationException("El recurso /aprobaciones/"+idCambio+" no existe.", 404);
         }
         RequisitoEntity requisito = entity.getRequisito();
-        RequisitoDetailDTO dto = new RequisitoDetailDTO(); //Falta constructor con entity como parámetro.
+        RequisitoDetailDTO dto = new RequisitoDetailDTO(requisito); 
         return dto;
     }
     
@@ -179,7 +177,7 @@ public class CambioResource{
             throw new WebApplicationException("El recurso /aprobaciones/"+idCambio+" no existe.", 404);
         }
         ObjetivoEntity objetivo = entity.getObjetivo();
-        ObjetivoDetailDTO dto = new ObjetivoDetailDTO(); //Falta constructor con entity como parámetro.
+        ObjetivoDetailDTO dto = new ObjetivoDetailDTO(objetivo);
         return dto;
     }
 }

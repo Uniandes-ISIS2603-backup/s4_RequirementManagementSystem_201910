@@ -55,5 +55,12 @@ public class OrganizacionDetailDTO extends OrganizacionDTO implements Serializab
         }
         return entidad;
     }
-    
+
+    public List<StakeHolderDTO> getStakeHolders() {
+        return stakeHolders;
+    }
+
+    public void setStakeHolders(List<StakeHolderDTO> stakeHolders) {
+        this.stakeHolders = stakeHolders;
+    }   
 }

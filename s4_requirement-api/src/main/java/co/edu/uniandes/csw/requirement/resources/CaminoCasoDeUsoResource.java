@@ -17,16 +17,18 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.MediaType;
 
 /**
  *
  * @author Sofia Sarmiento
  */
-@Consumes(MediaType.APPLICATION_JSON)
-@Produces(MediaType.APPLICATION_JSON)
+
+@Path("casoDeUso/camino")
+@Consumes("application/json")
+@Produces("application/json")
 public class CaminoCasoDeUsoResource {
-    private static final Logger LOGGER = Logger.getLogger(CondicionCasoDeUsoResource.class.getName());
+
+    private static final Logger LOGGER = Logger.getLogger(CaminoCasoDeUsoResource.class.getName());
 
     @Inject
     private CaminoCasoDeUsoLogic caminoCasoLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.

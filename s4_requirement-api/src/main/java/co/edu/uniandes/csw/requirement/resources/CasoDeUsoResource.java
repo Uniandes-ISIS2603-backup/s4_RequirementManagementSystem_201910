@@ -65,7 +65,7 @@ public class CasoDeUsoResource {
     }
     
     @GET
-    public List<CasoDeUsoDTO> getCondiciones() {
+    public List<CasoDeUsoDTO> getCasosDeUso() {
         LOGGER.info("CasoDeUsoResource getCasosDeUso: input: void");
         List<CasoDeUsoDTO> listaCasos = listEntity2DTO(casoDeUsoLogic.getCasosDeUso());
         LOGGER.log(Level.INFO, "CasoDeUsoResource getCasosDeUso: output: {0}", listaCasos);

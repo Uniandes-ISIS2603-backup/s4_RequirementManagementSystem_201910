@@ -77,6 +77,12 @@ public class StakeHolderDTO implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-    
-    
+
+    public OrganizacionDTO getOrganizacion() {
+        return organizacion;
+    }
+
+    public void setOrganizacion(OrganizacionDTO organizacion) {
+        this.organizacion = organizacion;
+    }   
 }

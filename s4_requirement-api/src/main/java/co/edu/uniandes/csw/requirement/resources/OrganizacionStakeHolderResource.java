@@ -29,6 +29,7 @@ import javax.ws.rs.core.MediaType;
  *
  * @author Mateo Pedroza
  */
+@Path("stakeholders/organizaciones")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class OrganizacionStakeHolderResource {

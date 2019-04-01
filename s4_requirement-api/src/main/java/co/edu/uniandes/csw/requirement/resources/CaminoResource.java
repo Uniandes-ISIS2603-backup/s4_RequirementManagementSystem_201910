@@ -9,7 +9,6 @@ import co.edu.uniandes.csw.requirement.dtos.CaminoDTO;
 import co.edu.uniandes.csw.requirement.ejb.CaminoLogic;
 import co.edu.uniandes.csw.requirement.entities.CaminoEntity;
 import co.edu.uniandes.csw.requirement.exceptions.BusinessLogicException;
-import java.util.List;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;

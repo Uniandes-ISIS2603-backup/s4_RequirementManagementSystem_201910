@@ -1,0 +1,203 @@
+{
+	"info": {
+		"_postman_id": "ccc46716-9ca9-4357-9c3c-bb8a979ddb26",
+		"name": "CondicionResourceTest",
+		"description": "Condicion Resource Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Obtener todas las condiciones",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7137d737-c280-4d9c-901d-5fb18e2348b0",
+						"exec": [
+							"tests[\"no genera error en el get\"]=responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/condiciones",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"condiciones"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear una condicion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3bb2c4a1-bcdb-4da0-b88f-573fe4940a41",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_e\",data.id);",
+							"tests[\"no genera error el post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"descripcion\":\"Prueba1\",\n\"seCumplio\": 1,\n\"esPrecondicion\":0}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/condiciones",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"condiciones"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener una condicion",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/condiciones/{{new_id_e}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"condiciones",
+						"{{new_id_e}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Intenta crear una condicion con la descripcion anterior",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3bb2c4a1-bcdb-4da0-b88f-573fe4940a41",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_e\",data.id);",
+							"tests[\"no genera error el post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"descripcion\":\"Prueba1\",\n\"seCumplio\": 1,\n\"esPrecondicion\":0}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/condiciones",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"condiciones"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "eliminar una condicion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cacb2bbf-21b5-4d36-ae65-09601a75f21f",
+						"exec": [
+							"tests[\"Se elimina correctamente la entidad\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/condiciones/{{new_id_e}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"condiciones",
+						"{{new_id_e}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

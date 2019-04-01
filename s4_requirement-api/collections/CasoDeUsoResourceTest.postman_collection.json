@@ -1,0 +1,217 @@
+{
+	"info": {
+		"_postman_id": "f0df1fce-7c58-4fc6-8585-be215b107070",
+		"name": "CasoDeUsoResourceTest",
+		"description": "CasoDeUsoResourceTest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Obtener todos los casos de uso",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4876d4c8-f84e-44ad-9b1f-bc8598f49b82",
+						"exec": [
+							"tests[\"no genera error en el get\"]=responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/casos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"casos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crea un caso de uso",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "82e84284-8b2a-4410-81a1-4eb98b7561a4",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_e\",data.id);",
+							"tests[\"no genera error en el post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"nombre\":\"Sofia Sarmiento\"}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/casos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"casos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtiene un caso de uso",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2ae4ce83-acdc-46a6-b602-8e644ffee443",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"no genera error en el get\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/casos/{{new_id_e}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"casos",
+						"{{new_id_e}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Intenta crear un caso de uso con el nombre anterior",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "37b37328-e7ac-4359-b6b2-d1cbc8658f47",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_e\",data.id);",
+							"tests[\"no genera error el post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"nombre\":\"patricia\"}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/casos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"casos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "eliminar un caso de uso",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dea46fb7-a38b-4142-8c8e-b56ef37df95c",
+						"exec": [
+							"tests[\"Se elimina correctamente la entidad\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/casos/{{new_id_e}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"casos",
+						"{{new_id_e}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
