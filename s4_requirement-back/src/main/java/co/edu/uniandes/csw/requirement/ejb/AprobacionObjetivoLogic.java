@@ -7,7 +7,6 @@ package co.edu.uniandes.csw.requirement.ejb;
 
 import co.edu.uniandes.csw.requirement.entities.AprobacionEntity;
 import co.edu.uniandes.csw.requirement.entities.ObjetivoEntity;
-import co.edu.uniandes.csw.requirement.entities.RequisitoEntity;
 import co.edu.uniandes.csw.requirement.persistence.AprobacionPersistence;
 import co.edu.uniandes.csw.requirement.persistence.ObjetivoPersistence;
 import java.util.logging.Level;
@@ -16,18 +15,26 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 /**
- *
- * @author jorgeandresesguerraalarcon
+ *Clase de asociacion entre aprobacion y objetivo
+ * @author jorgeandresesguerraalarcon & Sofia Alvarez
  */
-
 @Stateless
 public class AprobacionObjetivoLogic
 {
+    /**
+     * Consola de JS
+     */
     private static final Logger LOGGER = Logger.getLogger(AprobacionObjetivoLogic.class.getName());
 
+    /**
+     * Inyección de la persistencia objetivo 
+     */
     @Inject
     private ObjetivoPersistence objetivoPersistence;
-
+    
+    /**
+     * Inyeccion de la persistencia de aprobacion
+     */
     @Inject
     private AprobacionPersistence aprobacionPersistence;
     

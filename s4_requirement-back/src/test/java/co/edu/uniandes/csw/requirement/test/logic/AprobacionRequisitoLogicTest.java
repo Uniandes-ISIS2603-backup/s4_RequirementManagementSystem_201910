@@ -12,7 +12,6 @@ import co.edu.uniandes.csw.requirement.entities.RequisitoEntity;
 import co.edu.uniandes.csw.requirement.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.requirement.persistence.AprobacionPersistence;
 import java.util.ArrayList;
-import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -30,26 +29,48 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
  *
- * @author jorgeandresesguerraalarcon
+ * @author jorgeandresesguerraalarcon & Sofia Alvarez
  */
 @RunWith(Arquillian.class)
 public class AprobacionRequisitoLogicTest 
 {
+    /**
+     * Factoria de podam
+     */
     private PodamFactory factory = new PodamFactoryImpl();
 
+    /**
+     * Inyeccion de dependencias de aprobacionrequisitologic.
+     */
     @Inject
     private AprobacionRequisitoLogic aprobacionRequisitoLogic;
 
+    /**
+     * Inyeccion de dependencias de requisito logic.
+     */
     @Inject
     private RequisitoLogic requisitoLogic;
 
+    /**
+     * Persistencecontext del entity manager
+     */
     @PersistenceContext
     private EntityManager em;
 
+    /**
+     * transaccion de usuario
+     */
     @Inject
     private UserTransaction utx;
 
+    /**
+     * una aprobacion
+     */
     private AprobacionEntity apr = new AprobacionEntity();
+    
+    /**
+     * un requisito
+     */
     private RequisitoEntity obj = new RequisitoEntity();
     
     // Considerar: No se incluyen relaciones a otras clases desde Requisito!

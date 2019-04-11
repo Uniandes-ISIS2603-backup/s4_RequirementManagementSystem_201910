@@ -25,22 +25,34 @@ import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
- *
+ *Clase para problar la persistencia de aprobación
  * @author Emilio
  */
 @RunWith(Arquillian.class)
 public class AprobacionPersistenceTest {
     
+    /**
+     * Inyección de la persisnteica
+     */
     @Inject
     private AprobacionPersistence aprobacionPersistence;
     
+    /**
+     * Contexto de persistencia.
+     */
     @PersistenceContext
     private EntityManager em;
     
+    /**
+     * Inyección de una transacción del usuario
+     */
     @Inject
     UserTransaction utx;
 
-    private List<AprobacionEntity> data = new ArrayList<AprobacionEntity>();
+    /**
+     * Lista vaciía de datos de aprobación.
+     */
+    private List<AprobacionEntity> data = new ArrayList<>();
     
      /**
      * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
@@ -100,6 +112,9 @@ public class AprobacionPersistenceTest {
         }
     }
     
+    /**
+     * Test que prueba la creación de una aprobación
+     */
     @Test
     public void createAprobacionTest(){
         PodamFactory factory = new PodamFactoryImpl();
@@ -113,6 +128,9 @@ public class AprobacionPersistenceTest {
         Assert.assertEquals(newEntity.getId(), refEntity.getId());   
     }
 
+    /**
+     * Test que prueba el encontrar una aprobación, con un id dado.
+     */
     @Test
     public void findAprobacionByIdTest(){
         AprobacionEntity newEntity = data.get(0);
@@ -140,8 +158,8 @@ public class AprobacionPersistenceTest {
         }
     }
     
-         /**
-     * Prueba para actualizar un Cambio.
+     /**
+     * Prueba para actualizar una aprobación
      */
     @Test
     public void updateAprobacionTest() {
@@ -159,7 +177,7 @@ public class AprobacionPersistenceTest {
     }
     
      /**
-     * Prueba para eliminar un Cambio.
+     * Prueba para eliminar una aprobación
      */
     @Test
     public void deleteAprobacionTest() {
