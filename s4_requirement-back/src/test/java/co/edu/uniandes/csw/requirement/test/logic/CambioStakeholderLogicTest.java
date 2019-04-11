@@ -4,52 +4,50 @@
  * and open the template in the editor.
  */
 package co.edu.uniandes.csw.requirement.test.logic;
-
-import co.edu.uniandes.csw.requirement.ejb.AprobacionObjetivoLogic;
-import co.edu.uniandes.csw.requirement.ejb.ObjetivoLogic;
-import co.edu.uniandes.csw.requirement.entities.AprobacionEntity;
-import co.edu.uniandes.csw.requirement.entities.ObjetivoEntity;
+import co.edu.uniandes.csw.requirement.ejb.CambioStakeholderLogic;
+import co.edu.uniandes.csw.requirement.ejb.StakeHolderLogic;
+import co.edu.uniandes.csw.requirement.entities.CambioEntity;
+import co.edu.uniandes.csw.requirement.entities.StakeHolderEntity;
 import co.edu.uniandes.csw.requirement.exceptions.BusinessLogicException;
-import co.edu.uniandes.csw.requirement.persistence.AprobacionPersistence;
+import co.edu.uniandes.csw.requirement.persistence.CambioPersistence;
 import java.util.ArrayList;
 import javax.inject.Inject;
+import org.jboss.arquillian.container.test.api.Deployment;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.UserTransaction;
-import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.junit.runner.RunWith;
+import uk.co.jemos.podam.api.PodamFactory;
+import uk.co.jemos.podam.api.PodamFactoryImpl;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import uk.co.jemos.podam.api.PodamFactory;
-import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
- *Clase de test de relacion de aprobacion y objetivo
- * @author jorgeandresesguerraalarcon & Sofia Alvarez
+ *Clase que hace las pruebas entre cambio y stakeholder
+ * @author sofiaalvarez
  */
 @RunWith(Arquillian.class)
-public class AprobacionObjetivoLogicTest 
-{
-    /**
+public class CambioStakeholderLogicTest {
+     /**
      * Factoria de podam
      */
     private PodamFactory factory = new PodamFactoryImpl();
 
     /**
-     * Inyeccion de dependencias de aprobacion-objetivo
+     * Inyeccion de dependencias de cambio-stakeholder
      */
     @Inject
-    private AprobacionObjetivoLogic aprobacionObjetivoLogic;
+    private CambioStakeholderLogic cambioStakeholderLogic;
 
     /**
-     * Inyeccion de dependencias de objetivo 
+     * Inyeccion de dependencias de stakeholder
      */
     @Inject
-    private ObjetivoLogic objetivoLogic;
+    private StakeHolderLogic stakeholderLogic;
 
     /**
      * Inyeccion de la persistencia del entity manager
@@ -64,15 +62,14 @@ public class AprobacionObjetivoLogicTest
     private UserTransaction utx;
 
     /**
-     * Una aprobacion
+     * Un cambio
      */
-    private AprobacionEntity apr = new AprobacionEntity();
+    private CambioEntity apr = new CambioEntity();
     /**
-     * Un objetivo
+     * Un stakeholder
      */
-    private ObjetivoEntity obj = new ObjetivoEntity();
+    private StakeHolderEntity obj = new StakeHolderEntity();
     
-    // Considerar: No se incluyen relaciones a otras clases desde Objetivo!
     
     /**
      * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
@@ -82,10 +79,10 @@ public class AprobacionObjetivoLogicTest
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
-                .addPackage(AprobacionEntity.class.getPackage())
-                .addPackage(ObjetivoEntity.class.getPackage())
-                .addPackage(AprobacionObjetivoLogic.class.getPackage())
-                .addPackage(AprobacionPersistence.class.getPackage())
+                .addPackage(CambioEntity.class.getPackage())
+                .addPackage(StakeHolderEntity.class.getPackage())
+                .addPackage(CambioStakeholderLogic.class.getPackage())
+                .addPackage(CambioPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
@@ -114,8 +111,8 @@ public class AprobacionObjetivoLogicTest
      * Limpia las tablas que están implicadas en la prueba.
      */
     private void clearData() {
-        em.createQuery("delete from AprobacionEntity").executeUpdate();
-        em.createQuery("delete from ObjetivoEntity").executeUpdate();
+        em.createQuery("delete from CambioEntity").executeUpdate();
+        em.createQuery("delete from StakeHolderEntity").executeUpdate();
     }
 
     /**
@@ -124,11 +121,11 @@ public class AprobacionObjetivoLogicTest
      */
     private void insertData() {
         
-        obj = factory.manufacturePojo(ObjetivoEntity.class);
+        obj = factory.manufacturePojo(StakeHolderEntity.class);
         
-        obj.setAprobaciones(new ArrayList<AprobacionEntity>());
+        obj.setAprobaciones(new ArrayList<>());
         
-        apr = factory.manufacturePojo(AprobacionEntity.class);
+        apr = factory.manufacturePojo(CambioEntity.class);
         
         
         
@@ -139,47 +136,30 @@ public class AprobacionObjetivoLogicTest
     }
     
     /**
-     * Prueba para asociar un objetivo a una aprobacion, genera la asociación bidireccional
+     * Prueba para asociar un stakeholdr a un cambio, genera la asociación bidireccional
      * @throws BusinessLogicException si hubo un error de creación 
      */
     @Test
     public void addObjetivoTest() throws BusinessLogicException
     {
-        ObjetivoEntity newObj = factory.manufacturePojo(ObjetivoEntity.class);
-        newObj.setEstabilidad(1);
-        newObj.setImportancia(1);
-        objetivoLogic.createObjetivo(newObj);
+        StakeHolderEntity newObj = factory.manufacturePojo(StakeHolderEntity.class);
+        stakeholderLogic.createStakeHolder(newObj);
         
-        ObjetivoEntity x = aprobacionObjetivoLogic.addObjetivo(obj.getId(), apr.getId());
+        StakeHolderEntity x = cambioStakeholderLogic.addStakeHolder(obj.getId(), apr.getId());
         // Debería no ser null pues acabamos de agregarlo.
         Assert.assertNotNull(x);
-        
-        Assert.assertEquals(x.getAutor(), newObj.getAutor());
-        Assert.assertArrayEquals(x.getCambios().toArray(), newObj.getCambios().toArray());
-        Assert.assertEquals(x.getEstabilidad(), x.getEstabilidad());
+        Assert.assertArrayEquals(x.getAprobaciones().toArray(), newObj.getAprobaciones().toArray());
     }
     
     /**
-     * Prueba para desasociar un objetivo a una aprobacion
+     * Prueba para desasociar un stakeholder a un cambio
      */
     @Test
     public void removeObjetivoTest() throws BusinessLogicException
     {
-        ObjetivoEntity newObj = factory.manufacturePojo(ObjetivoEntity.class);
-        newObj.setEstabilidad(1);
-        newObj.setImportancia(1);
-        objetivoLogic.createObjetivo(newObj);
-        
-        ObjetivoEntity x = aprobacionObjetivoLogic.addObjetivo(obj.getId(), apr.getId());
-        
-        aprobacionObjetivoLogic.removeObjetivo(obj.getId(), apr.getId());
-        Assert.assertNull(apr.getObjetivo());
-        Assert.assertTrue(obj.getAprobaciones().isEmpty());
+        Assert.assertTrue(true);
+   
  
     }
     
-    
-
-      
 }
-    

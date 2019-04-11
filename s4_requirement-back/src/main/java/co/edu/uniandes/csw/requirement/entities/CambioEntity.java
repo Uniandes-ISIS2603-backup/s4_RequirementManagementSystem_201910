@@ -6,7 +6,6 @@
 package co.edu.uniandes.csw.requirement.entities;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -16,27 +15,64 @@ import javax.persistence.TemporalType;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
- *
- * @author Emilio
+ *Esta clase es la entidad para el recurso de cambio.
+ * @author Sofia Alvarez
  */
 @Entity
 public class CambioEntity extends BaseEntity implements Serializable {
 
+    /**
+     * Tipo del cambio
+     */
     private String tipo;
 
-    @Temporal(TemporalType.DATE)
-    private Date fechaYHora;
+    /**
+     * Fecha y hora de creación del cambio
+     */
+    private String fechaYHora;
 
+    /**
+     * Descripcion del cambio
+     */
     private String descripcion;
     
+    /**
+     * Autor del cambio
+     */
+    private String autor;
+    
+    /**
+     * Organización a la cual pertenece el autor del cambio
+     */
+    private String organizacion;
+    
+    /**
+     * Id del requisito/objetivo aprobado
+     */
+    private String id_aprobado;
+    
+    /**
+     * Nombre del requisito/objetivo aprobado
+     */
+    private String nombre_aprobado;
+    
+    /**
+     * Relación many to one con stakeholder.
+     */
     @PodamExclude
     @ManyToOne(cascade = CascadeType.PERSIST)
-    private StakeHolderEntity autor;
+    private StakeHolderEntity stakeholder;
     
+    /**
+     * Relación many to one con objetivo
+     */
     @PodamExclude
     @ManyToOne(cascade = CascadeType.PERSIST)
     private ObjetivoEntity objetivo;
     
+    /**
+     * Relación many to one con requisito
+     */
     @PodamExclude
     @ManyToOne(cascade = CascadeType.PERSIST)
     private RequisitoEntity requisito;
@@ -65,14 +101,14 @@ public class CambioEntity extends BaseEntity implements Serializable {
     /**
      * @return the fechaYHora
      */
-    public Date getFechaYHora() {
+    public String getFechaYHora() {
         return fechaYHora;
     }
 
     /**
      * @param fechaYHora the fechaYHora to set
      */
-    public void setFechaYHora(Date fechaYHora) {
+    public void setFechaYHora(String fechaYHora) {
         this.fechaYHora = fechaYHora;
     }
 
@@ -91,17 +127,17 @@ public class CambioEntity extends BaseEntity implements Serializable {
     }
 
     /**
-     * @return the autor
+     * @return the stakeholder
      */
-    public StakeHolderEntity getAutor() {
-        return autor;
+    public StakeHolderEntity getStakeholder() {
+        return stakeholder;
     }
 
     /**
-     * @param autor the autor to set
+     * @param stakeholder the stakeholder to set
      */
-    public void setAutor(StakeHolderEntity autor) {
-        this.autor = autor;
+    public void setStakeholder(StakeHolderEntity stakeholder) {
+        this.stakeholder = stakeholder;
     }
 
     /**
@@ -130,6 +166,62 @@ public class CambioEntity extends BaseEntity implements Serializable {
      */
     public void setRequisito(RequisitoEntity requisito) {
         this.requisito = requisito;
+    }
+
+    /**
+     * @return the autor
+     */
+    public String getAutor() {
+        return autor;
+    }
+
+    /**
+     * @param autor the autor to set
+     */
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
+
+    /**
+     * @return the organizacion
+     */
+    public String getOrganizacion() {
+        return organizacion;
+    }
+
+    /**
+     * @param organizacion the organizacion to set
+     */
+    public void setOrganizacion(String organizacion) {
+        this.organizacion = organizacion;
+    }
+
+    /**
+     * @return the id_aprobado
+     */
+    public String getId_aprobado() {
+        return id_aprobado;
+    }
+
+    /**
+     * @param id_aprobado the id_aprobado to set
+     */
+    public void setId_aprobado(String id_aprobado) {
+        this.id_aprobado = id_aprobado;
+    }
+
+    /**
+     * @return the nombre_aprobado
+     */
+    public String getNombre_aprobado() {
+        return nombre_aprobado;
+    }
+
+    /**
+     * @param nombre_aprobado the nombre_aprobado to set
+     */
+    public void setNombre_aprobado(String nombre_aprobado) {
+        this.nombre_aprobado = nombre_aprobado;
     }
 }
 

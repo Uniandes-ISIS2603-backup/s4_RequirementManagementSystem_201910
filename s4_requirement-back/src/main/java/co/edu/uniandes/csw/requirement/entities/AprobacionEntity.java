@@ -10,26 +10,65 @@ import javax.persistence.*;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
- *
- * @author Emilio
+ *Esta clase es la entidad para el recurso de aprobación
+ * @author Sofia Alvarez
  */
+
 @Entity
 public class AprobacionEntity extends BaseEntity implements Serializable {
 
+    /**
+     * Tipo de la aprobación
+     */
     private String tipo;
-
-    private boolean aprobado;
-
+     /**
+     * Autor de la aprobación
+     */
+    private String autor;
+     /**
+     * Estado de la aprobación.
+     * Puede ser aprobado, en revisión o no aprobado.
+     */
+    private String estado;
+     /**
+     * Organizacion a la que pertence el autor
+     */
+    private String organizacion;
+     /**
+     * Comentario sobre la aprobación
+     */
     private String comentario;
+     /**
+     * Id del objetivo/requisito aprobado.
+     */
+    private String id_aprobado;
+     /**
+     * Nombre del objetivo/requisito aprobado.
+     */
+    private String nombre_aprobado;
     
+    /**
+     * Fecha y hora de creacion de la aprobacion
+     */
+    private String fechaYHora;
+    
+    /**
+     * Relacion many to one con stakeholders
+     */
     @PodamExclude
     @ManyToOne(cascade = CascadeType.PERSIST)
     private StakeHolderEntity stakeholder;
     
+    /**
+     * Relacion many to one con objetivos
+     */
     @PodamExclude
     @ManyToOne(cascade = CascadeType.PERSIST)
     private ObjetivoEntity objetivo;
     
+    /**
+     * Relacion many to one con requisitos
+     */
     @PodamExclude
     @ManyToOne(cascade = CascadeType.PERSIST)
     private RequisitoEntity requisito;
@@ -58,15 +97,15 @@ public class AprobacionEntity extends BaseEntity implements Serializable {
     /**
      * @return the aprobado
      */
-    public boolean isAprobado() {
-        return aprobado;
+    public String getEstado() {
+        return estado;
     }
 
     /**
-     * @param aprobado the aprobado to set
+     * @param estado the aprobado to set
      */
-    public void setAprobado(boolean aprobado) {
-        this.aprobado = aprobado;
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
     /**
@@ -87,14 +126,14 @@ public class AprobacionEntity extends BaseEntity implements Serializable {
      * @return the aprobador
      */
     public StakeHolderEntity getStakeHolder() {
-        return stakeholder;
+        return getStakeholder();
     }
 
     /**
-     * @param aprobador the aprobador to set
+     * @param stakeholder the stakeholder to set
      */
     public void setStakeHolder(StakeHolderEntity stakeholder) {
-        this.stakeholder = stakeholder;
+        this.setStakeholder(stakeholder);
     }
 
     /**
@@ -123,6 +162,90 @@ public class AprobacionEntity extends BaseEntity implements Serializable {
      */
     public void setRequisito(RequisitoEntity requisito) {
         this.requisito = requisito;
+    }
+
+    /**
+     * @return the autor
+     */
+    public String getAutor() {
+        return autor;
+    }
+
+    /**
+     * @param autor the autor to set
+     */
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
+
+    /**
+     * @return the organizacion
+     */
+    public String getOrganizacion() {
+        return organizacion;
+    }
+
+    /**
+     * @param organizacion the organizacion to set
+     */
+    public void setOrganizacion(String organizacion) {
+        this.organizacion = organizacion;
+    }
+
+    /**
+     * @return the id_aprobado
+     */
+    public String getId_aprobado() {
+        return id_aprobado;
+    }
+
+    /**
+     * @param id_aprobado the id_aprobado to set
+     */
+    public void setId_aprobado(String id_aprobado) {
+        this.id_aprobado = id_aprobado;
+    }
+
+    /**
+     * @return the nombre_aprobado
+     */
+    public String getNombre_aprobado() {
+        return nombre_aprobado;
+    }
+
+    /**
+     * @param nombre_aprobado the nombre_aprobado to set
+     */
+    public void setNombre_aprobado(String nombre_aprobado) {
+        this.nombre_aprobado = nombre_aprobado;
+    }
+
+    /**
+     * @return the stakeholder
+     */
+    public StakeHolderEntity getStakeholder() {
+        return stakeholder;
+    }
+
+    /**
+     * @param stakeholder the stakeholder to set
+     */
+    public void setStakeholder(StakeHolderEntity stakeholder) {
+        this.stakeholder = stakeholder;
+    }
+
+    /**
+     * @return the fechaYHora
+     */
+    public String getFechaYHora() {
+        return fechaYHora;
+    }
+
+    /**
+     * @param fechaYHora the fechaYHora to set
+     */
+    public void setFechaYHora(String fechaYHora) {
+        this.fechaYHora = fechaYHora;
     }
 
 }

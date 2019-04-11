@@ -4,13 +4,12 @@
  * and open the template in the editor.
  */
 package co.edu.uniandes.csw.requirement.test.logic;
-
-import co.edu.uniandes.csw.requirement.ejb.AprobacionObjetivoLogic;
-import co.edu.uniandes.csw.requirement.ejb.ObjetivoLogic;
-import co.edu.uniandes.csw.requirement.entities.AprobacionEntity;
-import co.edu.uniandes.csw.requirement.entities.ObjetivoEntity;
+import co.edu.uniandes.csw.requirement.ejb.CambioRequisitoLogic;
+import co.edu.uniandes.csw.requirement.ejb.RequisitoLogic;
+import co.edu.uniandes.csw.requirement.entities.CambioEntity;
+import co.edu.uniandes.csw.requirement.entities.RequisitoEntity;
 import co.edu.uniandes.csw.requirement.exceptions.BusinessLogicException;
-import co.edu.uniandes.csw.requirement.persistence.AprobacionPersistence;
+import co.edu.uniandes.csw.requirement.persistence.CambioPersistence;
 import java.util.ArrayList;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -26,53 +25,51 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
-
 /**
- *Clase de test de relacion de aprobacion y objetivo
- * @author jorgeandresesguerraalarcon & Sofia Alvarez
+ *Clase que prueba la relacion entre cambio y requisito
+ * @author sofiaalvarez
  */
 @RunWith(Arquillian.class)
-public class AprobacionObjetivoLogicTest 
-{
+public class CambioRequisitoLogicTest {
     /**
      * Factoria de podam
      */
     private PodamFactory factory = new PodamFactoryImpl();
 
     /**
-     * Inyeccion de dependencias de aprobacion-objetivo
+     * Inyeccion de dependencias de cambiorequisitologic.
      */
     @Inject
-    private AprobacionObjetivoLogic aprobacionObjetivoLogic;
+    private CambioRequisitoLogic cambioRequisitoLogic;
 
     /**
-     * Inyeccion de dependencias de objetivo 
+     * Inyeccion de dependencias de requisito logic.
      */
     @Inject
-    private ObjetivoLogic objetivoLogic;
+    private RequisitoLogic requisitoLogic;
 
     /**
-     * Inyeccion de la persistencia del entity manager
+     * Persistencecontext del entity manager
      */
     @PersistenceContext
     private EntityManager em;
 
     /**
-     * Inyeccion de una transaccion de usuario
+     * transaccion de usuario
      */
     @Inject
     private UserTransaction utx;
 
     /**
-     * Una aprobacion
+     * una aprobacion
      */
-    private AprobacionEntity apr = new AprobacionEntity();
-    /**
-     * Un objetivo
-     */
-    private ObjetivoEntity obj = new ObjetivoEntity();
+    private CambioEntity apr = new CambioEntity();
     
-    // Considerar: No se incluyen relaciones a otras clases desde Objetivo!
+    /**
+     * un requisito
+     */
+    private RequisitoEntity obj = new RequisitoEntity();
+    
     
     /**
      * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
@@ -82,10 +79,10 @@ public class AprobacionObjetivoLogicTest
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
-                .addPackage(AprobacionEntity.class.getPackage())
-                .addPackage(ObjetivoEntity.class.getPackage())
-                .addPackage(AprobacionObjetivoLogic.class.getPackage())
-                .addPackage(AprobacionPersistence.class.getPackage())
+                .addPackage(CambioEntity.class.getPackage())
+                .addPackage(RequisitoEntity.class.getPackage())
+                .addPackage(CambioRequisitoLogic.class.getPackage())
+                .addPackage(CambioPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
@@ -114,8 +111,8 @@ public class AprobacionObjetivoLogicTest
      * Limpia las tablas que están implicadas en la prueba.
      */
     private void clearData() {
-        em.createQuery("delete from AprobacionEntity").executeUpdate();
-        em.createQuery("delete from ObjetivoEntity").executeUpdate();
+        em.createQuery("delete from CambioEntity").executeUpdate();
+        em.createQuery("delete from RequisitoEntity").executeUpdate();
     }
 
     /**
@@ -124,13 +121,11 @@ public class AprobacionObjetivoLogicTest
      */
     private void insertData() {
         
-        obj = factory.manufacturePojo(ObjetivoEntity.class);
+        obj = factory.manufacturePojo(RequisitoEntity.class);
         
-        obj.setAprobaciones(new ArrayList<AprobacionEntity>());
+        obj.setAprobaciones(new ArrayList<>());
         
-        apr = factory.manufacturePojo(AprobacionEntity.class);
-        
-        
+        apr = factory.manufacturePojo(CambioEntity.class);
         
         
         em.persist(apr);
@@ -139,47 +134,45 @@ public class AprobacionObjetivoLogicTest
     }
     
     /**
-     * Prueba para asociar un objetivo a una aprobacion, genera la asociación bidireccional
+     * Prueba para asociar un requisito a una aprobacion, genera la asociación bidireccional
      * @throws BusinessLogicException si hubo un error de creación 
      */
     @Test
-    public void addObjetivoTest() throws BusinessLogicException
+    public void addRequisitoTest() throws BusinessLogicException
     {
-        ObjetivoEntity newObj = factory.manufacturePojo(ObjetivoEntity.class);
+        RequisitoEntity newObj = factory.manufacturePojo(RequisitoEntity.class);
         newObj.setEstabilidad(1);
         newObj.setImportancia(1);
-        objetivoLogic.createObjetivo(newObj);
+        newObj.setTipo("FUNCIONAL");
+        requisitoLogic.createRequisito(newObj);
         
-        ObjetivoEntity x = aprobacionObjetivoLogic.addObjetivo(obj.getId(), apr.getId());
+        RequisitoEntity x = cambioRequisitoLogic.addRequisito(obj.getId(), apr.getId());
         // Debería no ser null pues acabamos de agregarlo.
         Assert.assertNotNull(x);
         
         Assert.assertEquals(x.getAutor(), newObj.getAutor());
-        Assert.assertArrayEquals(x.getCambios().toArray(), newObj.getCambios().toArray());
+        Assert.assertArrayEquals(x.getAprobaciones().toArray(), newObj.getAprobaciones().toArray());
         Assert.assertEquals(x.getEstabilidad(), x.getEstabilidad());
     }
     
     /**
-     * Prueba para desasociar un objetivo a una aprobacion
+     * Prueba para desasociar un requisito a un cambio
      */
     @Test
-    public void removeObjetivoTest() throws BusinessLogicException
+    public void removeRequisitoTest() throws BusinessLogicException
     {
-        ObjetivoEntity newObj = factory.manufacturePojo(ObjetivoEntity.class);
+        RequisitoEntity newObj = factory.manufacturePojo(RequisitoEntity.class);
         newObj.setEstabilidad(1);
         newObj.setImportancia(1);
-        objetivoLogic.createObjetivo(newObj);
+        newObj.setTipo("FUNCIONAL");
+        requisitoLogic.createRequisito(newObj);
         
-        ObjetivoEntity x = aprobacionObjetivoLogic.addObjetivo(obj.getId(), apr.getId());
+        RequisitoEntity x = cambioRequisitoLogic.addRequisito(obj.getId(), apr.getId());
         
-        aprobacionObjetivoLogic.removeObjetivo(obj.getId(), apr.getId());
-        Assert.assertNull(apr.getObjetivo());
-        Assert.assertTrue(obj.getAprobaciones().isEmpty());
+        cambioRequisitoLogic.removeRequisito(obj.getId(), apr.getId());
+        Assert.assertNull(apr.getRequisito());
+        Assert.assertTrue(obj.getCambios().isEmpty());
  
     }
     
-    
-
-      
 }
-    

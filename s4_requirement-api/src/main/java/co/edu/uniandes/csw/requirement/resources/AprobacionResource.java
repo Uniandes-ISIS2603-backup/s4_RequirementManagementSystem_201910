@@ -6,18 +6,8 @@
 package co.edu.uniandes.csw.requirement.resources;
 
 import co.edu.uniandes.csw.requirement.dtos.AprobacionDTO;
-import co.edu.uniandes.csw.requirement.dtos.ObjetivoDetailDTO;
-import co.edu.uniandes.csw.requirement.dtos.RequisitoDetailDTO;
-import co.edu.uniandes.csw.requirement.dtos.StakeHolderDTO;
 import co.edu.uniandes.csw.requirement.ejb.AprobacionLogic;
-import co.edu.uniandes.csw.requirement.ejb.CambioLogic;
-import co.edu.uniandes.csw.requirement.ejb.ObjetivoLogic;
-import co.edu.uniandes.csw.requirement.ejb.RequisitoLogic;
-import co.edu.uniandes.csw.requirement.ejb.StakeHolderLogic;
 import co.edu.uniandes.csw.requirement.entities.AprobacionEntity;
-import co.edu.uniandes.csw.requirement.entities.ObjetivoEntity;
-import co.edu.uniandes.csw.requirement.entities.RequisitoEntity;
-import co.edu.uniandes.csw.requirement.entities.StakeHolderEntity;
 import co.edu.uniandes.csw.requirement.exceptions.BusinessLogicException;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,49 +23,67 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.MediaType;
+
 
 /**
- *
- * @author Emilio
+ * Path de las aprobacion
  */
 @Path("aprobaciones")
-@Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
+/**
+ * Produce jsons
+ */
+@Produces("application/json")
+/**
+ * Lee jsons
+ */
+@Consumes("application/json")
+/**
+ * El request scoped.
+ */
 @RequestScoped
+/**
+ *Recurso de una aprobacion
+ * @author Sofia Alvarez
+ */
 public class AprobacionResource {
-    
+    /**
+     * Consola de JS
+     */
     private static final Logger LOGGER = Logger.getLogger(AprobacionResource.class.getName());
     
+    /**
+     * Inyección de la logica de la aprobacion
+     */
     @Inject
     private AprobacionLogic aprobacionLogic;
     
-    @Inject
-    private StakeHolderLogic stakeHolderLogic;
-    
-    @Inject
-    private ObjetivoLogic objetivoLogic;
-    
-    @Inject
-    private RequisitoLogic requisitoLogic;
-    
+    /**
+     * Metodo para crear una aprobacion.
+     * @param aprobacion es el DTO de la aprobacion a crear
+     * @return json de la aprobacion creada
+     * @throws BusinessLogicException si se incumple alguna 
+     */
     @POST
     public AprobacionDTO createAprobacion(AprobacionDTO aprobacion) throws BusinessLogicException{
-        AprobacionEntity entity = aprobacion.toEntity();
-        entity = aprobacionLogic.createAprobacion(entity);
-        return new AprobacionDTO(entity);
+        AprobacionDTO aprobacionDTO = new AprobacionDTO(aprobacionLogic.createAprobacion(aprobacion.toEntity()));
+        return aprobacionDTO;
     }
     
+    /**
+     * Lista de aprobaciones 
+     * @return una lista con todas las aprobaciones. 
+     */
     @GET
     public List<AprobacionDTO> getAprobaciones(){
-        List<AprobacionDTO> dtos = new ArrayList<AprobacionDTO>();
-        List<AprobacionEntity> entities = aprobacionLogic.findAllAprobaciones();
-        for(AprobacionEntity entity:entities){
-            dtos.add(new AprobacionDTO(entity));
-        }
-        return dtos;
+      List<AprobacionDTO> listaAprobaciones = listEntity2DTO(aprobacionLogic.findAllAprobaciones());
+      return listaAprobaciones;
     }
     
+    /**
+     * Consigue una sola aprobacion dado un id
+     * @param id el id de la aprobacion a obtener
+     * @return la aprobacion que se quiere.
+     */
     @GET
     @Path("{id: \\d+}")
     public AprobacionDTO getAprobacion(@PathParam("id") Long id){
@@ -83,9 +91,16 @@ public class AprobacionResource {
         if(entity == null){
             throw new WebApplicationException("El recurso /aprobaciones/"+id+" no existe.", 404);
         }
-        return new AprobacionDTO(entity);
+        AprobacionDTO aprobacionDTO = new AprobacionDTO(entity);
+            
+        return aprobacionDTO;
     }
     
+    /**
+     * Elimina una aprobacion con un id dado.
+     * @param id de la aprobacion para eliminar 
+     * @return la aprobacion eliminada
+     */
     @DELETE
     @Path("{id: \\d+}")
     public AprobacionDTO deleteAprobacion(@PathParam("id") Long id){
@@ -97,105 +112,36 @@ public class AprobacionResource {
         return dto;
     }
     
-    @PUT 
-    @Path("{id1: \\d+}/stakeholder/{id2: \\d+}")
-    public AprobacionDTO changeStakeHolder(@PathParam("id1") Long idAprobacion, @PathParam("id2") Long idAprobador){
-        AprobacionEntity aprobacion = aprobacionLogic.findAprobacionById(idAprobacion);
-        if(aprobacion == null){
-            throw new WebApplicationException("El recurso /aprobaciones/"+idAprobacion+" no existe.", 404);
-        }
-        StakeHolderEntity stakeHolder = stakeHolderLogic.getStakeHolder(idAprobador);
-        if(stakeHolder == null){
-            throw new WebApplicationException("El recurso /stakeholders/"+idAprobador+" no existe.", 404);
-        }
-        aprobacionLogic.changeStakeHolder(idAprobacion, idAprobador); 
-        
-        AprobacionDTO dto = new AprobacionDTO(aprobacion);
-        return dto;
-    }
-    
-    
-    @GET
-    @Path("{id1: \\d+}/stakeholder")
-    public StakeHolderDTO getStakeHolder(@PathParam("id1")Long  idAprobacion){
-        AprobacionEntity entity = aprobacionLogic.findAprobacionById(idAprobacion);
-        if(entity == null){
-            throw new WebApplicationException("El recurso /aprobaciones/"+idAprobacion+" no existe.", 404);
-        }
-        StakeHolderEntity sh = entity.getStakeHolder();
-        StakeHolderDTO dto = new StakeHolderDTO(); //Falta constructor con entity como parámetro.
-        return dto;
-    }
-    
+    /**
+     * Actualiza una aprobacion
+     * @param aprobacionId id de la aprobacion
+     * @param aprobacion aprobacion a actualizar
+     * @return aprobacion actualizada 
+     * @throws BusinessLogicException si no se cumplen las reglas de negocio
+     */
     @PUT
-    @Path("{id1: \\d+}/requisito/{id2: \\d+}")
-    public AprobacionDTO changeRequisito(@PathParam("id1") Long idAprobacion, @PathParam("id2") Long idRequisito){
-        AprobacionEntity aprobacion = aprobacionLogic.findAprobacionById(idAprobacion);
-        if(aprobacion == null){
-            throw new WebApplicationException("El recurso /aprobaciones/"+idAprobacion+" no existe.", 404);
+    @Path("{id: \\d+}")
+    public AprobacionDTO updateAprobacion(@PathParam("id") Long aprobacionId, AprobacionDTO aprobacion) throws BusinessLogicException{
+        aprobacion.setId(aprobacionId);
+        if (aprobacionLogic.findAprobacionById(aprobacionId) == null) {
+            throw new WebApplicationException("El recurso /aprobaciones/" + aprobacionId + " no existe.", 404);
         }
-        RequisitoEntity requisito = requisitoLogic.getRequisito(idRequisito);
-        if(requisito == null){
-            throw new WebApplicationException("El recurso /requisitos/"+idRequisito+" no existe.", 404);
-        }
-        aprobacionLogic.changeRequisito(idAprobacion, idRequisito);
-        
-        AprobacionDTO dto = new AprobacionDTO(aprobacion);
-        return dto;
-    }
-    
-    @GET
-    @Path("{id1: \\d+}/requisito")
-    public RequisitoDetailDTO getRequisito(@PathParam("id1") Long idAprobacion){
-        AprobacionEntity entity = aprobacionLogic.findAprobacionById(idAprobacion);
-        if(entity == null){
-            throw new WebApplicationException("El recurso /aprobaciones/"+idAprobacion+" no existe.", 404);
-        }
-        RequisitoEntity requisito = entity.getRequisito();
-        RequisitoDetailDTO dto = new RequisitoDetailDTO(); //Falta constructor con entity como parámetro.
-        return dto;
-    }
-    
-    @PUT 
-    @Path("{id1: \\d+}/objetivo/{id2: \\d+}")
-    public AprobacionDTO changeObjetivo(@PathParam("id1") Long idAprobacion, @PathParam("id2") Long idObjetivo){
-        AprobacionEntity aprobacion = aprobacionLogic.findAprobacionById(idAprobacion);
-        if(aprobacion == null){
-            throw new WebApplicationException("El recurso /aprobaciones/"+idAprobacion+" no existe.", 404);
-        }
-        ObjetivoEntity objetivo = objetivoLogic.getObjetivo(idObjetivo);
-        if(objetivo == null){
-            throw new WebApplicationException("El recurso /objetivos/"+idObjetivo+" no existe.", 404);
-        }
-        aprobacionLogic.changeRequisito(idAprobacion, idObjetivo);
-        AprobacionDTO dto = new AprobacionDTO(aprobacion);
-        return dto;
-    }
-    
-    @GET
-    @Path("{id1: \\d+}/objetivo")
-    public ObjetivoDetailDTO getObjetivo(@PathParam("id1") Long idAprobacion){
-        AprobacionEntity entity = aprobacionLogic.findAprobacionById(idAprobacion);
-        if(entity == null){
-            throw new WebApplicationException("El recurso /aprobaciones/"+idAprobacion+" no existe.", 404);
-        }
-        ObjetivoEntity requisito = entity.getObjetivo();
-        ObjetivoDetailDTO dto = new ObjetivoDetailDTO(); //Falta constructor con entity como parámetro.
-        return dto;
+        AprobacionDTO aprobDTO = new AprobacionDTO(aprobacionLogic.updateAprobacion(aprobacion.toEntity()));
+        return aprobDTO;
     }
     
     /**
      * Convierte una lista de entidades a DTO.
      *
-     * Este método convierte una lista de objetos PrizeEntity a una lista de
-     * objetos PrizeDetailDTO (json)
+     * Este método convierte una lista de objetos AprobacionEntity a una lista de
+     * objetos AprobacionDTO (json)
      *
-     * @param entityList corresponde a la lista de premios de tipo Entity que
+     * @param entityList corresponde a la lista de aprobaciones de tipo Entity que
      * vamos a convertir a DTO.
-     * @return la lista de premios en forma DTO (json)
+     * @return la lista de aprobaciones en forma DTO (json)
      */
     
-    private List<AprobacionDTO> listEntity2DetailDTO(List<AprobacionEntity> entityList) {
+     private List<AprobacionDTO> listEntity2DTO(List<AprobacionEntity> entityList) {
         List<AprobacionDTO> list = new ArrayList<>();
         for (AprobacionEntity entity : entityList) {
             list.add(new AprobacionDTO(entity));

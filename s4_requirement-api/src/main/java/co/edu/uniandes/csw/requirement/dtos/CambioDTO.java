@@ -7,25 +7,65 @@ package co.edu.uniandes.csw.requirement.dtos;
 
 import co.edu.uniandes.csw.requirement.entities.CambioEntity;
 import java.io.Serializable;
-import java.util.Date;
 
 /**
- *
- * @author Emilio
+ *Esta clase representa un data transfer object para un cambio
+ * @author Sofia Alvarez
  */
 public class CambioDTO implements Serializable {
+    /**
+     * Id del cambio.
+     */
     private Long id;
-    
+    /**
+     * Tipo del cambio.
+     * Puede ser: "Aprobación", "Modificación" o "Eliminación"
+     */
     private String tipo;
     
-    private Date fechaYHora;
+    /**
+     * Autor del cambio.
+     */
+    private String autor;
     
+    /**
+     * Organizacion del autor
+     */
+    private String organizacion;
+    
+    /**
+     * Fecha y hota en que se realiza el cambio
+     */
+    private String fechaYHora;
+    
+    /**
+     * Descripcion del cambio
+     */
     private String descripcion;
     
-    private StakeHolderDTO autor;
+    /**
+     * Id del req/obj sobre el cual se hace el cambio
+     */
+    private String id_aprobado;
     
+    /**
+     * Nombre del req/obj  sobre el cual se hace el cambio
+     */
+    private String nombre_aprobado;
+    
+   /**
+    * Data transfer object del stakeholder
+    */
+    private StakeHolderDTO stakeholder;
+    
+    /**
+     * Data transfer object del objetivo
+     */
     private ObjetivoDTO objetivo;
     
+    /**
+     * Data transfer object del requisito
+     */
     private RequisitoDTO requisito;
     
      /**
@@ -35,27 +75,36 @@ public class CambioDTO implements Serializable {
         
     }
     
+    /**
+     * Crea un Data transfer object (DTO) de cambio a partir de una entity de aprobacion
+     * @param entity de aprobacion con la cual se creará el DTO
+     */
     public CambioDTO(CambioEntity entity){
         if(entity != null){
             this.id = entity.getId();
             this.tipo = entity.getTipo();
+            this.autor = entity.getAutor();
+            this.organizacion = entity.getOrganizacion();
             this.fechaYHora = entity.getFechaYHora();
             this.descripcion = entity.getDescripcion();
-            //this.autor = new StakeHolderDTO(entity.getAutor());
-            this.objetivo = new ObjetivoDTO(entity.getObjetivo());
-            //this.requisito = new RequisitoDTO(entity.getRequisito());
+            this.id_aprobado = entity.getId_aprobado();
+            this.nombre_aprobado = entity.getNombre_aprobado();
         }
     }
-    
+    /**
+     * Convierte un DTO de aprobacion en una entity de aprobacion
+     * @return entity de aprobacion construida a partir del DTO
+     */
     public CambioEntity toEntity(){
         CambioEntity entity = new CambioEntity();
-        entity.setId(this.id);
-        entity.setTipo(this.tipo);
-        entity.setFechaYHora(this.fechaYHora);
-        entity.setDescripcion(this.descripcion);
-        //entity.setAutor(this.autor.toEntity());
-        entity.setObjetivo(this.objetivo.toEntity());
-        //entity.setRequisito(this.requisito.toEntity());
+        entity.setId(this.getId());
+        entity.setTipo(this.getTipo());
+        entity.setAutor(this.getAutor());
+        entity.setOrganizacion(this.getOrganizacion());
+        entity.setFechaYHora(this.getFechaYHora());
+        entity.setDescripcion(this.getDescripcion());
+        entity.setId_aprobado(this.getId_aprobado());
+        entity.setNombre_aprobado(this.getNombre_aprobado());
         return entity;
     }
     
@@ -90,14 +139,14 @@ public class CambioDTO implements Serializable {
     /**
      * @return the fechaYHora
      */
-    public Date getFechaYHora() {
+    public String getFechaYHora() {
         return fechaYHora;
     }
 
     /**
      * @param fechaYHora the fechaYHora to set
      */
-    public void setFechaYHora(Date fechaYHora) {
+    public void setFechaYHora(String fechaYHora) {
         this.fechaYHora = fechaYHora;
     }
 
@@ -118,15 +167,15 @@ public class CambioDTO implements Serializable {
     /**
      * @return the autor
      */
-    public StakeHolderDTO getAutor() {
-        return autor;
+    public StakeHolderDTO getStakeholder() {
+        return stakeholder;
     }
 
     /**
-     * @param autor the autor to set
+     * @param stakeholder the stakeholder to set
      */
-    public void setAutor(StakeHolderDTO autor) {
-        this.autor = autor;
+    public void setStakeholder(StakeHolderDTO stakeholder) {
+        this.stakeholder = stakeholder;
     }
 
     /**
@@ -155,5 +204,61 @@ public class CambioDTO implements Serializable {
      */
     public void setRequisito(RequisitoDTO requisito) {
         this.requisito = requisito;
+    }
+
+    /**
+     * @return the autor
+     */
+    public String getAutor() {
+        return autor;
+    }
+
+    /**
+     * @param autor the autor to set
+     */
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
+
+    /**
+     * @return the organizacion
+     */
+    public String getOrganizacion() {
+        return organizacion;
+    }
+
+    /**
+     * @param organizacion the organizacion to set
+     */
+    public void setOrganizacion(String organizacion) {
+        this.organizacion = organizacion;
+    }
+
+    /**
+     * @return the id_aprobado
+     */
+    public String getId_aprobado() {
+        return id_aprobado;
+    }
+
+    /**
+     * @param id_aprobado the id_aprobado to set
+     */
+    public void setId_aprobado(String id_aprobado) {
+        this.id_aprobado = id_aprobado;
+    }
+
+    /**
+     * @return the nombre_aprobado
+     */
+    public String getNombre_aprobado() {
+        return nombre_aprobado;
+    }
+
+    /**
+     * @param nombre_aprobado the nombre_aprobado to set
+     */
+    public void setNombre_aprobado(String nombre_aprobado) {
+        this.nombre_aprobado = nombre_aprobado;
     }
 }

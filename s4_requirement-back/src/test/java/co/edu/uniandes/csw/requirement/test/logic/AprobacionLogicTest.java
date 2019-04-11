@@ -30,29 +30,52 @@ import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
- *
- * @author Emilio
+ * Clase de la logica que corre el test de la aprobacion
+ * @author Sofia Alvarez
  */
 @RunWith(Arquillian.class)
 public class AprobacionLogicTest {
-    
+    /**
+     * Factory de Podam
+     */
     private PodamFactory factory = new PodamFactoryImpl();
 
+    /**
+     * Inyección de la aprobacionLogic
+     */
     @Inject
     private AprobacionLogic aprobacionLogic;
 
+   /**
+    * Entity manager
+    */
     @PersistenceContext
     private EntityManager em;
 
+    /**
+     * Inyección de la transacción
+     */
     @Inject
     private UserTransaction utx;
 
-    private List<AprobacionEntity> data = new ArrayList<AprobacionEntity>();
+    /**
+     * Lista con datos de aprobacion entity
+     */
+    private List<AprobacionEntity> data = new ArrayList<>();
     
+    /**
+     * Un stakeholder 
+     */
     StakeHolderEntity sh;
     
+    /**
+     * Un requisito
+     */
     RequisitoEntity requisito;
     
+    /**
+     * Un objetiv
+     */
     ObjetivoEntity objetivo;
     
         /**
@@ -120,6 +143,7 @@ public class AprobacionLogicTest {
     
      /**
      * Prueba para crear una Aprobacion.
+     * @throws BussinessLogicException . En este test nunca se lanza 
      */
     @Test
     public void createAprobacionTest() throws BusinessLogicException{
