@@ -27,7 +27,7 @@ import org.junit.runner.RunWith;
  */
 @RunWith(Arquillian.class)
 public class CondicionIT {
-    /*private static final String COLLECTION = "CondicionResourceTest.postman_collection";
+    private static final String COLLECTION = "CondicionResourceTest.postman_collection";
 
     @Deployment(testable = true)
     public static WebArchive createDeployment() {
@@ -61,5 +61,5 @@ public class CondicionIT {
         Assert.assertEquals("Error en Test-Scripts de: " + COLLECTION, desiredResult, tp.getTest_scripts_failed());
 
         Assert.assertEquals("Error en Assertions de: " + COLLECTION, desiredResult, tp.getAssertions_failed());
-    }*/
+    }
 }
