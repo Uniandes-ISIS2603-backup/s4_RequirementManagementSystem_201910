@@ -52,7 +52,7 @@ public class CasoDeUsoResource {
     
     @GET
     @Path("{id: \\d+}")
-    public CasoDeUsoDTO getCasoDeUso (@PathParam("id") Long id) throws WebApplicationException
+    public CasoDeUsoDetail getCasoDeUso (@PathParam("id") Long id) throws WebApplicationException
     {
         LOGGER.log(Level.INFO, "CasoDeUsoResource getCasoDeUso: input: {0}", id);
         CasoDeUsoEntity casoEntity = casoDeUsoLogic.getCasoDeUso(id);
@@ -65,9 +65,9 @@ public class CasoDeUsoResource {
     }
     
     @GET
-    public List<CasoDeUsoDTO> getCasosDeUso() {
+    public List<CasoDeUsoDetail> getCasosDeUso() {
         LOGGER.info("CasoDeUsoResource getCasosDeUso: input: void");
-        List<CasoDeUsoDTO> listaCasos = listEntity2DTO(casoDeUsoLogic.getCasosDeUso());
+        List<CasoDeUsoDetail> listaCasos = listEntity2DTO(casoDeUsoLogic.getCasosDeUso());
         LOGGER.log(Level.INFO, "CasoDeUsoResource getCasosDeUso: output: {0}", listaCasos);
         return listaCasos;
     }
@@ -96,10 +96,10 @@ public class CasoDeUsoResource {
         return detailDTO;
     }
     
-    private List<CasoDeUsoDTO> listEntity2DTO(List<CasoDeUsoEntity> entityList) {
-        List<CasoDeUsoDTO> list = new ArrayList<>();
+    private List<CasoDeUsoDetail> listEntity2DTO(List<CasoDeUsoEntity> entityList) {
+        List<CasoDeUsoDetail> list = new ArrayList<>();
         for (CasoDeUsoEntity entity : entityList) {
-            list.add(new CasoDeUsoDTO(entity));
+            list.add(new CasoDeUsoDetail(entity));
         }
         return list;
     }
