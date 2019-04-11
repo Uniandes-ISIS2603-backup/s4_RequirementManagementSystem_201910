@@ -72,8 +72,8 @@ public class CambioLogic {
         if(cambio.getObjetivo() != null && cambio.getRequisito() != null){
             throw new BusinessLogicException("El cambio no puede estar asociado a un Objetivo y a un Requisito.");
         }
-        if(!cambio.getTipo().equals("Modificación")&&!cambio.getTipo().equals("Aprobación")&&!cambio.getTipo().equals("Eliminación")){
-            throw new BusinessLogicException("El tipo de un cambio debe ser modificacion, eliminacion o aprobacion");
+ if (!(cambio.getTipo().equals("MODIFICACION") || cambio.getTipo().equals("ELIMINACION") || cambio.getTipo().equals("APROBACION")) ){          
+     throw new BusinessLogicException("El tipo de un cambio debe ser modificacion, eliminacion o aprobacion");
         }
         cambio = cambioPersistence.create(cambio);
         return cambio;
@@ -124,7 +124,7 @@ public class CambioLogic {
         if(cambio.getObjetivo() != null && cambio.getRequisito() != null){
             throw new BusinessLogicException("El cambio no puede estar asociado a un Objetivo y a un Requisito.");
         }
-        if(!cambio.getTipo().equals("Modificación")&&!cambio.getTipo().equals("Aprobación")&&!cambio.getTipo().equals("Eliminación")){
+ if (!(cambio.getTipo().equals("MODIFICACION") || cambio.getTipo().equals("ELIMINACION") || cambio.getTipo().equals("APROBACION")) ){          
             throw new BusinessLogicException("El tipo de un cambio debe ser modificacion, eliminacion o aprobacion");
         }
         cambio = cambioPersistence.update(cambio);

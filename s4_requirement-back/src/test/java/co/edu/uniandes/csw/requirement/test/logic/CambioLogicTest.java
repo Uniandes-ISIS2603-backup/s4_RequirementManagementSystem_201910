@@ -150,7 +150,7 @@ public class CambioLogicTest {
     @Test
     public void createCambioTest() throws BusinessLogicException{
         CambioEntity newEntity = factory.manufacturePojo(CambioEntity.class);
-        newEntity.setTipo("Modificación");
+        newEntity.setTipo("MODIFICACION");
         cambioLogic.createCambio(newEntity);
         CambioEntity entity = em.find(CambioEntity.class, newEntity.getId());
         Assert.assertNotNull(entity);
@@ -222,7 +222,8 @@ public class CambioLogicTest {
         pojoEntity.setId(entity.getId());
         ObjetivoEntity objetivo = factory.manufacturePojo(ObjetivoEntity.class);
         pojoEntity.setObjetivo(objetivo);
-        pojoEntity.setTipo("Modificación");
+        pojoEntity.setTipo("ELIMINACION");
+        System.out.println("AQUIIIIIIIIII" + pojoEntity.getTipo());
         cambioLogic.updateCambio(pojoEntity);
         CambioEntity resp = em.find(CambioEntity.class, entity.getId());
         Assert.assertEquals(pojoEntity.getId(), resp.getId());

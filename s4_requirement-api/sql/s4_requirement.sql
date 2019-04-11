@@ -19,9 +19,23 @@ insert into StakeHolderEntity (id, tipo, nombre) values (200, 'Tecnologico', 'Ju
 insert into OrganizacionEntity (id, sector, nombre) values (110, 'Tecnologico', 'Tec');
 insert into OrganizacionEntity (id, sector, nombre) values (120, 'Financiero', 'Fin');
 
-insert into AprobacionEntity (id, tipo, aprobado, comentario) values (2, 'TEST',1,'Aprobacion2');
+insert into AprobacionEntity (id, tipo, autor, organizacion, fechaYHora, estado, id_aprobado, nombre_aprobado, comentario)
+ values (1, 'OBJETIVO','Sofia Alvarez','Startech', 'Fri Apr 05 2019 16:06:58 GMT -0500 (-05)', 'Aprobado', '1', 'Objetivo 1', 'Se ha evaluado el cambio 1 y se considera pertinente su implementación');
 
-insert into CambioEntity (id, tipo, descripcion) values (1, 'TEST', 'Cambio 1');
+insert into AprobacionEntity (id, tipo, autor, organizacion, fechaYHora, estado, id_aprobado, nombre_aprobado, comentario)
+ values (2, 'OBJETIVO','Juan Alvarez','Startech', 'Tue Apr 03 2019 16:06:58 GMT -0300 (-03)', 'No aprobado', '2', 'Objetivo 2', 'Se ha evaluado el cambio 2 y se considera que no es pertinente su implementación');
+
+insert into AprobacionEntity (id, tipo, autor, organizacion, fechaYHora, estado, id_aprobado, nombre_aprobado, comentario)
+ values (3, 'REQUISITO','Sofia Alvarez','Startech', 'Fri Apr 05 2019 16:06:58 GMT -0500 (-05)', 'En proceso', '1', 'Requisito 3', 'Se está evaluando el requisito 3');
+
+insert into CambioEntity (id, tipo, descripcion, autor, organizacion, fechaYHora, id_aprobado, nombre_aprobado) 
+values (1, 'MODIFICACION', 'El objetivo 1 debe modificarse pues no es coherente con el proyecto', 'Sofia Alvarez', 'Startech', 'Fri Apr 05 2019 16:06:58 GMT -0500 (-05)', '1', 'Objetivo 1');
+
+insert into CambioEntity (id, tipo, descripcion, autor, organizacion, fechaYHora, id_aprobado, nombre_aprobado) 
+values (2, 'APROBACION', 'El objetivo 3 debe modificarse pues no tiene requisitos asociados', 'Sofia Alvarez', 'Startech', 'Mon Apr 03 2017 16:06:58 GMT -0500 (-05)', '3', 'Objetivo 3');
+
+insert into CambioEntity (id, tipo, descripcion, autor, organizacion, fechaYHora, id_aprobado, nombre_aprobado) 
+values (3, 'ELIMINACION', 'Eliminar el requisito 5 pues no concuerda con los lineamientos del proyecto', 'Sofia Alvarez', 'Startech', 'Sun Jan 02 2017 16:06:58 GMT -0500 (-05)', '5', 'Requisito 5'); 
 
 insert into CasoDeUsoEntity (id, nombre) values (10, 'casoPrueba');
 insert into CasoDeUsoEntity (id, nombre) values (20, 'casoPrueba2');
