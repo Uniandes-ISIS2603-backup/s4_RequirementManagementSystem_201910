@@ -1,0 +1,391 @@
+{
+	"info": {
+		"_postman_id": "ca4bda5d-2025-4469-ae6a-5befbda4b1e3",
+		"name": "AprobacionResourceTest",
+		"description": "Aprobacion Resource Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear una aprobacion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "680bfcc8-11b2-46e8-a44e-10e411ae0386",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_a\",data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"disabled": false
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\n        \"autor\": \"Sofia Alvarez\",\n        \"comentario\": \"El objetivo 1 ha sido aprobado por todos los miembros del equipo de desarrollo.\",\n        \"estado\": \"Aprobado\",\n        \"fechaYHora\": \"11/4/2019 19:36:53\",\n        \"id_aprobado\": \"1\",\n        \"nombre_aprobado\": \"Objetivo 1\",\n        \"organizacion\": \"Startech\",\n        \"tipo\": \"OBJETIVO\"\n    }\n"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/aprobaciones",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"aprobaciones"
+					]
+				},
+				"description": "Crear una aprobacion"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear una aprobacion 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ab54419e-2026-4d33-a562-20ec26ccc056",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_b\",data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\n        \"autor\": \"Sofia Alvarez\",\n        \"comentario\": \"El objetivo 2 esta en proceso de revision\",\n        \"estado\": \"En proceso\",\n        \"fechaYHora\": \"11/4/2019 19:36:53\",\n        \"id_aprobado\": \"2\",\n        \"nombre_aprobado\": \"Objetivo 2\",\n        \"organizacion\": \"Startech\",\n        \"tipo\": \"OBJETIVO\"\n    }"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/aprobaciones",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"aprobaciones"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener Aprobacion por ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "baa7d8f4-f3c7-49e6-b0c0-e7750a7c3ea2",
+						"exec": [
+							"tests[\"No genera error en el GET\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/aprobaciones/{{new_id_a}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"aprobaciones",
+						"{{new_id_a}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener todas las aprobaciones",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "680bfcc8-11b2-46e8-a44e-10e411ae0386",
+						"exec": [
+							"tests[\"No genera error en el get\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"disabled": false
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/aprobaciones",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"aprobaciones"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener Aprobacion invalida",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "748371e5-d594-4eb5-9f9c-61e6deba9c70",
+						"exec": [
+							"tests[\"Genera error en el GET\"] = responseCode.code === 404;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/aprobaciones/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"aprobaciones",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar una aprobacion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a36f727e-03e8-4de7-888f-f27c011643d8",
+						"exec": [
+							"tests[\"No genera error en el PUT\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\n        \"autor\": \"Sofia Alvarez\",\n        \"comentario\": \"El objetivo 2 ha sido aprobado\",\n        \"estado\": \"Aprobado\",\n        \"fechaYHora\": \"11/4/2019 19:36:53\",\n        \"id_aprobado\": \"2\",\n        \"nombre_aprobado\": \"Objetivo 2\",\n        \"organizacion\": \"Startech\",\n        \"tipo\": \"OBJETIVO\"\n    }"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/aprobaciones/{{new_id_b}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"aprobaciones",
+						"{{new_id_b}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar aprobacion que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "defe06a5-9e0b-4855-b46c-fac524ad3eb7",
+						"exec": [
+							"tests[\"Genera error en el PUT\"] = responseCode.code === 404;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\n        \"autor\": \"Sofia Alvarez\",\n        \"comentario\": \"El objetivo 2 ha sido aprobado\",\n        \"estado\": \"Aprobado\",\n        \"fechaYHora\": \"11/4/2019 19:36:53\",\n        \"id_aprobado\": \"2\",\n        \"nombre_aprobado\": \"Objetivo 2\",\n        \"organizacion\": \"Startech\",\n        \"tipo\": \"OBJETIVO\"\n    }"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/aprobaciones/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"aprobaciones",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar aprobacion 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8b7da2b5-99b4-4543-904c-554ff754ea83",
+						"exec": [
+							"tests[\"No genera error en el DELETE\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/aprobaciones/{{new_id_a}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"aprobaciones",
+						"{{new_id_a}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar aprobacion inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dccb9188-b0d5-488d-9f0c-08e31f0b0223",
+						"exec": [
+							"tests[\"Genera error en el DELETE\"] = responseCode.code === 404;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/drs/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"drs",
+						"0"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
