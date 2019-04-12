@@ -11,23 +11,51 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
- *
+ * Clase que representa un Objetivo en DTO
  * @objetivo David Manosalva
  */
 public class ObjetivoDTO implements Serializable {
 
+    /**
+     * Id del objetivo
+     */
     private Long id;
+    
+    /**
+     * Descripcion del objetivo
+     */
     private String descripcion;
+    
+    /**
+     * Importancia del objetivo
+     */
     private Integer importancia;
+    
+    /**
+     * Estabilidad del objetivo
+     */
     private Integer estabilidad;
+    
+    /**
+     * Comentarios del objetivo
+     */
     private String comentarios;
 
+    /**
+     * Autor del objetivo
+     */
     private StakeHolderDTO autor;
 
+    /**
+     * Cosntruictor vacio para REST
+     */
     public ObjetivoDTO() {
 
     }
 
+    /**
+     * Constructor que crea un DTO de un objeto entity
+     */
     public ObjetivoDTO(ObjetivoEntity oe) {
 
         if (oe != null) {
@@ -45,6 +73,10 @@ public class ObjetivoDTO implements Serializable {
         }
     }
 
+    /**
+     * Metodo que crea un ObjetivoEntity a partir de este DTO
+     * @return ObjetivoEntity con la informacion del DTO
+     */
     public ObjetivoEntity toEntity() {
         ObjetivoEntity objetivoEntity = new ObjetivoEntity();
         objetivoEntity.setId(this.getId());
@@ -142,6 +174,10 @@ public class ObjetivoDTO implements Serializable {
         this.autor = autor;
     }
 
+    /**
+     * Metodo que devuelve este objeto como un string
+     * @return String en tipo JSON
+     */
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
