@@ -43,12 +43,12 @@ insert into CasoDeUsoEntity (id, nombre) values (20, 'casoPrueba2');
 insert into DRSEntity (id, version, reporte) values (55, 1, 'Este es un reporte');
 insert into DRSEntity (id, version, reporte) values (28, 2, 'Este e la version 2 del reporte');
 
-insert into CaminoEntity(tipoPaso, pasos) values ('BASICO', 'Paso 1');
+insert into CaminoEntity(id, tipoPaso, pasos) values (1, 'BASICO', 'Paso 1');
 
 insert into CondicionEntity (id, descripcion, seCumplio) values (30, 'condicionPrueba1', 1);
 insert into CondicionEntity (id, descripcion, seCumplio) values (40, 'condicionPrueba2', 0);
 
-insert into CambioEntity (id, tipo, descripcion) values (1, 'TEST', 'Cambio 1')
+insert into CambioEntity (idPaso, tipo, descripcion) values (11, 'TEST', 'Cambio 11')
 
 insert into ObjetivoEntity (id, descripcion, importancia, estabilidad, comentarios) values (11, 'Este es un ejemplo de descripcion', 3,2,'Ejemplo de comantario 1')
 insert into ObjetivoEntity (id, descripcion, importancia, estabilidad, comentarios) values (300, 'Ejemplo descripcion 2', 1,1,'Ejemplo de comantario 2')
