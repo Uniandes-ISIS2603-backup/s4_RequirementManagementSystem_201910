@@ -212,6 +212,52 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/casos/10",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1045d2cc-d464-4fcc-9066-cbcd1943ba1e",
+						"exec": [
+							"tests[\"Se actualiza correctamente la entidad\"] = responseCode.code === 200;",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"type\": \"casoDeUsoDetail\",\n        \"id\": 10,\n        \"nombre\": \"casoActualizadoPrueba\",\n        \"condiciones\": []\n    }"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/casos/10",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"casos",
+						"10"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

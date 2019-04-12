@@ -30,29 +30,52 @@ import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
- *
- * @author Emilio
+ *Clase que prueba la logica de un cambio
+ * @author Sofia Alvarez
  */
 @RunWith(Arquillian.class)
 public class CambioLogicTest {
-    
+    /**
+     * Factory de Podam
+     */
     private PodamFactory factory = new PodamFactoryImpl();
 
+    /**
+     * Inyección de la logica de cambio
+     */
     @Inject
     private CambioLogic cambioLogic;
 
+    /**
+     * Contexto de persistencia de la entity manager.
+     */
     @PersistenceContext
     private EntityManager em;
 
+    /**
+    *Inyecciín de una transacción de usuario
+    */
     @Inject
     private UserTransaction utx;
 
-    private List<CambioEntity> data = new ArrayList<CambioEntity>();
+    /**
+     * Lista con todos los cambios del sistema
+     */
+    private List<CambioEntity> data = new ArrayList<>();
     
+    /**
+    * Un stakeholder
+    */
     StakeHolderEntity sh;
     
+   /**
+    * Un requisito
+    */
     RequisitoEntity requisito;
     
+    /**
+     * Un
+     */
     ObjetivoEntity objetivo;
     
         /**
@@ -127,13 +150,28 @@ public class CambioLogicTest {
     @Test
     public void createCambioTest() throws BusinessLogicException{
         CambioEntity newEntity = factory.manufacturePojo(CambioEntity.class);
-        newEntity.setTipo("TEST");
+        newEntity.setTipo("MODIFICACION");
         cambioLogic.createCambio(newEntity);
         CambioEntity entity = em.find(CambioEntity.class, newEntity.getId());
         Assert.assertNotNull(entity);
         Assert.assertEquals(entity.getDescripcion(), newEntity.getDescripcion());
     }
     
+    /**
+     * Prueba para crear un cambio que debe fallar.
+     * @throws BusinessLogicException pues el tipo no concuerda con los definidos.
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void createCambioTestException() throws BusinessLogicException{
+        CambioEntity newEntity = factory.manufacturePojo(CambioEntity.class);
+        newEntity.setTipo("Hola");
+        cambioLogic.createCambio(newEntity);
+    }
+    
+    /**
+     * Metodo que verifica que no haya aprobaciones para objetivos y requisitos.
+     * @throws BusinessLogicException pues no puede haber una aprobacion para un objetivo y un requisito al tiempo.
+     */
     @Test(expected = BusinessLogicException.class)
     public void createCambioConRequisitoYObjetivo() throws BusinessLogicException{
         CambioEntity newEntity = factory.manufacturePojo(CambioEntity.class);
@@ -184,7 +222,8 @@ public class CambioLogicTest {
         pojoEntity.setId(entity.getId());
         ObjetivoEntity objetivo = factory.manufacturePojo(ObjetivoEntity.class);
         pojoEntity.setObjetivo(objetivo);
-        pojoEntity.setTipo("OBJETIVO");
+        pojoEntity.setTipo("ELIMINACION");
+        System.out.println("AQUIIIIIIIIII" + pojoEntity.getTipo());
         cambioLogic.updateCambio(pojoEntity);
         CambioEntity resp = em.find(CambioEntity.class, entity.getId());
         Assert.assertEquals(pojoEntity.getId(), resp.getId());
@@ -209,7 +248,7 @@ public class CambioLogicTest {
     public void changeStakeHolderTest(){
         CambioEntity entity = data.get(1);
         entity = cambioLogic.changeStakeHolder(entity.getId(), sh.getId());
-        StakeHolderEntity entitySH = entity.getAutor();
+        StakeHolderEntity entitySH = entity.getStakeholder();
         Assert.assertEquals(sh.getId(), entitySH.getId());
     }
     

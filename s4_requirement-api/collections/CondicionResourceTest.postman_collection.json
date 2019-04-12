@@ -198,6 +198,52 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/condiciones/30",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "56099d6e-0711-4743-957f-9666f69e8ff3",
+						"exec": [
+							"tests[\"Se actualiza correctamente la entidad\"] = responseCode.code === 200;",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"descripcion\": \"condicionActualizadaPrueba1\",\n        \"esPrecondicion\": false,\n        \"id\": 30,\n        \"seCumplio\": true\n    }"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/condiciones/30",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"condiciones",
+						"30"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

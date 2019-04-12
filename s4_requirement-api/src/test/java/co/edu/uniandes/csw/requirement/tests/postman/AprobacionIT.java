@@ -24,13 +24,21 @@ import org.junit.runner.RunWith;
 /**
  * Pruebas de integracion de la cascara.
  *
- * @author Emilio
+ * @author Sofia Alvarez
  */
 @RunWith(Arquillian.class)
 public class AprobacionIT {
     
-    private static final String COLLECTION = "AprobacionResourceTest.postman_collection";
+    /**
+     * La coleccion de postman
+     */
+    private static final String COLLECTION = "AprobacionTest.postman_collection";
 
+    
+    /**
+     * Crea el despliegue de newman
+     * @return el despliegue creado
+     */
     @Deployment(testable = true)
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class, "s4_requirement-api.war")//War del modulo api
@@ -51,6 +59,10 @@ public class AprobacionIT {
                 .addAsWebInfResource(new File("src/main/webapp/WEB-INF/glassfish-resources.xml"));
     }
 
+    /**
+     * Test que ejecuta las pruebas de postman
+     * @throws IOException 
+     */
     @Test
     @RunAsClient
     public void postman() throws IOException {

@@ -25,22 +25,34 @@ import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
- *
- * @author Emilio
+ *Clase que evalúa los tests de persistencia para un cambio
+ * @author Sofia Alvarez
  */
 @RunWith(Arquillian.class)
 public class CambioPersistenceTest {
     
+    /**
+     * Inyección de dependencias de la persistencia de cambio.
+     */
     @Inject
     private CambioPersistence cambioPersistence;
     
+    /**
+     * Contexto de persistencia: entity manager.
+     */
     @PersistenceContext
     private EntityManager em;
     
+    /**
+     * Inyección de una transacción de usuario.
+     */
     @Inject
     UserTransaction utx;
 
-    private List<CambioEntity> data = new ArrayList<CambioEntity>();
+    /**
+     * Lista con los datos de todos los cambios.
+     */
+    private List<CambioEntity> data = new ArrayList<>();
     
      /**
      * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
@@ -100,6 +112,9 @@ public class CambioPersistenceTest {
         }
     }
     
+    /**
+     * Método que prueba la creación de un cambio
+     */
     @Test
     public void createCambioTest(){
         PodamFactory factory = new PodamFactoryImpl();
@@ -113,6 +128,9 @@ public class CambioPersistenceTest {
         Assert.assertEquals(newEntity.getId(), refEntity.getId());   
     }
 
+    /**
+     * Encontrar un cambio, dado su id.
+     */
     @Test
     public void findCambioByIdTest(){
         CambioEntity newEntity = data.get(0);

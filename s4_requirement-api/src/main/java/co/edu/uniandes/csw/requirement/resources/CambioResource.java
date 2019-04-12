@@ -6,18 +6,11 @@
 package co.edu.uniandes.csw.requirement.resources;
 
 import co.edu.uniandes.csw.requirement.dtos.CambioDTO;
-import co.edu.uniandes.csw.requirement.dtos.ObjetivoDetailDTO;
-import co.edu.uniandes.csw.requirement.dtos.RequisitoDetailDTO;
-import co.edu.uniandes.csw.requirement.dtos.StakeHolderDTO;
-
 import co.edu.uniandes.csw.requirement.ejb.CambioLogic;
 import co.edu.uniandes.csw.requirement.ejb.ObjetivoLogic;
 import co.edu.uniandes.csw.requirement.ejb.RequisitoLogic;
 import co.edu.uniandes.csw.requirement.ejb.StakeHolderLogic;
 import co.edu.uniandes.csw.requirement.entities.CambioEntity;
-import co.edu.uniandes.csw.requirement.entities.ObjetivoEntity;
-import co.edu.uniandes.csw.requirement.entities.RequisitoEntity;
-import co.edu.uniandes.csw.requirement.entities.StakeHolderEntity;
 import co.edu.uniandes.csw.requirement.exceptions.BusinessLogicException;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,42 +26,76 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.MediaType;
 
 /**
- *
- * @author Emilio
+ * Ruta de los cambios
  */
 @Path("cambios")
-@Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
+/**
+ * Produce un json
+ */
+@Produces("application/json")
+/**
+ * Consume un json
+ */
+@Consumes("application/json")
+/**
+ * EL request scoped.
+ */
 @RequestScoped
+
+/**
+ *Recurso de un cambio
+ * @author Sofia Alvarez
+ */
 public class CambioResource{
-    
+    /**
+     * Consola de JS
+     */
     private static final Logger LOGGER = Logger.getLogger(CambioResource.class.getName());
     
+    /**
+    * Inyeccion de las dependencias de cambios
+    */
     @Inject
     private CambioLogic cambioLogic;
     
+    /**
+     * Inyeccion de las dependencias de stakeholders
+     */
     @Inject
     private StakeHolderLogic stakeHolderLogic;
     
+    /**
+     * Inyeccion de las dependencias de objetivos
+     */
     @Inject
     private ObjetivoLogic objetivoLogic;
     
+    /**
+     * Inyeccion de las dependencias de requisitos
+     */
     @Inject
     private RequisitoLogic requisitoLogic;
     
+    /**
+     * Crea un nuevo cambio. 
+     * @param cambio a crear
+     * @return cambio creado
+     * @throws BusinessLogicException si no se cumplen las reglas de negocio
+     */
     @POST
     public CambioDTO createCambio(CambioDTO cambio) throws BusinessLogicException{
-        CambioEntity entity = cambio.toEntity();
-        entity = cambioLogic.createCambio(entity);
-        return new CambioDTO(entity);
+         CambioDTO cambioDTO = new CambioDTO(cambioLogic.createCambio(cambio.toEntity()));
+         return cambioDTO;
     }
-    
+    /**
+     * Retorna todos los cambios
+     * @return todos los cambios
+     */
     @GET
     public List<CambioDTO> getCambios(){
-        List<CambioDTO> dtos = new ArrayList<CambioDTO>();
+        List<CambioDTO> dtos = new ArrayList<>();
         List<CambioEntity> entities = cambioLogic.findAllCambios();
         for(CambioEntity entity:entities){
             dtos.add(new CambioDTO(entity));
@@ -76,6 +103,11 @@ public class CambioResource{
         return dtos;
     }
     
+    /**
+     * Retorna un cambio con un id especifico
+     * @param id del cambio a buscar
+     * @return el cambio buscado
+     */
     @GET
     @Path("{id: \\d+}")
     public CambioDTO getCambio(@PathParam("id") Long id){
@@ -86,6 +118,11 @@ public class CambioResource{
         return new CambioDTO(entity);
     }
     
+    /**
+     * Elimina un cambio
+     * @param id del cambio a eliminar
+     * @return cambio eliminado
+     */
     @DELETE
     @Path("{id: \\d+}")
     public CambioDTO deleteCambio(@PathParam("id") Long id){
@@ -97,87 +134,22 @@ public class CambioResource{
         return dto;
     }
     
-  @PUT 
-    @Path("{id1: \\d+}/stakeholder/{id2: \\d+}")
-    public CambioDTO changeStakeHolder(@PathParam("id1") Long idCambio, @PathParam("id2") Long idAprobador){
-        CambioEntity aprobacion = cambioLogic.findCambioById(idCambio);
-        if(aprobacion == null){
-            throw new WebApplicationException("El recurso /aprobaciones/"+idCambio+" no existe.", 404);
-        }
-        StakeHolderEntity stakeHolder = stakeHolderLogic.getStakeHolder(idAprobador);
-        if(stakeHolder == null){
-            throw new WebApplicationException("El recurso /stakeholders/"+idAprobador+" no existe.", 404);
-        }
-        cambioLogic.changeStakeHolder(idCambio, idAprobador); 
-        CambioDTO dto = new CambioDTO(aprobacion);
-        return dto;
-    }
-    
-    @GET
-    @Path("{id1: \\d+}/stakeholder")
-    public StakeHolderDTO getAutor(@PathParam("id1")Long  idCambio){
-        CambioEntity entity = cambioLogic.findCambioById(idCambio);
-        if(entity == null){
-            throw new WebApplicationException("El recurso /aprobaciones/"+idCambio+" no existe.", 404);
-        }
-        StakeHolderEntity sh = entity.getAutor();
-        StakeHolderDTO dto = new StakeHolderDTO(sh); 
-        return dto;
-    }
-    
+     /**
+     * Actualiza un cambio
+     * @param cambioId id del cambio
+     * @param cambio a actualizar
+     * @return cambio actualizada 
+     * @throws BusinessLogicException si no se cumplen las reglas de negocio
+     */
     @PUT
-    @Path("{id1: \\d+}/requisito/{id2: \\d+}")
-    public CambioDTO changeRequisito(@PathParam("id1") Long idCambio, @PathParam("id2") Long idRequisito){
-        CambioEntity aprobacion = cambioLogic.findCambioById(idCambio);
-        if(aprobacion == null){
-            throw new WebApplicationException("El recurso /aprobaciones/"+idCambio+" no existe.", 404);
+    @Path("{id: \\d+}")
+    public CambioDTO updateAprobacion(@PathParam("id") Long cambioId, CambioDTO cambio) throws BusinessLogicException{
+        cambio.setId(cambioId);
+        if (cambioLogic.findCambioById(cambioId) == null) {
+            throw new WebApplicationException("El recurso /cambios/" + cambioId + " no existe.", 404);
         }
-        RequisitoEntity requisito = requisitoLogic.getRequisito(idRequisito);
-        if(requisito == null){
-            throw new WebApplicationException("El recurso /requisitos/"+idRequisito+" no existe.", 404);
-        }
-        cambioLogic.changeRequisito(idCambio, idRequisito);
-        CambioDTO dto = new CambioDTO(aprobacion);
-        return dto;
+        CambioDTO cambDTO = new CambioDTO(cambioLogic.updateCambio(cambio.toEntity()));
+        return cambDTO;
     }
     
-    @GET
-    @Path("{id1: \\d+}/requisito")
-    public RequisitoDetailDTO getRequisito(@PathParam("id1") Long idCambio){
-        CambioEntity entity = cambioLogic.findCambioById(idCambio);
-        if(entity == null){
-            throw new WebApplicationException("El recurso /aprobaciones/"+idCambio+" no existe.", 404);
-        }
-        RequisitoEntity requisito = entity.getRequisito();
-        RequisitoDetailDTO dto = new RequisitoDetailDTO(requisito); 
-        return dto;
-    }
-    
-    @PUT 
-    @Path("{id1: \\d+}/objetivo/{id2: \\d+}")
-    public CambioDTO changeObjetivo(@PathParam("id1") Long idCambio, @PathParam("id2") Long idObjetivo){
-        CambioEntity aprobacion = cambioLogic.findCambioById(idCambio);
-        if(aprobacion == null){
-            throw new WebApplicationException("El recurso /aprobaciones/"+idCambio+" no existe.", 404);
-        }
-        ObjetivoEntity objetivo = objetivoLogic.getObjetivo(idObjetivo);
-        if(objetivo == null){
-            throw new WebApplicationException("El recurso /objetivos/"+idObjetivo+" no existe.", 404);
-        }
-        cambioLogic.changeRequisito(idCambio, idObjetivo);
-        CambioDTO dto = new CambioDTO(aprobacion);
-        return dto;
-    }
-    
-    @GET
-    @Path("{id1: \\d+}/objetivo")
-    public ObjetivoDetailDTO getObjetivo(@PathParam("id1") Long idCambio){
-        CambioEntity entity = cambioLogic.findCambioById(idCambio);
-        if(entity == null){
-            throw new WebApplicationException("El recurso /aprobaciones/"+idCambio+" no existe.", 404);
-        }
-        ObjetivoEntity objetivo = entity.getObjetivo();
-        ObjetivoDetailDTO dto = new ObjetivoDetailDTO(objetivo);
-        return dto;
-    }
 }
