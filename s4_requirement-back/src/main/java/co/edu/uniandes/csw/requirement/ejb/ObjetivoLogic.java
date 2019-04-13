@@ -39,12 +39,22 @@ import javax.inject.Inject;
  */
 @Stateless
 public class ObjetivoLogic {
-
+     /**
+     * Logger de la clase
+     */
     private static final Logger LOGGER = Logger.getLogger(ObjetivoLogic.class.getName());
-
+    /**
+     * Persistencia de la clase
+     */
     @Inject
     private ObjetivoPersistence objetivoPersistence;
 
+    /**
+     * Metodo que valida la logica de un objetivo
+     * @param objetivoEntity Objeto entity para verificar
+     * @return ObjetivoEntity generado por persistencia si es correcta la logica
+     * @throws BusinessLogicException Si no cumple con las reglas de estabilidad, impotancia y descripcion
+     */
     public ObjetivoEntity createObjetivo(ObjetivoEntity objetivoEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de creación del autor");
         if (objetivoEntity.getEstabilidad() < 1 || objetivoEntity.getEstabilidad() > 3) {
@@ -62,6 +72,10 @@ public class ObjetivoLogic {
         return newObjetivoEntity;
     }
 
+    /**
+     * Metodo que llama a la persistencia para obtener los requisitos
+     * @return Lista de Objetivos
+     */
     public List<ObjetivoEntity> getObjetivos() {
         LOGGER.log(Level.INFO, "Inicia proceso de consultar todos los objetivos");
         List<ObjetivoEntity> lista = objetivoPersistence.findAll();
@@ -69,6 +83,11 @@ public class ObjetivoLogic {
         return lista;
     }
 
+    /**
+     * Metodo que llama a la peristencia para obtener un objetivo especifico
+     * @param objetivoId Id del objetivo a obtener
+     * @return ObjetivoEntity con el id dado
+     */
     public ObjetivoEntity getObjetivo(Long objetivoId) {
         LOGGER.log(Level.INFO, "Inicia proceso de consultar el objetivo con id = {0}", objetivoId);
         ObjetivoEntity objetivoEntity = objetivoPersistence.find(objetivoId);
@@ -79,6 +98,13 @@ public class ObjetivoLogic {
         return objetivoEntity;
     }
 
+    /**
+     * Metodo que llama a la persistencia para actualizar un objetivo
+     * @param objetivoId Id del objetivo a Actualizar
+     * @param objetivoEntity Entidad nueva del objetivo
+     * @return Objetivo cambiado
+     * @throws BusinessLogicException Si no cumple con las reglas de estabilidad, impotancia y descripcion
+     */
     public ObjetivoEntity updateObjetivo(Long objetivoId, ObjetivoEntity objetivoEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de actualizar el autor con id = {0}", objetivoId);
         if (objetivoEntity.getEstabilidad() < 1 || objetivoEntity.getEstabilidad() > 3) {
@@ -95,6 +121,11 @@ public class ObjetivoLogic {
         return newObjetivoEntity;
     }
 
+    /**
+     * Metodo que llama a la persistencia para eliminar el objetivo
+     * @param objetivoId Id del objetivo a eliminar
+     * @throws BusinessLogicException Si el objetivo no existe
+     */
     public void deleteObjetivo(Long objetivoId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de borrar el autor con id = {0}", objetivoId);
         objetivoPersistence.delete(objetivoId);
