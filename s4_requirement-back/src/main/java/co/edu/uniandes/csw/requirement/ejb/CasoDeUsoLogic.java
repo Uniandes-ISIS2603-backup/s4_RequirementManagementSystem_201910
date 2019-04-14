@@ -15,18 +15,30 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 /**
- *
+ * Clase de logica para un caso de uso
  * @author Sofia Sarmiento
  */
 
 @Stateless
 public class CasoDeUsoLogic {
     
+    /**
+     * Consola de JS
+     */
     private static final Logger LOGGER = Logger.getLogger(CasoDeUsoLogic.class.getName());
     
+    /**
+     * Inyección de persistencia de un caso de uso
+     */
     @Inject
     private CasoDeUsoPersistence persistence;
     
+    /**
+    * Metodo que crea la logica de un caso de uso
+    * @param casoDeUso caso de uso a persistir
+    * @return casoDeUso persistido
+    * @throws BusinessLogicException  si ya existe un caso de uso con el mismo nombre.
+    */
     public CasoDeUsoEntity createCasoDeUso(CasoDeUsoEntity casoDeUso) throws BusinessLogicException{
         LOGGER.log(Level.INFO, "Inicia proceso de creación del caso de uso");
         if(persistence.findByName(casoDeUso.getNombre())!=null){
@@ -37,6 +49,11 @@ public class CasoDeUsoLogic {
         return casoDeUso;
     }
     
+    /**
+     * Encuentra un caso de uso dado su id
+     * @param casoDeUsoId id del caso de uso a encontrar
+     * @return caso de uso encontrado
+     */
     public CasoDeUsoEntity getCasoDeUso(Long casoDeUsoId){
         LOGGER.log(Level.INFO, "Inicia proceso de consultar el caso de uso con id = {0}", casoDeUsoId);
         CasoDeUsoEntity casoDeUso = persistence.find(casoDeUsoId);
@@ -57,6 +74,10 @@ public class CasoDeUsoLogic {
         return casoDeUso;
     }
     
+    /**
+     * Lista con todos los casos de uso.
+     * @return lista con todos los casos de uso
+     */
     public List<CasoDeUsoEntity> getCasosDeUso() {
         LOGGER.log(Level.INFO, "Inicia proceso de consultar todos los casos de uso");
         List<CasoDeUsoEntity> casosDeUso = persistence.findAll();
@@ -64,6 +85,11 @@ public class CasoDeUsoLogic {
         return casosDeUso;
     }
     
+    /**
+     * Actualiza un caso de uso.
+     * @param casoDeUsoId el caso de uso a actualizar
+     * @return caso de uso actualizado
+     */
      public CasoDeUsoEntity updateCasoDeUso(Long casoDeUsoId, CasoDeUsoEntity casoDeUso) {
         LOGGER.log(Level.INFO, "Inicia proceso de actualizar el caso de uso con id = {0}", casoDeUsoId);
         CasoDeUsoEntity newEntity = persistence.update(casoDeUso);
@@ -71,6 +97,10 @@ public class CasoDeUsoLogic {
         return newEntity;
     }
      
+    /**
+     * Elimina un caso de uso, dado su id
+     * @param casoDeUsoId id del caso de uso a eliminar
+     */
      public void deleteCasoDeUso(Long casoDeUsoId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de borrar el camino con id = {0}", casoDeUsoId);
        
