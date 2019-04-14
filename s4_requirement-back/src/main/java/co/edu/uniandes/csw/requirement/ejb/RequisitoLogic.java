@@ -45,10 +45,10 @@ public class RequisitoLogic {
         // Aquí ponemos todas las validaciones que hay que hacer al momento de crear un nuevo requisito, según reglas de negocio. 
         LOGGER.log(Level.INFO, "Inicia proceso de creación del requisito");
         if (x.getEstabilidad() < 1 || x.getEstabilidad() > 3) {
-            throw new BusinessLogicException("La estabilidad debe de ser un valor entre 0 y 2");
+            throw new BusinessLogicException("La estabilidad debe de ser un valor entre 1 y 3");
         }
         if (x.getImportancia() < 1 || x.getImportancia() > 3) {
-            throw new BusinessLogicException("La importancia debe de ser un valor entre 0 y 2");
+            throw new BusinessLogicException("La importancia debe de ser un valor entre 1 y 3");
         }
         boolean bool1 = x.getTipo().equalsIgnoreCase("FUNCIONAL");
         boolean bool2 = x.getTipo().equalsIgnoreCase("NOFUNCIONAL");
@@ -95,11 +95,11 @@ public class RequisitoLogic {
 
     public RequisitoEntity updateRequisito(Long id, RequisitoEntity x) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de actualizar el requisito con id = {0}", id);
-        if (x.getEstabilidad() < 0 || x.getEstabilidad() > 2) {
-            throw new BusinessLogicException("La estabilidad debe de ser un valor entre 0 y 2");
+        if (x.getEstabilidad() < 1 || x.getEstabilidad() > 3) {
+            throw new BusinessLogicException("La estabilidad debe de ser un valor entre 1 y 3");
         }
-        if (x.getImportancia() < 0 || x.getImportancia() > 2) {
-            throw new BusinessLogicException("La importancia debe de ser un valor entre 0 y 2");
+        if (x.getImportancia() < 1 || x.getImportancia() > 3) {
+            throw new BusinessLogicException("La importancia debe de ser un valor entre 1 y 3");
         }
         String[] possibleValues = {"FUNCIONAL", "NOFUNCIONAL"};
         boolean typeIsInSet = false;
