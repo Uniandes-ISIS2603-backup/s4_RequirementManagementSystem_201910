@@ -1,7 +1,6 @@
 package co.edu.uniandes.csw.requirement.resources;
 
 import co.edu.uniandes.csw.requirement.dtos.StakeHolderDTO;
-import co.edu.uniandes.csw.requirement.dtos.StakeHolderDTO;
 import co.edu.uniandes.csw.requirement.ejb.StakeHolderLogic;
 import co.edu.uniandes.csw.requirement.entities.StakeHolderEntity;
 import co.edu.uniandes.csw.requirement.exceptions.BusinessLogicException;

@@ -53,9 +53,6 @@ public class RequisitoEntity extends BaseEntity implements Serializable {
     @OneToMany(mappedBy = "fuenteRequisito", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<StakeHolderEntity> fuentes = new ArrayList<>();
     
-    @PodamExclude
-    @ManyToOne
-    private DRSEntity drs;
    
     /**
      * @return the comentarios
@@ -209,19 +206,5 @@ public class RequisitoEntity extends BaseEntity implements Serializable {
      */
     public void setFuentes(List<StakeHolderEntity> fuentes) {
         this.fuentes = fuentes;
-    }
-
-    /**
-     * @return the drs
-     */
-    public DRSEntity getDrs() {
-        return drs;
-    }
-
-    /**
-     * @param drs the drs to set
-     */
-    public void setDrs(DRSEntity drs) {
-        this.drs = drs;
     }
 }
