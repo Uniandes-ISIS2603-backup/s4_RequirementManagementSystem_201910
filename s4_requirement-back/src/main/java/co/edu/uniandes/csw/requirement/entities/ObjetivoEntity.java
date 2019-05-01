@@ -24,10 +24,6 @@ public class ObjetivoEntity extends BaseEntity implements Serializable {
     private String comentarios;
 
     @PodamExclude
-    @ManyToOne
-    private DRSEntity drs;
-
-    @PodamExclude
     @OneToMany(mappedBy = "objetivo", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<CambioEntity> cambios = new ArrayList<CambioEntity>();
 
@@ -105,20 +101,6 @@ public class ObjetivoEntity extends BaseEntity implements Serializable {
      */
     public void setComentarios(String comentarios) {
         this.comentarios = comentarios;
-    }
-
-    /**
-     * @return the drs
-     */
-    public DRSEntity getDrs() {
-        return drs;
-    }
-
-    /**
-     * @param drs the drs to set
-     */
-    public void setDrs(DRSEntity drs) {
-        this.drs = drs;
     }
 
     /**
