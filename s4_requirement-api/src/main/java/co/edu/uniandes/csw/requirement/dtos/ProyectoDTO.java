@@ -5,7 +5,9 @@
  */
 package co.edu.uniandes.csw.requirement.dtos;
 
-import co.edu.uniandes.csw.requirement.entities.DRSEntity;
+
+
+import co.edu.uniandes.csw.requirement.entities.ProyectoEntity;
 import java.io.Serializable;
 
 /**
@@ -41,7 +43,7 @@ public class ProyectoDTO implements Serializable {
      * la entidad que viene de argumento.
      * @param entity Es la entidad que se va a convertir a DTO
      */
-    public Proyecto(ProyectoEntity entity)
+    public ProyectoDTO(ProyectoEntity entity)
     {
         if(entity != null)
         {

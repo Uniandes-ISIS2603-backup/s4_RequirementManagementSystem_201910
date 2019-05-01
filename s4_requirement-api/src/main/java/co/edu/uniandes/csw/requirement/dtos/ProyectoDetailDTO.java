@@ -7,8 +7,9 @@ package co.edu.uniandes.csw.requirement.dtos;
 
 import co.edu.uniandes.csw.requirement.entities.ProyectoEntity;
 import co.edu.uniandes.csw.requirement.entities.ObjetivoEntity;
-import co.edu.uniandes.csw.requirement.entities.RequisitoEntity;
+
 import co.edu.uniandes.csw.requirement.entities.StakeHolderEntity;
+import co.edu.uniandes.csw.requirement.entities.UsuarioEntity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +58,12 @@ public class ProyectoDetailDTO extends ProyectoDTO implements Serializable {
                     stakeholders.add(new StakeHolderDTO(entityStakeholder));
                 }
             }
+            if (proyectoEntity.getUsuarios() != null) {
+                usuarios = new ArrayList<>();
+                for (UsuarioEntity usuarioEntity : proyectoEntity.getUsuarios()) {
+                    usuarios.add(new UsuarioDTO(usuarioEntity));
+                }
+            }
         }
 
     }
@@ -69,19 +76,26 @@ public class ProyectoDetailDTO extends ProyectoDTO implements Serializable {
     @Override
     public ProyectoEntity toEntity() {
         ProyectoEntity proyectoEntity = super.toEntity();
-        if (objetivos != null) {
+        if (getObjetivos() != null) {
             List<ObjetivoEntity> objetivosEntity = new ArrayList<>();
             for (ObjetivoDTO dtoObjetivo : getObjetivos()) {
                 objetivosEntity.add(dtoObjetivo.toEntity());
             }
             proyectoEntity.setObjetivos(objetivosEntity);
         }
-        if (stakeholders != null) {
+        if (getStakeholders() != null) {
             List<StakeHolderEntity> stakeholdersEntity = new ArrayList<>();
             for (StakeHolderDTO dtoStakeholder : getStakeholders()) {
                 stakeholdersEntity.add(dtoStakeholder.toEntity());
             }
             proyectoEntity.setStakeholders(stakeholdersEntity);
+        }
+        if (getUsuarios() != null) {
+            List<UsuarioEntity> usuariosEntity = new ArrayList<>();
+            for (UsuarioDTO dtoUsuario : getUsuarios()) {
+                usuariosEntity.add(dtoUsuario.toEntity());
+            }
+            proyectoEntity.setUsuarios(usuariosEntity);
         }
 
         return proyectoEntity;
@@ -119,5 +133,19 @@ public class ProyectoDetailDTO extends ProyectoDTO implements Serializable {
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+    }
+
+    /**
+     * @return the usuarios
+     */
+    public List<UsuarioDTO> getUsuarios() {
+        return usuarios;
+    }
+
+    /**
+     * @param usuarios the usuarios to set
+     */
+    public void setUsuarios(List<UsuarioDTO> usuarios) {
+        this.usuarios = usuarios;
     }
 }
