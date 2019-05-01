@@ -13,15 +13,27 @@ import java.io.Serializable;
  * @author Sofia Sarmiento
  */
 public class CasoDeUsoDTO implements Serializable {
-    
+     /**
+     * nombre del caso de uso.
+     */
     private String nombre;
+     /**
+     * Id del caso de uso.
+     */
     private Long id;
     //private List<CaminoDTO> cursoBasicoEventos;
     
+    /**
+     * Constructor vacio
+     */
     public CasoDeUsoDTO(){
         
     }
 
+    /**
+     * Crea un Data transfer object (DTO) de caso de uso a partir de una entity 
+     * @param entidad con la cual se creará el DTO
+     */
     public CasoDeUsoDTO(CasoDeUsoEntity entidad){
         if (entidad != null) {
             this.id = entidad.getId();
@@ -31,6 +43,10 @@ public class CasoDeUsoDTO implements Serializable {
     }
     
 
+    /**
+     * Convierte un DTO en una entity de 
+     * @return entity construida a partir del DTO
+     */
    public CasoDeUsoEntity toEntity()
    {
        CasoDeUsoEntity entidad = new CasoDeUsoEntity();

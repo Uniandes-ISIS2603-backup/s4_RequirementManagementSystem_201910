@@ -9,7 +9,9 @@ import co.edu.uniandes.csw.requirement.dtos.CaminoDTO;
 import co.edu.uniandes.csw.requirement.ejb.CaminoLogic;
 import co.edu.uniandes.csw.requirement.entities.CaminoEntity;
 import co.edu.uniandes.csw.requirement.exceptions.BusinessLogicException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -76,6 +78,14 @@ public class CaminoResource
         CaminoDTO caminoDTO = new CaminoDTO(caminoEntity);
         return caminoDTO;
     }
+    
+    @GET
+    public List<CaminoDTO> getCaminos() {
+        LOGGER.info("CaminoResource getCaminos: input: void");
+        List<CaminoDTO> listaCaminos = listEntity2DTO(caminoLogic.getCaminos());
+        LOGGER.log(Level.INFO, "CaminoResource getCaminos: output: {0}", listaCaminos);
+        return listaCaminos;
+    }
     /**
      * Borra el camino con el id asociado recibido en la URL
      * @param id Identificador del camino que se desea borrar.
@@ -114,6 +124,14 @@ public class CaminoResource
         }
         CaminoDTO caminoDTO = new CaminoDTO(caminoLogic.updateCamino(id, camino.toEntity()));
         return caminoDTO;
+    }
+    
+    private List<CaminoDTO> listEntity2DTO(List<CaminoEntity> entityList) {
+        List<CaminoDTO> list = new ArrayList<>();
+        for (CaminoEntity entity : entityList) {
+            list.add(new CaminoDTO(entity));
+        }
+        return list;
     }
 
 }

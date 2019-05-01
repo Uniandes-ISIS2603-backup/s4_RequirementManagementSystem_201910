@@ -12,7 +12,6 @@ import co.edu.uniandes.csw.requirement.entities.ObjetivoEntity;
 import co.edu.uniandes.csw.requirement.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.requirement.persistence.AprobacionPersistence;
 import java.util.ArrayList;
-import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -29,27 +28,48 @@ import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
- *
- * @author jorgeandresesguerraalarcon
+ *Clase de test de relacion de aprobacion y objetivo
+ * @author jorgeandresesguerraalarcon & Sofia Alvarez
  */
 @RunWith(Arquillian.class)
 public class AprobacionObjetivoLogicTest 
 {
+    /**
+     * Factoria de podam
+     */
     private PodamFactory factory = new PodamFactoryImpl();
 
+    /**
+     * Inyeccion de dependencias de aprobacion-objetivo
+     */
     @Inject
     private AprobacionObjetivoLogic aprobacionObjetivoLogic;
 
+    /**
+     * Inyeccion de dependencias de objetivo 
+     */
     @Inject
     private ObjetivoLogic objetivoLogic;
 
+    /**
+     * Inyeccion de la persistencia del entity manager
+     */
     @PersistenceContext
     private EntityManager em;
 
+    /**
+     * Inyeccion de una transaccion de usuario
+     */
     @Inject
     private UserTransaction utx;
 
+    /**
+     * Una aprobacion
+     */
     private AprobacionEntity apr = new AprobacionEntity();
+    /**
+     * Un objetivo
+     */
     private ObjetivoEntity obj = new ObjetivoEntity();
     
     // Considerar: No se incluyen relaciones a otras clases desde Objetivo!

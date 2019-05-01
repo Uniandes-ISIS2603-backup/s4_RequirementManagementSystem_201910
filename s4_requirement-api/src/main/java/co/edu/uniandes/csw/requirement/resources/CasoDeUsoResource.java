@@ -30,16 +30,32 @@ import javax.ws.rs.WebApplicationException;
  *
  * @author Sofia Sarmiento
  */
+
+/**
+ * Ruta de los casos de uso
+ */
 @Path("casos")
 @Produces("application/json")
 @Consumes("application/json")
 @RequestScoped
 public class CasoDeUsoResource {
+    /**
+     * Consola de JS
+     */
     private static final Logger LOGGER = Logger.getLogger(CasoDeUsoResource.class.getName());
     
+    /**
+    * Inyeccion de las dependencias de los casos de uso
+    */
     @Inject
     private CasoDeUsoLogic casoDeUsoLogic;
     
+    /**
+     * Crea un nuevo caso de uso. 
+     * @param casoDeUso de a crear
+     * @return caso de uso creado
+     * @throws BusinessLogicException si no se cumplen las reglas de negocio
+     */
     @POST
     public CasoDeUsoDTO crearCasoDeUso(CasoDeUsoDTO casoDeUso)throws BusinessLogicException
     {
@@ -50,9 +66,14 @@ public class CasoDeUsoResource {
         LOGGER.log(Level.INFO, "CasoDeUsoResource createCasoDeUso: output: {0}", nuevocasoDTO);
         return nuevocasoDTO;    }
     
+    /**
+     * Retorna un caso de uso con un id especifico
+     * @param id del caso de uso a buscar
+     * @return el caso de uso buscado
+     */
     @GET
     @Path("{id: \\d+}")
-    public CasoDeUsoDTO getCasoDeUso (@PathParam("id") Long id) throws WebApplicationException
+    public CasoDeUsoDetail getCasoDeUso (@PathParam("id") Long id) throws WebApplicationException
     {
         LOGGER.log(Level.INFO, "CasoDeUsoResource getCasoDeUso: input: {0}", id);
         CasoDeUsoEntity casoEntity = casoDeUsoLogic.getCasoDeUso(id);
@@ -64,14 +85,22 @@ public class CasoDeUsoResource {
         return detailDTO;
     }
     
+    /**
+     * Retorna todos los casos de uso
+     * @return todos los casos de uso
+     */
     @GET
-    public List<CasoDeUsoDTO> getCasosDeUso() {
+    public List<CasoDeUsoDetail> getCasosDeUso() {
         LOGGER.info("CasoDeUsoResource getCasosDeUso: input: void");
-        List<CasoDeUsoDTO> listaCasos = listEntity2DTO(casoDeUsoLogic.getCasosDeUso());
+        List<CasoDeUsoDetail> listaCasos = listEntity2DTO(casoDeUsoLogic.getCasosDeUso());
         LOGGER.log(Level.INFO, "CasoDeUsoResource getCasosDeUso: output: {0}", listaCasos);
         return listaCasos;
     }
     
+    /**
+     * Elimina un caso de uso
+     * @param id del caso de uso a eliminar
+     */
      @DELETE
     @Path("{id: \\d+}")
     public void deleteCasoDeUso (@PathParam("id") Long id)throws BusinessLogicException {
@@ -83,6 +112,12 @@ public class CasoDeUsoResource {
         LOGGER.info("CasoDeUsoResource deleteCasoDeUso: output: void");  
     }
     
+    /**
+     * Actualiza un caso de uso
+     * @param id id del caso de uso
+     * @param dto a actualizar
+     * @return caso de uso actualizada 
+     */
     @PUT
     @Path("{id: \\d+}")
     public CasoDeUsoDTO putCasoDeUso (@PathParam("id") Long id, CasoDeUsoDTO dto)throws WebApplicationException {
@@ -96,10 +131,10 @@ public class CasoDeUsoResource {
         return detailDTO;
     }
     
-    private List<CasoDeUsoDTO> listEntity2DTO(List<CasoDeUsoEntity> entityList) {
-        List<CasoDeUsoDTO> list = new ArrayList<>();
+    private List<CasoDeUsoDetail> listEntity2DTO(List<CasoDeUsoEntity> entityList) {
+        List<CasoDeUsoDetail> list = new ArrayList<>();
         for (CasoDeUsoEntity entity : entityList) {
-            list.add(new CasoDeUsoDTO(entity));
+            list.add(new CasoDeUsoDetail(entity));
         }
         return list;
     }

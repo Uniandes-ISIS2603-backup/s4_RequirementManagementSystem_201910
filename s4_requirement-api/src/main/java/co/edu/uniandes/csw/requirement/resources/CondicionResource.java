@@ -29,17 +29,31 @@ import javax.ws.rs.WebApplicationException;
  *
  * @author Sofia Sarmiento
  */
+
+/**
+ * Ruta de las condiciones
+ */
 @Path("condiciones")
 @Produces("application/json")
 @Consumes("application/json")
 @RequestScoped
 public class CondicionResource {
-    
+    /**
+    * Inyeccion de las dependencias de condiciones
+    */
     @Inject
     private CondicionLogic condicionLogic;
-    
+    /**
+     * Consola de JS
+     */
     private static final Logger LOGGER = Logger.getLogger(CondicionResource.class.getName());
     
+    /**
+     * Crea un nuevo condicion. 
+     * @param condicion a crear
+     * @return condicion creado
+     * @throws BusinessLogicException si no se cumplen las reglas de negocio
+     */
     @POST
     public CondicionDTO crearCondicion(CondicionDTO condicion) throws BusinessLogicException
     {
@@ -51,6 +65,11 @@ public class CondicionResource {
         return nuevacondicionDTO;
     }
     
+    /**
+     * Retorna una condicion con un id especifico
+     * @param id de la condicion a buscar
+     * @return la condicion buscada
+     */
     @GET
     @Path("{id: \\d+}")
     public CondicionDTO getCondicion (@PathParam("id") Long id)throws WebApplicationException {
@@ -64,6 +83,10 @@ public class CondicionResource {
         return condicionDTO;
     }
     
+    /**
+     * Retorna todos los condiciones
+     * @return todos los condiciones
+     */
     @GET
     public List<CondicionDTO> getCondiciones() {
         LOGGER.info("CondicionResource getCondiciones: input: void");
@@ -72,6 +95,10 @@ public class CondicionResource {
         return listaCondiciones;
     }
     
+    /**
+     * Elimina una condicion
+     * @param id de la condicion a eliminar
+     */
     @DELETE
     @Path("{id: \\d+}")
     public void deleteCondicion (@PathParam("id") Long id)throws BusinessLogicException {
@@ -83,6 +110,12 @@ public class CondicionResource {
         LOGGER.info("CondicionResource deleteCondicion: output: void");
     }
     
+    /**
+     * Actualiza una condicion
+     * @param id id de la condicion
+     * @param dto a actualizar
+     * @return condicion actualizada 
+     */
     @PUT
     @Path("{id: \\d+}")
     public CondicionDTO putCondicion (@PathParam("id") Long id, CondicionDTO dto)throws WebApplicationException {

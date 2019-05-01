@@ -6,9 +6,7 @@
 package co.edu.uniandes.csw.requirement.dtos;
 
 import co.edu.uniandes.csw.requirement.entities.CaminoEntity;
-import co.edu.uniandes.csw.requirement.entities.CaminoEntity.TipoCamino;
 import java.io.Serializable;
-import java.util.ArrayList;
 
 /**
  *
@@ -23,11 +21,11 @@ public class CaminoDTO implements Serializable
  /**
   * El tipo del paso. Puede ser básico, alternativo o de excepción.
   */
- private TipoCamino tipoPaso;
+ private String tipoPaso;
  /**
   * Lista de pasos a seguir en un camino.
   */
- private ArrayList<String> pasos;
+ private String pasos;
  
  /**
   * Constructor por defecto.
@@ -45,7 +43,7 @@ public class CaminoDTO implements Serializable
         {
             this.idPaso = ce.getId();
             this.pasos = ce.getPasos();
-            this.tipoPaso = ce.getTipoCamino();
+            this.tipoPaso = ce.getTipoPaso();
         }
  }
  /**
@@ -56,7 +54,7 @@ public class CaminoDTO implements Serializable
         CaminoEntity caminoEntity = new CaminoEntity();
         caminoEntity.setId(this.getIdPaso());
         caminoEntity.setPasos(this.pasos);
-        caminoEntity.setTipoCamino(this.tipoPaso);
+        caminoEntity.setTipoPaso(this.tipoPaso);
         return caminoEntity;
     }
  
@@ -81,22 +79,22 @@ public class CaminoDTO implements Serializable
    * El tipo del paso
    * @return el tipo del paso 
    */
- public TipoCamino getTipoPaso(){
+ public String getTipoPaso(){
      return tipoPaso;
  }
  /**
   * Modifica el tipo del paso
   * @param tipoPasito el tipo de paso por el que se quiere cambiar
   */
- public void setTipoPaso(TipoCamino tipoPasito){
+ public void setTipoPaso(String tipoPasito){
      tipoPaso = tipoPasito;
  }
  
  /**
-  * Lista de pasos de un camino
-  * @return la lista de pasos de un camino 
+  * Pasos de un camino
+  * @return pasos de un camino 
   */
-  public ArrayList<String> getPasos(){
+  public String getPasos(){
      return pasos;
  }
  
@@ -104,7 +102,7 @@ public class CaminoDTO implements Serializable
    * Modifica la lista de pasos de un camino
    * @param pasitos la lista de pasos a poner
    */
- public void setPasos(ArrayList<String> pasitos){
+ public void setPasos(String pasitos){
      pasos = pasitos;
  }
     

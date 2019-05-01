@@ -68,7 +68,7 @@ public class CondicionEntity extends BaseEntity implements Serializable {
     }
 
     /**
-     * @param condiciones the condiciones to set
+     * @param casos the condiciones to set
      */
     public void setCasos(CasoDeUsoEntity casos) {
         this.casos = casos;

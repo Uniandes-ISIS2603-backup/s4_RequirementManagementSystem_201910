@@ -11,20 +11,41 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @objetivo estudiante
+ * Clase que repesenta un Objetivo Detallado como DTO
+ * @objetivo David Manosalva 
  */
 public class ObjetivoDetailDTO extends ObjetivoDTO implements Serializable {
 
+    /**
+     * Lista de aprobaciones del objetivo
+     */
     private List<AprobacionDTO> aprobaciones;
+    
+    /**
+     * Lista de cambios del objetivo
+     */
     private List<CambioDTO> cambios;
+    
+    /**
+     * Lista de requisitos del objetivo
+     */
     private List<RequisitoDTO> requisitos;
+    
+    /**
+     * Lista de stakeholders del objetivo
+     */
     private List<StakeHolderDTO> fuentes;
     
+    /**
+     * Constructor vacio para REST
+     */
     public ObjetivoDetailDTO() {
         super();
     }
 
+    /**
+     * Constructor que crea un DTO de un objeto entity
+     */
     public ObjetivoDetailDTO(ObjetivoEntity objetivoEntity) {
         super(objetivoEntity);
         if (objetivoEntity != null) {
@@ -48,6 +69,10 @@ public class ObjetivoDetailDTO extends ObjetivoDTO implements Serializable {
         }
     }
     
+    /**
+     * Metodo que crea un ObjetivoEntity a partir de este DTO
+     * @return ObjetivoEntity con la informacion del DTO
+     */
     @Override
     public ObjetivoEntity toEntity() {
         ObjetivoEntity objetivoEntity = super.toEntity();

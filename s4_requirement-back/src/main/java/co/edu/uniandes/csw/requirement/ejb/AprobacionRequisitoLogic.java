@@ -23,8 +23,6 @@ package co.edu.uniandes.csw.requirement.ejb;
 
 import co.edu.uniandes.csw.requirement.entities.RequisitoEntity;
 import co.edu.uniandes.csw.requirement.entities.AprobacionEntity;
-import co.edu.uniandes.csw.requirement.entities.ObjetivoEntity;
-import co.edu.uniandes.csw.requirement.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.requirement.persistence.RequisitoPersistence;
 import co.edu.uniandes.csw.requirement.persistence.AprobacionPersistence;
 import java.util.logging.Level;

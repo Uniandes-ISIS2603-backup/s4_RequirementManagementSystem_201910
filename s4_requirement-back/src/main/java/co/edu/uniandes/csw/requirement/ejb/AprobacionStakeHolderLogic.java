@@ -36,16 +36,24 @@ import javax.inject.Inject;
  * Clase que implementa la conexion con la persistencia para la relación entre
  * la entidad de Aprobacion e StakeHolder.
  *
- * @author jorgeandresesguerralarcon
+ * @author jorgeandresesguerralarcon & Sofia Alvarez
  */
 @Stateless
 public class AprobacionStakeHolderLogic {
-
+    /**
+     * Consola de JS
+     */
     private static final Logger LOGGER = Logger.getLogger(AprobacionStakeHolderLogic.class.getName());
 
+    /**
+     * Inyeccion de dependencias de la aprobacion
+     */
     @Inject
     private AprobacionPersistence aprobacionPersistence;
 
+     /**
+     * Inyeccion de dependencias del stakeholder
+     */
     @Inject
     private StakeHolderPersistence stakeholderPersistence;
 
@@ -84,7 +92,7 @@ public class AprobacionStakeHolderLogic {
     
     /**
      * Obtener un stakeholder asociado a la aprobación
-     * @param 
+     * @param  id de la aprobacion
      * @return el stakeholder
      */
     

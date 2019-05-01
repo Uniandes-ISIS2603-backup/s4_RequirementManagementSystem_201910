@@ -1,0 +1,344 @@
+{
+	"info": {
+		"_postman_id": "39de9d76-676c-47bb-8aef-18516c395138",
+		"name": "CambioResourceTest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear un cambio",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "be2e7db4-d208-4cb6-966d-6165481ec768",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_a\",data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\n        \"autor\": \"Sofia Alvarez\",\n        \"descripcion\": \"Modificar el objetivo 2\",\n        \"fechaYHora\": \"11/4/2019 19:36:53\",\n        \"id_aprobado\": \"2\",\n        \"nombre_aprobado\": \"Objetivo 2\",\n        \"organizacion\": \"Startech\",\n        \"tipo\": \"MODIFICACION\"\n    }"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/cambios",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"cambios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un cambio 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ad05e9f3-8914-48d2-9e70-ec71d3dd39d0",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_b\",data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\n        \"autor\": \"Sofia Alvarez\",\n        \"descripcion\": \"El objetivo 2 se ha eliminado\",\n        \"fechaYHora\": \"11/4/2019 19:36:53\",\n        \"id_aprobado\": \"2\",\n        \"nombre_aprobado\": \"Objetivo 2\",\n        \"organizacion\": \"Startech\",\n        \"tipo\": \"ELIMINACION\"\n    }"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/cambios",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"cambios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener cambio por ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "72529e58-0a3e-49c6-9a14-e0b487b69403",
+						"exec": [
+							"tests[\"No genera error en el GET\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/cambios/{{new_id_a}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"cambios",
+						"{{new_id_a}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener todos los cambios",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7ce393de-3ad2-4ee3-b465-2a70c239ef3b",
+						"exec": [
+							"tests[\"No genera error en el get\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/cambios",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"cambios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener cambio inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f2ab0476-5757-418f-8901-a42ff8ebed3c",
+						"exec": [
+							"tests[\"Genera error en el GET\"] = responseCode.code === 404;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/cambios/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"cambios",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar un cambio",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "66ec4036-2211-463e-a61a-c614b06d9f6a",
+						"exec": [
+							"tests[\"No genera error en el PUT\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\n        \"autor\": \"Sofia Alvarez\",\n        \"descripcion\": \"El objetivo 2 se ha aprobado\",\n        \"fechaYHora\": \"11/4/2019 19:36:53\",\n        \"id_aprobado\": \"2\",\n        \"nombre_aprobado\": \"Objetivo 2\",\n        \"organizacion\": \"Startech\",\n        \"tipo\": \"APROBACION\"\n    }"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/cambios/{{new_id_b}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"cambios",
+						"{{new_id_b}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar cambio inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "467aa827-5d79-422c-8186-ba728431ebb9",
+						"exec": [
+							"tests[\"Genera error en el PUT\"] = responseCode.code === 404;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\n        \"autor\": \"Sofia Alvarez\",\n        \"comentario\": \"El objetivo 2 ha sido aprobado\",\n        \"estado\": \"Aprobado\",\n        \"fechaYHora\": \"11/4/2019 19:36:53\",\n        \"id_aprobado\": \"2\",\n        \"nombre_aprobado\": \"Objetivo 2\",\n        \"organizacion\": \"Startech\",\n        \"tipo\": \"OBJETIVO\"\n    }"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/cambios/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"cambios",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar cambio 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d988229b-4e86-4d3c-aab5-663efb8bc1a8",
+						"exec": [
+							"tests[\"No genera error en el DELETE\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/cambios/{{new_id_a}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"cambios",
+						"{{new_id_a}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
