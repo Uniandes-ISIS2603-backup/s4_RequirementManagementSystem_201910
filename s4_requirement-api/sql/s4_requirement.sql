@@ -1,5 +1,6 @@
 delete from StakeHolderEntity;
 delete from OrganizacionEntity;
+delete from UsuarioEntity;
 
 delete from AprobacionEntity;
 delete from CambioEntity;
@@ -13,11 +14,18 @@ delete from RequisitoEntity;
 delete from DRSEntity;
 delete from CaminoEntity;
 
-insert into StakeHolderEntity (id, tipo, nombre) values (100, 'Financiero', 'Mateo');
-insert into StakeHolderEntity (id, tipo, nombre) values (200, 'Tecnologico', 'Juan');
+insert into OrganizacionEntity (id, sector, nombre) values (1, 'Tecnologico', 'Microsoft');
+insert into OrganizacionEntity (id, sector, nombre) values (2, 'Financiero', 'Bancolombia');
+insert into OrganizacionEntity (id, sector, nombre) values (3, 'Ambiental', 'Fundacion Natural');
+insert into OrganizacionEntity (id, sector, nombre) values (4, 'Tecnologico', 'Apple');
 
-insert into OrganizacionEntity (id, sector, nombre) values (110, 'Tecnologico', 'Tec');
-insert into OrganizacionEntity (id, sector, nombre) values (120, 'Financiero', 'Fin');
+insert into StakeHolderEntity (id, tipo, nombre, organizacion_id) values (1, 'Financiero', 'Mateo', 2);
+insert into StakeHolderEntity (id, tipo, nombre, organizacion_id) values (2, 'Tecnologico', 'Juan', 4);
+insert into StakeHolderEntity (id, tipo, nombre, organizacion_id) values (3, 'Administrador', 'Jorge', 1);
+insert into StakeHolderEntity (id, tipo, nombre, organizacion_id) values (4, 'Tecnologico', 'Sofia', 4);
+
+insert into UsuarioEntity (id, usuario, contrasena, tipo) values (100, 'Mateo', '1234', 'Administrador');
+insert into UsuarioEntity (id, usuario, contrasena, tipo) values (200, 'Jose', '1234', 'Cliente');
 
 insert into AprobacionEntity (id, tipo, aprobado, comentario) values (2, 'TEST',1,'Aprobacion2');
 
