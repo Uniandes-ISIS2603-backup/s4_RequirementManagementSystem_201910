@@ -17,7 +17,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  *
- * @author Sofia Alvarez
+ * @author Sofia Alvarez, Jorge Esguerra, David Manosalva
  */
 public class DrsDTODetail extends DrsDTO implements Serializable
 {
