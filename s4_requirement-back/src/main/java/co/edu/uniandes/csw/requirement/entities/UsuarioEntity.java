@@ -27,6 +27,7 @@ public class UsuarioEntity extends BaseEntity implements Serializable {
     //private ProyectoEntity proyecto;
     
     
+    //TODO: MATEO FALTA RELACION CON PROYECTO, ES MANY TO MANY.
     public UsuarioEntity() {
 
     }

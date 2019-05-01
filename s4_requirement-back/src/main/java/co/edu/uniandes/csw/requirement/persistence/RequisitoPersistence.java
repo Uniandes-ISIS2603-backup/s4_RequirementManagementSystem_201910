@@ -46,14 +46,13 @@ public class RequisitoPersistence {
         return query.getResultList();
     }
 
-    // Still not implemented
     public RequisitoEntity update(RequisitoEntity r) 
     {
         LOGGER.log(Level.INFO, "Actualizando el requisito con id={0}", r.getId());
         return em.merge(r);
     }
     
-    // Still not implemented
+   
     public void delete(Long id) 
     {
         LOGGER.log(Level.INFO, "Borrando el requisito con id={0}", id);
