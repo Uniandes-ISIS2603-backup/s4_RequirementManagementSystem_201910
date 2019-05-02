@@ -58,7 +58,7 @@ public class ProyectoDetailDTO extends ProyectoDTO implements Serializable {
                     stakeholders.add(new StakeHolderDTO(entityStakeholder));
                 }
             }
-            if (proyectoEntity.getUsuarios() != null) {
+            if (proyectoEntity.getUsuarios() != nsull) {
                 usuarios = new ArrayList<>();
                 for (UsuarioEntity usuarioEntity : proyectoEntity.getUsuarios()) {
                     usuarios.add(new UsuarioDTO(usuarioEntity));
