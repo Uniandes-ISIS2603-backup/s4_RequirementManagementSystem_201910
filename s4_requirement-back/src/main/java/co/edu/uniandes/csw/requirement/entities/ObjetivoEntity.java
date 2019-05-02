@@ -42,6 +42,10 @@ public class ObjetivoEntity extends BaseEntity implements Serializable {
     @PodamExclude
     @OneToMany(mappedBy = "fuenteObjetivo", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<StakeHolderEntity> fuentes = new ArrayList<>();
+    
+    @PodamExclude
+    @ManyToOne
+    private ProyectoEntity proyecto;
 
     public ObjetivoEntity() {
 
@@ -172,5 +176,7 @@ public class ObjetivoEntity extends BaseEntity implements Serializable {
     public void setFuentes(List<StakeHolderEntity> fuentes) {
         this.fuentes = fuentes;
     }
+    
+    
 
 }
