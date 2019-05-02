@@ -44,6 +44,7 @@ insert into DRSEntity (id, version, reporte) values (55, 1, 'Este es un reporte'
 insert into DRSEntity (id, version, reporte) values (28, 2, 'Este e la version 2 del reporte');
 
 insert into CaminoEntity(id, tipoPaso, pasos) values (1, 'BASICO', 'Paso 1');
+insert into CaminoEntity(id, tipoPaso, pasos) values (2, 'BASICO', 'Paso 5');
 
 insert into CondicionEntity (id, descripcion, seCumplio) values (30, 'condicionPrueba1', 1);
 insert into CondicionEntity (id, descripcion, seCumplio) values (40, 'condicionPrueba2', 0);

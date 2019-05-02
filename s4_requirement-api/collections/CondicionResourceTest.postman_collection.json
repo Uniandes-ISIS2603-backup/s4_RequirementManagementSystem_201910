@@ -116,52 +116,6 @@
 			"response": []
 		},
 		{
-			"name": "Intenta crear una condicion con la descripcion anterior",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "3bb2c4a1-bcdb-4da0-b88f-573fe4940a41",
-						"exec": [
-							"var data = JSON.parse(responseBody);",
-							"postman.setGlobalVariable(\"new_id_e\",data.id);",
-							"tests[\"no genera error el post\"] = responseCode.code === 200;"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\"descripcion\":\"Prueba1\",\n\"seCumplio\": 1,\n\"esPrecondicion\":0}"
-				},
-				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/condiciones",
-					"protocol": "http",
-					"host": [
-						"{{ip}}"
-					],
-					"port": "{{puerto}}",
-					"path": [
-						"s4_requirement-api",
-						"api",
-						"condiciones"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "eliminar una condicion",
 			"event": [
 				{

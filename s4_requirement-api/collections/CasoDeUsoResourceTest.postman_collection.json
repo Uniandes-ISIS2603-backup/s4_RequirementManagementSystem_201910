@@ -130,52 +130,6 @@
 			"response": []
 		},
 		{
-			"name": "Intenta crear un caso de uso con el nombre anterior",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "37b37328-e7ac-4359-b6b2-d1cbc8658f47",
-						"exec": [
-							"var data = JSON.parse(responseBody);",
-							"postman.setGlobalVariable(\"new_id_e\",data.id);",
-							"tests[\"no genera error el post\"] = responseCode.code === 200;"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\"nombre\":\"patricia\"}"
-				},
-				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/casos",
-					"protocol": "http",
-					"host": [
-						"{{ip}}"
-					],
-					"port": "{{puerto}}",
-					"path": [
-						"s4_requirement-api",
-						"api",
-						"casos"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "eliminar un caso de uso",
 			"event": [
 				{
