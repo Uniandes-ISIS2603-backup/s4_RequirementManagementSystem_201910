@@ -21,12 +21,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 /**
  *
- * @author Sofia A
+ * @author Sofia Sarmiento
  */
 @RunWith(Arquillian.class)
 public class CaminoIT {
-    /**
-    private static final String COLLECTION = "DRSResourceTest.postman_collection";
+    
+    private static final String COLLECTION = "CaminoResourceTest.postman_collection";
 
     @Deployment(testable = true)
     public static WebArchive createDeployment() {
@@ -52,7 +52,7 @@ public class CaminoIT {
     @RunAsClient
     public void postman() throws IOException {
         PostmanTestBuilder tp = new PostmanTestBuilder();
-        tp.setTestWithoutLogin(COLLECTION, "Entorno-IT.postman_environment");
+        tp.setTestWithoutLogin(COLLECTION, "Entorno-Colecciones.postman_environment");
         String desiredResult = "0";
         Assert.assertEquals("Error en Iterations de: " + COLLECTION, desiredResult, tp.getIterations_failed());
 
@@ -62,5 +62,5 @@ public class CaminoIT {
 
         Assert.assertEquals("Error en Assertions de: " + COLLECTION, desiredResult, tp.getAssertions_failed());
     }
-    */
+    
 }

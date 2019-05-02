@@ -48,6 +48,7 @@ insert into CasoDeUsoEntity (id, nombre) values (10, 'casoPrueba');
 insert into CasoDeUsoEntity (id, nombre) values (20, 'casoPrueba2');
 
 insert into CaminoEntity(id, tipoPaso, pasos) values (1, 'BASICO', 'Paso 1');
+insert into CaminoEntity(id, tipoPaso, pasos) values (2, 'BASICO', 'Paso 5');
 
 insert into CondicionEntity (id, descripcion, seCumplio) values (30, 'condicionPrueba1', 1);
 insert into CondicionEntity (id, descripcion, seCumplio) values (40, 'condicionPrueba2', 0);

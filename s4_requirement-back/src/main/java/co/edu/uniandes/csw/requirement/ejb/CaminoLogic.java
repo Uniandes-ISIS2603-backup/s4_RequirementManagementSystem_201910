@@ -50,7 +50,7 @@ public class CaminoLogic {
             throw new BusinessLogicException("El tipo de camino sólo puede ser básico, de excepción o alternativo");
         }
         // Invoca la persistencia para crear el camino
-        persistence.create(caminoEntity);
+        caminoEntity= persistence.create(caminoEntity);
         return caminoEntity;
     }
 
