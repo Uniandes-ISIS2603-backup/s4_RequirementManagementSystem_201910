@@ -11,7 +11,6 @@ delete from CondicionEntity;
 delete from ObjetivoEntity;
 delete from RequisitoEntity;
 
-delete from DRSEntity;
 delete from CaminoEntity;
 
 insert into OrganizacionEntity (id, sector, nombre) values (1, 'Tecnologico', 'Microsoft');
@@ -47,9 +46,6 @@ values (3, 'ELIMINACION', 'Eliminar el requisito 5 pues no concuerda con los lin
 
 insert into CasoDeUsoEntity (id, nombre) values (10, 'casoPrueba');
 insert into CasoDeUsoEntity (id, nombre) values (20, 'casoPrueba2');
-
-insert into DRSEntity (id, version, reporte) values (55, 1, 'Este es un reporte');
-insert into DRSEntity (id, version, reporte) values (28, 2, 'Este e la version 2 del reporte');
 
 insert into CaminoEntity(id, tipoPaso, pasos) values (1, 'BASICO', 'Paso 1');
 

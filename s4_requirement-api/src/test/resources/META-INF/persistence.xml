@@ -8,7 +8,7 @@
         <class>co.edu.uniandes.csw.requirement.entities.CaminoEntity</class>
         <class>co.edu.uniandes.csw.requirement.entities.CasoDeUsoEntity</class>
         <class>co.edu.uniandes.csw.requirement.entities.CondicionEntity</class>
-        <class>co.edu.uniandes.csw.requirement.entities.DRSEntity</class>
+        <class>co.edu.uniandes.csw.requirement.entities.ProyectoEntity</class>
         <class>co.edu.uniandes.csw.requirement.entities.ObjetivoEntity</class>
         <class>co.edu.uniandes.csw.requirement.entities.OrganizacionEntity</class>
         <class>co.edu.uniandes.csw.requirement.entities.RequisitoEntity</class>
