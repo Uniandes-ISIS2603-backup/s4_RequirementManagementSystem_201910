@@ -52,7 +52,7 @@ public class ProyectoDetailDTO extends ProyectoDTO implements Serializable {
                 }
             }
 
-            if (proyectoEntity.getStakeholders() != null) {
+            /*if (proyectoEntity.getStakeholders() != null) {
                 stakeholders = new ArrayList<>();
                 for (StakeHolderEntity entityStakeholder : proyectoEntity.getStakeholders()) {
                     stakeholders.add(new StakeHolderDTO(entityStakeholder));
@@ -63,7 +63,7 @@ public class ProyectoDetailDTO extends ProyectoDTO implements Serializable {
                 for (UsuarioEntity usuarioEntity : proyectoEntity.getUsuarios()) {
                     usuarios.add(new UsuarioDTO(usuarioEntity));
                 }
-            }
+            }*/
         }
 
     }
@@ -83,7 +83,7 @@ public class ProyectoDetailDTO extends ProyectoDTO implements Serializable {
             }
             proyectoEntity.setObjetivos(objetivosEntity);
         }
-        if (getStakeholders() != null) {
+        /*if (getStakeholders() != null) {
             List<StakeHolderEntity> stakeholdersEntity = new ArrayList<>();
             for (StakeHolderDTO dtoStakeholder : getStakeholders()) {
                 stakeholdersEntity.add(dtoStakeholder.toEntity());
@@ -96,7 +96,7 @@ public class ProyectoDetailDTO extends ProyectoDTO implements Serializable {
                 usuariosEntity.add(dtoUsuario.toEntity());
             }
             proyectoEntity.setUsuarios(usuariosEntity);
-        }
+        }*/
 
         return proyectoEntity;
     }

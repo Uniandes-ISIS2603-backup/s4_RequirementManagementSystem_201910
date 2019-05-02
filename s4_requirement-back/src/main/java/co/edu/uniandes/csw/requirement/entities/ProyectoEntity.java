@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import uk.co.jemos.podam.common.PodamExclude;
@@ -17,6 +18,7 @@ import uk.co.jemos.podam.common.PodamExclude;
  *
  * @author Sofia Alvarez, Jorge Esguerra, David Manosalva
  */
+@Entity
 public class ProyectoEntity extends BaseEntity implements Serializable
 {
     /** 

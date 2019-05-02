@@ -38,7 +38,7 @@ public class ProyectoPersistence {
      */
     public ProyectoEntity create(ProyectoEntity e) // la diferencia entre el que recibe y el que devuelve es que en el devuelto la base de datos ya ha dejado un id. 
     {
-        LOGGER.log(Level.INFO, "Creando un nuevo requisito");
+        LOGGER.log(Level.INFO, "Creando un nuevo proyecto");
         em.persist(e);  // La base de datos le crea el valor al Long ID, gracias a que extiende de BaseEntity
         LOGGER.log(Level.INFO, "Objetivo creado");
         return e;
@@ -50,7 +50,7 @@ public class ProyectoPersistence {
      * @return el ProyectoEntity correspondiente al id, null si no existe.
      */
     public ProyectoEntity find(Long id) {
-        LOGGER.log(Level.INFO, "Consultando el requisito con id={0}", id);
+        LOGGER.log(Level.INFO, "Consultando el proyecto con id={0}", id);
         return em.find(ProyectoEntity.class, id);
     }
     
@@ -60,8 +60,8 @@ public class ProyectoPersistence {
      */
     public List<ProyectoEntity> findAll()
     {
-        LOGGER.log(Level.INFO, "Consultando todos los requisito");
-        TypedQuery<ProyectoEntity> query = em.createQuery("select u from RequisitoEntity u", ProyectoEntity.class);
+        LOGGER.log(Level.INFO, "Consultando todos los proyectos");
+        TypedQuery<ProyectoEntity> query = em.createQuery("select u from ProyectoEntity u", ProyectoEntity.class);
         return query.getResultList();
     }
 
@@ -72,7 +72,7 @@ public class ProyectoPersistence {
      */
     public ProyectoEntity update(ProyectoEntity r) 
     {
-        LOGGER.log(Level.INFO, "Actualizando el requisito con id={0}", r.getId());
+        LOGGER.log(Level.INFO, "Actualizando el proyecto con id={0}", r.getId());
         return em.merge(r);
     }
     
@@ -82,7 +82,7 @@ public class ProyectoPersistence {
      */
     public void delete(Long id) 
     {
-        LOGGER.log(Level.INFO, "Borrando el requisito con id={0}", id);
+        LOGGER.log(Level.INFO, "Borrando el proyecto con id={0}", id);
         ProyectoEntity x = em.find(ProyectoEntity.class, id);
         em.remove(x);
     }  
