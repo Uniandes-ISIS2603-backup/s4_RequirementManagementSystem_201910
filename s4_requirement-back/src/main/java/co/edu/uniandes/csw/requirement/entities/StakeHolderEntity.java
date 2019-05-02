@@ -19,10 +19,6 @@ public class StakeHolderEntity extends BaseEntity implements Serializable {
     private String tipo;
     private String nombre;
 
-//Entidad DRS de relacion
-    @PodamExclude
-    @ManyToOne
-    private DRSEntity drs;
    
 //Relacion cambios
     @PodamExclude
@@ -85,14 +81,6 @@ public class StakeHolderEntity extends BaseEntity implements Serializable {
         this.nombre = nombre;
     }
     
-        public DRSEntity getDrs() {
-        return drs;
-    }
-
-    public void setDrs(DRSEntity drs) {
-        this.drs = drs;
-    }
-
     public List<CambioEntity> getCambios() {
         return cambios;
     }

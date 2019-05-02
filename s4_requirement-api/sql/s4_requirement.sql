@@ -1,5 +1,6 @@
 delete from StakeHolderEntity;
 delete from OrganizacionEntity;
+delete from UsuarioEntity;
 
 delete from AprobacionEntity;
 delete from CambioEntity;
@@ -10,14 +11,20 @@ delete from CondicionEntity;
 delete from ObjetivoEntity;
 delete from RequisitoEntity;
 
-delete from DRSEntity;
 delete from CaminoEntity;
 
-insert into StakeHolderEntity (id, tipo, nombre) values (100, 'Financiero', 'Mateo');
-insert into StakeHolderEntity (id, tipo, nombre) values (200, 'Tecnologico', 'Juan');
+insert into OrganizacionEntity (id, sector, nombre) values (1, 'Tecnologico', 'Microsoft');
+insert into OrganizacionEntity (id, sector, nombre) values (2, 'Financiero', 'Bancolombia');
+insert into OrganizacionEntity (id, sector, nombre) values (3, 'Ambiental', 'Fundacion Natural');
+insert into OrganizacionEntity (id, sector, nombre) values (4, 'Tecnologico', 'Apple');
 
-insert into OrganizacionEntity (id, sector, nombre) values (110, 'Tecnologico', 'Tec');
-insert into OrganizacionEntity (id, sector, nombre) values (120, 'Financiero', 'Fin');
+insert into StakeHolderEntity (id, tipo, nombre, organizacion_id) values (1, 'Financiero', 'Mateo', 2);
+insert into StakeHolderEntity (id, tipo, nombre, organizacion_id) values (2, 'Tecnologico', 'Juan', 4);
+insert into StakeHolderEntity (id, tipo, nombre, organizacion_id) values (3, 'Administrador', 'Jorge', 1);
+insert into StakeHolderEntity (id, tipo, nombre, organizacion_id) values (4, 'Tecnologico', 'Sofia', 4);
+
+insert into UsuarioEntity (id, usuario, contrasena, tipo) values (100, 'Mateo', '1234', 'Administrador');
+insert into UsuarioEntity (id, usuario, contrasena, tipo) values (200, 'Jose', '1234', 'Cliente');
 
 insert into AprobacionEntity (id, tipo, autor, organizacion, fechaYHora, estado, id_aprobado, nombre_aprobado, comentario)
  values (1, 'OBJETIVO','Sofia Alvarez','Startech', 'Fri Apr 05 2019 16:06:58 GMT -0500 (-05)', 'Aprobado', '1', 'Objetivo 1', 'Se ha evaluado el cambio 1 y se considera pertinente su implementación');
@@ -39,9 +46,6 @@ values (3, 'ELIMINACION', 'Eliminar el requisito 5 pues no concuerda con los lin
 
 insert into CasoDeUsoEntity (id, nombre) values (10, 'casoPrueba');
 insert into CasoDeUsoEntity (id, nombre) values (20, 'casoPrueba2');
-
-insert into DRSEntity (id, version, reporte) values (55, 1, 'Este es un reporte');
-insert into DRSEntity (id, version, reporte) values (28, 2, 'Este e la version 2 del reporte');
 
 insert into CaminoEntity(id, tipoPaso, pasos) values (1, 'BASICO', 'Paso 1');
 insert into CaminoEntity(id, tipoPaso, pasos) values (2, 'BASICO', 'Paso 5');
