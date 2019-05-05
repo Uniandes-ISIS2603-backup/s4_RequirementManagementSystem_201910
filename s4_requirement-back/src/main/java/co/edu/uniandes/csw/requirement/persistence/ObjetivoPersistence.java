@@ -54,7 +54,7 @@ public class ObjetivoPersistence {
      */
     public ObjetivoEntity find(Long proyectosId, Long objetivoId) {
         LOGGER.log(Level.INFO, "Consultando el Objetivo con id = {0} del Proyecto con id = " + proyectosId, objetivoId);
-        TypedQuery<ObjetivoEntity> q = em.createQuery("select p from ObjetivoEntity p where (p.proyecto.id = :proyectoid) and (p.id = :objetivoId)", ObjetivoEntity.class);
+        TypedQuery<ObjetivoEntity> q = em.createQuery("select p from ObjetivoEntity p where (p.proyecto.id = :proyectosId) and (p.id = :objetivoId)", ObjetivoEntity.class);
         q.setParameter("proyectosId", proyectosId);
         q.setParameter("objetivoId", objetivoId);
         List<ObjetivoEntity> results = q.getResultList();
