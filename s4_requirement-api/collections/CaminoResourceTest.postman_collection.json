@@ -1,18 +1,17 @@
 {
 	"info": {
-		"_postman_id": "ccc46716-9ca9-4357-9c3c-bb8a979ddb26",
-		"name": "CondicionResourceTest",
-		"description": "Condicion Resource Test",
+		"_postman_id": "470744b6-e053-4a39-84a4-a1f28ac53d64",
+		"name": "CaminoResourceTest",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "Obtener todas las condiciones",
+			"name": "Obtener todos los caminos",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "7137d737-c280-4d9c-901d-5fb18e2348b0",
+						"id": "3eb47561-3450-4879-8400-b21925609876",
 						"exec": [
 							"tests[\"no genera error en el get\"]=responseCode.code === 200;"
 						],
@@ -28,7 +27,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/condiciones",
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/camino/",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -37,23 +36,24 @@
 					"path": [
 						"s4_requirement-api",
 						"api",
-						"condiciones"
+						"camino",
+						""
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Crear una condicion",
+			"name": "Crea un camino",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "3bb2c4a1-bcdb-4da0-b88f-573fe4940a41",
+						"id": "68aeb217-46ba-4320-a610-e1ff8f45d814",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
 							"postman.setGlobalVariable(\"new_id_e\",data.id);",
-							"tests[\"no genera error el post\"] = responseCode.code === 200;"
+							"tests[\"no genera error en el post\"] = responseCode.code === 200;"
 						],
 						"type": "text/javascript"
 					}
@@ -71,10 +71,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"descripcion\":\"Prueba1\",\n\"seCumplio\": 1,\n\"esPrecondicion\":0}"
+					"raw": "{\n    \"tipoPaso\": \"ALTERNATIVO\",\n    \"pasos\": \"listas de pasos\"\n}"
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/condiciones",
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/camino/",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -83,14 +83,29 @@
 					"path": [
 						"s4_requirement-api",
 						"api",
-						"condiciones"
+						"camino",
+						""
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Obtener una condicion",
+			"name": "Obtener un camino",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ce0c1e9c-8d8b-4ab8-9fdb-85ad90f18906",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"no genera error en el get\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -99,7 +114,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/condiciones/{{new_id_e}}",
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/camino/1",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -108,20 +123,20 @@
 					"path": [
 						"s4_requirement-api",
 						"api",
-						"condiciones",
-						"{{new_id_e}}"
+						"camino",
+						"1"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "eliminar una condicion",
+			"name": "Eliminar el camino",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "cacb2bbf-21b5-4d36-ae65-09601a75f21f",
+						"id": "eae964f7-5a9b-42f3-b8f9-1baea9e709e3",
 						"exec": [
 							"tests[\"Se elimina correctamente la entidad\"] = responseCode.code === 204;"
 						],
@@ -137,7 +152,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/condiciones/{{new_id_e}}",
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/camino/{{new_id_e}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -146,7 +161,7 @@
 					"path": [
 						"s4_requirement-api",
 						"api",
-						"condiciones",
+						"camino",
 						"{{new_id_e}}"
 					]
 				}
@@ -154,12 +169,12 @@
 			"response": []
 		},
 		{
-			"name": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/condiciones/30",
+			"name": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/camino/1",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "56099d6e-0711-4743-957f-9666f69e8ff3",
+						"id": "454f432f-75d9-48bb-b159-62069242d9ac",
 						"exec": [
 							"tests[\"Se actualiza correctamente la entidad\"] = responseCode.code === 200;",
 							""
@@ -180,10 +195,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n        \"descripcion\": \"condicionActualizadaPrueba1\",\n        \"esPrecondicion\": false,\n        \"id\": 30,\n        \"seCumplio\": true\n    }"
+					"raw": "{\n    \"tipoPaso\": \"ALTERNATIVO\",\n    \"pasos\": \"paso actualizado\",\n    \"id\": 1\n}"
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/condiciones/30",
+					"raw": "http://{{ip}}:{{puerto}}/s4_requirement-api/api/camino/1",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -192,8 +207,8 @@
 					"path": [
 						"s4_requirement-api",
 						"api",
-						"condiciones",
-						"30"
+						"camino",
+						"1"
 					]
 				}
 			},
