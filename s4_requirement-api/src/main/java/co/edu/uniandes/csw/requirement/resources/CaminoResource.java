@@ -52,11 +52,13 @@ public class CaminoResource
     public CaminoDTO createCamino(CaminoDTO camino) throws BusinessLogicException{
 
          CaminoEntity caminoEntity = camino.toEntity();
+        // dfd;
         // Invoca la lógica para crear un camino nuevo
         CaminoEntity nuevoCaminoEntity = caminoLogic.createCamino(caminoEntity);
         // Como debe retornar un DTO (json) se invoca el constructor del DTO con argumento el entity nuevo
         CaminoDTO nuevoCaminoDTO = new CaminoDTO(nuevoCaminoEntity);
         return nuevoCaminoDTO;
+        //return camino;
     }
    
       /**
