@@ -225,16 +225,16 @@ public class AprobacionLogicTest {
         Assert.assertEquals(sh.getId(), entitySH.getId());
     }
     
-     /**
-     * Prueba para cambir el objetivo de una aprobación
-     */
-    @Test
-    public void changeObjetivoTest(){
-        AprobacionEntity entity = data.get(1);
-        entity = aprobacionLogic.changeObjetivo(entity.getId(), objetivo.getId());
-        ObjetivoEntity entityObjetivo = entity.getObjetivo();
-        Assert.assertEquals(objetivo.getId(), entityObjetivo.getId());
-    }
+//     /**
+//     * Prueba para cambir el objetivo de una aprobación
+//     */
+//    @Test
+//    public void changeObjetivoTest(){
+//        AprobacionEntity entity = data.get(1);
+//        entity = aprobacionLogic.changeObjetivo(entity.getId(), objetivo.getId());
+//        ObjetivoEntity entityObjetivo = entity.getObjetivo();
+//        Assert.assertEquals(objetivo.getId(), entityObjetivo.getId());
+//    }
     
      /**
      * Prueba para cambir el requisito de una aprobación

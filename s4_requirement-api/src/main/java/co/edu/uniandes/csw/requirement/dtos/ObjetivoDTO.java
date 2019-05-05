@@ -12,6 +12,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  * Clase que representa un Objetivo en DTO
+ *
  * @objetivo David Manosalva
  */
 public class ObjetivoDTO implements Serializable {
@@ -20,22 +21,22 @@ public class ObjetivoDTO implements Serializable {
      * Id del objetivo
      */
     private Long id;
-    
+
     /**
      * Descripcion del objetivo
      */
     private String descripcion;
-    
+
     /**
      * Importancia del objetivo
      */
     private Integer importancia;
-    
+
     /**
      * Estabilidad del objetivo
      */
     private Integer estabilidad;
-    
+
     /**
      * Comentarios del objetivo
      */
@@ -45,6 +46,11 @@ public class ObjetivoDTO implements Serializable {
      * Autor del objetivo
      */
     private StakeHolderDTO autor;
+
+    /**
+     * Proyecto al que está asociado el objetivo
+     */
+    private ProyectoDTO proyecto;
 
     /**
      * Cosntruictor vacio para REST
@@ -69,23 +75,32 @@ public class ObjetivoDTO implements Serializable {
             } else {
                 oe.setAutor(null);
             }
-            
+            if (oe.getProyecto() != null) {
+                this.proyecto = new ProyectoDTO(oe.getProyecto());
+            } else {
+                oe.setProyecto(null);
+            }
+
         }
     }
 
     /**
      * Metodo que crea un ObjetivoEntity a partir de este DTO
+     *
      * @return ObjetivoEntity con la informacion del DTO
      */
     public ObjetivoEntity toEntity() {
         ObjetivoEntity objetivoEntity = new ObjetivoEntity();
         objetivoEntity.setId(this.getId());
-        objetivoEntity.setDescripcion(this.descripcion);
-        objetivoEntity.setImportancia(this.importancia);
-        objetivoEntity.setComentarios(this.comentarios);
-        objetivoEntity.setEstabilidad(this.estabilidad);
-        if (autor != null) {
-            objetivoEntity.setAutor(autor.toEntity());
+        objetivoEntity.setDescripcion(this.getDescripcion());
+        objetivoEntity.setImportancia(this.getImportancia());
+        objetivoEntity.setComentarios(this.getComentarios());
+        objetivoEntity.setEstabilidad(this.getEstabilidad());
+        if (getAutor() != null) {
+            objetivoEntity.setAutor(getAutor().toEntity());
+        }
+        if (getProyecto() != null) {
+            objetivoEntity.setProyecto(getProyecto().toEntity());
         }
         return objetivoEntity;
     }
@@ -175,7 +190,23 @@ public class ObjetivoDTO implements Serializable {
     }
 
     /**
+     * @return the proyecto
+     */
+    public ProyectoDTO getProyecto() {
+        return proyecto;
+    }
+
+    /**
+     * @param proyecto the proyecto to set
+     */
+    public void setProyecto(ProyectoDTO proyecto) {
+        this.proyecto = proyecto;
+    }
+    
+    
+    /**
      * Metodo que devuelve este objeto como un string
+     *
      * @return String en tipo JSON
      */
     @Override

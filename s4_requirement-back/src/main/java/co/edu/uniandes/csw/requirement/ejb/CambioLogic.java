@@ -150,12 +150,12 @@ public class CambioLogic {
      * @param objetivoId id del objetivo
      * @return  el cambio con el nuevo objetivo
      */
-    public CambioEntity changeObjetivo(Long cambioId, Long objetivoId){
-        ObjetivoEntity nuevo = objetivoPersistence.find(objetivoId);
-        CambioEntity cambio = cambioPersistence.find(cambioId);
-        cambio.setObjetivo(nuevo);
-        return cambio;
-    }
+//    public CambioEntity changeObjetivo(Long cambioId, Long objetivoId){
+//        ObjetivoEntity nuevo = objetivoPersistence.find(objetivoId);
+//        CambioEntity cambio = cambioPersistence.find(cambioId);
+//        cambio.setObjetivo(nuevo);
+//        return cambio;
+//    }
     
      /**
      * Cambia el requisito de un cambio

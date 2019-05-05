@@ -162,12 +162,13 @@ public class AprobacionLogic {
     * @param objetivoId objetivo a cambiar
     * @return la aprobación con el nuevo objetivo.
     */
-    public AprobacionEntity changeObjetivo(Long aprobacionId, Long objetivoId){
-        ObjetivoEntity nuevo = objetivoPersistence.find(objetivoId);
-        AprobacionEntity aprobacion = aprobacionPersistence.find(aprobacionId);
-        aprobacion.setObjetivo(nuevo);
-        return aprobacion;
-    }
+    //TODO Revisar el cambio de Objetivo
+//    public AprobacionEntity changeObjetivo(Long aprobacionId, Long objetivoId){
+//        ObjetivoEntity nuevo = objetivoPersistence.find(objetivoId);
+//        AprobacionEntity aprobacion = aprobacionPersistence.find(aprobacionId);
+//        aprobacion.setObjetivo(nuevo);
+//        return aprobacion;
+//    }
       
     /**
     * Cambia el requisito de una aprobación

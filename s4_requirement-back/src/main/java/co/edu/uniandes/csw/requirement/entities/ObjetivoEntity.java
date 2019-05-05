@@ -176,6 +176,17 @@ public class ObjetivoEntity extends BaseEntity implements Serializable {
     public void setFuentes(List<StakeHolderEntity> fuentes) {
         this.fuentes = fuentes;
     }
+
+    public void setProyecto(ProyectoEntity proyecto) {
+       this.proyecto = proyecto;
+    }
+
+    /**
+     * @return the proyecto
+     */
+    public ProyectoEntity getProyecto() {
+        return proyecto;
+    }
     
     
 

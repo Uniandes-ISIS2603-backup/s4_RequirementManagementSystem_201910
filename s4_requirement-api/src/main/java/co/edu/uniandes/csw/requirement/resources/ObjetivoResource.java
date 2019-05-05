@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 
@@ -23,10 +22,8 @@ import javax.ws.rs.*;
  * Clase que representa el Recurso para obtener DTOS de tipo Objetivo
  * @author David Manosalva
  */
-@Path("objetivos")
 @Produces("application/json")
 @Consumes("application/json")
-@RequestScoped
 public class ObjetivoResource {
 
     /**
@@ -41,27 +38,34 @@ public class ObjetivoResource {
     private ObjetivoLogic objetivoLogic;
 
     /**
-     * Metodo que realiza el POST
-     * @param objetivo Objetivo a añadir
-     * @return DTO que fue creado
-     * @throws BusinessLogicException  Si no cumple con las reglas de estabilidad, impotancia y descripcion
+     * Crea un nuevo Objetivo con la informacion que se recibe en el cuerpo de la
+     * petición y se regresa un objeto identico con un id auto-generado por la
+     * base de datos.
+     *
+     * @param proyectosId El ID del proyecto del cual se le agrega la objetivo
+     * @param objetivo{@link ObjetivoDTO} - La objetivo que se desea guardar.
+     * @return JSON {@link ObjetivoDTO} - El objetivo guardado con el atributo id
+     * autogenerado.
+     * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
+     * Error de lógica que se genera cuando ya existe el Objetivo.
      */
     @POST
-    public ObjetivoDTO createObjetivo(ObjetivoDTO objetivo) throws BusinessLogicException {
+    public ObjetivoDTO createObjetivo(@PathParam ("proyectosId") Long proyectosId, ObjetivoDTO objetivo) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "ObjetivoResource createObjetivo: input: {0}", objetivo);
-        ObjetivoDTO objetivoDTO = new ObjetivoDTO(objetivoLogic.createObjetivo(objetivo.toEntity()));
+        ObjetivoDTO objetivoDTO = new ObjetivoDTO(objetivoLogic.createObjetivo(proyectosId, objetivo.toEntity()));
         LOGGER.log(Level.INFO, "ObjetivoResource createObjetivo: output: {0}", objetivoDTO);
         return objetivoDTO;
     }
 
     /**
      * Metodo que retorna todoslos objetivos en objetos DTO
-     * @return Lista con los Objetos DTO
+     * @param proyectosId el id del proyecto papá.
+     * @return Lista con los ObjetivosDetailDTO
      */
-    @GET
-    public List<ObjetivoDetailDTO> getObjetivos() {
+    @GET 
+    public List<ObjetivoDetailDTO> getObjetivos(@PathParam("proyectosId") Long proyectosId) {
         LOGGER.info("ObjetivoResource getObjetivos: input: void");
-        List<ObjetivoDetailDTO> listaObjetivos = listEntity2DTO(objetivoLogic.getObjetivos());
+        List<ObjetivoDetailDTO> listaObjetivos = listEntity2DTO(objetivoLogic.getObjetivos(proyectosId));
         LOGGER.log(Level.INFO, "ObjetivoResource getObjetivos: output: {0}", listaObjetivos);
         return listaObjetivos;
     }
@@ -69,16 +73,17 @@ public class ObjetivoResource {
     
     /**
      * Metodo que retorna el objetivoDTO dado por parametro
+     * @param proyectosId el id del proyecto padre.
      * @param objetivosId Id del objetivo a consultar
      * @return Objetivo consultado
      */
     @GET
     @Path("{objetivosId: \\d+}")
-    public ObjetivoDetailDTO getObjetivo(@PathParam("objetivosId") Long objetivosId) {
+    public ObjetivoDetailDTO getObjetivo(@PathParam("proyectosId") Long proyectosId, @PathParam("objetivosId") Long objetivosId) {
         LOGGER.log(Level.INFO, "ObjetivoResource getObjetivo: input: {0}", objetivosId);
-        ObjetivoEntity objetivoEntity = objetivoLogic.getObjetivo(objetivosId);
+        ObjetivoEntity objetivoEntity = objetivoLogic.getObjetivo(proyectosId, objetivosId);
         if (objetivoEntity == null) {
-            throw new WebApplicationException("El recurso /objetivos/" + objetivosId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /proyectos" + proyectosId + "/objetivos/" + objetivosId + " no existe.", 404);
         }
         ObjetivoDetailDTO detailDTO = new ObjetivoDetailDTO(objetivoEntity);
         LOGGER.log(Level.INFO, "ObjetivoResource getObjetivo: output: {0}", detailDTO);
@@ -86,18 +91,32 @@ public class ObjetivoResource {
     }
 
     /**
-     * Metodo para actualizar un objetivo ya creado
-     * @param objetivosId Id del objetivo a actualizar
-     * @param objetivo Objetivo con el cual se va a reemplazar
-     * @return ObjetivoDetail dado por la persistencia despues de pasar por la logica
-     * @throws BusinessLogicException Si no cumple con las reglas de estabilidad, impotancia y descripcion
+     * Actualiza una reseña con la informacion que se recibe en el cuerpo de la
+     * petición y se regresa el objeto actualizado.
+     *
+     * @param proyectosId El ID del proyecto del cual se guarda el objetivo
+     * @param objetivosId El ID del objetivo que se va a actualizar
+     * @param objetivo {@link ObjetivoDTO} - el objetivo que se va a guardar.
+     * @return JSON {@link ObjetivoDTO} - El objetivo actualizado.
+     * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
+     * Error de lógica que se genera cuando ya existe el objetivo.
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error de lógica que se genera cuando no se encuentra el objetivo.
      */
+    //**
+    // WARNING! PREGUNTAR SI ES DETAIL O NO
+    //
     @PUT
     @Path("{objetivosId: \\d+}")
-    public ObjetivoDetailDTO updateObjetivo(@PathParam("objetivosId") Long objetivosId, ObjetivoDetailDTO objetivo) throws BusinessLogicException{
-        LOGGER.log(Level.INFO, "ObjetivoResource updateObjetivo: input: objetivosId: {0} , objetivo: {1}", new Object[]{objetivosId, objetivo});
-        objetivo.setId(objetivosId);
-        if (objetivoLogic.getObjetivo(objetivosId) == null) {
+    public ObjetivoDetailDTO updateObjetivo(@PathParam("proyectosId") Long proyectosId, @PathParam("objetivosId") Long objetivosId, ObjetivoDetailDTO objetivo) throws BusinessLogicException{
+        LOGGER.log(Level.INFO, "ObjetivoResource updateObjetivo: input: proyectosId: {0} , objetivosId: {1} , objetivo: {2}", new Object[]{proyectosId, objetivosId, objetivo});
+        if (!objetivosId.equals(objetivo.getId()))
+        {
+            throw new BusinessLogicException("Los ids del Objetivo no coinciden");
+        }
+        ObjetivoEntity oe = objetivoLogic.getObjetivo(proyectosId, objetivosId);
+        if (oe == null)
+        {
             throw new WebApplicationException("El recurso /objetivos/" + objetivosId + " no existe.", 404);
         }
         ObjetivoDetailDTO detailDTO = new ObjetivoDetailDTO(objetivoLogic.updateObjetivo(objetivosId, objetivo.toEntity()));
@@ -106,18 +125,24 @@ public class ObjetivoResource {
     }
     
     /**
-     * Metodo para eliminar un objetivo por id
-     * @param objetivosId Id del objetivo a eliminar
-     * @throws BusinessLogicException  Si el objetivo no existe
+     * Borra la reseña con el id asociado recibido en la URL.
+     *
+     * @param booksId El ID del libro del cual se va a eliminar la reseña.
+     * @param reviewsId El ID de la reseña que se va a eliminar.
+     * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
+     * Error de lógica que se genera cuando no se puede eliminar la reseña.
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error de lógica que se genera cuando no se encuentra la reseña.
      */
     @DELETE
     @Path("{objetivosId: \\d+}")
-    public void deleteObjetivo(@PathParam("objetivosId") Long objetivosId) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "ObjetivoResource deleteObjetivo: input: {0}", objetivosId);
-        if (objetivoLogic.getObjetivo(objetivosId) == null) {
-            throw new WebApplicationException("El recurso /objetivos/" + objetivosId + " no existe.", 404);
+    public void deleteObjetivo(@PathParam("proyectosId") Long proyectosId, @PathParam("objetivosId") Long objetivosId) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "ObjetivoResource deleteObjetivo: input: proyectosId: {0} , objetivosId: {1} , ", new Object[]{proyectosId, objetivosId});
+        ObjetivoEntity entity = objetivoLogic.getObjetivo(proyectosId, objetivosId);
+        if (entity == null) {
+            throw new WebApplicationException("El recurso /proyectos/"+ proyectosId + "/objetivos/" + objetivosId + " no existe.", 404);
         }
-        objetivoLogic.deleteObjetivo(objetivosId);
+        objetivoLogic.deleteObjetivo(proyectosId,objetivosId);
         LOGGER.info("ObjetivoResource deleteObjetivo: output: void");
     }
     

@@ -21,7 +21,7 @@ import javax.ws.rs.*;
 
 /**
  * Clase que representa el Recurso para obtener DTOS de tipo Proyecto
- * @author David Manosalva
+ * @author David Manosalva, Jorge Esguerra
  */
 @Path("proyectos")
 @Produces("application/json")
@@ -114,21 +114,35 @@ public class ProyectoResource {
     @Path("{proyectosId: \\d+}")
     public void deleteProyecto(@PathParam("proyectosId") Long proyectosId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "ProyectoResource deleteProyecto: input: {0}", proyectosId);
-        if (proyectoLogic.getProyecto(proyectosId) == null) {
+        ProyectoEntity proyectoEntity = proyectoLogic.getProyecto(proyectosId);
+        if (proyectoEntity == null) {
             throw new WebApplicationException("El recurso /proyectos/" + proyectosId + " no existe.", 404);
         }
         proyectoLogic.deleteProyecto(proyectosId);
         LOGGER.info("ProyectoResource deleteProyecto: output: void");
     }
     
-    /*TODO Uno
-    @Path("{proyectosId: \\d+}/books")
-    public Class<ProyectoBooksResource> getProyectoBooksResource(@PathParam("proyectosId") Long proyectosId) {
+    /**
+     * Conexión con el servicio de objetivos para un proyecto.
+     * {@link ObjetivoResource}
+     *
+     * Este método conecta la ruta de /proyectos con las rutas de /objetivos que
+     * dependen del proyecto, es una redirección al servicio que maneja el segmento
+     * de la URL que se encarga de los objetivos.
+     *
+     * @param proyectosId El ID del proyecto con respecto al cual se accede al
+     * servicio.
+     * @return El servicio de autores para ese libro en paricular.\
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error de lógica que se genera cuando no se encuentra el libro.
+     */
+    @Path("{proyectosId: \\d+}/objetivos")
+    public Class<ObjetivoResource> getObjetivoResource(@PathParam("proyectosId") Long proyectosId) {
         if (proyectoLogic.getProyecto(proyectosId) == null) {
             throw new WebApplicationException("El recurso /proyectos/" + proyectosId + " no existe.", 404);
         }
-        return ProyectoBooksResource.class;
-    }*/
+        return ObjetivoResource.class;
+    }
     
     /**
      * Lista que devuelve una lista de objetos de tipo DTO de una lista de ProyectoEntity
