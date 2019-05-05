@@ -7,7 +7,6 @@ package co.edu.uniandes.csw.requirement.ejb;
 
 import co.edu.uniandes.csw.requirement.entities.ObjetivoEntity;
 import co.edu.uniandes.csw.requirement.entities.ProyectoEntity;
-import co.edu.uniandes.csw.requirement.entities.StakeHolderEntity;
 import co.edu.uniandes.csw.requirement.persistence.ProyectoPersistence;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -17,7 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Clase que implementa la conexión con la persistencia para la entidad de Proyecto.
  * @author Jorge Esguerra, David Manosalva
  */
 @Stateless
@@ -55,8 +54,9 @@ public class ProyectoLogic {
             throw new BusinessLogicException("El nombre no puede ser vacía o nula");
         }
 
-        LOGGER.log(Level.INFO, "Termina proceso de creación del proyecto");
+       
         x = persistence.create(x);
+        LOGGER.log(Level.INFO, "Termina proceso de creación del proyecto");
         return x;
     }
 
@@ -90,10 +90,10 @@ public class ProyectoLogic {
     
     /**
      * Actualización de un proyecto entity identificado con el parámetro id.
-     * @param id
-     * @param x el proyecto
-     * @return
-     * @throws BusinessLogicException 
+     * @param id, el id del proyecto a actualizar. 
+     * @param x el proyecto entity con los cambios deseados. 
+     * @return el proyecto entity actualizado.
+     * @throws BusinessLogicException de no cumplirse con las reglas de negocio estipuladas anteriormente. 
      */
 
     public ProyectoEntity updateProyecto(Long id, ProyectoEntity x) throws BusinessLogicException {

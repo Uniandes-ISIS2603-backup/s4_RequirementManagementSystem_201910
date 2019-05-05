@@ -43,13 +43,31 @@ public class ObjetivoPersistence {
     }
 
     /**
-     * Metodo para encontrar un objetivo entity por el id dado
-     * @param objetivoId Id del objetivo a crear
-     * @return Entidad del objetivo buscado
+     * Buscar un objetivo
+     *
+     * Busca si hay algun objetivo asociado a un libro y con un ID específico
+     *
+     * @param proyectosId El ID del proyecto con respecto al cual se busca
+     * @param objetivoId El ID del objetivo buscado
+     * @return El Objetivo encontrado o null. Nota: Si existe uno o más objetivos
+     * devuelve siempre la primera que encuentra
      */
-    public ObjetivoEntity find(Long objetivoId) {
-        LOGGER.log(Level.INFO, "Consultando el objetivo con id={0}", objetivoId);
-        return em.find(ObjetivoEntity.class, objetivoId);
+    public ObjetivoEntity find(Long proyectosId, Long objetivoId) {
+        LOGGER.log(Level.INFO, "Consultando el Objetivo con id = {0} del Proyecto con id = " + proyectosId, objetivoId);
+        TypedQuery<ObjetivoEntity> q = em.createQuery("select p from ObjetivoEntity p where (p.proyecto.id = :proyectoid) and (p.id = :objetivoId)", ObjetivoEntity.class);
+        q.setParameter("proyectosId", proyectosId);
+        q.setParameter("objetivoId", objetivoId);
+        List<ObjetivoEntity> results = q.getResultList();
+        ObjetivoEntity objetivos = null;
+        if (results == null) {
+            objetivos = null;
+        } else if (results.isEmpty()) {
+            objetivos = null;
+        } else if (results.size() >= 1) {
+            objetivos = results.get(0);
+        }
+        LOGGER.log(Level.INFO, "Saliendo de consultar el objetivo con id = {0} del proyecto con id =" + proyectosId, objetivoId);
+        return objetivos;
     }
 
     /**
@@ -69,7 +87,7 @@ public class ObjetivoPersistence {
      * @return Entidad del objetivo actualizado y persistido
      */
     public ObjetivoEntity update(ObjetivoEntity objetivoEntity) {
-        LOGGER.log(Level.INFO, "Actualizando el objetivo con id={0}", objetivoEntity.getId());
+        LOGGER.log(Level.INFO, "Actualizando el objetivo con id = {0}", objetivoEntity.getId());
         return em.merge(objetivoEntity);
     }
 
@@ -81,6 +99,8 @@ public class ObjetivoPersistence {
         LOGGER.log(Level.INFO, "Borrando el objetivo con id={0}", objetivoId);
         ObjetivoEntity objetivoEntity = em.find(ObjetivoEntity.class, objetivoId);
         em.remove(objetivoEntity);
+        LOGGER.log(Level.INFO, "Saliendo de borrar El objetivo con id = {0}", objetivoId);
+        
     }
 
 }
