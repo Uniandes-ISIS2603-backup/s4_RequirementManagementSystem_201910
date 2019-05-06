@@ -112,7 +112,7 @@ public class ObjetivoLogic {
      * @throws BusinessLogicException Si no cumple con las reglas de estabilidad, impotancia y descripcion
      */
     public ObjetivoEntity updateObjetivo(Long proyectosId, ObjetivoEntity objetivoEntity) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Inicia proceso de actualizar el autor con id = {0}" + proyectosId, objetivoEntity.getId());
+        LOGGER.log(Level.INFO, "Inicia proceso de actualizar el objetivo con id = {0} del proyecto con id = " + proyectosId, objetivoEntity.getId());
         if (objetivoEntity.getEstabilidad() < 1 || objetivoEntity.getEstabilidad() > 3) {
             throw new BusinessLogicException("La estabilidad debe de ser un valor entre 1 y 3");
         }

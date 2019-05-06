@@ -119,7 +119,7 @@ public class ObjetivoResource {
         {
             throw new WebApplicationException("El recurso /objetivos/" + objetivosId + " no existe.", 404);
         }
-        ObjetivoDetailDTO detailDTO = new ObjetivoDetailDTO(objetivoLogic.updateObjetivo(objetivosId, objetivo.toEntity()));
+        ObjetivoDetailDTO detailDTO = new ObjetivoDetailDTO(objetivoLogic.updateObjetivo(proyectosId, objetivo.toEntity()));
         LOGGER.log(Level.INFO, "ObjetivoResource updateObjetivo: output: {0}", detailDTO);
         return detailDTO;
     }
