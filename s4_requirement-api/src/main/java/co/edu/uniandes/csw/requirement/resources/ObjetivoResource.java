@@ -110,7 +110,7 @@ public class ObjetivoResource {
     @Path("{objetivosId: \\d+}")
     public ObjetivoDetailDTO updateObjetivo(@PathParam("proyectosId") Long proyectosId, @PathParam("objetivosId") Long objetivosId, ObjetivoDetailDTO objetivo) throws BusinessLogicException{
         LOGGER.log(Level.INFO, "ObjetivoResource updateObjetivo: input: proyectosId: {0} , objetivosId: {1} , objetivo: {2}", new Object[]{proyectosId, objetivosId, objetivo});
-        if (!objetivosId.equals(objetivo.getId()))
+        if (objetivosId.equals(objetivo.getId()))
         {
             throw new BusinessLogicException("Los ids del Objetivo no coinciden");
         }

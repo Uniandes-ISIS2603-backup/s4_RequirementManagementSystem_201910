@@ -9,6 +9,7 @@ delete from CasoDeUsoEntity;
 delete from CondicionEntity;
 
 delete from ObjetivoEntity;
+delete from ProyectoEntity;
 delete from RequisitoEntity;
 
 delete from CaminoEntity;
@@ -53,8 +54,7 @@ insert into CaminoEntity(id, tipoPaso, pasos) values (2, 'BASICO', 'Paso 5');
 insert into CondicionEntity (id, descripcion, seCumplio) values (30, 'condicionPrueba1', 1);
 insert into CondicionEntity (id, descripcion, seCumplio) values (40, 'condicionPrueba2', 0);
 
-insert into CambioEntity (idPaso, tipo, descripcion) values (11, 'TEST', 'Cambio 11')
+insert into CambioEntity (idPaso, tipo, descripcion) values (11, 'TEST', 'Cambio 11');
 
-insert into ObjetivoEntity (id, descripcion, importancia, estabilidad, comentarios) values (11, 'Este es un ejemplo de descripcion', 3,2,'Ejemplo de comantario 1')
-insert into ObjetivoEntity (id, descripcion, importancia, estabilidad, comentarios) values (300, 'Ejemplo descripcion 2', 1,1,'Ejemplo de comantario 2')
-
+insert into ObjetivoEntity (id, descripcion, importancia, estabilidad, comentarios) values (11, 'Este es un ejemplo de descripcion', 3,2,'Ejemplo de comantario 1');
+insert into ObjetivoEntity (id, descripcion, importancia, estabilidad, comentarios) values (300, 'Ejemplo descripcion 2', 1,1,'Ejemplo de comantario 2');
