@@ -61,7 +61,7 @@ public class CasoDeUsoEntity extends BaseEntity implements Serializable {
     }
     
      /**
-     * @return the caminos
+     * @param caminitos
      */
     public void setCaminos(List<CaminoEntity> caminitos) {
        this.caminos = caminitos;
@@ -80,5 +80,18 @@ public class CasoDeUsoEntity extends BaseEntity implements Serializable {
     public void setCondiciones(List<CondicionEntity> condiciones) {
         this.condiciones = condiciones;
     }
+    
+    /**
+     * @return the requisito
+     */
+    public RequisitoEntity getRequisito() {
+        return requisito;
+    }
+    
+    public void setRequisito(RequisitoEntity requisito) {
+       this.requisito = requisito;
+    }
+
+    
 
 }

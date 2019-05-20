@@ -23,6 +23,8 @@ public class CasoDeUsoDTO implements Serializable {
     private Long id;
     //private List<CaminoDTO> cursoBasicoEventos;
     
+    private RequisitoDTO requisito;
+    
     /**
      * Constructor vacio
      */
@@ -38,7 +40,11 @@ public class CasoDeUsoDTO implements Serializable {
         if (entidad != null) {
             this.id = entidad.getId();
             this.nombre = entidad.getNombre();
-
+            if (entidad.getRequisito() != null) {
+                this.requisito = new RequisitoDTO(entidad.getRequisito());
+            } else {
+                entidad.setRequisito(null);
+            }
         }
     }
     

@@ -30,6 +30,7 @@ public class CondicionDTO implements Serializable{
      */
     private Boolean esPrecondicion; 
 
+    private CasoDeUsoDTO casodeuso;
     /**
      * Constructor vacio
      */
@@ -49,6 +50,12 @@ public class CondicionDTO implements Serializable{
             this.descripcion=ce.getDescripcion();
             this.seCumplio=ce.isSeCumplio();
             this.esPrecondicion=ce.isEsPrecondicion();
+            
+            if (ce.getCasos() != null) {
+                this.casodeuso = new CasoDeUsoDTO(ce.getCasos());
+            } else {
+                ce.setCasos(null);
+            }
         }
     }
 

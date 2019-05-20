@@ -27,6 +27,8 @@ public class CaminoDTO implements Serializable
   */
  private String pasos;
  
+ private CasoDeUsoDTO casodeuso;
+ 
  /**
   * Constructor por defecto.
   */
@@ -44,6 +46,12 @@ public class CaminoDTO implements Serializable
             this.idPaso = ce.getId();
             this.pasos = ce.getPasos();
             this.tipoPaso = ce.getTipoPaso();
+            
+            if (ce.getCasos() != null) {
+                this.casodeuso = new CasoDeUsoDTO(ce.getCasos());
+            } else {
+                ce.setCasos(null);
+            }
         }
  }
  /**

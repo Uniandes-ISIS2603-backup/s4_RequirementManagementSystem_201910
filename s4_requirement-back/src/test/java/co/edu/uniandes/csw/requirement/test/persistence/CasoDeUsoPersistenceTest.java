@@ -125,13 +125,13 @@ public class CasoDeUsoPersistenceTest {
     /*
    *Obtiene la entidad de caso de uso con el id de la base de datos
    */
-    @Test
+    /*@Test
     public void getCasoDeUsoTest() {
         CasoDeUsoEntity entity = data.get(0);
         CasoDeUsoEntity newEntity = ep.find(entity.getId());
         Assert.assertNotNull(newEntity);
         Assert.assertEquals(entity.getId(), newEntity.getId());
-    }
+    }*/
     
     @Test
     public void updateCasoDeUsoTest() {
