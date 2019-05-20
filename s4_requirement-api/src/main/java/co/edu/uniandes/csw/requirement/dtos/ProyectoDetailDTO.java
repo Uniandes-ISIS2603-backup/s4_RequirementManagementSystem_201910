@@ -27,7 +27,7 @@ public class ProyectoDetailDTO extends ProyectoDTO implements Serializable {
     //Relacion cero a muchos
     private List<StakeHolderDTO> stakeholders;
     // Relacion cero a muchos
-    private List<UsuarioDTO> usuarios;
+    private List<UsuarioDTO> usuarios; 
 
     /**
      * Constructor por defecto
