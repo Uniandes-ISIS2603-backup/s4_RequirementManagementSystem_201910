@@ -38,8 +38,8 @@ public class RequisitoEntity extends BaseEntity implements Serializable {
     private List<CambioEntity> cambios = new ArrayList<CambioEntity>();
     
     @PodamExclude
-    @ManyToMany
-    private List<ObjetivoEntity> objetivos;
+    @ManyToOne
+    private ObjetivoEntity objetivo;
     
     @PodamExclude
     @OneToMany(mappedBy="requisito", cascade = CascadeType.PERSIST, orphanRemoval = true)
@@ -153,20 +153,6 @@ public class RequisitoEntity extends BaseEntity implements Serializable {
     }
 
     /**
-     * @return the objetivos
-     */
-    public List<ObjetivoEntity> getObjetivos() {
-        return objetivos;
-    }
-
-    /**
-     * @param objetivos the objetivos to set
-     */
-    public void setObjetivos(List<ObjetivoEntity> objetivos) {
-        this.objetivos = objetivos;
-    }
-
-    /**
      * @return the casosDeUso
      */
     public List<CasoDeUsoEntity> getCasosDeUso() {
@@ -206,5 +192,19 @@ public class RequisitoEntity extends BaseEntity implements Serializable {
      */
     public void setFuentes(List<StakeHolderEntity> fuentes) {
         this.fuentes = fuentes;
+    }
+
+    /**
+     * @return the objetivo
+     */
+    public ObjetivoEntity getObjetivo() {
+        return objetivo;
+    }
+
+    /**
+     * @param objetivo the objetivo to set
+     */
+    public void setObjetivo(ObjetivoEntity objetivo) {
+        this.objetivo = objetivo;
     }
 }

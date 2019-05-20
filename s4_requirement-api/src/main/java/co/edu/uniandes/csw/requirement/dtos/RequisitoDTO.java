@@ -23,6 +23,8 @@ public class RequisitoDTO implements Serializable {
 
     private StakeHolderDTO autor;
 
+    private ObjetivoDTO objetivo;
+
     public RequisitoDTO() {
 
     }
@@ -35,6 +37,11 @@ public class RequisitoDTO implements Serializable {
             this.estabilidad = re.getEstabilidad();
             this.comentarios = re.getComentarios();
             this.tipo = re.getTipo();
+            if (re.getObjetivo() != null) {
+                this.objetivo = new ObjetivoDTO(re.getObjetivo());
+            } else {
+                re.setAutor(null);
+            }
             if (re.getAutor() != null) {
                 this.autor = new StakeHolderDTO(re.getAutor());
             } else {
@@ -51,6 +58,12 @@ public class RequisitoDTO implements Serializable {
         requisitoEntity.setComentarios(this.comentarios);
         requisitoEntity.setEstabilidad(this.estabilidad);
         requisitoEntity.setTipo(this.tipo);
+        if (getAutor() != null) {
+            requisitoEntity.setAutor(getAutor().toEntity());
+        }
+        if (getObjetivo() != null) {
+            requisitoEntity.setObjetivo(getObjetivo().toEntity());
+        }
         return requisitoEntity;
     }
 
@@ -155,6 +168,20 @@ public class RequisitoDTO implements Serializable {
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+    }
+
+    /**
+     * @return the objetivo
+     */
+    public ObjetivoDTO getObjetivo() {
+        return objetivo;
+    }
+
+    /**
+     * @param objetivo the objetivo to set
+     */
+    public void setObjetivo(ObjetivoDTO objetivo) {
+        this.objetivo = objetivo;
     }
 
 }

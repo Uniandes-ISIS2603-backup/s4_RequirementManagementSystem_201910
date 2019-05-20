@@ -20,6 +20,7 @@ import javax.ws.rs.*;
 
 /**
  * Clase que representa el Recurso para obtener DTOS de tipo Objetivo
+ *
  * @author David Manosalva
  */
 @Produces("application/json")
@@ -31,48 +32,49 @@ public class ObjetivoResource {
      */
     private static final Logger LOGGER = Logger.getLogger(ObjetivoResource.class.getName());
 
-     /**
+    /**
      * Logica de la clase
      */
     @Inject
     private ObjetivoLogic objetivoLogic;
 
     /**
-     * Crea un nuevo Objetivo con la informacion que se recibe en el cuerpo de la
-     * petición y se regresa un objeto identico con un id auto-generado por la
-     * base de datos.
+     * Crea un nuevo Objetivo con la informacion que se recibe en el cuerpo de
+     * la petición y se regresa un objeto identico con un id auto-generado por
+     * la base de datos.
      *
      * @param proyectosId El ID del proyecto del cual se le agrega la objetivo
      * @param objetivo{@link ObjetivoDTO} - La objetivo que se desea guardar.
-     * @return JSON {@link ObjetivoDTO} - El objetivo guardado con el atributo id
-     * autogenerado.
+     * @return JSON {@link ObjetivoDTO} - El objetivo guardado con el atributo
+     * id autogenerado.
      * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
      * Error de lógica que se genera cuando ya existe el Objetivo.
      */
     @POST
-    public ObjetivoDTO createObjetivo(@PathParam ("proyectosId") Long proyectosId, ObjetivoDTO objetivo) throws BusinessLogicException {
+    public ObjetivoDetailDTO createObjetivo(@PathParam("proyectosId") Long proyectosId, ObjetivoDTO objetivo) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "ObjetivoResource createObjetivo: input: {0}", objetivo);
-        ObjetivoDTO objetivoDTO = new ObjetivoDTO(objetivoLogic.createObjetivo(proyectosId, objetivo.toEntity()));
+        ObjetivoDetailDTO objetivoDTO = new ObjetivoDetailDTO(objetivoLogic.createObjetivo(proyectosId, objetivo.toEntity()));
         LOGGER.log(Level.INFO, "ObjetivoResource createObjetivo: output: {0}", objetivoDTO);
         return objetivoDTO;
     }
 
     /**
      * Metodo que retorna todoslos objetivos en objetos DTO
+     *
      * @param proyectosId el id del proyecto papá.
      * @return Lista con los ObjetivosDetailDTO
      */
-    @GET 
+    @GET
     public List<ObjetivoDetailDTO> getObjetivos(@PathParam("proyectosId") Long proyectosId) {
         LOGGER.info("ObjetivoResource getObjetivos: input: void");
         List<ObjetivoDetailDTO> listaObjetivos = listEntity2DTO(objetivoLogic.getObjetivos(proyectosId));
         LOGGER.log(Level.INFO, "ObjetivoResource getObjetivos: output: {0}", listaObjetivos);
         return listaObjetivos;
     }
-    
-    
+
     /**
      * Metodo que retorna el objetivoDTO dado por parametro
+     *
      * @param proyectosId el id del proyecto padre.
      * @param objetivosId Id del objetivo a consultar
      * @return Objetivo consultado
@@ -108,22 +110,22 @@ public class ObjetivoResource {
     //
     @PUT
     @Path("{objetivosId: \\d+}")
-    public ObjetivoDetailDTO updateObjetivo(@PathParam("proyectosId") Long proyectosId, @PathParam("objetivosId") Long objetivosId, ObjetivoDetailDTO objetivo) throws BusinessLogicException{
+    public ObjetivoDetailDTO updateObjetivo(@PathParam("proyectosId") Long proyectosId, @PathParam("objetivosId") Long objetivosId, ObjetivoDetailDTO objetivo) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "ObjetivoResource updateObjetivo: input: proyectosId: {0} , objetivosId: {1} , objetivo: {2}", new Object[]{proyectosId, objetivosId, objetivo});
-        if (objetivosId.equals(objetivo.getId()))
-        {
+        objetivo.setId(objetivosId);
+        if (!objetivosId.equals(objetivo.getId())) {
             throw new BusinessLogicException("Los ids del Objetivo no coinciden");
         }
         ObjetivoEntity oe = objetivoLogic.getObjetivo(proyectosId, objetivosId);
-        if (oe == null)
-        {
+        //System.out.println("JAJA" + oe.getId());
+        if (oe == null) {
             throw new WebApplicationException("El recurso /objetivos/" + objetivosId + " no existe.", 404);
         }
         ObjetivoDetailDTO detailDTO = new ObjetivoDetailDTO(objetivoLogic.updateObjetivo(proyectosId, objetivo.toEntity()));
         LOGGER.log(Level.INFO, "ObjetivoResource updateObjetivo: output: {0}", detailDTO);
         return detailDTO;
     }
-    
+
     /**
      * Borra la reseña con el id asociado recibido en la URL.
      *
@@ -140,23 +142,24 @@ public class ObjetivoResource {
         LOGGER.log(Level.INFO, "ObjetivoResource deleteObjetivo: input: proyectosId: {0} , objetivosId: {1} , ", new Object[]{proyectosId, objetivosId});
         ObjetivoEntity entity = objetivoLogic.getObjetivo(proyectosId, objetivosId);
         if (entity == null) {
-            throw new WebApplicationException("El recurso /proyectos/"+ proyectosId + "/objetivos/" + objetivosId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /proyectos/" + proyectosId + "/objetivos/" + objetivosId + " no existe.", 404);
         }
-        objetivoLogic.deleteObjetivo(proyectosId,objetivosId);
+        objetivoLogic.deleteObjetivo(proyectosId, objetivosId);
         LOGGER.info("ObjetivoResource deleteObjetivo: output: void");
     }
-    
-    /*TODO Uno
-    @Path("{objetivosId: \\d+}/books")
-    public Class<ObjetivoBooksResource> getObjetivoBooksResource(@PathParam("objetivosId") Long objetivosId) {
-        if (objetivoLogic.getObjetivo(objetivosId) == null) {
+
+    @Path("{objetivosId: \\d+}/requisitos")
+    public Class<RequisitoResource> getRequisitoResource(@PathParam("proyectosId") Long proyectosId, @PathParam("objetivosId") Long objetivosId) {
+        if (objetivoLogic.getObjetivo(proyectosId, objetivosId) == null) {
             throw new WebApplicationException("El recurso /objetivos/" + objetivosId + " no existe.", 404);
         }
-        return ObjetivoBooksResource.class;
-    }*/
-    
+        return RequisitoResource.class;
+    }
+
     /**
-     * Lista que devuelve una lista de objetos de tipo DTO de una lista de ObjetivoEntity
+     * Lista que devuelve una lista de objetos de tipo DTO de una lista de
+     * ObjetivoEntity
+     *
      * @param entityList Lista de ObjetivoEmntity a cambiar a DTo
      * @return Lista cambiada de DTO
      */
@@ -167,5 +170,5 @@ public class ObjetivoResource {
         }
         return list;
     }
-    
+
 }

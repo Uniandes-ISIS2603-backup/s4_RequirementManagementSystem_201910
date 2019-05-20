@@ -17,7 +17,6 @@ import java.util.List;
 public class RequisitoDetailDTO extends RequisitoDTO implements Serializable{
     
     private List<CambioDTO> cambios;
-    private List<ObjetivoDTO> objetivos;
     private List<AprobacionDTO> aprobaciones;
     private List<StakeHolderDTO> fuentes;
     
@@ -36,10 +35,6 @@ public class RequisitoDetailDTO extends RequisitoDTO implements Serializable{
             cambios = new ArrayList<>();
             for (CambioEntity cambEntity : reqEntity.getCambios()) {
                 cambios.add(new CambioDTO(cambEntity));
-            }
-            objetivos = new ArrayList<>();
-            for (ObjetivoEntity objEntity: reqEntity.getObjetivos()){
-                objetivos.add(new ObjetivoDTO(objEntity));
             }
             
             fuentes = new ArrayList<>();
@@ -65,13 +60,6 @@ public class RequisitoDetailDTO extends RequisitoDTO implements Serializable{
                 cambiosEntity.add(dtoCambio.toEntity());
             }
             reqEntity.setCambios(cambiosEntity);
-        }
-        if (objetivos != null) {
-            List<ObjetivoEntity> objetivosEntity = new ArrayList<>();
-            for (ObjetivoDTO dtoObjetivo : objetivos) {
-                objetivosEntity.add(dtoObjetivo.toEntity());
-            }
-            reqEntity.setObjetivos(objetivosEntity);
         }
         if (fuentes != null) {
             List<StakeHolderEntity> fuentesEntity = new ArrayList<>();
@@ -109,20 +97,6 @@ public class RequisitoDetailDTO extends RequisitoDTO implements Serializable{
      */
     public void setCambios(List<CambioDTO> cambios) {
         this.cambios = cambios;
-    }
-
-    /**
-     * @return the objetivos
-     */
-    public List<ObjetivoDTO> getObjetivos() {
-        return objetivos;
-    }
-
-    /**
-     * @param requisitos the requisitos to set
-     */
-    public void setObjetivos(List<ObjetivoDTO> objetivos) {
-        this.objetivos = objetivos;
     }
     
     /**

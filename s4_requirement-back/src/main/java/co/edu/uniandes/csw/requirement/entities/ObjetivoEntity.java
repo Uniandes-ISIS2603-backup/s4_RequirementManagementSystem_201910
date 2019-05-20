@@ -32,7 +32,7 @@ public class ObjetivoEntity extends BaseEntity implements Serializable {
     private List<AprobacionEntity> aprobaciones = new ArrayList<AprobacionEntity>();
 
     @PodamExclude
-    @ManyToMany(mappedBy = "objetivos")
+    @OneToMany(mappedBy = "objetivo", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<RequisitoEntity> requisitos;
 
     @PodamExclude
