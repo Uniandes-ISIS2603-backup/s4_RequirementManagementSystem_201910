@@ -10,20 +10,24 @@ import co.edu.uniandes.csw.requirement.persistence.RequisitoPersistence;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import co.edu.uniandes.csw.requirement.exceptions.BusinessLogicException;
+import co.edu.uniandes.csw.requirement.persistence.ObjetivoPersistence;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
  *
- * @author jorgeandresesguerraalarcon
+ * @author Jorge Esguerra, David Manosalva
  */
 @Stateless
 public class RequisitoLogic {
 
     private static final Logger LOGGER = Logger.getLogger(RequisitoLogic.class.getName());
     @Inject
-    private RequisitoPersistence persistence;
+    private RequisitoPersistence reqPersistence;
+    
+    @Inject
+    private ObjetivoPersistence objPersistence;
 
     /**
      * Método para crear un requisito, validando sus reglas de negocio. Reglas
@@ -41,7 +45,7 @@ public class RequisitoLogic {
      * @return la entidad creada y persistida
      * @throws co.edu.uniandes.csw.requirement.exceptions.BusinessLogicException
      */
-    public RequisitoEntity createRequisito(RequisitoEntity x) throws BusinessLogicException {
+    public RequisitoEntity createRequisito(Long objetivoId, RequisitoEntity x) throws BusinessLogicException {
         // Aquí ponemos todas las validaciones que hay que hacer al momento de crear un nuevo requisito, según reglas de negocio. 
         LOGGER.log(Level.INFO, "Inicia proceso de creación del requisito");
         if (x.getEstabilidad() < 1 || x.getEstabilidad() > 3) {

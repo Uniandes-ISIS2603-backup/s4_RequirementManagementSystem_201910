@@ -129,7 +129,7 @@ public class RequisitoResource
     @Path("{requisitosId: \\d+}")
     public RequisitoDTO putRequisito(@PathParam("objetivosId") Long objetivosId, @PathParam("requisitosId") Long requisitosId, RequisitoDetailDTO req) throws BusinessLogicException
     {
-        LOGGER.log(Level.INFO, "RequisitoResource updateRequisito: input: objetivo: {0},  requisitoId: {1} , requisito: {2}", new Object[]{objetivosId, requisitosId, req});
+        LOGGER.log(Level.INFO, "RequisitoResource updateRequisito: input: objetivo: {0 },  requisitoId: {1} , requisito: {2}", new Object[]{objetivosId, requisitosId, req});
         req.setId(requisitosId);
         if (reqLogic.getRequisito(requisitosId) == null) {
             throw new WebApplicationException("El recurso /objetivos/" + objetivosId + "/requisitos/" + requisitosId + " no existe.", 404);

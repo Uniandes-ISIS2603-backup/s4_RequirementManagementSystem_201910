@@ -74,12 +74,12 @@ public class ObjetivoPersistence {
      * Metodo para retornra todos los objetivos persistidos
      * @return Lista de los objetivos persistidos
      */
-    public List<ObjetivoEntity> findAll() {
+    /*public List<ObjetivoEntity> findAll() {
         LOGGER.log(Level.INFO, "Consultando todos los objetivos");
         TypedQuery<ObjetivoEntity> query = em.createQuery("select u from ObjetivoEntity u", ObjetivoEntity.class);
 
         return query.getResultList();
-    }
+    }*/
 
     /**
      * Metodo para actualizar un objeto entity
@@ -99,7 +99,7 @@ public class ObjetivoPersistence {
         LOGGER.log(Level.INFO, "Borrando el objetivo con id={0}", objetivoId);
         ObjetivoEntity objetivoEntity = em.find(ObjetivoEntity.class, objetivoId);
         em.remove(objetivoEntity);
-        LOGGER.log(Level.INFO, "Saliendo de borrar El objetivo con id = {0}", objetivoId);
+        LOGGER.log(Level.INFO, "Saliendo de borrar el objetivo con id = {0}", objetivoId);
         
     }
 
