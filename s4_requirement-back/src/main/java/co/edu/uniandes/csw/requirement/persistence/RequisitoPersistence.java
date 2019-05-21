@@ -48,7 +48,7 @@ public class RequisitoPersistence {
         } else if (results.size() >= 1) {
             requisitos = results.get(0);
         }
-        return em.find(RequisitoEntity.class, id);
+        return em.find(RequisitoEntity.class, requisitoId);
     }
 
     public List<RequisitoEntity> findAll()

@@ -27,7 +27,7 @@ public class CasoDeUsoEntity extends BaseEntity implements Serializable {
     private RequisitoEntity requisito;
     
     @PodamExclude
-    @OneToMany(mappedBy = "casos", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany(mappedBy = "caso", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<CaminoEntity> caminos = new ArrayList<CaminoEntity>();
 
     @PodamExclude
@@ -80,5 +80,21 @@ public class CasoDeUsoEntity extends BaseEntity implements Serializable {
     public void setCondiciones(List<CondicionEntity> condiciones) {
         this.condiciones = condiciones;
     }
+
+    /**
+     * @return the requisito
+     */
+    public RequisitoEntity getRequisito() {
+        return requisito;
+    }
+
+    /**
+     * @param requisito the requisito to set
+     */
+    public void setRequisito(RequisitoEntity requisito) {
+        this.requisito = requisito;
+    }
+    
+    
 
 }

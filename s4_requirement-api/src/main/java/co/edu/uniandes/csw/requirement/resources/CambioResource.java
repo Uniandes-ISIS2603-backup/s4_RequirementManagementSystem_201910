@@ -49,107 +49,107 @@ import javax.ws.rs.WebApplicationException;
  * @author Sofia Alvarez
  */
 public class CambioResource{
-    /**
-     * Consola de JS
-     */
-    private static final Logger LOGGER = Logger.getLogger(CambioResource.class.getName());
-    
-    /**
-    * Inyeccion de las dependencias de cambios
-    */
-    @Inject
-    private CambioLogic cambioLogic;
-    
-    /**
-     * Inyeccion de las dependencias de stakeholders
-     */
-    @Inject
-    private StakeHolderLogic stakeHolderLogic;
-    
-    /**
-     * Inyeccion de las dependencias de objetivos
-     */
-    @Inject
-    private ObjetivoLogic objetivoLogic;
-    
-    /**
-     * Inyeccion de las dependencias de requisitos
-     */
-    @Inject
-    private RequisitoLogic requisitoLogic;
-    
-    /**
-     * Crea un nuevo cambio. 
-     * @param cambio a crear
-     * @return cambio creado
-     * @throws BusinessLogicException si no se cumplen las reglas de negocio
-     */
-    @POST
-    public CambioDTO createCambio(CambioDTO cambio) throws BusinessLogicException{
-         CambioDTO cambioDTO = new CambioDTO(cambioLogic.createCambio(cambio.toEntity()));
-         return cambioDTO;
-    }
-    /**
-     * Retorna todos los cambios
-     * @return todos los cambios
-     */
-    @GET
-    public List<CambioDTO> getCambios(){
-        List<CambioDTO> dtos = new ArrayList<>();
-        List<CambioEntity> entities = cambioLogic.findAllCambios();
-        for(CambioEntity entity:entities){
-            dtos.add(new CambioDTO(entity));
-        }
-        return dtos;
-    }
-    
-    /**
-     * Retorna un cambio con un id especifico
-     * @param id del cambio a buscar
-     * @return el cambio buscado
-     */
-    @GET
-    @Path("{id: \\d+}")
-    public CambioDTO getCambio(@PathParam("id") Long id){
-        CambioEntity entity = cambioLogic.findCambioById(id);
-        if(entity == null){
-            throw new WebApplicationException("El recurso /cambios/"+id+" no existe.", 404);
-        }
-        return new CambioDTO(entity);
-    }
-    
-    /**
-     * Elimina un cambio
-     * @param id del cambio a eliminar
-     * @return cambio eliminado
-     */
-    @DELETE
-    @Path("{id: \\d+}")
-    public CambioDTO deleteCambio(@PathParam("id") Long id){
-        CambioEntity entity = cambioLogic.deleteCambio(id);
-        if(entity == null){
-            throw new WebApplicationException("El recurso /cambios/"+id+" no existe.", 404);
-        }
-        CambioDTO dto = new CambioDTO(entity);
-        return dto;
-    }
-    
-     /**
-     * Actualiza un cambio
-     * @param cambioId id del cambio
-     * @param cambio a actualizar
-     * @return cambio actualizada 
-     * @throws BusinessLogicException si no se cumplen las reglas de negocio
-     */
-    @PUT
-    @Path("{id: \\d+}")
-    public CambioDTO updateAprobacion(@PathParam("id") Long cambioId, CambioDTO cambio) throws BusinessLogicException{
-        cambio.setId(cambioId);
-        if (cambioLogic.findCambioById(cambioId) == null) {
-            throw new WebApplicationException("El recurso /cambios/" + cambioId + " no existe.", 404);
-        }
-        CambioDTO cambDTO = new CambioDTO(cambioLogic.updateCambio(cambio.toEntity()));
-        return cambDTO;
-    }
-    
+//    /**
+//     * Consola de JS
+//     */
+//    private static final Logger LOGGER = Logger.getLogger(CambioResource.class.getName());
+//    
+//    /**
+//    * Inyeccion de las dependencias de cambios
+//    */
+//    @Inject
+//    private CambioLogic cambioLogic;
+//    
+//    /**
+//     * Inyeccion de las dependencias de stakeholders
+//     */
+//    @Inject
+//    private StakeHolderLogic stakeHolderLogic;
+//    
+//    /**
+//     * Inyeccion de las dependencias de objetivos
+//     */
+//    @Inject
+//    private ObjetivoLogic objetivoLogic;
+//    
+//    /**
+//     * Inyeccion de las dependencias de requisitos
+//     */
+//    @Inject
+//    private RequisitoLogic requisitoLogic;
+//    
+//    /**
+//     * Crea un nuevo cambio. 
+//     * @param cambio a crear
+//     * @return cambio creado
+//     * @throws BusinessLogicException si no se cumplen las reglas de negocio
+//     */
+//    @POST
+//    public CambioDTO createCambio(CambioDTO cambio) throws BusinessLogicException{
+//         CambioDTO cambioDTO = new CambioDTO(cambioLogic.createCambio(cambio.toEntity()));
+//         return cambioDTO;
+//    }
+//    /**
+//     * Retorna todos los cambios
+//     * @return todos los cambios
+//     */
+//    @GET
+//    public List<CambioDTO> getCambios(){
+//        List<CambioDTO> dtos = new ArrayList<>();
+//        List<CambioEntity> entities = cambioLogic.findAllCambios();
+//        for(CambioEntity entity:entities){
+//            dtos.add(new CambioDTO(entity));
+//        }
+//        return dtos;
+//    }
+//    
+//    /**
+//     * Retorna un cambio con un id especifico
+//     * @param id del cambio a buscar
+//     * @return el cambio buscado
+//     */
+//    @GET
+//    @Path("{id: \\d+}")
+//    public CambioDTO getCambio(@PathParam("id") Long id){
+//        CambioEntity entity = cambioLogic.findCambioById(id);
+//        if(entity == null){
+//            throw new WebApplicationException("El recurso /cambios/"+id+" no existe.", 404);
+//        }
+//        return new CambioDTO(entity);
+//    }
+//    
+//    /**
+//     * Elimina un cambio
+//     * @param id del cambio a eliminar
+//     * @return cambio eliminado
+//     */
+//    @DELETE
+//    @Path("{id: \\d+}")
+//    public CambioDTO deleteCambio(@PathParam("id") Long id){
+//        CambioEntity entity = cambioLogic.deleteCambio(id);
+//        if(entity == null){
+//            throw new WebApplicationException("El recurso /cambios/"+id+" no existe.", 404);
+//        }
+//        CambioDTO dto = new CambioDTO(entity);
+//        return dto;
+//    }
+//    
+//     /**
+//     * Actualiza un cambio
+//     * @param cambioId id del cambio
+//     * @param cambio a actualizar
+//     * @return cambio actualizada 
+//     * @throws BusinessLogicException si no se cumplen las reglas de negocio
+//     */
+//    @PUT
+//    @Path("{id: \\d+}")
+//    public CambioDTO updateAprobacion(@PathParam("id") Long cambioId, CambioDTO cambio) throws BusinessLogicException{
+//        cambio.setId(cambioId);
+//        if (cambioLogic.findCambioById(cambioId) == null) {
+//            throw new WebApplicationException("El recurso /cambios/" + cambioId + " no existe.", 404);
+//        }
+//        CambioDTO cambDTO = new CambioDTO(cambioLogic.updateCambio(cambio.toEntity()));
+//        return cambDTO;
+//    }
+//    
 }

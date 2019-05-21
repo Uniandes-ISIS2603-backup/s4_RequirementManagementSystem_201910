@@ -110,7 +110,7 @@ public class ObjetivoResource {
     //
     @PUT
     @Path("{objetivosId: \\d+}")
-    public ObjetivoDetailDTO updateObjetivo(@PathParam("proyectosId") Long proyectosId, @PathParam("objetivosId") Long objetivosId, ObjetivoDetailDTO objetivo) throws BusinessLogicException {
+    public ObjetivoDTO updateObjetivo(@PathParam("proyectosId") Long proyectosId, @PathParam("objetivosId") Long objetivosId, ObjetivoDTO objetivo) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "ObjetivoResource updateObjetivo: input: proyectosId: {0} , objetivosId: {1} , objetivo: {2}", new Object[]{proyectosId, objetivosId, objetivo});
         objetivo.setId(objetivosId);
         if (!objetivosId.equals(objetivo.getId())) {

@@ -20,16 +20,16 @@ public class StakeHolderEntity extends BaseEntity implements Serializable {
     private String nombre;
 
    
-//Relacion cambios
-    @PodamExclude
-    @OneToMany(mappedBy = "stakeholder", cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private List<CambioEntity> cambios = new ArrayList<>();
-
-//Relacion aprobaciones
-
-    @PodamExclude
-    @OneToMany(mappedBy = "stakeholder", cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private List<AprobacionEntity> aprobaciones = new ArrayList<>();
+////Relacion cambios
+//    @PodamExclude
+//    @OneToMany(mappedBy = "stakeholder", cascade = CascadeType.PERSIST, orphanRemoval = true)
+//    private List<CambioEntity> cambios = new ArrayList<>();
+//
+////Relacion aprobaciones
+//
+//    @PodamExclude
+//    @OneToMany(mappedBy = "stakeholder", cascade = CascadeType.PERSIST, orphanRemoval = true)
+//    private List<AprobacionEntity> aprobaciones = new ArrayList<>();
 
 //Relacion organizacion
     @PodamExclude
@@ -81,21 +81,21 @@ public class StakeHolderEntity extends BaseEntity implements Serializable {
         this.nombre = nombre;
     }
     
-    public List<CambioEntity> getCambios() {
-        return cambios;
-    }
-
-    public void setCambios(List<CambioEntity> cambios) {
-        this.cambios = cambios;
-    }
-
-    public List<AprobacionEntity> getAprobaciones() {
-        return aprobaciones;
-    }
-
-    public void setAprobaciones(List<AprobacionEntity> aprobaciones) {
-        this.aprobaciones = aprobaciones;
-    }
+//    public List<CambioEntity> getCambios() {
+//        return cambios;
+//    }
+//
+//    public void setCambios(List<CambioEntity> cambios) {
+//        this.cambios = cambios;
+//    }
+//
+//    public List<AprobacionEntity> getAprobaciones() {
+//        return aprobaciones;
+//    }
+//
+//    public void setAprobaciones(List<AprobacionEntity> aprobaciones) {
+//        this.aprobaciones = aprobaciones;
+//    }
 
     public ObjetivoEntity getAutorObjetivo() {
         return autorObjetivo;

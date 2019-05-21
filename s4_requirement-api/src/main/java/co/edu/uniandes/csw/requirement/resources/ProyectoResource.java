@@ -18,6 +18,7 @@ import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
+import co.edu.uniandes.csw.requirement.patch.PATCH;
 
 /**
  * Clase que representa el Recurso para obtener DTOS de tipo Proyecto
@@ -92,7 +93,7 @@ public class ProyectoResource {
      * @return ProyectoDetail dado por la persistencia despues de pasar por la logica
      * @throws BusinessLogicException Si no cumple con las reglas de estabilidad, impotancia y descripcion
      */
-    @PUT
+    @PATCH
     @Path("{proyectosId: \\d+}")
     public ProyectoDetailDTO updateProyecto(@PathParam("proyectosId") Long proyectosId, ProyectoDetailDTO proyecto) throws BusinessLogicException{
         LOGGER.log(Level.INFO, "ProyectoResource updateProyecto: input: proyectosId: {0} , proyecto: {1}", new Object[]{proyectosId, proyecto});
@@ -104,6 +105,9 @@ public class ProyectoResource {
         LOGGER.log(Level.INFO, "ProyectoResource updateProyecto: output: {0}", detailDTO);
         return detailDTO;
     }
+    
+    
+    
     
     /**
      * Metodo para eliminar un proyecto por id

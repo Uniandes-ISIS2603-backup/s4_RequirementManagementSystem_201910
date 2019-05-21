@@ -122,6 +122,8 @@ public class ObjetivoLogic {
         if (objetivoEntity.getDescripcion().equals("") || objetivoEntity.getDescripcion() == null) {
             throw new BusinessLogicException("La descripcion no pueden ser nulo o vacio");
         }
+        
+        
         ProyectoEntity p = proyectoPersistence.find(proyectosId);
         objetivoEntity.setProyecto(p);
         objetivoPersistence.update(objetivoEntity);

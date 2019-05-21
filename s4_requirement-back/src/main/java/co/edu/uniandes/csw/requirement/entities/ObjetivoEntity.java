@@ -23,13 +23,13 @@ public class ObjetivoEntity extends BaseEntity implements Serializable {
     private Integer estabilidad;
     private String comentarios;
 
-    @PodamExclude
-    @OneToMany(mappedBy = "objetivo", cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private List<CambioEntity> cambios = new ArrayList<CambioEntity>();
-
-    @PodamExclude
-    @OneToMany(mappedBy = "objetivo", cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private List<AprobacionEntity> aprobaciones = new ArrayList<AprobacionEntity>();
+//    @PodamExclude
+//    @OneToMany(mappedBy = "objetivo", cascade = CascadeType.PERSIST, orphanRemoval = true)
+//    private List<CambioEntity> cambios = new ArrayList<CambioEntity>();
+//
+//    @PodamExclude
+//    @OneToMany(mappedBy = "objetivo", cascade = CascadeType.PERSIST, orphanRemoval = true)
+//    private List<AprobacionEntity> aprobaciones = new ArrayList<AprobacionEntity>();
 
     @PodamExclude
     @OneToMany(mappedBy = "objetivo", cascade = CascadeType.PERSIST, orphanRemoval = true)
@@ -110,30 +110,30 @@ public class ObjetivoEntity extends BaseEntity implements Serializable {
     /**
      * @return the cambios
      */
-    public List<CambioEntity> getCambios() {
-        return cambios;
-    }
-
-    /**
-     * @param cambios the cambios to set
-     */
-    public void setCambios(List<CambioEntity> cambios) {
-        this.cambios = cambios;
-    }
-
-    /**
-     * @return the aprobaciones
-     */
-    public List<AprobacionEntity> getAprobaciones() {
-        return aprobaciones;
-    }
-
-    /**
-     * @param aprobaciones the aprobaciones to set
-     */
-    public void setAprobaciones(List<AprobacionEntity> aprobaciones) {
-        this.aprobaciones = aprobaciones;
-    }
+//    public List<CambioEntity> getCambios() {
+//        return cambios;
+//    }
+//
+//    /**
+//     * @param cambios the cambios to set
+//     */
+//    public void setCambios(List<CambioEntity> cambios) {
+//        this.cambios = cambios;
+//    }
+//
+//    /**
+//     * @return the aprobaciones
+//     */
+//    public List<AprobacionEntity> getAprobaciones() {
+//        return aprobaciones;
+//    }
+//
+//    /**
+//     * @param aprobaciones the aprobaciones to set
+//     */
+//    public void setAprobaciones(List<AprobacionEntity> aprobaciones) {
+//        this.aprobaciones = aprobaciones;
+//    }
 
     /**
      * @return the requisitos

@@ -40,10 +40,10 @@ public class RequisitoResource
      * 
      */
     @POST
-    public RequisitoDTO createRequisito(@PathParam ("objetivosId") Long objetivosId,RequisitoDTO req) throws BusinessLogicException
+    public RequisitoDTO createRequisito(@PathParam ("proyectosId") Long proyectosId, @PathParam ("objetivosId") Long objetivosId,RequisitoDTO req) throws BusinessLogicException
     {
         LOGGER.log(Level.INFO, "RequisitoResource createRequisito: input: {0}", req);
-        RequisitoDetailDTO reqDTO = new RequisitoDetailDTO(objetivosId, reqLogic.createRequisito(req.toEntity()));
+        RequisitoDetailDTO reqDTO = new RequisitoDetailDTO(reqLogic.createRequisito(proyectosId, objetivosId, req.toEntity()));
         LOGGER.log(Level.INFO, "RequisitoResource createRequisito: output: {0}", reqDTO);
         return reqDTO;
     }
@@ -78,10 +78,10 @@ public class RequisitoResource
      * aplicación. Si no hay ninguno retorna una lista vacía.
      */
     @GET
-    public List<RequisitoDetailDTO> getRequisitos(@PathParam ("objetivosId") Long objetivosId)
+    public List<RequisitoDetailDTO> getRequisitos(@PathParam ("proyectosId") Long proyectosId, @PathParam ("objetivosId") Long objetivosId)
     {
         LOGGER.info("RequisitoResource getRequisitos: input: void");
-        List<RequisitoDetailDTO> listaReqs = listEntity2DetailDTO(reqLogic.getRequisitos(objetivosId));
+        List<RequisitoDetailDTO> listaReqs = listEntity2DetailDTO(reqLogic.getRequisitos(proyectosId, objetivosId));
         LOGGER.log(Level.INFO, "RequisitoResource getRequisitos: output: {0}", listaReqs);
         return listaReqs;
     }
@@ -99,7 +99,7 @@ public class RequisitoResource
      */
     @DELETE
     @Path("{requisitosId: \\d+}")
-    public void deleteRequisito(@PathParam("objetivosId") Long objetivosId, @PathParam("requisitosId") Long requisitosId) throws BusinessLogicException
+    public void deleteRequisito(@PathParam ("proyectosId") Long proyectosId, @PathParam("objetivosId") Long objetivosId, @PathParam("requisitosId") Long requisitosId) throws BusinessLogicException
     {
         LOGGER.log(Level.INFO, "RequisitoResource deleteRequisito: input: {0}", requisitosId);
         RequisitoEntity entity = reqLogic.getRequisito(objetivosId, requisitosId);
@@ -107,7 +107,7 @@ public class RequisitoResource
             throw new WebApplicationException("El recurso /objetivos/" + objetivosId + "/requisitos/" + requisitosId + " no existe.", 404);
         }
        //TODO: requisitoLogic.removeEditorial(requisitosId);
-        reqLogic.deleteRequisito(objetivosId, requisitosId);
+        reqLogic.deleteRequisito(proyectosId, objetivosId, requisitosId);
         LOGGER.info("RequisitoResource deleteRequisito: output: void");
     }
     
@@ -127,14 +127,14 @@ public class RequisitoResource
      */
     @PUT
     @Path("{requisitosId: \\d+}")
-    public RequisitoDTO putRequisito(@PathParam("objetivosId") Long objetivosId, @PathParam("requisitosId") Long requisitosId, RequisitoDetailDTO req) throws BusinessLogicException
+    public RequisitoDTO putRequisito(@PathParam ("proyectosId") Long proyectosId, @PathParam("objetivosId") Long objetivosId, @PathParam("requisitosId") Long requisitosId, RequisitoDetailDTO req) throws BusinessLogicException
     {
         LOGGER.log(Level.INFO, "RequisitoResource updateRequisito: input: objetivo: {0 },  requisitoId: {1} , requisito: {2}", new Object[]{objetivosId, requisitosId, req});
         req.setId(requisitosId);
-        if (reqLogic.getRequisito(requisitosId) == null) {
+        if (reqLogic.getRequisito(objetivosId, requisitosId) == null) {
             throw new WebApplicationException("El recurso /objetivos/" + objetivosId + "/requisitos/" + requisitosId + " no existe.", 404);
         }
-        RequisitoDetailDTO detailDTO = new RequisitoDetailDTO(reqLogic.updateRequisito(objetivosId, requisitosId, req.toEntity()));
+        RequisitoDetailDTO detailDTO = new RequisitoDetailDTO(reqLogic.updateRequisito(proyectosId, objetivosId, requisitosId, req.toEntity()));
         LOGGER.log(Level.INFO, "RequisitoResource updateRequisito: output: {0}", detailDTO);
         return detailDTO;
     }

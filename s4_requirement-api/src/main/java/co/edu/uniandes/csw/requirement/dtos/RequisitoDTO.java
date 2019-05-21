@@ -40,13 +40,13 @@ public class RequisitoDTO implements Serializable {
             if (re.getObjetivo() != null) {
                 this.objetivo = new ObjetivoDTO(re.getObjetivo());
             } else {
-                re.setAutor(null);
+                re.setObjetivo(null);
             }
-            if (re.getAutor() != null) {
-                this.autor = new UsuarioDTO(re.getAutor());
-            } else {
-                re.setAutor(null);
-            }
+//            if (re.getAutor() != null) {
+//                this.autor = new UsuarioDTO(re.getAutor());
+//            } else {
+//                re.setAutor(null);
+//            }
         }
     }
 
@@ -58,9 +58,9 @@ public class RequisitoDTO implements Serializable {
         requisitoEntity.setComentarios(this.comentarios);
         requisitoEntity.setEstabilidad(this.estabilidad);
         requisitoEntity.setTipo(this.tipo);
-        if (getAutor() != null) {
-            requisitoEntity.setAutor(getAutor().toEntity());
-        }
+//        if (getAutor() != null) {
+//            requisitoEntity.setAutor(getAutor().toEntity());
+//        }
         if (getObjetivo() != null) {
             requisitoEntity.setObjetivo(getObjetivo().toEntity());
         }
