@@ -28,7 +28,7 @@ public class CaminoEntity extends BaseEntity implements Serializable {
     
     @PodamExclude
     @ManyToOne 
-    private CasoDeUsoEntity casos;
+    private CasoDeUsoEntity caso;
     
     public CaminoEntity(){
         
@@ -65,15 +65,15 @@ public class CaminoEntity extends BaseEntity implements Serializable {
     /**
      * @return the casos
      */
-    public CasoDeUsoEntity getCasos() {
-        return casos;
+    public CasoDeUsoEntity getCaso() {
+        return caso;
     }
 
     /**
      * @param casos the casos to set
      */
-    public void setCasos(CasoDeUsoEntity casos) {
-        this.casos = casos;
+    public void setCaso(CasoDeUsoEntity casos) {
+        this.caso = casos;
     }
 
     
