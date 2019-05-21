@@ -48,15 +48,15 @@ public class RequisitoPersistence {
         } else if (results.size() >= 1) {
             requisitos = results.get(0);
         }
-        return em.find(RequisitoEntity.class, requisitoId);
+        return requisitos;
     }
 
-    public List<RequisitoEntity> findAll()
-    {
-        LOGGER.log(Level.INFO, "Consultando todos los requisito");
-        TypedQuery<RequisitoEntity> query = em.createQuery("select u from RequisitoEntity u", RequisitoEntity.class);
-        return query.getResultList();
-    }
+//    public List<RequisitoEntity> findAll()
+//    {
+//        LOGGER.log(Level.INFO, "Consultando todos los requisito");
+//        TypedQuery<RequisitoEntity> query = em.createQuery("select u from RequisitoEntity u", RequisitoEntity.class);
+//        return query.getResultList();
+//    }
 
     public RequisitoEntity update(RequisitoEntity r) 
     {

@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.*;
-import javax.persistence.criteria.Fetch;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
@@ -31,7 +30,7 @@ public class CasoDeUsoEntity extends BaseEntity implements Serializable {
     private List<CaminoEntity> caminos = new ArrayList<CaminoEntity>();
 
     @PodamExclude
-    @OneToMany(mappedBy = "casos", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany(mappedBy = "caso", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<CondicionEntity> condiciones = new ArrayList<>();
 
     public CasoDeUsoEntity() {
@@ -61,7 +60,7 @@ public class CasoDeUsoEntity extends BaseEntity implements Serializable {
     }
     
      /**
-     * @return the caminos
+     * @param caminitos
      */
     public void setCaminos(List<CaminoEntity> caminitos) {
        this.caminos = caminitos;
@@ -80,21 +79,15 @@ public class CasoDeUsoEntity extends BaseEntity implements Serializable {
     public void setCondiciones(List<CondicionEntity> condiciones) {
         this.condiciones = condiciones;
     }
-
+    
     /**
      * @return the requisito
      */
     public RequisitoEntity getRequisito() {
         return requisito;
     }
-
-    /**
-     * @param requisito the requisito to set
-     */
+    
     public void setRequisito(RequisitoEntity requisito) {
-        this.requisito = requisito;
+       this.requisito = requisito;
     }
-    
-    
-
 }

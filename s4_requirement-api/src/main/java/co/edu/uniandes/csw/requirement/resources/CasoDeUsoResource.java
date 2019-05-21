@@ -6,7 +6,7 @@
 package co.edu.uniandes.csw.requirement.resources;
 
 import co.edu.uniandes.csw.requirement.dtos.CasoDeUsoDTO;
-import co.edu.uniandes.csw.requirement.dtos.CasoDeUsoDetail;
+import co.edu.uniandes.csw.requirement.dtos.CasoDeUsoDetailDTO;
 import co.edu.uniandes.csw.requirement.ejb.CasoDeUsoLogic;
 import co.edu.uniandes.csw.requirement.entities.CasoDeUsoEntity;
 import co.edu.uniandes.csw.requirement.exceptions.BusinessLogicException;
@@ -30,111 +30,152 @@ import javax.ws.rs.WebApplicationException;
  *
  * @author Sofia Sarmiento
  */
-
 /**
  * Ruta de los casos de uso
  */
-@Path("casos")
 @Produces("application/json")
 @Consumes("application/json")
-@RequestScoped
 public class CasoDeUsoResource {
+
     /**
      * Consola de JS
      */
     private static final Logger LOGGER = Logger.getLogger(CasoDeUsoResource.class.getName());
-    
+
     /**
-    * Inyeccion de las dependencias de los casos de uso
-    */
+     * Inyeccion de las dependencias de los casos de uso
+     */
     @Inject
     private CasoDeUsoLogic casoDeUsoLogic;
-    
+
     /**
-     * Crea un nuevo caso de uso. 
+     * Crea un nuevo caso de uso.
+     *
+     * @param objetivosId
      * @param casoDeUso de a crear
      * @return caso de uso creado
      * @throws BusinessLogicException si no se cumplen las reglas de negocio
      */
     @POST
-    public CasoDeUsoDTO crearCasoDeUso(CasoDeUsoDTO casoDeUso)throws BusinessLogicException
-    {
+    public CasoDeUsoDTO crearCasoDeUso(@PathParam("objetivosId") Long objetivosId, @PathParam("requisitosId") Long requisitosId, CasoDeUsoDTO casoDeUso) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "CasoDeUsoResource createCasoDeUso: input: {0}", casoDeUso);
-        CasoDeUsoEntity casoEntity = casoDeUso.toEntity();
-        CasoDeUsoEntity nuevocasoEntity = casoDeUsoLogic.createCasoDeUso(casoEntity);
-        CasoDeUsoDTO nuevocasoDTO = new CasoDeUsoDTO(nuevocasoEntity);
-        LOGGER.log(Level.INFO, "CasoDeUsoResource createCasoDeUso: output: {0}", nuevocasoDTO);
-        return nuevocasoDTO;    }
-    
+        CasoDeUsoDetailDTO casoDTO = new CasoDeUsoDetailDTO(casoDeUsoLogic.createCasoDeUso(objetivosId, requisitosId, casoDeUso.toEntity()));
+        LOGGER.log(Level.INFO, "CasoDeUsoResource createCasoDeUso: output: {0}", casoDTO);
+        return casoDTO;
+    }
+
     /**
      * Retorna un caso de uso con un id especifico
-     * @param id del caso de uso a buscar
+     *
+     * @param casosDeUsoId del caso de uso a buscar
      * @return el caso de uso buscado
      */
     @GET
-    @Path("{id: \\d+}")
-    public CasoDeUsoDetail getCasoDeUso (@PathParam("id") Long id) throws WebApplicationException
-    {
-        LOGGER.log(Level.INFO, "CasoDeUsoResource getCasoDeUso: input: {0}", id);
-        CasoDeUsoEntity casoEntity = casoDeUsoLogic.getCasoDeUso(id);
+    @Path("{casosDeUsoId: \\d+}")
+    public CasoDeUsoDetailDTO getCasoDeUso(@PathParam ("requisitosId") Long requisitosId, @PathParam("casosDeUsoId") Long casosDeUsoId) throws WebApplicationException {
+        LOGGER.log(Level.INFO, "CasoDeUsoResource getCasoDeUso: input: {0}", casosDeUsoId);
+        CasoDeUsoEntity casoEntity = casoDeUsoLogic.getCasoDeUso(requisitosId, casosDeUsoId);
         if (casoEntity == null) {
-            throw new WebApplicationException("El recurso /casos/" + id + " no existe.", 404);
+            throw new WebApplicationException("El recurso /casos/" + casosDeUsoId + " no existe.", 404);
         }
-        CasoDeUsoDetail detailDTO = new CasoDeUsoDetail(casoEntity);
+        CasoDeUsoDetailDTO detailDTO = new CasoDeUsoDetailDTO(casoEntity);
         LOGGER.log(Level.INFO, "CasoDeUsoResource getCasoDeUso: output: {0}", detailDTO);
         return detailDTO;
     }
-    
+
     /**
      * Retorna todos los casos de uso
+     *
      * @return todos los casos de uso
      */
     @GET
-    public List<CasoDeUsoDetail> getCasosDeUso() {
+    public List<CasoDeUsoDetailDTO> getCasosDeUso(@PathParam("objetivosId") Long objetivosId, @PathParam("requisitosId") Long requisitosId) {
         LOGGER.info("CasoDeUsoResource getCasosDeUso: input: void");
-        List<CasoDeUsoDetail> listaCasos = listEntity2DTO(casoDeUsoLogic.getCasosDeUso());
+        List<CasoDeUsoDetailDTO> listaCasos = listEntity2DTO(casoDeUsoLogic.getCasosDeUso(objetivosId, requisitosId));
         LOGGER.log(Level.INFO, "CasoDeUsoResource getCasosDeUso: output: {0}", listaCasos);
         return listaCasos;
     }
-    
+
     /**
      * Elimina un caso de uso
+     *
      * @param id del caso de uso a eliminar
      */
-     @DELETE
-    @Path("{id: \\d+}")
-    public void deleteCasoDeUso (@PathParam("id") Long id)throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "CasoDeUsoResource deleteCasoDeUso: input: {0}", id);
-        if (casoDeUsoLogic.getCasoDeUso(id) == null) {
-            throw new WebApplicationException("El recurso /casos/" + id + " no existe.", 404);
-        }
-        casoDeUsoLogic.deleteCasoDeUso(id);
-        LOGGER.info("CasoDeUsoResource deleteCasoDeUso: output: void");  
+    @DELETE
+    @Path("{casosDeUsoId: \\d+}")
+    public void deleteCasoDeUso(@PathParam("objetivosId") Long objetivosId, @PathParam("requisitosId") Long requisitosId, @PathParam("casosDeUsoId") Long casosDeUsoId) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "CasoDeUsoResource deleteCasoDeUso: input: {0}", casosDeUsoId);
+        CasoDeUsoEntity entity = casoDeUsoLogic.getCasoDeUso(requisitosId, casosDeUsoId);
+        casoDeUsoLogic.deleteCasoDeUso(requisitosId, casosDeUsoId);
+        LOGGER.info("CasoDeUsoResource deleteCasoDeUso: output: void");
     }
-    
+
     /**
      * Actualiza un caso de uso
-     * @param id id del caso de uso
+     *
+     * @param casosDeUsoId id del caso de uso
      * @param dto a actualizar
-     * @return caso de uso actualizada 
+     * @return caso de uso actualizada
      */
     @PUT
-    @Path("{id: \\d+}")
-    public CasoDeUsoDTO putCasoDeUso (@PathParam("id") Long id, CasoDeUsoDTO dto)throws WebApplicationException {
-        LOGGER.log(Level.INFO, "CasoDeUsoResource putCasoDeUso: input: id:{0} , dto: {1}", new Object[]{id, dto});
-        dto.setId(id);
-        if (casoDeUsoLogic.getCasoDeUso(id) == null) {
-            throw new WebApplicationException("El recurso /casos/" + id + " no existe.", 404);
+    @Path("{casosDeUsoId: \\d+}")
+    public CasoDeUsoDTO putCasoDeUso(@PathParam("objetivosId") Long objetivosId, @PathParam("requisitosId") Long requisitosId, @PathParam("casosDeUsoId") Long casosDeUsoId, CasoDeUsoDTO dto) throws WebApplicationException {
+        LOGGER.log(Level.INFO, "CasoDeUsoResource putCasoDeUso: input: id:{0} , dto: {1}", new Object[]{casosDeUsoId, dto});
+        dto.setId(casosDeUsoId);
+        if (casoDeUsoLogic.getCasoDeUso(requisitosId, casosDeUsoId) == null) {
+            throw new WebApplicationException("El recurso /casos/" + casosDeUsoId + " no existe.", 404);
         }
-        CasoDeUsoDetail detailDTO = new CasoDeUsoDetail(casoDeUsoLogic.updateCasoDeUso(id, dto.toEntity()));
+        CasoDeUsoDetailDTO detailDTO = new CasoDeUsoDetailDTO(casoDeUsoLogic.updateCasoDeUso(objetivosId, casosDeUsoId, dto.toEntity()));
         LOGGER.log(Level.INFO, "CasoDeUsoResource putCasoDeUso: output: {0}", detailDTO);
         return detailDTO;
     }
-    
-    private List<CasoDeUsoDetail> listEntity2DTO(List<CasoDeUsoEntity> entityList) {
-        List<CasoDeUsoDetail> list = new ArrayList<>();
+
+    /**
+     * Conexión con el servicio de objetivos para un proyecto.
+     * {@link CondicionResource}
+     *
+     * Este método conecta la ruta de /casos con las rutas de /condiciones que
+     * dependen del caso de uso, es una redirección al servicio que maneja el
+     * segmento de la URL que se encarga de los objetivos.
+     *
+     * @param id El ID del proyecto con respecto al cual se accede al servicio.
+     * @return El servicio de autores para ese libro en paricular.\
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error de lógica que se genera cuando no se encuentra el libro.
+     */
+//    @Path("{id: \\d+}/condiciones")
+//    public Class<CondicionResource> getCondicionResource(@PathParam("id") Long id) {
+//        if (casoDeUsoLogic.getCasoDeUso(id) == null) {
+//            throw new WebApplicationException("El recurso /casos/" + id + " no existe.", 404);
+//        }
+//        return CondicionResource.class;
+//    }
+//
+//    /**
+//     * Conexión con el servicio de objetivos para un proyecto.
+//     * {@link CaminoResource}
+//     *
+//     * Este método conecta la ruta de /casos con las rutas de /camino que
+//     * dependen del caso de uso, es una redirección al servicio que maneja el
+//     * segmento de la URL que se encarga de los objetivos.
+//     *
+//     * @param id El ID del proyecto con respecto al cual se accede al servicio.
+//     * @return El servicio de autores para ese libro en paricular.\
+//     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+//     * Error de lógica que se genera cuando no se encuentra el libro.
+//     */
+//    @Path("{id: \\d+}/camino")
+//    public Class<CaminoResource> getCaminoResource(@PathParam("id") Long id) {
+//        if (casoDeUsoLogic.getCasoDeUso(id) == null) {
+//            throw new WebApplicationException("El recurso /casos/" + id + " no existe.", 404);
+//        }
+//        return CaminoResource.class;
+//    }
+//
+    private List<CasoDeUsoDetailDTO> listEntity2DTO(List<CasoDeUsoEntity> entityList) {
+        List<CasoDeUsoDetailDTO> list = new ArrayList<>();
         for (CasoDeUsoEntity entity : entityList) {
-            list.add(new CasoDeUsoDetail(entity));
+            list.add(new CasoDeUsoDetailDTO(entity));
         }
         return list;
     }

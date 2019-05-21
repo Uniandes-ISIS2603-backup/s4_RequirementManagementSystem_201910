@@ -133,7 +133,7 @@ public class RequisitoLogic {
         return x;
     }
 
-    public void deleteRequisito(Long proyectosId, Long objetivosId, Long id) throws BusinessLogicException {
+    public void deleteRequisito(Long objetivosId, Long id) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de borrar el autor con id = {0}", id);
         List<CasoDeUsoEntity> casosDeUso = getRequisito(objetivosId, id).getCasosDeUso();
         if (casosDeUso != null && !casosDeUso.isEmpty()) {

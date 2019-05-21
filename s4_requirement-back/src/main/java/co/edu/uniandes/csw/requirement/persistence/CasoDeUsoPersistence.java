@@ -38,21 +38,34 @@ public class CasoDeUsoPersistence {
     /**
      * Método para encontrar un caso de uso por su id.
      * @param casoDeUsoId id del caso de uso a buscar.
+     * @param requisitoId 
      * @return devuelve el caso de uso encontrado.
      */
-    public CasoDeUsoEntity find(Long casoDeUsoId) {
-        return em.find(CasoDeUsoEntity.class, casoDeUsoId);
+    public CasoDeUsoEntity find(Long requisitoId,Long casoDeUsoId) {
+       TypedQuery<CasoDeUsoEntity> q = em.createQuery("select p from CasoDeUsoEntity p where (p.requisito.id = :requisitoId) and (p.id = :casoDeUsoId)", CasoDeUsoEntity.class);
+        q.setParameter("requisitoId", requisitoId);
+        q.setParameter("casoDeUsoId", casoDeUsoId);
+        List<CasoDeUsoEntity> results = q.getResultList();
+        CasoDeUsoEntity casos = null;
+        if (results == null) {
+            casos = null;
+        } else if (results.isEmpty()) {
+            casos = null;
+        } else if (results.size() >= 1) {
+            casos = results.get(0);
+        }
+        return casos;
     }
 
     /**
      * Método que encuentra todos los casos de uso.
      * @return lista con todos los casos de uso.
      */
-    public List<CasoDeUsoEntity> findAll() {
-
-        TypedQuery<CasoDeUsoEntity> query = em.createQuery("select u from CasoDeUsoEntity u", CasoDeUsoEntity.class);
-        return query.getResultList();
-    }
+//    public List<CasoDeUsoEntity> findAll() {
+//
+//        TypedQuery<CasoDeUsoEntity> query = em.createQuery("select u from CasoDeUsoEntity u", CasoDeUsoEntity.class);
+//        return query.getResultList();
+//    }
     
     public CasoDeUsoEntity findByName(String name){
         TypedQuery<CasoDeUsoEntity> query = em.createQuery("select u from CasoDeUsoEntity u where u.nombre = :nombre", CasoDeUsoEntity.class);
@@ -86,9 +99,8 @@ public class CasoDeUsoPersistence {
      * @param casoDeUsoId id del caso de uso a eliminar
      * @return el caso de uso eliminado.
      */
-    public CasoDeUsoEntity delete(Long casoDeUsoId){
+    public void delete(Long casoDeUsoId){
         CasoDeUsoEntity casoDeUso=em.find(CasoDeUsoEntity.class, casoDeUsoId);
         em.remove(casoDeUso);
-        return casoDeUso;
     }
 }
