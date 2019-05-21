@@ -21,7 +21,7 @@ public class RequisitoDTO implements Serializable {
     private Long id;
     private Integer importancia, estabilidad;
 
-    private StakeHolderDTO autor;
+    private UsuarioDTO autor;
 
     private ObjetivoDTO objetivo;
 
@@ -43,7 +43,7 @@ public class RequisitoDTO implements Serializable {
                 re.setAutor(null);
             }
             if (re.getAutor() != null) {
-                this.autor = new StakeHolderDTO(re.getAutor());
+                this.autor = new UsuarioDTO(re.getAutor());
             } else {
                 re.setAutor(null);
             }
@@ -154,14 +154,14 @@ public class RequisitoDTO implements Serializable {
     /**
      * @return the autor
      */
-    public StakeHolderDTO getAutor() {
+    public UsuarioDTO getAutor() {
         return autor;
     }
 
     /**
      * @param autor the autor to set
      */
-    public void setAutor(StakeHolderDTO autor) {
+    public void setAutor(UsuarioDTO autor) {
         this.autor = autor;
     }
 

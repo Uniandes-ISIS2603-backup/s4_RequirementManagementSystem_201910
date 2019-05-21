@@ -47,7 +47,7 @@ public class RequisitoEntity extends BaseEntity implements Serializable {
     
     @PodamExclude
     @OneToOne(mappedBy = "autorRequisito", fetch = FetchType.LAZY)
-    private StakeHolderEntity autor;
+    private UsuarioEntity autor;
     
     @PodamExclude
     @OneToMany(mappedBy = "fuenteRequisito", cascade = CascadeType.PERSIST, orphanRemoval = true)
@@ -169,14 +169,14 @@ public class RequisitoEntity extends BaseEntity implements Serializable {
     /**
      * @return the autor
      */
-    public StakeHolderEntity getAutor() {
+    public UsuarioEntity getAutor() {
         return autor;
     }
 
     /**
      * @param autor the autor to set
      */
-    public void setAutor(StakeHolderEntity autor) {
+    public void setAutor(UsuarioEntity autor) {
         this.autor = autor;
     }
 
