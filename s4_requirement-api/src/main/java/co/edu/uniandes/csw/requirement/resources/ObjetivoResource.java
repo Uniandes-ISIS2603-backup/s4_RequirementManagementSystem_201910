@@ -110,17 +110,40 @@ public class ObjetivoResource {
     //
     @PUT
     @Path("{objetivosId: \\d+}")
-    public ObjetivoDTO updateObjetivo(@PathParam("proyectosId") Long proyectosId, @PathParam("objetivosId") Long objetivosId, ObjetivoDTO objetivo) throws BusinessLogicException {
+    public ObjetivoDetailDTO updateObjetivo(@PathParam("proyectosId") Long proyectosId, @PathParam("objetivosId") Long objetivosId, ObjetivoDetailDTO objetivo) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "ObjetivoResource updateObjetivo: input: proyectosId: {0} , objetivosId: {1} , objetivo: {2}", new Object[]{proyectosId, objetivosId, objetivo});
         objetivo.setId(objetivosId);
-        if (!objetivosId.equals(objetivo.getId())) {
-            throw new BusinessLogicException("Los ids del Objetivo no coinciden");
+        if (!objetivosId.equals(objetivo.getId()))
+        {
+            throw new BusinessLogicException("Los ids del objetivo no coinciden");
         }
         ObjetivoEntity oe = objetivoLogic.getObjetivo(proyectosId, objetivosId);
-        //System.out.println("JAJA" + oe.getId());
         if (oe == null) {
-            throw new WebApplicationException("El recurso /objetivos/" + objetivosId + " no existe.", 404);
+            throw new WebApplicationException("El recurso proyectos/" + proyectosId + "/objetivos/" + objetivosId + " no existe.", 404);
         }
+        System.out.println("llamo bien al objetivo");
+        ObjetivoDetailDTO current = new ObjetivoDetailDTO(oe);
+        objetivo.setRequisitos(current.getRequisitos());
+        
+        if (objetivo.getComentarios() == null || objetivo.getComentarios() == "")
+        {
+            objetivo.setComentarios(current.getComentarios());
+        }
+        if (objetivo.getImportancia() == null)
+        {
+            objetivo.setImportancia(current.getImportancia());
+        }
+        if (objetivo.getDescripcion() == null || objetivo.getDescripcion() == "")
+        {
+            objetivo.setDescripcion(current.getDescripcion());
+        }
+        if (objetivo.getEstabilidad() == null)
+        {
+            objetivo.setEstabilidad(current.getEstabilidad());
+        }
+        
+        System.out.println("hago cambios al objetivo");
+        
         ObjetivoDetailDTO detailDTO = new ObjetivoDetailDTO(objetivoLogic.updateObjetivo(proyectosId, objetivo.toEntity()));
         LOGGER.log(Level.INFO, "ObjetivoResource updateObjetivo: output: {0}", detailDTO);
         return detailDTO;

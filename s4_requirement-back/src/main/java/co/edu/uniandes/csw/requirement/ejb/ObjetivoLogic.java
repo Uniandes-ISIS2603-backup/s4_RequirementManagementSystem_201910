@@ -127,7 +127,6 @@ public class ObjetivoLogic {
         ProyectoEntity p = proyectoPersistence.find(proyectosId);
         objetivoEntity.setProyecto(p);
         objetivoPersistence.update(objetivoEntity);
-        System.out.println(objetivoEntity);
         LOGGER.log(Level.INFO, "Termina proceso de actualizar el objetivo con id = {0} del proyecto con id = " + proyectosId, objetivoEntity.getId());
         return objetivoEntity;
     }
