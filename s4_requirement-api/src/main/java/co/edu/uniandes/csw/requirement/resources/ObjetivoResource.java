@@ -112,11 +112,7 @@ public class ObjetivoResource {
     @Path("{objetivosId: \\d+}")
     public ObjetivoDetailDTO updateObjetivo(@PathParam("proyectosId") Long proyectosId, @PathParam("objetivosId") Long objetivosId, ObjetivoDetailDTO objetivo) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "ObjetivoResource updateObjetivo: input: proyectosId: {0} , objetivosId: {1} , objetivo: {2}", new Object[]{proyectosId, objetivosId, objetivo});
-        objetivo.setId(objetivosId);
-        if (!objetivosId.equals(objetivo.getId()))
-        {
-            throw new BusinessLogicException("Los ids del objetivo no coinciden");
-        }
+       
         ObjetivoEntity oe = objetivoLogic.getObjetivo(proyectosId, objetivosId);
         if (oe == null) {
             throw new WebApplicationException("El recurso proyectos/" + proyectosId + "/objetivos/" + objetivosId + " no existe.", 404);
@@ -124,6 +120,10 @@ public class ObjetivoResource {
         System.out.println("llamo bien al objetivo");
         ObjetivoDetailDTO current = new ObjetivoDetailDTO(oe);
         objetivo.setRequisitos(current.getRequisitos());
+        objetivo.setAprobaciones(current.getAprobaciones());
+        objetivo.setAutor(current.getAutor());
+        objetivo.setFuentes(current.getFuentes());
+        objetivo.setId(objetivosId);
         
         if (objetivo.getComentarios() == null || objetivo.getComentarios() == "")
         {
@@ -164,6 +164,10 @@ public class ObjetivoResource {
     public void deleteObjetivo(@PathParam("proyectosId") Long proyectosId, @PathParam("objetivosId") Long objetivosId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "ObjetivoResource deleteObjetivo: input: proyectosId: {0} , objetivosId: {1} , ", new Object[]{proyectosId, objetivosId});
         ObjetivoEntity entity = objetivoLogic.getObjetivo(proyectosId, objetivosId);
+        if (!entity.getRequisitos().isEmpty())
+        {
+            throw new BusinessLogicException("No se puede borrar el objetivo con id " + objetivosId + " pues tiene requisitos dependientes ");
+        }
         if (entity == null) {
             throw new WebApplicationException("El recurso /proyectos/" + proyectosId + "/objetivos/" + objetivosId + " no existe.", 404);
         }
