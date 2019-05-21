@@ -65,7 +65,7 @@ public class RequisitoLogic {
         }
 
         LOGGER.log(Level.INFO, "Termina proceso de creación del requisito");
-        x = persistence.create(x);
+        x = reqPersistence.create(x);
         return x;
     }
 

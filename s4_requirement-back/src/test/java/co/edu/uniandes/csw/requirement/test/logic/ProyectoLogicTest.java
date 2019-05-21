@@ -9,6 +9,6 @@ package co.edu.uniandes.csw.requirement.test.logic;
  *
  * @author jorgeandresesguerraalarcon
  */
-public class ObjetivoRequisitoLogicTest {
+public class ProyectoLogicTest {
     
 }
