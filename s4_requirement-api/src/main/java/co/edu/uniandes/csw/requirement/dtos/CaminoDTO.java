@@ -12,44 +12,45 @@ import java.io.Serializable;
  *
  * @author Sofia Alvarez
  */
-public class CaminoDTO implements Serializable {
-
-    /**
-     * Id del paso
-     */
-    private Long idPaso;
-    /**
-     * El tipo del paso. Puede ser básico, alternativo o de excepción.
-     */
-    private String tipoPaso;
-    /**
-     * Lista de pasos a seguir en un camino.
-     */
-    private String pasos;
-
-    /**
-     * Caso de uso padre de este camino
-     */
-    private CasoDeUsoDTO casoDeUso;
-
-    /**
-     * Constructor por defecto.
-     */
-    public CaminoDTO() {
-    }
-
-    /**
-     * Constructor a partir de la entidad
-     *
-     * @param ce la entidad del libro
-     */
-    public CaminoDTO(CaminoEntity ce) {
-        if (ce != null) {
+public class CaminoDTO implements Serializable
+{
+   /**
+    * Id del paso
+    */
+ private Long idPaso;
+ /**
+  * El tipo del paso. Puede ser básico, alternativo o de excepción.
+  */
+ private String tipoPaso;
+ /**
+  * Lista de pasos a seguir en un camino.
+  */
+ private String pasos;
+ 
+ private CasoDeUsoDTO casoDeUso;
+ 
+ /**
+  * Constructor por defecto.
+  */
+ public CaminoDTO(){
+ }
+ 
+ /**
+  * Constructor a partir de la entidad
+  * @param ce la entidad del libro
+  */
+ public CaminoDTO(CaminoEntity ce)
+    {
+        if(ce != null)
+        {
             this.idPaso = ce.getId();
             this.pasos = ce.getPasos();
             this.tipoPaso = ce.getTipoPaso();
+            
             if (ce.getCaso() != null) {
-                CasoDeUsoDTO dto = new CasoDeUsoDTO(ce.getCaso());
+                this.casoDeUso = new CasoDeUsoDTO(ce.getCaso());
+            } else {
+                ce.setCaso(null);
             }
         }
     }

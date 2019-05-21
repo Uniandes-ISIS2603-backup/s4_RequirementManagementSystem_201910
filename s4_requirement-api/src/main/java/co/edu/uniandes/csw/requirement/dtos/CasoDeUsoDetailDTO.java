@@ -16,19 +16,19 @@ import java.util.List;
  *
  * @author Sofia Sarmiento
  */
-public class CasoDeUsoDetail extends CasoDeUsoDTO implements Serializable
+public class CasoDeUsoDetailDTO extends CasoDeUsoDTO implements Serializable
 {
     
  
     private List<CaminoDTO> caminos;
     private List<CondicionDTO> condiciones;
 
-    public CasoDeUsoDetail()
+    public CasoDeUsoDetailDTO()
     {
         super();
     }
     
-    public CasoDeUsoDetail (CasoDeUsoEntity casoDeUsoEntity)
+    public CasoDeUsoDetailDTO (CasoDeUsoEntity casoDeUsoEntity)
     {
         super(casoDeUsoEntity);
         if(casoDeUsoEntity!=null)

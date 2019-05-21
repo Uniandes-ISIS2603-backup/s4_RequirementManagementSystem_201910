@@ -106,8 +106,7 @@ public class RequisitoResource
         if (entity == null) {
             throw new WebApplicationException("El recurso /objetivos/" + objetivosId + "/requisitos/" + requisitosId + " no existe.", 404);
         }
-       //TODO: requisitoLogic.removeEditorial(requisitosId);
-        reqLogic.deleteRequisito(proyectosId, objetivosId, requisitosId);
+        reqLogic.deleteRequisito(objetivosId, requisitosId);
         LOGGER.info("RequisitoResource deleteRequisito: output: void");
     }
     
@@ -220,5 +219,12 @@ public class RequisitoResource
         return list;
     }
     
+    @Path("{requisitosId: \\d+}/casosDeUso")
+    public Class<CasoDeUsoResource> getCasodeResource(@PathParam("objetivosId") Long objetivosId, @PathParam("requisitosId") Long requisitosId) {
+        if (reqLogic.getRequisito(objetivosId, requisitosId) == null) {
+            throw new WebApplicationException("El recurso /requisitos/" + requisitosId + " no existe.", 404);
+        }
+        return CasoDeUsoResource.class;
+    }
     
 }

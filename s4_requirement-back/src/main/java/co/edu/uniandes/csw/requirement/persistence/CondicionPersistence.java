@@ -38,10 +38,24 @@ public class CondicionPersistence {
     /**
      * Método para encontrar una condicion por su id.
      * @param condicionId id de la condicion a buscar.
+     * @param casoDeUsoId
      * @return devuelve la condicion encontrada.
      */
-    public CondicionEntity find(Long condicionId) {
-        return em.find(CondicionEntity.class, condicionId);
+    public CondicionEntity find(Long casoDeUsoId, Long condicionId) {
+        TypedQuery<CondicionEntity> q = em.createQuery("select p from CondicionEntity p where (p.casos.id = :casoDeUsoId) and (p.id = :condicionId)", CondicionEntity.class);
+        q.setParameter("casoDeUsoId", casoDeUsoId);
+        q.setParameter("condicionId", condicionId);
+        List<CondicionEntity> results = q.getResultList();
+        CondicionEntity condiciones = null;
+        if (results == null) {
+            condiciones = null;
+        } else if (results.isEmpty()) {
+            condiciones = null;
+        } else if (results.size() >= 1) {
+            condiciones = results.get(0);
+        }
+        return condiciones;     
+    
     }
 
     /**
