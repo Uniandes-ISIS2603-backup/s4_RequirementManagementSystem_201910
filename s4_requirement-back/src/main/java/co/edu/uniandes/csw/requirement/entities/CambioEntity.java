@@ -22,11 +22,6 @@ import uk.co.jemos.podam.common.PodamExclude;
 public class CambioEntity extends BaseEntity implements Serializable {
 
     /**
-     * Tipo del cambio
-     */
-    private String tipo;
-
-    /**
      * Fecha y hora de creación del cambio
      */
     private String fechaYHora;
@@ -37,24 +32,9 @@ public class CambioEntity extends BaseEntity implements Serializable {
     private String descripcion;
     
     /**
-     * Autor del cambio
+     * Tipo del cambio, puede ser MODIFICACION, ELIMINACION, APROBACION
      */
-    private String autor;
-    
-    /**
-     * Organización a la cual pertenece el autor del cambio
-     */
-    private String organizacion;
-    
-    /**
-     * Id del requisito/objetivo aprobado
-     */
-    private String id_aprobado;
-    
-    /**
-     * Nombre del requisito/objetivo aprobado
-     */
-    private String nombre_aprobado;
+    private String tipo;
     
     /**
      * Relación many to one con stakeholder.
@@ -67,14 +47,14 @@ public class CambioEntity extends BaseEntity implements Serializable {
      * Relación many to one con objetivo
      */
     @PodamExclude
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne()
     private ObjetivoEntity objetivo;
     
     /**
      * Relación many to one con requisito
      */
     @PodamExclude
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne()
     private RequisitoEntity requisito;
     
      /**
@@ -82,20 +62,6 @@ public class CambioEntity extends BaseEntity implements Serializable {
      */
     public CambioEntity() {
 
-    }
-
-    /**
-     * @return the tipo
-     */
-    public String getTipo() {
-        return tipo;
-    }
-
-    /**
-     * @param tipo the tipo to set
-     */
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
     }
 
     /**
@@ -169,60 +135,19 @@ public class CambioEntity extends BaseEntity implements Serializable {
     }
 
     /**
-     * @return the autor
+     * @return the tipo
      */
-    public String getAutor() {
-        return autor;
+    public String getTipo() {
+        return tipo;
     }
 
     /**
-     * @param autor the autor to set
+     * @param tipo the tipo to set
      */
-    public void setAutor(String autor) {
-        this.autor = autor;
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
-    /**
-     * @return the organizacion
-     */
-    public String getOrganizacion() {
-        return organizacion;
-    }
-
-    /**
-     * @param organizacion the organizacion to set
-     */
-    public void setOrganizacion(String organizacion) {
-        this.organizacion = organizacion;
-    }
-
-    /**
-     * @return the id_aprobado
-     */
-    public String getId_aprobado() {
-        return id_aprobado;
-    }
-
-    /**
-     * @param id_aprobado the id_aprobado to set
-     */
-    public void setId_aprobado(String id_aprobado) {
-        this.id_aprobado = id_aprobado;
-    }
-
-    /**
-     * @return the nombre_aprobado
-     */
-    public String getNombre_aprobado() {
-        return nombre_aprobado;
-    }
-
-    /**
-     * @param nombre_aprobado the nombre_aprobado to set
-     */
-    public void setNombre_aprobado(String nombre_aprobado) {
-        this.nombre_aprobado = nombre_aprobado;
-    }
 }
 
 

@@ -38,9 +38,17 @@ public class CambioStakeholderLogic {
      * @param stakeholdersId El id de la stakeholder que se será del aprobacion.
      * @return El StakeHolder agregado a la relación
      */
-    public StakeHolderEntity addStakeHolder(Long camsId, Long stakeholdersId) {
+    public StakeHolderEntity addStakeHolderByReq(Long camsId, Long stakeholdersId, Long requisitoId) {
         StakeHolderEntity stakeholderEntity = stakeholderPersistence.find(stakeholdersId);
-        CambioEntity cambioEntity = cambioPersistence.find(camsId);
+        CambioEntity cambioEntity = cambioPersistence.findWithRequisito(requisitoId, camsId);
+        cambioEntity.setStakeholder(stakeholderEntity);
+        
+        return stakeholderEntity;
+    }
+    
+    public StakeHolderEntity addStakeHolderByObj(Long camsId, Long stakeholdersId, Long objetivoId) {
+        StakeHolderEntity stakeholderEntity = stakeholderPersistence.find(stakeholdersId);
+        CambioEntity cambioEntity = cambioPersistence.findWithObjetivo(objetivoId, camsId);
         cambioEntity.setStakeholder(stakeholderEntity);
         
         
@@ -53,8 +61,21 @@ public class CambioStakeholderLogic {
      *
      * @param cId El cambio que se desea borrar de la stakeholder.
      */
-    public void removeStakeHolder(Long cId) {
-        CambioEntity cambioEntity = cambioPersistence.find(cId);
+    public void removeStakeHolderByObj(Long cId, Long objetivoId) {
+        CambioEntity cambioEntity = cambioPersistence.findWithObjetivo(objetivoId, cId);
+        StakeHolderEntity stakeholderEntity = stakeholderPersistence.find(cambioEntity.getStakeholder().getId());
+        cambioEntity.setStakeholder(null);
+       
+    }
+    
+    /**
+     * Borrar un cambio de una stakeholder. Este metodo se utiliza para borrar la
+     * relacion de un cambio.
+     *
+     * @param cId El cambio que se desea borrar de la stakeholder.
+     */
+    public void removeStakeHolderByReq(Long cId, Long requisitoId) {
+        CambioEntity cambioEntity = cambioPersistence.findWithRequisito(requisitoId, cId);
         StakeHolderEntity stakeholderEntity = stakeholderPersistence.find(cambioEntity.getStakeholder().getId());
         cambioEntity.setStakeholder(null);
        
@@ -66,9 +87,15 @@ public class CambioStakeholderLogic {
      * @return el stakeholder asociado
      */
     
-    public StakeHolderEntity getStakeholder(Long cid)     
+    public StakeHolderEntity getStakeholderByReq(Long cid, Long requisitoId)     
     {
-        CambioEntity cambioEntity = cambioPersistence.find(cid);
+        CambioEntity cambioEntity = cambioPersistence.findWithRequisito(requisitoId, cid);
+        return cambioEntity.getStakeholder();
+    }
+    
+    public StakeHolderEntity getStakeholderByObj(Long cid, Long objetivoId)     
+    {
+        CambioEntity cambioEntity = cambioPersistence.findWithObjetivo(objetivoId, cid);
         return cambioEntity.getStakeholder();
     }
 }

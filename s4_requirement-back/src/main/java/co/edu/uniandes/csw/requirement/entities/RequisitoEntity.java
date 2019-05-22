@@ -33,9 +33,9 @@ public class RequisitoEntity extends BaseEntity implements Serializable {
     @OneToMany(mappedBy= "requisito", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<AprobacionEntity> aprobaciones  = new ArrayList<AprobacionEntity>();
     
-//    @PodamExclude
-//    @OneToMany(mappedBy="requisito", cascade = CascadeType.PERSIST, orphanRemoval = true)
-//    private List<CambioEntity> cambios = new ArrayList<CambioEntity>();
+    @PodamExclude
+    @OneToMany(mappedBy="requisito", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<CambioEntity> cambios = new ArrayList<CambioEntity>();
     
     @PodamExclude
     @ManyToOne
@@ -45,9 +45,9 @@ public class RequisitoEntity extends BaseEntity implements Serializable {
     @OneToMany(mappedBy="requisito", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<CasoDeUsoEntity> casosDeUso;
     
-//    @PodamExclude
-//    @OneToOne(mappedBy = "autorRequisito", fetch = FetchType.LAZY)
-//    private UsuarioEntity autor;
+    @PodamExclude
+    @ManyToOne()
+    private UsuarioEntity autor;
     
     @PodamExclude
     @OneToMany(mappedBy = "fuenteRequisito", cascade = CascadeType.PERSIST, orphanRemoval = true)
@@ -127,30 +127,30 @@ public class RequisitoEntity extends BaseEntity implements Serializable {
     /**
      * @return the aprobaciones
      */
-//    public List<AprobacionEntity> getAprobaciones() {
-//        return aprobaciones;
-//    }
-//
-//    /**
-//     * @param aprobaciones the aprobaciones to set
-//     */
-//    public void setAprobaciones(List<AprobacionEntity> aprobaciones) {
-//        this.aprobaciones = aprobaciones;
-//    }
-//
-//    /**
-//     * @return the cambios
-//     */
-//    public List<CambioEntity> getCambios() {
-//        return cambios;
-//    }
-//
-//    /**
-//     * @param cambios the cambios to set
-//     */
-//    public void setCambios(List<CambioEntity> cambios) {
-//        this.cambios = cambios;
-//    }
+    public List<AprobacionEntity> getAprobaciones() {
+        return aprobaciones;
+    }
+
+    /**
+     * @param aprobaciones the aprobaciones to set
+     */
+    public void setAprobaciones(List<AprobacionEntity> aprobaciones) {
+        this.aprobaciones = aprobaciones;
+    }
+
+    /**
+     * @return the cambios
+     */
+    public List<CambioEntity> getCambios() {
+        return cambios;
+    }
+
+    /**
+     * @param cambios the cambios to set
+     */
+    public void setCambios(List<CambioEntity> cambios) {
+        this.cambios = cambios;
+    }
 
     /**
      * @return the casosDeUso
@@ -169,16 +169,16 @@ public class RequisitoEntity extends BaseEntity implements Serializable {
     /**
      * @return the autor
      */
-//    public UsuarioEntity getAutor() {
-//        return autor;
-//    }
-//
-//    /**
-//     * @param autor the autor to set
-//     */
-//    public void setAutor(UsuarioEntity autor) {
-//        this.autor = autor;
-//    }
+    public UsuarioEntity getAutor() {
+        return autor;
+    }
+
+    /**
+     * @param autor the autor to set
+     */
+    public void setAutor(UsuarioEntity autor) {
+        this.autor = autor;
+    }
 
     /**
      * @return the fuentes
@@ -206,19 +206,5 @@ public class RequisitoEntity extends BaseEntity implements Serializable {
      */
     public void setObjetivo(ObjetivoEntity objetivo) {
         this.objetivo = objetivo;
-    }
-
-    /**
-     * @return the aprobaciones
-     */
-    public List<AprobacionEntity> getAprobaciones() {
-        return aprobaciones;
-    }
-
-    /**
-     * @param aprobaciones the aprobaciones to set
-     */
-    public void setAprobaciones(List<AprobacionEntity> aprobaciones) {
-        this.aprobaciones = aprobaciones;
     }
 }

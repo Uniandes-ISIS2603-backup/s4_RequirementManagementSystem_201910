@@ -44,7 +44,7 @@ public class RequisitoLogic {
      * Stakeholder)
      *
      * @param x la entidad a crear
-     * @param objetivoId el id del padre
+     * @param objetivosId el id del padre
      * @return la entidad creada y persistida
      * @throws co.edu.uniandes.csw.requirement.exceptions.BusinessLogicException
      */
@@ -134,7 +134,7 @@ public class RequisitoLogic {
     }
 
     public void deleteRequisito(Long objetivosId, Long id) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Inicia proceso de borrar el autor con id = {0}", id);
+        LOGGER.log(Level.INFO, "Inicia proceso de borrar el requisito con id = {0}", id);
         List<CasoDeUsoEntity> casosDeUso = getRequisito(objetivosId, id).getCasosDeUso();
         if (casosDeUso != null && !casosDeUso.isEmpty()) {
             throw new BusinessLogicException("No se puede borrar el requisito con id = " + id + " porque tiene casos de uso asociados");
@@ -145,7 +145,7 @@ public class RequisitoLogic {
                throw new BusinessLogicException("El requisito con id " + id + " no está asociado con el objetivo con id " + objetivosId);
         }
         reqPersistence.delete(old.getId());
-        LOGGER.log(Level.INFO, "Termina proceso de borrar el autor con id = {0}", id);
+        LOGGER.log(Level.INFO, "Termina proceso de borrar el requisito con id = {0}", id);
     }
 
 }
