@@ -31,159 +31,159 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 @RunWith(Arquillian.class)
 public class AprobacionPersistenceTest {
     
-    /**
-     * Inyección de la persisnteica
-     */
-    @Inject
-    private AprobacionPersistence aprobacionPersistence;
-    
-    /**
-     * Contexto de persistencia.
-     */
-    @PersistenceContext
-    private EntityManager em;
-    
-    /**
-     * Inyección de una transacción del usuario
-     */
-    @Inject
-    UserTransaction utx;
-
-    /**
-     * Lista vaciía de datos de aprobación.
-     */
-    private List<AprobacionEntity> data = new ArrayList<>();
-    
-     /**
-     * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
-     * El jar contiene las clases, el descriptor de la base de datos y el
-     * archivo beans.xml para resolver la inyección de dependencias.
-     */
-    @Deployment
-    public static JavaArchive createDeployment() {
-        return ShrinkWrap.create(JavaArchive.class)
-                .addPackage(AprobacionEntity.class.getPackage())
-                .addPackage(AprobacionPersistence.class.getPackage())
-                .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
-                .addAsManifestResource("META-INF/beans.xml", "beans.xml");
-    }
-    
-    /**
-     * Configuración inicial de la prueba.
-     */
-    @Before
-    public void configTest() {
-        try {
-            utx.begin();
-            em.joinTransaction();
-            clearData();
-            insertData();
-            utx.commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-            try {
-                utx.rollback();
-            } catch (Exception e1) {
-                e1.printStackTrace();
-            }
-        }
-    }
-
-    /**
-     * Limpia las tablas que están implicadas en la prueba.
-     */
-    private void clearData() {
-        em.createQuery("delete from AprobacionEntity").executeUpdate();
-    }
-
-    /**
-     * Inserta los datos iniciales para el correcto funcionamiento de las
-     * pruebas.
-     */
-    private void insertData() {
-        PodamFactory factory = new PodamFactoryImpl();
-        for (int i = 0; i < 3; i++) {
-
-            AprobacionEntity entity = factory.manufacturePojo(AprobacionEntity.class);
-
-            em.persist(entity);
-
-            data.add(entity);
-        }
-    }
-    
-    /**
-     * Test que prueba la creación de una aprobación
-     */
-    @Test
-    public void createAprobacionTest(){
-        PodamFactory factory = new PodamFactoryImpl();
-        AprobacionEntity newEntity = factory.manufacturePojo(AprobacionEntity.class);
-        
-        AprobacionEntity addedEntity = aprobacionPersistence.create(newEntity);
-        
-        Assert.assertNotNull(addedEntity);
-        
-        AprobacionEntity refEntity = em.find(AprobacionEntity.class, addedEntity.getId());
-        Assert.assertEquals(newEntity.getId(), refEntity.getId());   
-    }
-
-    /**
-     * Test que prueba el encontrar una aprobación, con un id dado.
-     */
-    @Test
-    public void findAprobacionByIdTest(){
-        AprobacionEntity newEntity = data.get(0);
-        AprobacionEntity foundEntity = aprobacionPersistence.find(newEntity.getId());
-        Assert.assertNotNull(foundEntity);
-        Assert.assertEquals(newEntity.getId(), foundEntity.getId());
-    }
-    
-     /**
-     * Prueba para consultar la lista de Aprobaciones.
-     */
-    @Test
-    public void getAllAprobacionesTest() {
-        List<AprobacionEntity> list;
-        list = aprobacionPersistence.findAll();
-        Assert.assertEquals(data.size(), list.size());
-        for (AprobacionEntity ent : list) {
-            boolean found = false;
-            for (AprobacionEntity entity : data) {
-                if (ent.getId().equals(entity.getId())) {
-                    found = true;
-                }
-            }
-            Assert.assertTrue(found);
-        }
-    }
-    
-     /**
-     * Prueba para actualizar una aprobación
-     */
-    @Test
-    public void updateAprobacionTest() {
-        AprobacionEntity entity = data.get(0);
-        PodamFactory factory = new PodamFactoryImpl();
-        AprobacionEntity newEntity = factory.manufacturePojo(AprobacionEntity.class);
-
-        newEntity.setId(entity.getId());
-
-        aprobacionPersistence.update(newEntity);
-
-        AprobacionEntity resp = em.find(AprobacionEntity.class, entity.getId());
-
-        Assert.assertEquals(newEntity.getComentario(), resp.getComentario());
-    }
-    
-     /**
-     * Prueba para eliminar una aprobación
-     */
-    @Test
-    public void deleteAprobacionTest() {
-        AprobacionEntity entity = data.get(0);
-        aprobacionPersistence.delete(entity.getId());
-        AprobacionEntity deleted = em.find(AprobacionEntity.class, entity.getId());
-        Assert.assertNull(deleted);
-    }
+//    /**
+//     * Inyección de la persisnteica
+//     */
+//    @Inject
+//    private AprobacionPersistence aprobacionPersistence;
+//    
+//    /**
+//     * Contexto de persistencia.
+//     */
+//    @PersistenceContext
+//    private EntityManager em;
+//    
+//    /**
+//     * Inyección de una transacción del usuario
+//     */
+//    @Inject
+//    UserTransaction utx;
+//
+//    /**
+//     * Lista vaciía de datos de aprobación.
+//     */
+//    private List<AprobacionEntity> data = new ArrayList<>();
+//    
+//     /**
+//     * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
+//     * El jar contiene las clases, el descriptor de la base de datos y el
+//     * archivo beans.xml para resolver la inyección de dependencias.
+//     */
+//    @Deployment
+//    public static JavaArchive createDeployment() {
+//        return ShrinkWrap.create(JavaArchive.class)
+//                .addPackage(AprobacionEntity.class.getPackage())
+//                .addPackage(AprobacionPersistence.class.getPackage())
+//                .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
+//                .addAsManifestResource("META-INF/beans.xml", "beans.xml");
+//    }
+//    
+//    /**
+//     * Configuración inicial de la prueba.
+//     */
+//    @Before
+//    public void configTest() {
+//        try {
+//            utx.begin();
+//            em.joinTransaction();
+//            clearData();
+//            insertData();
+//            utx.commit();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            try {
+//                utx.rollback();
+//            } catch (Exception e1) {
+//                e1.printStackTrace();
+//            }
+//        }
+//    }
+//
+//    /**
+//     * Limpia las tablas que están implicadas en la prueba.
+//     */
+//    private void clearData() {
+//        em.createQuery("delete from AprobacionEntity").executeUpdate();
+//    }
+//
+//    /**
+//     * Inserta los datos iniciales para el correcto funcionamiento de las
+//     * pruebas.
+//     */
+//    private void insertData() {
+//        PodamFactory factory = new PodamFactoryImpl();
+//        for (int i = 0; i < 3; i++) {
+//
+//            AprobacionEntity entity = factory.manufacturePojo(AprobacionEntity.class);
+//
+//            em.persist(entity);
+//
+//            data.add(entity);
+//        }
+//    }
+//    
+//    /**
+//     * Test que prueba la creación de una aprobación
+//     */
+//    @Test
+//    public void createAprobacionTest(){
+//        PodamFactory factory = new PodamFactoryImpl();
+//        AprobacionEntity newEntity = factory.manufacturePojo(AprobacionEntity.class);
+//        
+//        AprobacionEntity addedEntity = aprobacionPersistence.create(newEntity);
+//        
+//        Assert.assertNotNull(addedEntity);
+//        
+//        AprobacionEntity refEntity = em.find(AprobacionEntity.class, addedEntity.getId());
+//        Assert.assertEquals(newEntity.getId(), refEntity.getId());   
+//    }
+//
+//    /**
+//     * Test que prueba el encontrar una aprobación, con un id dado.
+//     */
+//    @Test
+//    public void findAprobacionByIdTest(){
+//        AprobacionEntity newEntity = data.get(0);
+//        AprobacionEntity foundEntity = aprobacionPersistence.find(newEntity.getId());
+//        Assert.assertNotNull(foundEntity);
+//        Assert.assertEquals(newEntity.getId(), foundEntity.getId());
+//    }
+//    
+//     /**
+//     * Prueba para consultar la lista de Aprobaciones.
+//     */
+//    @Test
+//    public void getAllAprobacionesTest() {
+//        List<AprobacionEntity> list;
+//        list = aprobacionPersistence.findAll();
+//        Assert.assertEquals(data.size(), list.size());
+//        for (AprobacionEntity ent : list) {
+//            boolean found = false;
+//            for (AprobacionEntity entity : data) {
+//                if (ent.getId().equals(entity.getId())) {
+//                    found = true;
+//                }
+//            }
+//            Assert.assertTrue(found);
+//        }
+//    }
+//    
+//     /**
+//     * Prueba para actualizar una aprobación
+//     */
+//    @Test
+//    public void updateAprobacionTest() {
+//        AprobacionEntity entity = data.get(0);
+//        PodamFactory factory = new PodamFactoryImpl();
+//        AprobacionEntity newEntity = factory.manufacturePojo(AprobacionEntity.class);
+//
+//        newEntity.setId(entity.getId());
+//
+//        aprobacionPersistence.update(newEntity);
+//
+//        AprobacionEntity resp = em.find(AprobacionEntity.class, entity.getId());
+//
+//        Assert.assertEquals(newEntity.getComentario(), resp.getComentario());
+//    }
+//    
+//     /**
+//     * Prueba para eliminar una aprobación
+//     */
+//    @Test
+//    public void deleteAprobacionTest() {
+//        AprobacionEntity entity = data.get(0);
+//        aprobacionPersistence.delete(entity.getId());
+//        AprobacionEntity deleted = em.find(AprobacionEntity.class, entity.getId());
+//        Assert.assertNull(deleted);
+//    }
 }

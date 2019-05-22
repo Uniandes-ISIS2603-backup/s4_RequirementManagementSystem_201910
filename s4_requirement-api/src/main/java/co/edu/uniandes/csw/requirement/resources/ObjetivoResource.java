@@ -197,5 +197,13 @@ public class ObjetivoResource {
         }
         return list;
     }
+    
+    @Path("{objetivosId: \\d+}/aprobaciones")
+    public Class<AprobacionResource> getAprobacionResource(@PathParam("proyectosId") Long proyectosId, @PathParam("objetivosId") Long objetivosId) {
+        if (objetivoLogic.getObjetivo(proyectosId, objetivosId) == null) {
+            throw new WebApplicationException("El recurso /objetivos/" + objetivosId + " no existe.", 404);
+        }
+        return AprobacionResource.class;
+    }
 
 }
