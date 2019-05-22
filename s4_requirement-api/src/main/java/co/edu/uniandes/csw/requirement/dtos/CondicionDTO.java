@@ -51,10 +51,10 @@ public class CondicionDTO implements Serializable{
             this.seCumplio=ce.isSeCumplio();
             this.esPrecondicion=ce.isEsPrecondicion();
             
-            if (ce.getCasos() != null) {
-                this.casodeuso = new CasoDeUsoDTO(ce.getCasos());
+            if (ce.getCaso() != null) {
+                this.casodeuso = new CasoDeUsoDTO(ce.getCaso());
             } else {
-                ce.setCasos(null);
+                ce.setCaso(null);
             }
         }
     }
@@ -65,10 +65,15 @@ public class CondicionDTO implements Serializable{
      */
   public CondicionEntity toEntity() {
         CondicionEntity condicionEntity = new CondicionEntity();
-        condicionEntity.setId(this.id);
-        condicionEntity.setDescripcion(this.descripcion);
-        condicionEntity.setSeCumplio(this.seCumplio);
-        condicionEntity.setEsPrecondicion(this.esPrecondicion);
+        condicionEntity.setId(this.getId());
+        condicionEntity.setDescripcion(this.getDescripcion());
+        condicionEntity.setSeCumplio(this.getSeCumplio());
+        condicionEntity.setEsPrecondicion(this.getEsPrecondicion());
+        if (this.getCasodeuso() != null)
+        {
+             condicionEntity.setCaso((this.getCasodeuso().toEntity()));
+        }
+       
         return condicionEntity;
     }
     
@@ -104,7 +109,7 @@ public class CondicionDTO implements Serializable{
      * @return the seCumplio
      */
     public Boolean isSeCumplio() {
-        return seCumplio;
+        return getSeCumplio();
     }
 
     /**
@@ -118,7 +123,7 @@ public class CondicionDTO implements Serializable{
      * @return the esPrecondicion
      */
     public Boolean isEsPrecondicion() {
-        return esPrecondicion;
+        return getEsPrecondicion();
     }
 
     /**
@@ -126,6 +131,34 @@ public class CondicionDTO implements Serializable{
      */
     public void setEsPrecondicion(Boolean esPrecondicion) {
         this.esPrecondicion = esPrecondicion;
+    }
+
+    /**
+     * @return the seCumplio
+     */
+    public Boolean getSeCumplio() {
+        return seCumplio;
+    }
+
+    /**
+     * @return the esPrecondicion
+     */
+    public Boolean getEsPrecondicion() {
+        return esPrecondicion;
+    }
+
+    /**
+     * @return the casodeuso
+     */
+    public CasoDeUsoDTO getCasodeuso() {
+        return casodeuso;
+    }
+
+    /**
+     * @param casodeuso the casodeuso to set
+     */
+    public void setCasodeuso(CasoDeUsoDTO casodeuso) {
+        this.casodeuso = casodeuso;
     }
     
 }

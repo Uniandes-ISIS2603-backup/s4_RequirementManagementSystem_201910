@@ -47,17 +47,26 @@ public class CondicionLogic {
     * @param requisitoId
     * @param casoDeUsoId
     * @return condicion persistida
-    * @throws BusinessLogicException  si ya existe una condicion con esa decripcion
+    * @throws BusinessLogicException  si ya existe una condicion con esa descripcion
     */
     public CondicionEntity createCondicion(Long requisitoId, Long casoDeUsoId, CondicionEntity condicion) throws BusinessLogicException{
         
+        LOGGER.log(Level.INFO, "Inicia proceso de creación de la Condicion asociada al caso de uso con id " + casoDeUsoId);
         if(condicionPersistence.findByDescripcion(condicion.getDescripcion())!=null){
-            throw new BusinessLogicException("Ya existe una condicion con esa descripcion: "+condicion.getDescripcion());
+            throw new BusinessLogicException("Ya existe una condicion con esa descripcion: " + condicion.getDescripcion());
         }
         
         CasoDeUsoEntity caso = casoPersistence.find(requisitoId, casoDeUsoId);
-        condicion.setCasos(caso);
-        LOGGER.log(Level.INFO, "Termina proceso de creación del objetivo");
+        if (caso != null)
+        {
+            condicion.setCaso(caso);
+        }
+        else
+        {
+            throw new BusinessLogicException("El caso de uso con id " + casoDeUsoId + " no existe");
+        }
+        
+        LOGGER.log(Level.INFO, "Termina proceso de creación de la condicion");
         return condicionPersistence.create(condicion);
     }
     
@@ -77,6 +86,11 @@ public class CondicionLogic {
         return condicion;
     }
     
+    /**
+     * Obtiene una condicion a partir de la descripcion
+     * @param descr
+     * @return 
+     */
     public CondicionEntity getCondicionDescripcion(String descr){
         LOGGER.log(Level.INFO, "Inicia proceso de consultar la condicion por descripcion", descr);
         CondicionEntity condicion = condicionPersistence.findByDescripcion(descr);
@@ -112,7 +126,7 @@ public class CondicionLogic {
      public CondicionEntity updateCondicion(Long requisitoId, Long casoDeUsoId, CondicionEntity condicion) {
         LOGGER.log(Level.INFO, "Inicia proceso de actualizar el caso de uso con id = {0}", casoDeUsoId);
         CasoDeUsoEntity caso = casoPersistence.find(requisitoId, casoDeUsoId);
-        condicion.setCasos(caso);
+        condicion.setCaso(caso);
         condicionPersistence.update(condicion);
         LOGGER.log(Level.INFO, "Termina proceso de actualizar el caso de uso con id = {0}", condicion.getId());
         return condicion;
