@@ -118,12 +118,16 @@ public class CasoDeUsoResource {
      */
     @PUT
     @Path("{casosDeUsoId: \\d+}")
-    public CasoDeUsoDTO putCasoDeUso(@PathParam("objetivosId") Long objetivosId, @PathParam("requisitosId") Long requisitosId, @PathParam("casosDeUsoId") Long casosDeUsoId, CasoDeUsoDTO dto) throws WebApplicationException {
+    public CasoDeUsoDetailDTO putCasoDeUso(@PathParam("objetivosId") Long objetivosId, @PathParam("requisitosId") Long requisitosId, @PathParam("casosDeUsoId") Long casosDeUsoId, CasoDeUsoDetailDTO dto) throws WebApplicationException {
         LOGGER.log(Level.INFO, "CasoDeUsoResource putCasoDeUso: input: id:{0} , dto: {1}", new Object[]{casosDeUsoId, dto});
         dto.setId(casosDeUsoId);
-        if (casoDeUsoLogic.getCasoDeUso(requisitosId, casosDeUsoId) == null) {
+        CasoDeUsoEntity e = casoDeUsoLogic.getCasoDeUso(requisitosId, casosDeUsoId);
+        if (e == null) {
             throw new WebApplicationException("El recurso /casos/" + casosDeUsoId + " no existe.", 404);
         }
+        CasoDeUsoDetailDTO current = new CasoDeUsoDetailDTO(e);
+        dto.setCaminosExcepcion(current.getCaminos());
+        dto.setCondiciones(current.getCondiciones());
         CasoDeUsoDetailDTO detailDTO = new CasoDeUsoDetailDTO(casoDeUsoLogic.updateCasoDeUso(objetivosId, requisitosId, dto.toEntity()));
         LOGGER.log(Level.INFO, "CasoDeUsoResource putCasoDeUso: output: {0}", detailDTO);
         return detailDTO;
