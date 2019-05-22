@@ -58,15 +58,6 @@ public class CondicionPersistence {
     
     }
 
-    /**
-     * Método que encuentra todas las condiciones.
-     * @return lista con todas las condiciones.
-     */
-    public List<CondicionEntity> findAll() {
-
-        TypedQuery<CondicionEntity> query = em.createQuery("select u from CondicionEntity u", CondicionEntity.class);
-        return query.getResultList();
-    }
     
     public CondicionEntity findByDescripcion(String description){
         TypedQuery<CondicionEntity> query = em.createQuery("select u from CondicionEntity u where u.descripcion = :descripcion", CondicionEntity.class);
@@ -100,10 +91,9 @@ public class CondicionPersistence {
      * @param condicionId id de la condicion a eliminar
      * @return la condicion eliminada.
      */
-    public CondicionEntity delete(Long condicionId){
+    public void delete(Long condicionId){
         CondicionEntity condicion=em.find(CondicionEntity.class, condicionId);
         em.remove(condicion);
-        return condicion;
     }
 
 }
