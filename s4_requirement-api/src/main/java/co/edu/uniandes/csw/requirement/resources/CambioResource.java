@@ -40,7 +40,7 @@ import javax.ws.rs.WebApplicationException;
 /**
  * Recurso de un cambio
  *
- * @author Sofia Alvarez
+ * @author Sofia Alvarez, Jorge Esguerra, David Manosalva
  */
 public class CambioResource {
 
@@ -55,17 +55,6 @@ public class CambioResource {
     @Inject
     private CambioLogic cambioLogic;
 
-    /**
-     * Inyeccion de las dependencias de objetivos
-     */
-    @Inject
-    private ObjetivoLogic objetivoLogic;
-
-    /**
-     * Inyeccion de las dependencias de requisitos
-     */
-    @Inject
-    private RequisitoLogic requisitoLogic;
 
     /**
      * Crea un nuevo cambio.
@@ -97,7 +86,7 @@ public class CambioResource {
     @GET
     @Path("{cambiosId: \\d+}")
     public CambioDTO getCambio(@PathParam("objetivosId") Long objetivosId, @PathParam("requisitosId") Long requisitosId, @PathParam("cambiosId") Long cambiosId) {
-        LOGGER.log(Level.INFO, "AprobacionResource getAprobacion: input: {0}", cambiosId);
+        LOGGER.log(Level.INFO, "CambioResource getcambio: input: {0}", cambiosId);
         CambioEntity cambioEntity;
         if (requisitosId != null) {
             cambioEntity = cambioLogic.findCambioByIdRequisito(cambiosId, requisitosId);
@@ -111,7 +100,7 @@ public class CambioResource {
             }
         }
         CambioDTO cambioDTO = new CambioDTO(cambioEntity);
-        LOGGER.log(Level.INFO, "AprobacionResource getAprobacion: output: {0}", cambioDTO);
+        LOGGER.log(Level.INFO, "CambioResource getCambio: output: {0}", cambioDTO);
         return cambioDTO;
     }
 

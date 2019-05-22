@@ -71,6 +71,14 @@ public class AprobacionLogic {
         return aprobacionPersistence.create(aprobacion);
     }
 
+    /**
+     * Crea una aprobacion para un requisito
+     * @param objetivoId el padre del requisito
+     * @param requisitoId el requisito a buscar
+     * @param aprobacion la aprobacion a asociar
+     * @return AprobacionEntity creada
+     * @throws BusinessLogicException 
+     */
     public AprobacionEntity createAprobacionRequisito(Long objetivoId, Long requisitoId, AprobacionEntity aprobacion) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de creación de una aprobacion");
         if (!(aprobacion.getEstado().equals("APROBADO") || aprobacion.getEstado().equals("NO APROBADO") || aprobacion.getEstado().equals("EN REVISION"))) {
