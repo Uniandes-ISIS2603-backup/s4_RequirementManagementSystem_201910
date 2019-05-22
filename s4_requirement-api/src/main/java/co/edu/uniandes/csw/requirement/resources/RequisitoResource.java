@@ -203,5 +203,13 @@ public class RequisitoResource
     }
     
     
+    @Path("{requisitosId: \\d+}/aprobaciones")
+    public Class<AprobacionResource> getAprobacionesResource(@PathParam("objetivosId") Long objetivosId, @PathParam("requisitosId") Long requisitosId) {
+        if (reqLogic.getRequisito(objetivosId, requisitosId) == null) {
+            throw new WebApplicationException("El recurso /requisitos/" + requisitosId + " no existe.", 404);
+        }
+        return AprobacionResource.class;
+    }
+    
     
 }
