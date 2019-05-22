@@ -182,6 +182,14 @@ public class ObjetivoResource {
         }
         return RequisitoResource.class;
     }
+    
+    @Path("{objetivosId: \\d+}/cambios")
+    public Class<CambioResource> getCambiosResource(@PathParam("proyectosId") Long proyectosId, @PathParam("objetivosId") Long objetivosId) {
+        if (objetivoLogic.getObjetivo(proyectosId, objetivosId) == null) {
+            throw new WebApplicationException("El recurso /objetivos/" + objetivosId + " no existe.", 404);
+        }
+        return CambioResource.class;
+    }
 
     /**
      * Lista que devuelve una lista de objetos de tipo DTO de una lista de

@@ -29,9 +29,9 @@ public class RequisitoEntity extends BaseEntity implements Serializable {
 
     }
     
-    @PodamExclude
-    @OneToMany(mappedBy= "requisito", cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private List<AprobacionEntity> aprobaciones  = new ArrayList<AprobacionEntity>();
+//    @PodamExclude
+//    @OneToMany(mappedBy= "requisito", cascade = CascadeType.PERSIST, orphanRemoval = true)
+//    private List<AprobacionEntity> aprobaciones  = new ArrayList<AprobacionEntity>();
     
     @PodamExclude
     @OneToMany(mappedBy="requisito", cascade = CascadeType.PERSIST, orphanRemoval = true)
@@ -124,19 +124,19 @@ public class RequisitoEntity extends BaseEntity implements Serializable {
         this.estabilidad = estabilidad;
     }
 
-    /**
-     * @return the aprobaciones
-     */
-    public List<AprobacionEntity> getAprobaciones() {
-        return aprobaciones;
-    }
-
-    /**
-     * @param aprobaciones the aprobaciones to set
-     */
-    public void setAprobaciones(List<AprobacionEntity> aprobaciones) {
-        this.aprobaciones = aprobaciones;
-    }
+//    /**
+//     * @return the aprobaciones
+//     */
+//    public List<AprobacionEntity> getAprobaciones() {
+//        return aprobaciones;
+//    }
+//
+//    /**
+//     * @param aprobaciones the aprobaciones to set
+//     */
+//    public void setAprobaciones(List<AprobacionEntity> aprobaciones) {
+//        this.aprobaciones = aprobaciones;
+//    }
 
     /**
      * @return the cambios

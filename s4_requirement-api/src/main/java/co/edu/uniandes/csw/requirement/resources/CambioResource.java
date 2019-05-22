@@ -29,10 +29,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 
 /**
- * Ruta de los cambios
- */
-@Path("cambios")
-/**
  * Produce un json
  */
 @Produces("application/json")
@@ -40,10 +36,6 @@ import javax.ws.rs.WebApplicationException;
  * Consume un json
  */
 @Consumes("application/json")
-/**
- * EL request scoped.
- */
-@RequestScoped
 
 /**
  * Recurso de un cambio
@@ -99,7 +91,7 @@ public class CambioResource {
      */
     @GET
     @Path("{id: \\d+}")
-    public CambioDTO getCambioObj(@PathParam ("objetivosId") Long objetivosId, @PathParam("id") Long id) {
+    public CambioDTO getCambio(@PathParam ("objetivosId") Long objetivosId,@PathParam ("requisitosId") Long requisitosId, @PathParam("id") Long id) {
         LOGGER.log(Level.INFO, "CambioResource getCambio: input: {0}", objetivosId);
         CambioEntity entity = cambioLogic.findCambioByIdObjetivo(id, objetivosId);
         if (entity == null) {

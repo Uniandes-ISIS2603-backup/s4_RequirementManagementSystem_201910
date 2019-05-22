@@ -59,19 +59,19 @@ public class AprobacionEntity extends BaseEntity implements Serializable {
     @ManyToOne(cascade = CascadeType.PERSIST)
     private StakeHolderEntity stakeholder;
     
-    /**
-     * Relacion many to one con objetivos
-     */
-    @PodamExclude
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    private ObjetivoEntity objetivo;
-    
-    /**
-     * Relacion many to one con requisitos
-     */
-    @PodamExclude
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    private RequisitoEntity requisito;
+//    /**
+//     * Relacion many to one con objetivos
+//     */
+//    @PodamExclude
+//    @ManyToOne(cascade = CascadeType.PERSIST)
+//    private ObjetivoEntity objetivo;
+//    
+//    /**
+//     * Relacion many to one con requisitos
+//     */
+//    @PodamExclude
+//    @ManyToOne(cascade = CascadeType.PERSIST)
+//    private RequisitoEntity requisito;
     
      /**
      * Consrtructor vacío AprobaciónEntity
@@ -136,34 +136,7 @@ public class AprobacionEntity extends BaseEntity implements Serializable {
         this.setStakeholder(stakeholder);
     }
 
-    /**
-     * @return the objetivo
-     */
-    public ObjetivoEntity getObjetivo() {
-        return objetivo;
-    }
-
-    /**
-     * @param objetivo the objetivo to set
-     */
-    public void setObjetivo(ObjetivoEntity objetivo) {
-        this.objetivo = objetivo;
-    }
-
-    /**
-     * @return the requisito
-     */
-    public RequisitoEntity getRequisito() {
-        return requisito;
-    }
-
-    /**
-     * @param requisito the requisito to set
-     */
-    public void setRequisito(RequisitoEntity requisito) {
-        this.requisito = requisito;
-    }
-
+  
     /**
      * @return the autor
      */

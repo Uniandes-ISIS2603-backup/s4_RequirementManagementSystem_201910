@@ -26,10 +26,10 @@ public class ObjetivoEntity extends BaseEntity implements Serializable {
     @PodamExclude
     @OneToMany(mappedBy = "objetivo", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<CambioEntity> cambios = new ArrayList<CambioEntity>();
-
-    @PodamExclude
-    @OneToMany(mappedBy = "objetivo", cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private List<AprobacionEntity> aprobaciones = new ArrayList<AprobacionEntity>();
+//
+//    @PodamExclude
+//    @OneToMany(mappedBy = "objetivo", cascade = CascadeType.PERSIST, orphanRemoval = true)
+//    private List<AprobacionEntity> aprobaciones = new ArrayList<AprobacionEntity>();
 
     @PodamExclude
     @OneToMany(mappedBy = "objetivo", cascade = CascadeType.PERSIST, orphanRemoval = true)
@@ -173,21 +173,17 @@ public class ObjetivoEntity extends BaseEntity implements Serializable {
         this.cambios = cambios;
     }
 
-    /**
-     * @return the aprobaciones
-     */
-    public List<AprobacionEntity> getAprobaciones() {
-        return aprobaciones;
-    }
-
-    /**
-     * @param aprobaciones the aprobaciones to set
-     */
-    public void setAprobaciones(List<AprobacionEntity> aprobaciones) {
-        this.aprobaciones = aprobaciones;
-    }
-    
-    
-    
-
+//    /**
+//     * @return the aprobaciones
+//     */
+//    public List<AprobacionEntity> getAprobaciones() {
+//        return aprobaciones;
+//    }
+//
+//    /**
+//     * @param aprobaciones the aprobaciones to set
+//     */
+//    public void setAprobaciones(List<AprobacionEntity> aprobaciones) {
+//        this.aprobaciones = aprobaciones;
+//    }
 }

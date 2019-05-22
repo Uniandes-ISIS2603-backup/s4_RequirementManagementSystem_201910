@@ -140,15 +140,15 @@ public class RequisitoResource
         req.setAutor(current.getAutor());
         req.setCambios(current.getCambios());
         req.setFuentes(current.getFuentes());
-        if (req.getTipo() == "" || req.getTipo() == null)
+        if (req.getTipo().equals("") || req.getTipo() == null)
         {
             req.setTipo(current.getTipo());
         }
-        if (req.getComentarios() == "" || req.getComentarios() == null)
+        if (req.getComentarios().equals("") || req.getComentarios() == null)
         {
             req.setComentarios(current.getComentarios());
         }
-        if (req.getDescripcion() == "" || req.getDescripcion() == null)
+        if (req.getDescripcion().equals("") || req.getDescripcion() == null)
         {
             req.setDescripcion(current.getDescripcion());
         }
@@ -193,5 +193,15 @@ public class RequisitoResource
         }
         return CasoDeUsoResource.class;
     }
+    
+    @Path("{requisitosId: \\d+}/cambios")
+    public Class<CambioResource> getCambioResource(@PathParam("objetivosId") Long objetivosId, @PathParam("requisitosId") Long requisitosId) {
+        if (reqLogic.getRequisito(objetivosId, requisitosId) == null) {
+            throw new WebApplicationException("El recurso /requisitos/" + requisitosId + " no existe.", 404);
+        }
+        return CambioResource.class;
+    }
+    
+    
     
 }
