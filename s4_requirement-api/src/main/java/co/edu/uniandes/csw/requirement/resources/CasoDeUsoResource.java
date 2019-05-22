@@ -145,35 +145,35 @@ public class CasoDeUsoResource {
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
      * Error de lógica que se genera cuando no se encuentra el libro.
      */
-//    @Path("{id: \\d+}/condiciones")
-//    public Class<CondicionResource> getCondicionResource(@PathParam("id") Long id) {
-//        if (casoDeUsoLogic.getCasoDeUso(id) == null) {
-//            throw new WebApplicationException("El recurso /casos/" + id + " no existe.", 404);
-//        }
-//        return CondicionResource.class;
-//    }
-//
-//    /**
-//     * Conexión con el servicio de objetivos para un proyecto.
-//     * {@link CaminoResource}
-//     *
-//     * Este método conecta la ruta de /casos con las rutas de /camino que
-//     * dependen del caso de uso, es una redirección al servicio que maneja el
-//     * segmento de la URL que se encarga de los objetivos.
-//     *
-//     * @param id El ID del proyecto con respecto al cual se accede al servicio.
-//     * @return El servicio de autores para ese libro en paricular.\
-//     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
-//     * Error de lógica que se genera cuando no se encuentra el libro.
-//     */
-//    @Path("{id: \\d+}/camino")
-//    public Class<CaminoResource> getCaminoResource(@PathParam("id") Long id) {
-//        if (casoDeUsoLogic.getCasoDeUso(id) == null) {
-//            throw new WebApplicationException("El recurso /casos/" + id + " no existe.", 404);
-//        }
-//        return CaminoResource.class;
-//    }
-//
+    @Path("{casosDeUsoId: \\d+}/condiciones")
+    public Class<CondicionResource> getCondicionResource(@PathParam("requisitosId") Long requisitosId,@PathParam("casosDeUsoId") Long casosDeUsoId ) {
+        if (casoDeUsoLogic.getCasoDeUso(requisitosId, casosDeUsoId) == null) {
+            throw new WebApplicationException("El recurso /casosDeUso/" + casosDeUsoId + " no existe.", 404);
+        }
+        return CondicionResource.class;
+    }
+
+    /**
+     * Conexión con el servicio de objetivos para un proyecto.
+     * {@link CaminoResource}
+     *
+     * Este método conecta la ruta de /casos con las rutas de /camino que
+     * dependen del caso de uso, es una redirección al servicio que maneja el
+     * segmento de la URL que se encarga de los objetivos.
+     *
+     * @param id El ID del proyecto con respecto al cual se accede al servicio.
+     * @return El servicio de autores para ese libro en paricular.\
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error de lógica que se genera cuando no se encuentra el libro.
+     */
+    @Path("{casosDeUsoId: \\d+}/caminos")
+    public Class<CaminoResource> getCaminoResource(@PathParam("requisitosId") Long requisitosId,@PathParam("casosDeUsoId") Long casosDeUsoId) {
+        if (casoDeUsoLogic.getCasoDeUso(requisitosId, casosDeUsoId)== null) {
+            throw new WebApplicationException("El recurso /casosDeUso/" + casosDeUsoId + " no existe.", 404);
+        }
+        return CaminoResource.class;
+    }
+
     private List<CasoDeUsoDetailDTO> listEntity2DTO(List<CasoDeUsoEntity> entityList) {
         List<CasoDeUsoDetailDTO> list = new ArrayList<>();
         for (CasoDeUsoEntity entity : entityList) {

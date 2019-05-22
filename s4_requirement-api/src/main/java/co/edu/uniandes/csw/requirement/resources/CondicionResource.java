@@ -59,7 +59,7 @@ public class CondicionResource {
     {
         LOGGER.log(Level.INFO, "CondicionResource createCondicion: input: {0}", condicion);
         CondicionDTO c = new CondicionDTO(condicionLogic.createCondicion(requisitosId, casosDeUsoId, condicion.toEntity()));
-        LOGGER.log(Level.INFO, "CondicionResource createCondicion: output: {0}", nuevacondicionDTO);
+        LOGGER.log(Level.INFO, "CondicionResource createCondicion: output: {0}", c);
         return c;
     }
     

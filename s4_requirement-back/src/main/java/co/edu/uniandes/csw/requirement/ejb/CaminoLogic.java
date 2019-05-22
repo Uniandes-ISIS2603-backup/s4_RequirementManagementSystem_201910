@@ -34,6 +34,7 @@ public class CaminoLogic {
     private CasoDeUsoPersistence casopersistence;
 
     public CaminoEntity createCamino(Long requisitoId, Long casoDeUsoId, CaminoEntity caminoEntity) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "Inicia proceso de creación del objetivo");
         if (caminopersistence.find(casoDeUsoId, caminoEntity.getId()) != null) {
             throw new BusinessLogicException("Ya existe un Camino con el id \"" + caminoEntity.getId() + "\"");
         }

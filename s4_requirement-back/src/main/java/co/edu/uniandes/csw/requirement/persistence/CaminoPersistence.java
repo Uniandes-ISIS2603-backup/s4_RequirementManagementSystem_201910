@@ -29,7 +29,7 @@ public class CaminoPersistence {
     
     
     public CaminoEntity find(Long casoDeUsoId,Long caminoId){
-        TypedQuery<CaminoEntity> q = em.createQuery("select p from CaminoEntity p where (p.casos.id = :casoDeUsoId) and (p.id = :caminoId)", CaminoEntity.class);
+        TypedQuery<CaminoEntity> q = em.createQuery("select p from CaminoEntity p where (p.caso.id = :casoDeUsoId) and (p.id = :caminoId)", CaminoEntity.class);
         q.setParameter("casoDeUsoId", casoDeUsoId);
         q.setParameter("caminoId", caminoId);
         List<CaminoEntity> results = q.getResultList();

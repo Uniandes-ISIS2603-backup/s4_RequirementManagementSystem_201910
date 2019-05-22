@@ -164,39 +164,6 @@ public class RequisitoResource
         RequisitoDetailDTO detailDTO = new RequisitoDetailDTO(reqLogic.updateRequisito(proyectosId, objetivosId, requisitosId, req.toEntity()));
         LOGGER.log(Level.INFO, "RequisitoResource updateRequisito: output: {0}", detailDTO);
         return detailDTO;
-        
-        /*
-        ObjetivoEntity oe = objetivoLogic.getObjetivo(proyectosId, objetivosId);
-        if (oe == null) {
-            throw new WebApplicationException("El recurso proyectos/" + proyectosId + "/objetivos/" + objetivosId + " no existe.", 404);
-        }
-        System.out.println("llamo bien al objetivo");
-        ObjetivoDetailDTO current = new ObjetivoDetailDTO(oe);
-        objetivo.setRequisitos(current.getRequisitos());
-        
-        if (objetivo.getComentarios() == null || objetivo.getComentarios() == "")
-        {
-            objetivo.setComentarios(current.getComentarios());
-        }
-        if (objetivo.getImportancia() == null)
-        {
-            objetivo.setImportancia(current.getImportancia());
-        }
-        if (objetivo.getDescripcion() == null || objetivo.getDescripcion() == "")
-        {
-            objetivo.setDescripcion(current.getDescripcion());
-        }
-        if (objetivo.getEstabilidad() == null)
-        {
-            objetivo.setEstabilidad(current.getEstabilidad());
-        }
-        
-        System.out.println("hago cambios al objetivo");
-        
-        ObjetivoDetailDTO detailDTO = new ObjetivoDetailDTO(objetivoLogic.updateObjetivo(proyectosId, objetivo.toEntity()));
-        LOGGER.log(Level.INFO, "ObjetivoResource updateObjetivo: output: {0}", detailDTO);
-        return detailDTO;
-        */
     }
     
     /**

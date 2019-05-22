@@ -42,7 +42,7 @@ public class CondicionPersistence {
      * @return devuelve la condicion encontrada.
      */
     public CondicionEntity find(Long casoDeUsoId, Long condicionId) {
-        TypedQuery<CondicionEntity> q = em.createQuery("select p from CondicionEntity p where (p.casos.id = :casoDeUsoId) and (p.id = :condicionId)", CondicionEntity.class);
+        TypedQuery<CondicionEntity> q = em.createQuery("select p from CondicionEntity p where (p.caso.id = :casoDeUsoId) and (p.id = :condicionId)", CondicionEntity.class);
         q.setParameter("casoDeUsoId", casoDeUsoId);
         q.setParameter("condicionId", condicionId);
         List<CondicionEntity> results = q.getResultList();
