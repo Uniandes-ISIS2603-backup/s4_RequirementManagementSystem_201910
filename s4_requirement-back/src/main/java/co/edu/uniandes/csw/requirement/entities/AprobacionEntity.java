@@ -39,19 +39,19 @@ public class AprobacionEntity extends BaseEntity implements Serializable {
     @ManyToOne(cascade = CascadeType.PERSIST)
     private StakeHolderEntity stakeholder;
     
-//    /**
-//     * Relacion many to one con objetivos
-//     */
-//    @PodamExclude
-//    @ManyToOne(cascade = CascadeType.PERSIST)
-//    private ObjetivoEntity objetivo;
-//    
-//    /**
-//     * Relacion many to one con requisitos
-//     */
-//    @PodamExclude
-//    @ManyToOne(cascade = CascadeType.PERSIST)
-//    private RequisitoEntity requisito;
+    /**
+     * Relacion many to one con objetivos
+     */
+    @PodamExclude
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    private ObjetivoEntity objetivo;
+    
+    /**
+     * Relacion many to one con requisitos
+     */
+    @PodamExclude
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    private RequisitoEntity requisito;
     
      /**
      * Consrtructor vacío AprobaciónEntity

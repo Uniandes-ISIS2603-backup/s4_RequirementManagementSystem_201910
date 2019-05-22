@@ -20,10 +20,10 @@ public class StakeHolderEntity extends BaseEntity implements Serializable {
     private String nombre;
 
    
-//Relacion cambios
-    // @PodamExclude
-    // @OneToMany(mappedBy = "stakeholder", cascade = CascadeType.PERSIST, orphanRemoval = true)
-    // private List<CambioEntity> cambios = new ArrayList<>();
+
+     @PodamExclude
+     @OneToMany(mappedBy = "stakeholder", cascade = CascadeType.PERSIST, orphanRemoval = true)
+     private List<CambioEntity> cambios = new ArrayList<>();
 
 //Relacion aprobaciones
     @PodamExclude
@@ -75,7 +75,7 @@ public class StakeHolderEntity extends BaseEntity implements Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-<<<<<<< HEAD
+
     
     public List<CambioEntity> getCambios() {
         return cambios;
@@ -84,7 +84,7 @@ public class StakeHolderEntity extends BaseEntity implements Serializable {
     public void setCambios(List<CambioEntity> cambios) {
         this.cambios = cambios;
     }
-=======
+
 
 //    public List<CambioEntity> getCambios() {
 //        return cambios;
@@ -93,7 +93,6 @@ public class StakeHolderEntity extends BaseEntity implements Serializable {
 //    public void setCambios(List<CambioEntity> cambios) {
 //        this.cambios = cambios;
 //    }
->>>>>>> 83952040bef1c1cce1a13f4fabe87418f7429d44
 //
 //    public List<AprobacionEntity> getAprobaciones() {
 //        return aprobaciones;

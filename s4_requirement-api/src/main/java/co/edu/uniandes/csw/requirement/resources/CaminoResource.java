@@ -29,10 +29,8 @@ import javax.ws.rs.WebApplicationException;
  *
  * @author Sofia Alvarez
  */
-@Path("camino")
 @Produces("application/json")
 @Consumes("application/json")
-@RequestScoped
 public class CaminoResource {
 
     @Inject

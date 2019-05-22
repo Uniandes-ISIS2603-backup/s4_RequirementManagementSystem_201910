@@ -70,7 +70,9 @@ public class RequisitoLogic {
             x.setObjetivo(obj);
         }
         else
+        {
             throw new BusinessLogicException("El objetivo con id =" + objetivosId + " no existe para el proyecto con id = " + proyectosId);
+        }
         LOGGER.log(Level.INFO, "Termina proceso de creación del requisito");
         x = reqPersistence.create(x);
         return x;

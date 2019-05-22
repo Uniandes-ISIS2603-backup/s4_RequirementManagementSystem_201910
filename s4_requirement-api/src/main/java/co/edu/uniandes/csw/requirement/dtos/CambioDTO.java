@@ -99,7 +99,7 @@ public class CambioDTO implements Serializable {
         {
             entity.setObjetivo(this.getObjetivo().toEntity());
         }
-        else
+        if (this.getRequisito() != null)
         {
             entity.setRequisito(this.getRequisito().toEntity());
         }

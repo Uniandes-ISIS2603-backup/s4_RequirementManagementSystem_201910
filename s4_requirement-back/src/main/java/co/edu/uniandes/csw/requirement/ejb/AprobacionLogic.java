@@ -96,7 +96,7 @@ public class AprobacionLogic {
     public List<AprobacionEntity> getAprobacionesRequisito(Long objetivoId, Long requisitoId) {
         LOGGER.log(Level.INFO, "Inicia proceso de consultar todos las aprobaciones");
         RequisitoEntity obj = requisitoPersistence.find(objetivoId, requisitoId);
-        LOGGER.log(Level.INFO, "Termina proceso de consultar todos las caminos");
+        LOGGER.log(Level.INFO, "Termina proceso de consultar todos las aprobaciones");
         return obj.getAprobaciones();
     }
 

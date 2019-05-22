@@ -51,7 +51,7 @@ public class CambioPersistence {
     }
     
     public CambioEntity findWithRequisito(Long requisitoId, Long cambioId) {
-        TypedQuery<CambioEntity> q = em.createQuery("select p from CambioEntity p where (p.requisito.id = :requisito) and (p.id = :cambioId)", CambioEntity.class);
+        TypedQuery<CambioEntity> q = em.createQuery("select p from CambioEntity p where (p.requisito.id = :requisitoId) and (p.id = :cambioId)", CambioEntity.class);
         q.setParameter("requisitoId", requisitoId);
         q.setParameter("cambioId", cambioId);
         List<CambioEntity> results = q.getResultList();

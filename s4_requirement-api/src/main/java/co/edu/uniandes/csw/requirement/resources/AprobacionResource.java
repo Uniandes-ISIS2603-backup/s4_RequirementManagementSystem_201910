@@ -62,14 +62,14 @@ public class AprobacionResource {
      */
     @POST
     public AprobacionDTO createAprobacion(@PathParam("proyectosId") Long proyectosId, @PathParam("objetivosId") Long objetivosId, @PathParam("requisitosId") Long requisitosId, AprobacionDTO aprobacion) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "AprobacionResource createRequisito: input: {0}", aprobacion);
+        LOGGER.log(Level.INFO, "AprobacionResource createAprobacion: input: {0}", aprobacion);
         AprobacionDTO reqDTO;
         if (requisitosId == null) {
             reqDTO = new AprobacionDTO(aprobacionLogic.createAprobacionObjetivo(proyectosId, objetivosId, aprobacion.toEntity()));
         } else {
             reqDTO = new AprobacionDTO(aprobacionLogic.createAprobacionRequisito(objetivosId, requisitosId, aprobacion.toEntity()));
         }
-        LOGGER.log(Level.INFO, "AprobacionResource createRequisito: output: {0}", reqDTO);
+        LOGGER.log(Level.INFO, "AprobacionResource createAprobacion: output: {0}", reqDTO);
         return reqDTO;
     }
 

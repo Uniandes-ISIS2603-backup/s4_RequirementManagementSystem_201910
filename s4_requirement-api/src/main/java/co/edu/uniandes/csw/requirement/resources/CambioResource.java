@@ -75,68 +75,64 @@ public class CambioResource {
      * @throws BusinessLogicException si no se cumplen las reglas de negocio
      */
     @POST
-    public CambioDTO createCambio(CambioDTO cambio) throws BusinessLogicException {
+    public CambioDTO createCambio(@PathParam("proyectosId") Long proyectosId, @PathParam("objetivosId") Long objetivosId, @PathParam("requisitosId") Long requisitosId, CambioDTO cambio) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "CambioResource createCambio: input: {0}", cambio);
-        CambioDTO cambioDTO = new CambioDTO(cambioLogic.createCambio(cambio.toEntity()));
+        CambioDTO cambioDTO;
+        if (requisitosId == null) {
+            cambioDTO = new CambioDTO(cambioLogic.createCambioObjetivo(proyectosId, objetivosId, cambio.toEntity()));
+        } else {
+            cambioDTO = new CambioDTO(cambioLogic.createCambioRequisito(objetivosId, requisitosId, cambio.toEntity()));
+        }
+
         LOGGER.log(Level.INFO, "CambioResource createCambio: output: {0}", cambioDTO);
         return cambioDTO;
     }
 
-
     /**
-     * Retorna un cambio con un id especifico
+     * Consigue un cambio dado un id
      *
-     * @param id del cambio a buscar
-     * @return el cambio buscado
+     * @param id el id de cambio a obtener
+     * @return el cambio que se quiere.
      */
     @GET
-    @Path("{id: \\d+}")
-    public CambioDTO getCambio(@PathParam ("objetivosId") Long objetivosId,@PathParam ("requisitosId") Long requisitosId, @PathParam("id") Long id) {
-        LOGGER.log(Level.INFO, "CambioResource getCambio: input: {0}", objetivosId);
-        CambioEntity entity = cambioLogic.findCambioByIdObjetivo(id, objetivosId);
-        if (entity == null) {
-            throw new WebApplicationException("El recurso objetivos/" + objetivosId + "cambios/" + id + " no existe.", 404);
+    @Path("{cambiosId: \\d+}")
+    public CambioDTO getCambio(@PathParam("objetivosId") Long objetivosId, @PathParam("requisitosId") Long requisitosId, @PathParam("cambiosId") Long cambiosId) {
+        LOGGER.log(Level.INFO, "AprobacionResource getAprobacion: input: {0}", cambiosId);
+        CambioEntity cambioEntity;
+        if (requisitosId != null) {
+            cambioEntity = cambioLogic.findCambioByIdRequisito(cambiosId, requisitosId);
+            if (cambioEntity == null) {
+                throw new WebApplicationException("El recurso /requisitos/" + requisitosId + "/cambios/" + cambiosId + " no existe.", 404);
+            }
+        } else {
+            cambioEntity = cambioLogic.findCambioByIdObjetivo(cambiosId, objetivosId);
+            if (cambioEntity == null) {
+                throw new WebApplicationException("El recurso /objetivos/" + objetivosId + "/cambios/" + cambiosId + " no existe.", 404);
+            }
         }
-        return new CambioDTO(entity);
+        CambioDTO cambioDTO = new CambioDTO(cambioEntity);
+        LOGGER.log(Level.INFO, "AprobacionResource getAprobacion: output: {0}", cambioDTO);
+        return cambioDTO;
     }
-    
+
     @GET
-    @Path("{id: \\d+}")
-    public CambioDTO getCambioReq(@PathParam ("requisitosId") Long requisitosId, @PathParam("id") Long id) {
-        LOGGER.log(Level.INFO, "CambioResource getCambio: input: {0}", requisitosId);
-        CambioEntity entity = cambioLogic.findCambioByIdRequisito(id, requisitosId);
-        if (entity == null) {
-            throw new WebApplicationException("El recurso requisito/" + requisitosId + "cambios/" + id + " no existe.", 404);
+    public List<CambioDTO> getCambios(@PathParam("proyectosId") Long proyectosId, @PathParam("objetivosId") Long objetivosId, @PathParam("requisitosId") Long requisitosId) {
+        LOGGER.info("CambioResource getCambios: input: void");
+        List<CambioDTO> listaCambios;
+        if (requisitosId != null) {
+            listaCambios = listEntity2DetailDTO(cambioLogic.getCambiosOfReq(objetivosId, requisitosId));
+        } else {
+            listaCambios = listEntity2DetailDTO(cambioLogic.getCambiosOfObj(proyectosId, objetivosId));
         }
-        CambioDTO cDTO = new CambioDTO(entity);
-        LOGGER.log(Level.INFO, "CambioResource getCambio: output: {0}", cDTO);
-        
-        return cDTO;
-    }
-    
-    @GET
-    public List<CambioDTO> getCambiosOfObj(@PathParam ("proyectosId") Long proyectosId, @PathParam ("objetivosId") Long objetivosId)
-    {
-        LOGGER.info("RequisitoResource getRequisitos: input: void");
-        List<CambioDTO> listaReqs = listEntity2DetailDTO(cambioLogic.getCambiosOfObj(proyectosId, objetivosId));
-        LOGGER.log(Level.INFO, "RequisitoResource getRequisitos: output: {0}", listaReqs);
-        return listaReqs;
-    }
-    
-    @GET
-    public List<CambioDTO> getCambiosOfReq(@PathParam ("objetivosId") Long objetivosId, @PathParam ("requisitosId") Long requisitosId)
-    {
-        LOGGER.info("RequisitoResource getRequisitos: input: void");
-        List<CambioDTO> listaReqs = listEntity2DetailDTO(cambioLogic.getCambiosOfReq(objetivosId, requisitosId));
-        LOGGER.log(Level.INFO, "RequisitoResource getRequisitos: output: {0}", listaReqs);
-        return listaReqs;
+        LOGGER.log(Level.INFO, "CambioResource getCambios: output: {0}", listaCambios);
+        return listaCambios;
     }
 
     /**
      * Borra el cambio con el id asociado recibido en la URL.
      *
-     * @param requisitosId Identificador del requisito que se desea borrar. Este debe ser
-     * una cadena de dígitos.
+     * @param requisitosId Identificador del requisito que se desea borrar. Este
+     * debe ser una cadena de dígitos.
      * @throws co.edu.uniandes.csw.requirement.exceptions.BusinessLogicException
      * cuando el requisito tiene autores asociados.
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
@@ -144,43 +140,29 @@ public class CambioResource {
      */
     @DELETE
     @Path("{cambiosId: \\d+}")
-    public void deleteCambioOfReq(@PathParam("objetivosId") Long objetivosId,  @PathParam("requisitosId") Long requisitosId, @PathParam("cambiosId") Long cambiosId) throws BusinessLogicException
-    {
+    public void deleteCambio(@PathParam("objetivosId") Long objetivosId, @PathParam("requisitosId") Long requisitosId, @PathParam("cambiosId") Long cambiosId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "CambioResource deleteCambio: input: {0}", cambiosId);
-        CambioEntity entity = cambioLogic.findCambioByIdRequisito(cambiosId, requisitosId);
-        if (entity == null) {
-            throw new WebApplicationException("El recurso /requisitos/" + requisitosId + "/cambios/" + cambiosId + " no existe.", 404);
+        CambioEntity entity;
+        if (requisitosId != null) {
+            entity = cambioLogic.findCambioByIdRequisito(cambiosId, requisitosId);
+            if (entity == null) {
+                throw new WebApplicationException("El recurso /requisitos/" + requisitosId + "/cambios/" + cambiosId + " no existe.", 404);
+            }
+            cambioLogic.deleteCambioRequisito(requisitosId, cambiosId);
+        } else {
+            entity = cambioLogic.findCambioByIdObjetivo(cambiosId, objetivosId);
+            if (entity == null) {
+                throw new WebApplicationException("El recurso /objetivos/" + objetivosId + "/cambios/" + cambiosId + " no existe.", 404);
+            }
+            cambioLogic.deleteCambioObjetivo(objetivosId, cambiosId);
         }
-        cambioLogic.deleteCambio(cambiosId);
-        LOGGER.info("CambioResource deleteCambio: output: void");
-    }
-    
-    /**
-     * Borra el cambio con el id asociado recibido en la URL.
-     *
-     * @param requisitosId Identificador del requisito que se desea borrar. Este debe ser
-     * una cadena de dígitos.
-     * @throws co.edu.uniandes.csw.requirement.exceptions.BusinessLogicException
-     * cuando el requisito tiene autores asociados.
-     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
-     * Error de lógica que se genera cuando no se encuentra el requisito.
-     */
-    @DELETE
-    @Path("{cambiosId: \\d+}")
-    public void deleteCambioOfObj(@PathParam("objetivosId") Long objetivosId, @PathParam("cambiosId") Long cambiosId) throws BusinessLogicException
-    {
-        LOGGER.log(Level.INFO, "CambioResource deleteCambio: input: {0}", cambiosId);
-        CambioEntity entity = cambioLogic.findCambioByIdObjetivo(cambiosId, objetivosId);
-        if (entity == null) {
-            throw new WebApplicationException("El recurso /objetivos/" + objetivosId + "/cambios/" + cambiosId + " no existe.", 404);
-        }
-        cambioLogic.deleteCambio(cambiosId);
+
         LOGGER.info("CambioResource deleteCambio: output: void");
     }
 
     /**
-     * Actualiza el requisito con el id recibido en la URL con la información que se
-     * recibe en el cuerpo de la petición.
+     * Actualiza el requisito con el id recibido en la URL con la información
+     * que se recibe en el cuerpo de la petición.
      *
      * @param id Identificador del requisito que se desea actualizar. Este debe
      * ser una cadena de dígitos.
@@ -194,47 +176,60 @@ public class CambioResource {
      */
     @PUT
     @Path("{cambiosId: \\d+}")
-    public CambioDTO putCambio(@PathParam ("objetivosId") Long objetivosId, @PathParam("cambiosId") Long cambiosId,  CambioDTO dto) throws BusinessLogicException
-    {
-        LOGGER.log(Level.INFO, "RequisitoResource updateRequisito: input: objetivo: {0},  requisitoId: {1} , requisito: {2}", new Object[]{objetivosId, dto});
-        CambioEntity entity = cambioLogic.findCambioByIdObjetivo(cambiosId, objetivosId);
-        
-        
-        if (entity == null) {
-            throw new WebApplicationException("El recurso /objetivos/" + objetivosId + "/cambios/" + cambiosId + " no existe.", 404);
-        }
-        dto.setId(cambiosId);
-        CambioDTO current = new CambioDTO(entity);
-        if (dto.getDescripcion() == null || dto.getDescripcion().equals(""))
+    public CambioDTO putCambio(@PathParam("proyectosId") Long proyectosId, @PathParam("objetivosId") Long objetivosId, @PathParam("cambiosId") Long cambiosId, CambioDTO dto, @PathParam("requisitosId") Long requisitosId ) throws BusinessLogicException {
+        boolean objetivo = false;
+        CambioEntity entity;
+        if (requisitosId == null)
         {
-            dto.setDescripcion(current.getDescripcion());
-        }
-        if (current.getObjetivo() != null)
-        {
-            dto.setObjetivo(current.getObjetivo());
+            objetivo = true;
+            entity = cambioLogic.findCambioByIdObjetivo(cambiosId, objetivosId);
         }
         else
         {
+            entity = cambioLogic.findCambioByIdRequisito(cambiosId, requisitosId);
+        }
+
+        if (entity == null) {
+            if (objetivo)
+            {
+                throw new WebApplicationException("El recurso /objetivos/" + objetivosId + "/cambios/" + cambiosId + " no existe.", 404);
+            }
+            else
+            {
+                throw new WebApplicationException("El recurso /requisitos/" + requisitosId + "/cambios/" + cambiosId + " no existe.", 404);
+            }   
+        }
+        
+        dto.setId(cambiosId);
+        CambioDTO current = new CambioDTO(entity);
+        if (dto.getDescripcion() == null || dto.getDescripcion().equals("")) {
+            dto.setDescripcion(current.getDescripcion());
+        }
+        if (current.getObjetivo() != null) {
+            dto.setObjetivo(current.getObjetivo());
+        } else {
             dto.setRequisito(current.getRequisito());
         }
-        if (dto.getTipo() == null || dto.getTipo().equals(""))
-        {
+        if (dto.getTipo() == null || dto.getTipo().equals("")) {
             dto.setTipo(current.getTipo());
         }
-        if (dto.getStakeholder() == null)
-        {
+        if (dto.getStakeholder() == null) {
             dto.setStakeholder(current.getStakeholder());
         }
-        
-        
-        
-            
-        
-        CambioDTO detailDTO = new CambioDTO(cambioLogic.updateCambio(cambiosId, objetivosId, dto.toEntity()));
-        LOGGER.log(Level.INFO, "CambioResource updateCambio: output: {0}", detailDTO);
-        return detailDTO;
+        CambioDTO cambioDTO;
+        if (objetivo)
+        {
+            cambioDTO = new CambioDTO(cambioLogic.updateCambioObjetivo(proyectosId, objetivosId, dto.toEntity()));
+        }
+        else
+        {
+             cambioDTO = new CambioDTO(cambioLogic.updateCambioRequisito(objetivosId, requisitosId, dto.toEntity()));
+        }
+        LOGGER.log(Level.INFO, "CambioResource updateCambio: output: {0}", cambioDTO);
+        return cambioDTO;
     }
-     /**
+
+    /**
      * Convierte una lista de entidades a DTO.
      *
      * Este método convierte una lista de objetos RequisitoEntity a una lista de
@@ -244,11 +239,9 @@ public class CambioResource {
      * vamos a convertir a DTO.
      * @return la lista de requisitos en forma DTO (json)
      */
-    private List<CambioDTO> listEntity2DetailDTO(List<CambioEntity> entityList)
-    {
+    private List<CambioDTO> listEntity2DetailDTO(List<CambioEntity> entityList) {
         List<CambioDTO> list = new ArrayList<>();
-        for (CambioEntity entity : entityList)
-        {
+        for (CambioEntity entity : entityList) {
             list.add(new CambioDTO(entity));
         }
         return list;

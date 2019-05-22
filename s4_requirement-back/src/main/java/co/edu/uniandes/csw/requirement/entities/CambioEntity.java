@@ -40,7 +40,7 @@ public class CambioEntity extends BaseEntity implements Serializable {
      * Relación many to one con stakeholder.
      */
     @PodamExclude
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne()
     private StakeHolderEntity stakeholder;
     
     /**
