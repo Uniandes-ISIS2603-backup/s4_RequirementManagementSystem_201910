@@ -61,11 +61,7 @@ public class CasoDeUsoPersistence {
      * Método que encuentra todos los casos de uso.
      * @return lista con todos los casos de uso.
      */
-//    public List<CasoDeUsoEntity> findAll() {
-//
-//        TypedQuery<CasoDeUsoEntity> query = em.createQuery("select u from CasoDeUsoEntity u", CasoDeUsoEntity.class);
-//        return query.getResultList();
-//    }
+
     
     public CasoDeUsoEntity findByName(String name){
         TypedQuery<CasoDeUsoEntity> query = em.createQuery("select u from CasoDeUsoEntity u where u.nombre = :nombre", CasoDeUsoEntity.class);

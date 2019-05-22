@@ -102,9 +102,8 @@ public class CasoDeUsoResource {
      */
     @DELETE
     @Path("{casosDeUsoId: \\d+}")
-    public void deleteCasoDeUso(@PathParam("objetivosId") Long objetivosId, @PathParam("requisitosId") Long requisitosId, @PathParam("casosDeUsoId") Long casosDeUsoId) throws BusinessLogicException {
+    public void deleteCasoDeUso(@PathParam("requisitosId") Long requisitosId, @PathParam("casosDeUsoId") Long casosDeUsoId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "CasoDeUsoResource deleteCasoDeUso: input: {0}", casosDeUsoId);
-        CasoDeUsoEntity entity = casoDeUsoLogic.getCasoDeUso(requisitosId, casosDeUsoId);
         casoDeUsoLogic.deleteCasoDeUso(requisitosId, casosDeUsoId);
         LOGGER.info("CasoDeUsoResource deleteCasoDeUso: output: void");
     }

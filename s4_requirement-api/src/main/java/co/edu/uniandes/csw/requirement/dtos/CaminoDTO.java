@@ -12,41 +12,40 @@ import java.io.Serializable;
  *
  * @author Sofia Alvarez
  */
-public class CaminoDTO implements Serializable
-{
-   /**
-    * Id del paso
-    */
- private Long idPaso;
- /**
-  * El tipo del paso. Puede ser básico, alternativo o de excepción.
-  */
- private String tipoPaso;
- /**
-  * Lista de pasos a seguir en un camino.
-  */
- private String pasos;
- 
- private CasoDeUsoDTO casoDeUso;
- 
- /**
-  * Constructor por defecto.
-  */
- public CaminoDTO(){
- }
- 
- /**
-  * Constructor a partir de la entidad
-  * @param ce la entidad del libro
-  */
- public CaminoDTO(CaminoEntity ce)
-    {
-        if(ce != null)
-        {
+public class CaminoDTO implements Serializable {
+
+    /**
+     * Id del paso
+     */
+    private Long idPaso;
+    /**
+     * El tipo del paso. Puede ser básico, alternativo o de excepción.
+     */
+    private String tipoPaso;
+    /**
+     * Lista de pasos a seguir en un camino.
+     */
+    private String pasos;
+
+    private CasoDeUsoDTO casoDeUso;
+
+    /**
+     * Constructor por defecto.
+     */
+    public CaminoDTO() {
+    }
+
+    /**
+     * Constructor a partir de la entidad
+     *
+     * @param ce la entidad del libro
+     */
+    public CaminoDTO(CaminoEntity ce) {
+        if (ce != null) {
             this.idPaso = ce.getId();
             this.pasos = ce.getPasos();
             this.tipoPaso = ce.getTipoPaso();
-            
+
             if (ce.getCaso() != null) {
                 this.casoDeUso = new CasoDeUsoDTO(ce.getCaso());
             } else {
@@ -65,7 +64,9 @@ public class CaminoDTO implements Serializable
         caminoEntity.setId(this.getIdPaso());
         caminoEntity.setPasos(this.pasos);
         caminoEntity.setTipoPaso(this.tipoPaso);
-        caminoEntity.setCaso(casoDeUso.toEntity());
+        if (this.casoDeUso != null) {
+            caminoEntity.setCaso(getCasoDeUso().toEntity());
+        }
         return caminoEntity;
     }
 
@@ -122,5 +123,19 @@ public class CaminoDTO implements Serializable
     public void setPasos(String pasitos) {
         pasos = pasitos;
     }
-    
+
+    /**
+     * @return the casoDeUso
+     */
+    public CasoDeUsoDTO getCasoDeUso() {
+        return casoDeUso;
+    }
+
+    /**
+     * @param casoDeUso the casoDeUso to set
+     */
+    public void setCasoDeUso(CasoDeUsoDTO casoDeUso) {
+        this.casoDeUso = casoDeUso;
+    }
+
 }

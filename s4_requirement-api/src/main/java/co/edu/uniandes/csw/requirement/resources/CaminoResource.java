@@ -33,107 +33,121 @@ import javax.ws.rs.WebApplicationException;
 @Produces("application/json")
 @Consumes("application/json")
 @RequestScoped
-public class CaminoResource 
-{
-//    @Inject
-//    private CaminoLogic caminoLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
-//     private static final Logger LOGGER = Logger.getLogger(CaminoResource.class.getName());
-//
-//     /**
-//      * Crea un nuevo camino con la informacion que se recibe en el cuerpo de
-//     * la petición y se regresa un objeto identico con un id auto-generado por
-//     * la base de datos.
-//      * @param camino {@link CaminoDTO} - El camino que se desea
-//     * guardar.
-//      * @return JSON {@link CaminoDTO} - El camino guardado con el atributo
-//     * id autogenerado.
-//      */
-//     @POST
-//    public CaminoDTO createCamino(CaminoDTO camino) throws BusinessLogicException{
-//
-//         CaminoEntity caminoEntity = camino.toEntity();
-//        // dfd;
-//        // Invoca la lógica para crear un camino nuevo
-//        CaminoEntity nuevoCaminoEntity = caminoLogic.createCamino(caminoEntity);
-//        // Como debe retornar un DTO (json) se invoca el constructor del DTO con argumento el entity nuevo
-//        CaminoDTO nuevoCaminoDTO = new CaminoDTO(nuevoCaminoEntity);
-//        return nuevoCaminoDTO;
-//        //return camino;
-//    }
-//   
-//      /**
-//     * Busca el camino con el id asociado recibido en la URL y la devuelve.
-//     *
-//     * @param id Identificador del camino que se esta buscando.
-//     * Este debe ser una cadena de dígitos.
-//     * @return JSON {@link CaminoDTO} - El camino buscado
-//     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
-//     * Error de lógica que se genera cuando no se encuentra la editorial.
-//     */
-//    @GET
-//    @Path("{id: \\d+}")
-//    public CaminoDTO getCamino (@PathParam("id") Long id) throws WebApplicationException {
-//        CaminoEntity caminoEntity = caminoLogic.getCamino(id);
-//        if (caminoEntity == null) {
-//            throw new WebApplicationException("El recurso /camino/" + id + " no existe.", 404);
-//        }
-//        CaminoDTO caminoDTO = new CaminoDTO(caminoEntity);
-//        return caminoDTO;
-//    }
-//    
-//    @GET
-//    public List<CaminoDTO> getCaminos() {
-//        LOGGER.info("CaminoResource getCaminos: input: void");
-//        List<CaminoDTO> listaCaminos = listEntity2DTO(caminoLogic.getCaminos());
-//        LOGGER.log(Level.INFO, "CaminoResource getCaminos: output: {0}", listaCaminos);
-//        return listaCaminos;
-//    }
-//    /**
-//     * Borra el camino con el id asociado recibido en la URL
-//     * @param id Identificador del camino que se desea borrar.
-//     * Este debe ser una cadena de dígitos.
-//     * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
-//     * Error de lógica que se genera cuando no se puede eliminar el camino.
-//     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
-//     * Error de lógica que se genera cuando no se encuentra el camino.
-//     */
-//    @DELETE
-//    @Path("{id: \\d+}")
-//    public void deleteCamino (@PathParam("id") Long id) throws BusinessLogicException {
-//        if (caminoLogic.getCamino(id) == null) {
-//            throw new WebApplicationException("El recurso /camino/" + id + " no existe.", 404);
-//        }
-//        caminoLogic.deleteCamino(id);
-//    }
-//
-//    /**
-//     * Actualiza el camino con el id recibido en la URL con la informacion
-//     * que se recibe en el cuerpo de la petición.
-//     * @param id  Identificador de el camino que se desea
-//     * actualizar. Este debe ser una cadena de dígitos.
-//     * @param camino el camino que se desea guardar 
-//     * @return JSON {@link CaminoDTO} - El camino guardado.
-//      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
-//     * Error de lógica que se genera cuando no se encuentra el camino a
-//     * actualizar.
-//     */
-//    @PUT
-//    @Path("{id: \\d+}")
-//    public CaminoDTO updateCamino(@PathParam("id") Long id, CaminoDTO camino) throws WebApplicationException {
-//        camino.setIdPaso(id);
-//        if (caminoLogic.getCamino(id) == null) {
-//            throw new WebApplicationException("El recurso /camino/" + id + " no existe.", 404);
-//        }
-//        CaminoDTO caminoDTO = new CaminoDTO(caminoLogic.updateCamino(id, camino.toEntity()));
-//        return caminoDTO;
-//    }
-//    
-//    private List<CaminoDTO> listEntity2DTO(List<CaminoEntity> entityList) {
-//        List<CaminoDTO> list = new ArrayList<>();
-//        for (CaminoEntity entity : entityList) {
-//            list.add(new CaminoDTO(entity));
-//        }
-//        return list;
-//    }
+public class CaminoResource {
+
+    @Inject
+    private CaminoLogic caminoLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
+    private static final Logger LOGGER = Logger.getLogger(CaminoResource.class.getName());
+
+    /**
+     * Crea un nuevo camino con la informacion que se recibe en el cuerpo de la
+     * petición y se regresa un objeto identico con un id auto-generado por la
+     * base de datos.
+     *
+     * @param camino {@link CaminoDTO} - El camino que se desea guardar.
+     * @return JSON {@link CaminoDTO} - El camino guardado con el atributo id
+     * autogenerado.
+     */
+    @POST
+    public CaminoDTO createCamino(@PathParam("requisitosId") Long requisitosId, @PathParam("casosDeUsoId") Long casosDeUsoId, CaminoDTO camino) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "CaminoResource createCamino: input: {0}", camino);
+        CaminoDTO nuevoCaminoDTO = new CaminoDTO(caminoLogic.createCamino(requisitosId, casosDeUsoId, camino.toEntity()));
+        LOGGER.log(Level.INFO, "CaminoResource createCamino: output: {0}", nuevoCaminoDTO);
+        return nuevoCaminoDTO;
+    }
+
+    /**
+     * Busca el camino con el id asociado recibido en la URL y la devuelve.
+     *
+     * @param caminosId Identificador del camino que se esta buscando. Este debe
+     * ser una cadena de dígitos.
+     * @return JSON {@link CaminoDTO} - El camino buscado
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error de lógica que se genera cuando no se encuentra la editorial.
+     */
+    @GET
+    @Path("{caminosId: \\d+}")
+    public CaminoDTO getCamino(@PathParam("casosDeUsoId") Long casosDeUsoId, @PathParam("caminosId") Long caminosId) throws WebApplicationException {
+        LOGGER.log(Level.INFO, "CaminoResource getCamino: input: {0}", caminosId);
+        CaminoEntity caminoEntity = caminoLogic.getCamino(casosDeUsoId, caminosId);
+        if (caminoEntity == null) {
+            throw new WebApplicationException("El recurso /camino/" + caminosId + " no existe.", 404);
+        }
+        CaminoDTO caminoDTO = new CaminoDTO(caminoEntity);
+        LOGGER.log(Level.INFO, "CaminoResource getCamino: output: {0}", caminoDTO);
+        return caminoDTO;
+    }
+
+    @GET
+    public List<CaminoDTO> getCaminos(@PathParam("requisitosId") Long requisitosId, @PathParam("casosDeUsoId") Long casosDeUsoId) {
+        LOGGER.info("CaminoResource getCaminos: input: void");
+        List<CaminoDTO> listaCaminos = listEntity2DTO(caminoLogic.getCaminos(requisitosId, casosDeUsoId));
+        LOGGER.log(Level.INFO, "CaminoResource getCaminos: output: {0}", listaCaminos);
+        return listaCaminos;
+    }
+
+    /**
+     * Borra el camino con el id asociado recibido en la URL
+     *
+     * @param caminosId Identificador del camino que se desea borrar. Este debe
+     * ser una cadena de dígitos.
+     * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
+     * Error de lógica que se genera cuando no se puede eliminar el camino.
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error de lógica que se genera cuando no se encuentra el camino.
+     */
+    @DELETE
+    @Path("{caminosId: \\d+}")
+    public void deleteCamino(@PathParam("casosDeUsoId") Long casosDeUsoId, @PathParam("caminosId") Long caminosId) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "CaminoResource deleteCamino: input: {0}", caminosId);
+        CaminoEntity entity = caminoLogic.getCamino(casosDeUsoId, caminosId);
+        if (entity == null) {
+            throw new WebApplicationException("El camino con id = " + caminosId + " no existe", 404);
+        }
+        caminoLogic.deleteCamino(casosDeUsoId, caminosId);
+        LOGGER.log(Level.INFO, "CaminoResource deleteCamino: output: void");
+    }
+
+    /**
+     * Actualiza el camino con el id recibido en la URL con la informacion que
+     * se recibe en el cuerpo de la petición.
+     *
+     * @param caminosId Identificador de el camino que se desea actualizar. Este
+     * debe ser una cadena de dígitos.
+     * @param camino el camino que se desea guardar
+     * @return JSON {@link CaminoDTO} - El camino guardado.
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error de lógica que se genera cuando no se encuentra el camino a
+     * actualizar.
+     */
+    @PUT
+    @Path("{caminosId: \\d+}")
+    public CaminoDTO updateCamino(@PathParam("casosDeUsoId") Long casosDeUsoId, @PathParam("caminosId") Long caminosId, CaminoDTO camino) throws WebApplicationException {
+        LOGGER.log(Level.INFO, "CaminoResource putCamino: input: {0}, dto = {1}", new Object[]{caminosId, camino});
+        camino.setIdPaso(caminosId);
+        CaminoEntity ant = caminoLogic.getCamino(casosDeUsoId, caminosId);
+        if (ant == null) {
+            throw new WebApplicationException("El camino con id = " + caminosId + " no existe", 404);
+        }
+        CaminoDTO actual = new CaminoDTO(ant);
+        System.out.println();
+        if (camino.getPasos() == null || camino.getPasos().isEmpty()) {
+            camino.setPasos(actual.getPasos());
+        }
+        if (camino.getTipoPaso()== null || camino.getTipoPaso().isEmpty()) {
+            camino.setTipoPaso(actual.getTipoPaso());
+        }
+        CaminoDTO dto = new CaminoDTO(caminoLogic.updateCamino(casosDeUsoId, caminosId, camino.toEntity()));
+        LOGGER.log(Level.INFO, "CaminoResource putCamino: input: {0}", dto);
+        return dto;
+    }
+
+    private List<CaminoDTO> listEntity2DTO(List<CaminoEntity> entityList) {
+        List<CaminoDTO> list = new ArrayList<>();
+        for (CaminoEntity entity : entityList) {
+            list.add(new CaminoDTO(entity));
+        }
+        return list;
+    }
 
 }
