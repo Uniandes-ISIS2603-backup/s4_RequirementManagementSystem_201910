@@ -12,30 +12,29 @@ import uk.co.jemos.podam.common.PodamExclude;
 @Entity
 public class StakeHolderEntity extends BaseEntity implements Serializable {
 
- /**
- *
- * Atributos de la clase
- */
+    /**
+     *
+     * Atributos de la clase
+     */
     private String tipo;
     private String nombre;
 
    
 //Relacion cambios
+    // @PodamExclude
+    // @OneToMany(mappedBy = "stakeholder", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    // private List<CambioEntity> cambios = new ArrayList<>();
+
+//Relacion aprobaciones
     @PodamExclude
     @OneToMany(mappedBy = "stakeholder", cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private List<CambioEntity> cambios = new ArrayList<>();
-
-////Relacion aprobaciones
-//
-//    @PodamExclude
-//    @OneToMany(mappedBy = "stakeholder", cascade = CascadeType.PERSIST, orphanRemoval = true)
-//    private List<AprobacionEntity> aprobaciones = new ArrayList<>();
+    private List<AprobacionEntity> aprobaciones = new ArrayList<>();
 
 //Relacion organizacion
     @PodamExclude
     @ManyToOne
     private OrganizacionEntity organizacion;
-    
+
 //Relacion autorObjetivo
     @PodamExclude
     @OneToOne
@@ -60,26 +59,23 @@ public class StakeHolderEntity extends BaseEntity implements Serializable {
 
     }
 
-    
 //Getter and Setters
-    
     public String getTipo() {
         return tipo;
     }
-
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
 
-
     public String getNombre() {
         return nombre;
     }
-    
+
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+<<<<<<< HEAD
     
     public List<CambioEntity> getCambios() {
         return cambios;
@@ -88,6 +84,16 @@ public class StakeHolderEntity extends BaseEntity implements Serializable {
     public void setCambios(List<CambioEntity> cambios) {
         this.cambios = cambios;
     }
+=======
+
+//    public List<CambioEntity> getCambios() {
+//        return cambios;
+//    }
+//
+//    public void setCambios(List<CambioEntity> cambios) {
+//        this.cambios = cambios;
+//    }
+>>>>>>> 83952040bef1c1cce1a13f4fabe87418f7429d44
 //
 //    public List<AprobacionEntity> getAprobaciones() {
 //        return aprobaciones;
@@ -96,7 +102,6 @@ public class StakeHolderEntity extends BaseEntity implements Serializable {
 //    public void setAprobaciones(List<AprobacionEntity> aprobaciones) {
 //        this.aprobaciones = aprobaciones;
 //    }
-
     public ObjetivoEntity getAutorObjetivo() {
         return autorObjetivo;
     }
@@ -128,8 +133,7 @@ public class StakeHolderEntity extends BaseEntity implements Serializable {
     public void setFuenteRequisito(RequisitoEntity fuenteRequisito) {
         this.fuenteRequisito = fuenteRequisito;
     }
-    
-    
+
     public OrganizacionEntity getOrganizacion() {
         return organizacion;
     }
@@ -137,5 +141,21 @@ public class StakeHolderEntity extends BaseEntity implements Serializable {
     public void setOrganizacion(OrganizacionEntity organizacion) {
         this.organizacion = organizacion;
     }
+
+    /**
+     * @return the aprobaciones
+     */
+    public List<AprobacionEntity> getAprobaciones() {
+        return aprobaciones;
+    }
+
+    /**
+     * @param aprobaciones the aprobaciones to set
+     */
+    public void setAprobaciones(List<AprobacionEntity> aprobaciones) {
+        this.aprobaciones = aprobaciones;
+    }
+    
+    
 
 }

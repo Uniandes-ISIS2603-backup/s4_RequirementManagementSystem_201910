@@ -99,7 +99,7 @@ public class RequisitoResource
      */
     @DELETE
     @Path("{requisitosId: \\d+}")
-    public void deleteRequisito(@PathParam ("proyectosId") Long proyectosId, @PathParam("objetivosId") Long objetivosId, @PathParam("requisitosId") Long requisitosId) throws BusinessLogicException
+    public void deleteRequisito( @PathParam("objetivosId") Long objetivosId, @PathParam("requisitosId") Long requisitosId) throws BusinessLogicException
     {
         LOGGER.log(Level.INFO, "RequisitoResource deleteRequisito: input: {0}", requisitosId);
         RequisitoEntity entity = reqLogic.getRequisito(objetivosId, requisitosId);
