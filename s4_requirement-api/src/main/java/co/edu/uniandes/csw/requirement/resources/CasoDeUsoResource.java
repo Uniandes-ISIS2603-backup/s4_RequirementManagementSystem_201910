@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -125,7 +124,7 @@ public class CasoDeUsoResource {
         if (casoDeUsoLogic.getCasoDeUso(requisitosId, casosDeUsoId) == null) {
             throw new WebApplicationException("El recurso /casos/" + casosDeUsoId + " no existe.", 404);
         }
-        CasoDeUsoDetailDTO detailDTO = new CasoDeUsoDetailDTO(casoDeUsoLogic.updateCasoDeUso(objetivosId, casosDeUsoId, dto.toEntity()));
+        CasoDeUsoDetailDTO detailDTO = new CasoDeUsoDetailDTO(casoDeUsoLogic.updateCasoDeUso(objetivosId, requisitosId, dto.toEntity()));
         LOGGER.log(Level.INFO, "CasoDeUsoResource putCasoDeUso: output: {0}", detailDTO);
         return detailDTO;
     }
