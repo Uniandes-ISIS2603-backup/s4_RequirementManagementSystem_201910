@@ -65,6 +65,10 @@ public class RequisitoLogic {
         if (x.getDescripcion() == null || x.getDescripcion().equals("")) {
             throw new BusinessLogicException("La descripcion no puede ser vacía o nula");
         }
+        if(x.getAutor() == null || x.getAutor().equals(""))
+        {
+             throw new BusinessLogicException("El autor no puede ser nulo o vacío");
+        }
         ObjetivoEntity obj = objPersistence.find(proyectosId, objetivosId);
         if (obj != null) {
             x.setObjetivo(obj);
@@ -127,6 +131,10 @@ public class RequisitoLogic {
         if (x.getDescripcion() == null || x.getDescripcion().equals("")) {
             throw new BusinessLogicException("La descripcion no puede ser vacía o nula");
         }
+        if(x.getAutor() == null || x.getAutor().equals(""))
+        {
+             throw new BusinessLogicException("El autor no puede ser nulo o vacío");
+        }
 
         ObjetivoEntity obj = objPersistence.find(proyectosId, objetivosId);
         x.setObjetivo(obj);
@@ -144,7 +152,7 @@ public class RequisitoLogic {
         RequisitoEntity old = getRequisito(objetivosId, id);
         if (old == null)
         {
-               throw new BusinessLogicException("El requisito con id " + id + " no está asociado con el objetivo con id " + objetivosId);
+            throw new BusinessLogicException("El requisito con id " + id + " no está asociado con el objetivo con id " + objetivosId);
         }
         reqPersistence.delete(old.getId());
         LOGGER.log(Level.INFO, "Termina proceso de borrar el requisito con id = {0}", id);

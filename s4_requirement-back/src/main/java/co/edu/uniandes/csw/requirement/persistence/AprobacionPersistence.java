@@ -55,7 +55,12 @@ public class AprobacionPersistence {
         }
         return aprobacionE;    
     }
-    
+    /**
+     * Busca un aprobacion entity perteneciente a un requisito
+     * @param requisitoId El id del requisito
+     * @param aprobacionId El id del objetivo
+     * @return El aprobacion entity
+     */
     public AprobacionEntity findWithRequisito(Long requisitoId, Long aprobacionId) {
         TypedQuery<AprobacionEntity> q = em.createQuery("select p from AprobacionEntity p where (p.requisito.id = :requisitoId) and (p.id = :aprobacionId)", AprobacionEntity.class);
         q.setParameter("requisitoId", requisitoId);

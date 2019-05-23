@@ -117,7 +117,6 @@ public class ObjetivoResource {
         if (oe == null) {
             throw new WebApplicationException("El recurso proyectos/" + proyectosId + "/objetivos/" + objetivosId + " no existe.", 404);
         }
-        System.out.println("llamo bien al objetivo");
         ObjetivoDetailDTO current = new ObjetivoDetailDTO(oe);
         objetivo.setRequisitos(current.getRequisitos());
         objetivo.setAprobaciones(current.getAprobaciones());
@@ -125,7 +124,7 @@ public class ObjetivoResource {
         objetivo.setFuentes(current.getFuentes());
         objetivo.setId(objetivosId);
         
-        if (objetivo.getComentarios() == null || objetivo.getComentarios() == "")
+        if (objetivo.getComentarios() == null || objetivo.getComentarios().equals(""))
         {
             objetivo.setComentarios(current.getComentarios());
         }
@@ -133,7 +132,7 @@ public class ObjetivoResource {
         {
             objetivo.setImportancia(current.getImportancia());
         }
-        if (objetivo.getDescripcion() == null || objetivo.getDescripcion() == "")
+        if (objetivo.getDescripcion() == null || objetivo.getDescripcion().equals(""))
         {
             objetivo.setDescripcion(current.getDescripcion());
         }
@@ -141,8 +140,7 @@ public class ObjetivoResource {
         {
             objetivo.setEstabilidad(current.getEstabilidad());
         }
-        
-        System.out.println("hago cambios al objetivo");
+      
         
         ObjetivoDetailDTO detailDTO = new ObjetivoDetailDTO(objetivoLogic.updateObjetivo(proyectosId, objetivo.toEntity()));
         LOGGER.log(Level.INFO, "ObjetivoResource updateObjetivo: output: {0}", detailDTO);
@@ -164,13 +162,14 @@ public class ObjetivoResource {
     public void deleteObjetivo(@PathParam("proyectosId") Long proyectosId, @PathParam("objetivosId") Long objetivosId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "ObjetivoResource deleteObjetivo: input: proyectosId: {0} , objetivosId: {1} , ", new Object[]{proyectosId, objetivosId});
         ObjetivoEntity entity = objetivoLogic.getObjetivo(proyectosId, objetivosId);
+        if (entity == null) {
+            throw new WebApplicationException("El recurso /proyectos/" + proyectosId + "/objetivos/" + objetivosId + " no existe.", 404);
+        }
         if (!entity.getRequisitos().isEmpty())
         {
             throw new BusinessLogicException("No se puede borrar el objetivo con id " + objetivosId + " pues tiene requisitos dependientes ");
         }
-        if (entity == null) {
-            throw new WebApplicationException("El recurso /proyectos/" + proyectosId + "/objetivos/" + objetivosId + " no existe.", 404);
-        }
+        
         objetivoLogic.deleteObjetivo(proyectosId, objetivosId);
         LOGGER.info("ObjetivoResource deleteObjetivo: output: void");
     }

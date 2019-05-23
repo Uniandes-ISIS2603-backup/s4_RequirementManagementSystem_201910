@@ -23,6 +23,8 @@ public class RequisitoEntity extends BaseEntity implements Serializable {
 
     private String comentarios, descripcion, tipo;
     private int importancia, estabilidad;
+    private String autor;
+    private List<String> fuentes;
 
     public RequisitoEntity()
     {
@@ -45,13 +47,6 @@ public class RequisitoEntity extends BaseEntity implements Serializable {
     @OneToMany(mappedBy="requisito", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<CasoDeUsoEntity> casosDeUso;
     
-    @PodamExclude
-    @ManyToOne()
-    private UsuarioEntity autor;
-    
-    @PodamExclude
-    @OneToMany(mappedBy = "fuenteRequisito", cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private List<StakeHolderEntity> fuentes = new ArrayList<>();
     
    
     /**
@@ -169,28 +164,28 @@ public class RequisitoEntity extends BaseEntity implements Serializable {
     /**
      * @return the autor
      */
-    public UsuarioEntity getAutor() {
+    public String getAutor() {
         return autor;
     }
 
     /**
      * @param autor the autor to set
      */
-    public void setAutor(UsuarioEntity autor) {
+    public void setAutor(String autor) {
         this.autor = autor;
     }
 
     /**
      * @return the fuentes
      */
-    public List<StakeHolderEntity> getFuentes() {
+    public List<String> getFuentes() {
         return fuentes;
     }
 
     /**
      * @param fuentes the fuentes to set
      */
-    public void setFuentes(List<StakeHolderEntity> fuentes) {
+    public void setFuentes(List<String> fuentes) {
         this.fuentes = fuentes;
     }
 

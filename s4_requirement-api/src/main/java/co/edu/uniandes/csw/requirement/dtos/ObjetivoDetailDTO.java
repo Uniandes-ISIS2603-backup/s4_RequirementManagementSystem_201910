@@ -34,7 +34,7 @@ public class ObjetivoDetailDTO extends ObjetivoDTO implements Serializable {
     /**
      * Lista de stakeholders del objetivo
      */
-    private List<StakeHolderDTO> fuentes;
+    private List<String> fuentes;
     
     /**
      * Constructor vacio para REST
@@ -50,22 +50,28 @@ public class ObjetivoDetailDTO extends ObjetivoDTO implements Serializable {
         super(objetivoEntity);
         if (objetivoEntity != null) {
             aprobaciones = new ArrayList<>();
-//            for (AprobacionEntity aprobacionEntities : objetivoEntity.getAprobaciones()) {
-//                aprobaciones.add(new AprobacionDTO(aprobacionEntities));
-//            }
-//            cambios = new ArrayList<>();
-//            for (CambioEntity cambioEntities : objetivoEntity.getCambios()) {
-//                cambios.add(new CambioDTO(cambioEntities));
-//            }
+            for (AprobacionEntity aprobacionEntities : objetivoEntity.getAprobaciones()) {
+                aprobaciones.add(new AprobacionDTO(aprobacionEntities));
+            }
+            cambios = new ArrayList<>();
+            for (CambioEntity cambioEntities : objetivoEntity.getCambios()) {
+                cambios.add(new CambioDTO(cambioEntities));
+            }
             requisitos = new ArrayList<>();
             for (RequisitoEntity requisitoEntities : objetivoEntity.getRequisitos()) {
                 requisitos.add(new RequisitoDTO(requisitoEntities));
             }
-            
             fuentes = new ArrayList<>();
-            for (StakeHolderEntity stakeHolderEntities : objetivoEntity.getFuentes()) {
-                fuentes.add(new StakeHolderDTO(stakeHolderEntities));
+            for (String s: objetivoEntity.getFuentes()) {
+                fuentes.add(s);
             }
+            
+            
+            
+//            fuentes = new ArrayList<>();
+//            for (StakeHolderEntity stakeHolderEntities : objetivoEntity.getFuentes()) {
+//                fuentes.add(new StakeHolderDTO(stakeHolderEntities));
+//            }
         }
     }
     
@@ -76,20 +82,20 @@ public class ObjetivoDetailDTO extends ObjetivoDTO implements Serializable {
     @Override
     public ObjetivoEntity toEntity() {
         ObjetivoEntity objetivoEntity = super.toEntity();
-//        if (aprobaciones != null) {
-//            List<AprobacionEntity> aprobacionesEntity = new ArrayList<>();
-//            for (AprobacionDTO dtoAprobacion : aprobaciones) {
-//                aprobacionesEntity.add(dtoAprobacion.toEntity());
-//            }
-//            objetivoEntity.setAprobaciones(aprobacionesEntity);
-//        }
-//        if (cambios != null) {
-//            List<CambioEntity> cambiosEntity = new ArrayList<>();
-//            for (CambioDTO dtoCambio : cambios) {
-//                cambiosEntity.add(dtoCambio.toEntity());
-//            }
-//            objetivoEntity.setCambios(cambiosEntity);
-//        }
+        if (aprobaciones != null) {
+            List<AprobacionEntity> aprobacionesEntity = new ArrayList<>();
+            for (AprobacionDTO dtoAprobacion : aprobaciones) {
+                aprobacionesEntity.add(dtoAprobacion.toEntity());
+            }
+            objetivoEntity.setAprobaciones(aprobacionesEntity);
+        }
+        if (cambios != null) {
+            List<CambioEntity> cambiosEntity = new ArrayList<>();
+            for (CambioDTO dtoCambio : cambios) {
+                cambiosEntity.add(dtoCambio.toEntity());
+            }
+            objetivoEntity.setCambios(cambiosEntity);
+        }
         if (requisitos != null) {
             List<RequisitoEntity> requisitosEntity = new ArrayList<>();
             for (RequisitoDTO dtoRequisito : requisitos) {
@@ -98,13 +104,14 @@ public class ObjetivoDetailDTO extends ObjetivoDTO implements Serializable {
             objetivoEntity.setRequisitos(requisitosEntity);
         }
         
-        if (fuentes != null) {
-            List<StakeHolderEntity> fuentesEntity = new ArrayList<>();
-            for (StakeHolderDTO dtoFuentes : fuentes) {
-                fuentesEntity.add(dtoFuentes.toEntity());
-            }
-            objetivoEntity.setFuentes(fuentesEntity);
-        }
+        
+//        if (fuentes != null) {
+//            List<StakeHolderEntity> fuentesEntity = new ArrayList<>();
+//            for (StakeHolderDTO dtoFuentes : fuentes) {
+//                fuentesEntity.add(dtoFuentes.toEntity());
+//            }
+//            objetivoEntity.setFuentes(fuentesEntity);
+//        }
         return objetivoEntity;
     }
 
@@ -150,19 +157,17 @@ public class ObjetivoDetailDTO extends ObjetivoDTO implements Serializable {
         this.requisitos = requisitos;
     }
 
-    
-
     /**
      * @return the fuentes
      */
-    public List<StakeHolderDTO> getFuentes() {
+    public List<String> getFuentes() {
         return fuentes;
     }
 
     /**
      * @param fuentes the fuentes to set
      */
-    public void setFuentes(List<StakeHolderDTO> fuentes) {
+    public void setFuentes(List<String> fuentes) {
         this.fuentes = fuentes;
     }
     

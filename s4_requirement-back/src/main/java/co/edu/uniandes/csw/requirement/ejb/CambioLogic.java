@@ -68,6 +68,10 @@ public class CambioLogic {
         if (!(cambio.getTipo().equals("MODIFICACION") || cambio.getTipo().equals("ELIMINACION") || cambio.getTipo().equals("APROBACION"))) {
             throw new BusinessLogicException("El tipo de un cambio debe ser modificacion, eliminacion o aprobacion");
         }
+        if (cambio.getAutor() == null || cambio.getAutor().equals(""))
+        {
+            throw new BusinessLogicException("El autor de un cambio no puede ser nulo o vacío");
+        }
         
         ObjetivoEntity obj = objetivoPersistence.find(proyectosId, objetivosId);
         if (obj != null)
@@ -100,6 +104,10 @@ public class CambioLogic {
         if (!(cambio.getTipo().equals("MODIFICACION") || cambio.getTipo().equals("ELIMINACION") || cambio.getTipo().equals("APROBACION"))) {
             throw new BusinessLogicException("El tipo de un cambio debe ser modificacion, eliminacion o aprobacion");
         }
+        if (cambio.getAutor() == null || cambio.getAutor().equals(""))
+        {
+            throw new BusinessLogicException("El autor de un cambio no puede ser nulo o vacío");
+        }
         
         RequisitoEntity obj = requisitoPersistence.find(objetivosId, requisitosId);
         if (obj != null)
@@ -124,11 +132,11 @@ public class CambioLogic {
      */
     public void deleteCambioObjetivo(Long objetivoId, Long cambioId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de borrar El cambio con id = {0}", cambioId);
-        CambioEntity camino = findCambioByIdObjetivo(cambioId, objetivoId);
-        if (camino == null) {
+        CambioEntity cambio = findCambioByIdObjetivo(cambioId, objetivoId);
+        if (cambio == null) {
             throw new BusinessLogicException("El cambio con id = " + cambioId + " no esta asociado a el objetivo con id = " + objetivoId);
         }
-        cambioPersistence.delete(camino.getId());
+        cambioPersistence.delete(cambio.getId());
         LOGGER.log(Level.INFO, "Termina proceso de borrar El cambio con id = {0}", cambioId);
     }
     
@@ -141,11 +149,11 @@ public class CambioLogic {
      */
     public void deleteCambioRequisito(Long requisitoId, Long cambioId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de borrar el cambio con id = {0}", cambioId);
-        CambioEntity camino = findCambioByIdRequisito(cambioId, requisitoId);
-        if (camino == null) {
+        CambioEntity cambio = findCambioByIdRequisito(cambioId, requisitoId);
+        if (cambio == null) {
             throw new BusinessLogicException("el cambio con id = " + cambioId + " no esta asociado a el objetivo con id = " + requisitoId);
         }
-        cambioPersistence.delete(camino.getId());
+        cambioPersistence.delete(cambio.getId());
         LOGGER.log(Level.INFO, "Termina proceso de borrar el cambio con id = {0}", cambioId);
     }
 
@@ -185,9 +193,9 @@ public class CambioLogic {
      * @return cambio encontrado
      */
     public List<CambioEntity> getCambiosOfObj(Long proyectosId, Long objetivosId) {
-        LOGGER.log(Level.INFO, "Inicia proceso de consultar todos los requisitos");
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar todos los cambios de un objetivo");
         ObjetivoEntity objE = objetivoPersistence.find(proyectosId, objetivosId);
-        LOGGER.log(Level.INFO, "Termina proceso de consultar todos los requisitos");
+        LOGGER.log(Level.INFO, "Termina proceso de consultar todos los cambios de un objetivo");
         return objE.getCambios();
     }
     
@@ -198,9 +206,9 @@ public class CambioLogic {
      * @return cambio encontrado
      */
     public List<CambioEntity> getCambiosOfReq(Long objetivosId, Long requisitosId) {
-        LOGGER.log(Level.INFO, "Inicia proceso de consultar todos los requisitos");
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar todos los cambios de un objetivo");
         RequisitoEntity reqE = requisitoPersistence.find(objetivosId, requisitosId);
-        LOGGER.log(Level.INFO, "Termina proceso de consultar todos los requisitos");
+        LOGGER.log(Level.INFO, "Termina proceso de consultar todos los cambios de un objetivo");
         return reqE.getCambios();
     }
     
@@ -224,6 +232,10 @@ public class CambioLogic {
         }
         if (cambio.getObjetivo() != null && cambio.getRequisito() != null) {
             throw new BusinessLogicException("El cambio no puede estar asociado a un Objetivo y a un Requisito.");
+        }
+        if (cambio.getAutor() == null || cambio.getAutor().equals(""))
+        {
+            throw new BusinessLogicException("El autor de un cambio no puede ser nulo o vacío");
         }
         if (!(cambio.getTipo().equals("MODIFICACION") || cambio.getTipo().equals("ELIMINACION") || cambio.getTipo().equals("APROBACION"))) {
             throw new BusinessLogicException("El tipo de un cambio debe ser modificacion, eliminacion o aprobacion");
@@ -253,6 +265,10 @@ public class CambioLogic {
         }
         if (cambio.getObjetivo() != null && cambio.getRequisito() != null) {
             throw new BusinessLogicException("El cambio no puede estar asociado a un Objetivo y a un Requisito.");
+        }
+        if (cambio.getAutor() == null || cambio.getAutor().equals(""))
+        {
+            throw new BusinessLogicException("El autor de un cambio no puede ser nulo o vacío");
         }
         if (!(cambio.getTipo().equals("MODIFICACION") || cambio.getTipo().equals("ELIMINACION") || cambio.getTipo().equals("APROBACION"))) {
             throw new BusinessLogicException("El tipo de un cambio debe ser modificacion, eliminacion o aprobacion");

@@ -22,7 +22,8 @@ public class ObjetivoEntity extends BaseEntity implements Serializable {
     private Integer importancia;
     private Integer estabilidad;
     private String comentarios;
-
+    private String autor;
+    private List<String> fuentes;
 
     @PodamExclude
     @OneToMany(mappedBy = "objetivo", cascade = CascadeType.PERSIST, orphanRemoval = true)
@@ -36,13 +37,13 @@ public class ObjetivoEntity extends BaseEntity implements Serializable {
     @OneToMany(mappedBy = "objetivo", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<RequisitoEntity> requisitos;
 
-    @PodamExclude
-    @OneToOne(mappedBy = "autorObjetivo", fetch = FetchType.LAZY)
-    private StakeHolderEntity autor;
-
-    @PodamExclude
-    @OneToMany(mappedBy = "fuenteObjetivo", cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private List<StakeHolderEntity> fuentes = new ArrayList<>();
+//    @PodamExclude
+//    @OneToOne(mappedBy = "autorObjetivo", fetch = FetchType.LAZY)
+//    private StakeHolderEntity autor;
+//
+//    @PodamExclude
+//    @OneToMany(mappedBy = "fuenteObjetivo", cascade = CascadeType.PERSIST, orphanRemoval = true)
+//    private List<StakeHolderEntity> fuentes = new ArrayList<>();
     
     @PodamExclude
     @ManyToOne
@@ -127,28 +128,28 @@ public class ObjetivoEntity extends BaseEntity implements Serializable {
     /**
      * @return the autor
      */
-    public StakeHolderEntity getAutor() {
+    public String getAutor() {
         return autor;
     }
 
     /**
      * @param autor the autor to set
      */
-    public void setAutor(StakeHolderEntity autor) {
+    public void setAutor(String autor) {
         this.autor = autor;
     }
 
     /**
      * @return the fuentes
      */
-    public List<StakeHolderEntity> getFuentes() {
+    public List<String> getFuentes() {
         return fuentes;
     }
 
     /**
      * @param fuentes the fuentes to set
      */
-    public void setFuentes(List<StakeHolderEntity> fuentes) {
+    public void setFuentes(List<String> fuentes) {
         this.fuentes = fuentes;
     }
 

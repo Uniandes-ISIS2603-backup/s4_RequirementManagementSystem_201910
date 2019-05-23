@@ -36,12 +36,10 @@ public class CambioEntity extends BaseEntity implements Serializable {
      */
     private String tipo;
     
-    /**
-     * Relación many to one con stakeholder.
-     */
-    @PodamExclude
-    @ManyToOne()
-    private StakeHolderEntity stakeholder;
+   /**
+    * El autor
+    */
+    private String autor;
     
     /**
      * Relación many to one con objetivo
@@ -92,20 +90,7 @@ public class CambioEntity extends BaseEntity implements Serializable {
         this.descripcion = descripcion;
     }
 
-    /**
-     * @return the stakeholder
-     */
-    public StakeHolderEntity getStakeholder() {
-        return stakeholder;
-    }
-
-    /**
-     * @param stakeholder the stakeholder to set
-     */
-    public void setStakeholder(StakeHolderEntity stakeholder) {
-        this.stakeholder = stakeholder;
-    }
-
+   
     /**
      * @return the objetivo
      */
@@ -147,6 +132,22 @@ public class CambioEntity extends BaseEntity implements Serializable {
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
+
+    /**
+     * @return the autor
+     */
+    public String getAutor() {
+        return autor;
+    }
+
+    /**
+     * @param autor the autor to set
+     */
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
+    
+    
 
 }
 

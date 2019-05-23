@@ -35,7 +35,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  */
 @RunWith(Arquillian.class)
 public class AprobacionLogicTest {
-    /**
+//    /**
 //     * Factory de Podam
 //     */
 //    private PodamFactory factory = new PodamFactoryImpl();
@@ -148,7 +148,6 @@ public class AprobacionLogicTest {
 //    @Test
 //    public void createAprobacionTest() throws BusinessLogicException{
 //        AprobacionEntity newEntity = factory.manufacturePojo(AprobacionEntity.class);
-//        newEntity.setTipo("REQUISITO");
 //        aprobacionLogic.createAprobacion(newEntity);
 //        AprobacionEntity entity = em.find(AprobacionEntity.class, newEntity.getId());
 //        Assert.assertNotNull(entity);

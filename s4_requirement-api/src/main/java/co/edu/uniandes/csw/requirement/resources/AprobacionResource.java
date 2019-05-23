@@ -38,7 +38,7 @@ import javax.ws.rs.WebApplicationException;
 /**
  * Recurso de una aprobacion
  *
- * @author Sofia Alvarez
+ * @author Sofia Alvarez, Jorge Esguerra, David Manosalva
  */
 public class AprobacionResource {
 
@@ -142,7 +142,7 @@ public class AprobacionResource {
             }
             aprobacionLogic.deleteAprobacionRequisito(requisitosId, aprobacionesId);
         }
-        LOGGER.info("RequisitoResource deleteRequisito: output: void");
+        LOGGER.info("AprobacionResource deleteAprobacion: output: void");
     }
 
     /**
@@ -178,8 +178,8 @@ public class AprobacionResource {
         if (dto.getFechaYHora() == null || dto.getFechaYHora().equals("")) {
             dto.setFechaYHora(current.getFechaYHora());
         }
-        if (dto.getStakeholder() == null) {
-            dto.setStakeholder(current.getStakeholder());
+        if (dto.getAutor() == null || dto.getAutor().equals("")) {
+            dto.setAutor(current.getAutor());
         }
         AprobacionDTO aprobDTO;
         if (objetivo) {

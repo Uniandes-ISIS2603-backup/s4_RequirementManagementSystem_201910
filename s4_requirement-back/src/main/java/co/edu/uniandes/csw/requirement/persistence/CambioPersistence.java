@@ -50,6 +50,12 @@ public class CambioPersistence {
         return cambioE;    
     }
     
+    /**
+     * Busca un aprobacion entity perteneciente a un requisito
+     * @param requisitoId El id del requisito
+     * @param cambioId El id del cambio
+     * @return El aprobacion entity
+     */
     public CambioEntity findWithRequisito(Long requisitoId, Long cambioId) {
         TypedQuery<CambioEntity> q = em.createQuery("select p from CambioEntity p where (p.requisito.id = :requisitoId) and (p.id = :cambioId)", CambioEntity.class);
         q.setParameter("requisitoId", requisitoId);
