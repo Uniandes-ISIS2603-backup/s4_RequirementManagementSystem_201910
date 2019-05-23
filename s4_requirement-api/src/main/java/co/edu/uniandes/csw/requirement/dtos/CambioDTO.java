@@ -35,9 +35,9 @@ public class CambioDTO implements Serializable {
     private String descripcion;
 
     /**
-     * Data transfer object del stakeholder
+     * Autor del cambio
      */
-    private StakeHolderDTO stakeholder;
+    private String autor;
 
     /**
      * Data transfer object del objetivo
@@ -68,6 +68,7 @@ public class CambioDTO implements Serializable {
             this.tipo = entity.getTipo();
             this.fechaYHora = entity.getFechaYHora();
             this.descripcion = entity.getDescripcion();
+            this.autor = entity.getAutor();
             if (entity.getObjetivo() != null) {
                 this.objetivo = new ObjetivoDTO(entity.getObjetivo());
             } else {
@@ -78,9 +79,7 @@ public class CambioDTO implements Serializable {
             } else {
                 this.requisito = null;
             }
-            if (entity.getStakeholder() != null) {
-                this.stakeholder = new StakeHolderDTO(entity.getStakeholder());
-            }
+            
         }
     }
 
@@ -103,10 +102,7 @@ public class CambioDTO implements Serializable {
         {
             entity.setRequisito(this.getRequisito().toEntity());
         }
-        if (this.getStakeholder() != null)
-        {
-            entity.setStakeholder(this.getStakeholder().toEntity());
-        }
+        entity.setAutor(this.getAutor());
         return entity;
     }
 
@@ -166,19 +162,7 @@ public class CambioDTO implements Serializable {
         this.descripcion = descripcion;
     }
 
-    /**
-     * @return the autor
-     */
-    public StakeHolderDTO getStakeholder() {
-        return stakeholder;
-    }
-
-    /**
-     * @param stakeholder the stakeholder to set
-     */
-    public void setStakeholder(StakeHolderDTO stakeholder) {
-        this.stakeholder = stakeholder;
-    }
+    
 
     /**
      * @return the objetivo
@@ -208,5 +192,20 @@ public class CambioDTO implements Serializable {
         this.requisito = requisito;
     }
 
+    /**
+     * @return the autor
+     */
+    public String getAutor() {
+        return autor;
+    }
+
+    /**
+     * @param autor the autor to set
+     */
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
+
+    
     
 }

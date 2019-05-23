@@ -29,11 +29,11 @@ public class StakeHolderDTO implements Serializable {
             this.id = stakeHolderEntity.getId();
             this.nombre = stakeHolderEntity.getNombre();
             this.tipo = stakeHolderEntity.getTipo();
-            if (stakeHolderEntity.getOrganizacion() != null) {
-                this.organizacion = new OrganizacionDTO(stakeHolderEntity.getOrganizacion());
-            } else {
-                stakeHolderEntity.setOrganizacion(null);
-            }
+//            if (stakeHolderEntity.getOrganizacion() != null) {
+//                this.organizacion = new OrganizacionDTO(stakeHolderEntity.getOrganizacion());
+//            } else {
+//                stakeHolderEntity.setOrganizacion(null);
+//            }
         }
     }
 
@@ -47,9 +47,9 @@ public class StakeHolderDTO implements Serializable {
         stakeHolderEntity.setId(this.id);
         stakeHolderEntity.setNombre(this.nombre);
         stakeHolderEntity.setTipo(this.tipo);
-        if (organizacion != null) {
-            stakeHolderEntity.setOrganizacion(organizacion.toEntity());
-        }
+//        if (organizacion != null) {
+//            stakeHolderEntity.setOrganizacion(organizacion.toEntity());
+//        }
         return stakeHolderEntity;
     }
     

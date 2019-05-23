@@ -178,8 +178,8 @@ public class AprobacionResource {
         if (dto.getFechaYHora() == null || dto.getFechaYHora().equals("")) {
             dto.setFechaYHora(current.getFechaYHora());
         }
-        if (dto.getStakeholder() == null) {
-            dto.setStakeholder(current.getStakeholder());
+        if (dto.getAutor() == null || dto.getAutor().equals("")) {
+            dto.setAutor(current.getAutor());
         }
         AprobacionDTO aprobDTO;
         if (objetivo) {

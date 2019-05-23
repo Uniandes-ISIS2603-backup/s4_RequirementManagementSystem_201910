@@ -37,9 +37,10 @@ public class AprobacionDTO implements Serializable {
     private String comentario;
 
     /**
-     * Data Transfer Object del stakeholder.
+     * Autor de la aprobacion
      */
-    private StakeHolderDTO stakeholder;
+    private String autor;
+    
 
     /**
      * Data Transfer Object del stakeholder.
@@ -69,15 +70,12 @@ public class AprobacionDTO implements Serializable {
             this.fechaYHora = entity.getFechaYHora();
             this.estado = entity.getEstado();
             this.comentario = entity.getComentario();
+            this.autor = entity.getAutor();
             if (entity.getObjetivo() != null) {
                 this.objetivo = new ObjetivoDTO(entity.getObjetivo());
             }
             if (entity.getRequisito() != null) {
                 this.requisito = new RequisitoDTO(entity.getRequisito());
-            }
-
-            if (entity.getStakeholder() != null) {
-                this.stakeholder = new StakeHolderDTO(entity.getStakeholder());
             }
         }
     }
@@ -93,14 +91,12 @@ public class AprobacionDTO implements Serializable {
         entity.setFechaYHora(this.getFechaYHora());
         entity.setEstado(this.getEstado());
         entity.setComentario(this.getComentario());
+        entity.setAutor(this.getAutor());
         if (this.getObjetivo() != null) {
             entity.setObjetivo(this.getObjetivo().toEntity());
         }
         if (this.getRequisito() != null) {
             entity.setRequisito(this.getRequisito().toEntity());
-        }
-        if (this.getStakeholder() != null) {
-            entity.setStakeholder(this.getStakeholder().toEntity());
         }
         return entity;
     }
@@ -162,17 +158,17 @@ public class AprobacionDTO implements Serializable {
     }
 
     /**
-     * @return the stakeholder
+     * @return the autor
      */
-    public StakeHolderDTO getStakeholder() {
-        return stakeholder;
+    public String getAutor() {
+        return autor;
     }
 
     /**
      * @param stakeholder the stakeholder to set
      */
-    public void setStakeholder(StakeHolderDTO stakeholder) {
-        this.stakeholder = stakeholder;
+    public void setAutor(String autor) {
+        this.autor = autor;
     }
 
     /**
@@ -202,5 +198,6 @@ public class AprobacionDTO implements Serializable {
     public void setRequisito(RequisitoDTO requisito) {
         this.requisito = requisito;
     }
+    
     
 }

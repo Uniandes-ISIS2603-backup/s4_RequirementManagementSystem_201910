@@ -7,6 +7,8 @@ package co.edu.uniandes.csw.requirement.dtos;
 
 import co.edu.uniandes.csw.requirement.entities.ObjetivoEntity;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -45,7 +47,12 @@ public class ObjetivoDTO implements Serializable {
     /**
      * Autor del objetivo
      */
-    private StakeHolderDTO autor;
+    private String autor;
+
+    /**
+     * Fuentes del objetivo
+     */
+    private List<String> fuentes;
 
     /**
      * Proyecto al que está asociado el objetivo
@@ -70,15 +77,15 @@ public class ObjetivoDTO implements Serializable {
             this.importancia = oe.getImportancia();
             this.estabilidad = oe.getEstabilidad();
             this.comentarios = oe.getComentarios();
-            if (oe.getAutor() != null) {
-                this.autor = new StakeHolderDTO(oe.getAutor());
-            } else {
-                oe.setAutor(null);
-            }
+            this.autor = oe.getAutor();
             if (oe.getProyecto() != null) {
                 this.proyecto = new ProyectoDTO(oe.getProyecto());
             } else {
                 oe.setProyecto(null);
+            }
+            fuentes = new ArrayList<>();
+            for (String s : oe.getFuentes()) {
+                fuentes.add(s);
             }
 
         }
@@ -96,11 +103,16 @@ public class ObjetivoDTO implements Serializable {
         objetivoEntity.setImportancia(this.getImportancia());
         objetivoEntity.setComentarios(this.getComentarios());
         objetivoEntity.setEstabilidad(this.getEstabilidad());
-        if (getAutor() != null) {
-            objetivoEntity.setAutor(getAutor().toEntity());
-        }
+        objetivoEntity.setAutor(this.getAutor());
         if (getProyecto() != null) {
             objetivoEntity.setProyecto(getProyecto().toEntity());
+        }
+        if (fuentes != null) {
+            List<String> f = new ArrayList<>();
+            for (String x : fuentes) {
+                f.add(x);
+            }
+            objetivoEntity.setFuentes(f);
         }
         return objetivoEntity;
     }
@@ -178,14 +190,14 @@ public class ObjetivoDTO implements Serializable {
     /**
      * @return the autor
      */
-    public StakeHolderDTO getAutor() {
+    public String getAutor() {
         return autor;
     }
 
     /**
      * @param autor the autor to set
      */
-    public void setAutor(StakeHolderDTO autor) {
+    public void setAutor(String autor) {
         this.autor = autor;
     }
 
@@ -202,8 +214,7 @@ public class ObjetivoDTO implements Serializable {
     public void setProyecto(ProyectoDTO proyecto) {
         this.proyecto = proyecto;
     }
-    
-    
+
     /**
      * Metodo que devuelve este objeto como un string
      *
@@ -213,4 +224,19 @@ public class ObjetivoDTO implements Serializable {
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
+
+    /**
+     * @return the fuentes
+     */
+    public List<String> getFuentes() {
+        return fuentes;
+    }
+
+    /**
+     * @param fuentes the fuentes to set
+     */
+    public void setFuentes(List<String> fuentes) {
+        this.fuentes = fuentes;
+    }
+
 }

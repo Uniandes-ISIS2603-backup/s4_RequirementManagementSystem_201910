@@ -61,6 +61,10 @@ public class AprobacionLogic {
         if (!(aprobacion.getEstado().equals("APROBADO") || aprobacion.getEstado().equals("NO APROBADO") || aprobacion.getEstado().equals("EN REVISION"))) {
             throw new BusinessLogicException("El estado de la aprobación no es valido");
         }
+        if (aprobacion.getAutor() == null || aprobacion.getAutor().equals(""))
+        {
+             throw new BusinessLogicException("La aprobación debe tener un autor");
+        }
         ObjetivoEntity obj = objetivoPersistence.find(proyectoId, objetivoId);
         if (obj != null) {
             aprobacion.setObjetivo(obj);
@@ -83,6 +87,10 @@ public class AprobacionLogic {
         LOGGER.log(Level.INFO, "Inicia proceso de creación de una aprobacion");
         if (!(aprobacion.getEstado().equals("APROBADO") || aprobacion.getEstado().equals("NO APROBADO") || aprobacion.getEstado().equals("EN REVISION"))) {
             throw new BusinessLogicException("El estado de la aprobación no es valido");
+        }
+        if (aprobacion.getAutor() == null || aprobacion.getAutor().equals(""))
+        {
+             throw new BusinessLogicException("La aprobación debe tener un autor");
         }
         RequisitoEntity req = requisitoPersistence.find(objetivoId, requisitoId);
         if (req != null) {
@@ -134,7 +142,7 @@ public class AprobacionLogic {
 
     /**
      *
-     * Actualizar un camino.
+     * Actualizar una aprobacion.
      *
      * @param casoDeUsoId: id de la editorial para buscarla en la base de datos.
      * @param aprobacion: editorial con los cambios para ser actualizada, por
@@ -142,8 +150,15 @@ public class AprobacionLogic {
      * @param requisitoId
      * @return la editorial con los cambios actualizados en la base de datos.
      */
-    public AprobacionEntity updateAprobacionObjetivo(Long proyectoId, Long objetivoId, AprobacionEntity aprobacion) {
+    public AprobacionEntity updateAprobacionObjetivo(Long proyectoId, Long objetivoId, AprobacionEntity aprobacion) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de actualizar el camino con id = {0}", aprobacion.getId());
+        if (!(aprobacion.getEstado().equals("APROBADO") || aprobacion.getEstado().equals("NO APROBADO") || aprobacion.getEstado().equals("EN REVISION"))) {
+            throw new BusinessLogicException("El estado de la aprobación no es valido");
+        }
+        if (aprobacion.getAutor() == null || aprobacion.getAutor().equals(""))
+        {
+             throw new BusinessLogicException("La aprobación debe tener un autor");
+        }
         ObjetivoEntity obj = objetivoPersistence.find(proyectoId, objetivoId);
         aprobacion.setObjetivo(obj);
         aprobacionPersistence.update(aprobacion);
@@ -169,21 +184,21 @@ public class AprobacionLogic {
      */
     public void deleteAprobacionObjetivo(Long objetivoId, Long aprobacionId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de borrar la aprobacion con id = {0}", aprobacionId);
-        AprobacionEntity camino = getAprobacionObjetivo(objetivoId, aprobacionId);
-        if (camino == null) {
+        AprobacionEntity aprobacion = getAprobacionObjetivo(objetivoId, aprobacionId);
+        if (aprobacion == null) {
             throw new BusinessLogicException("La aprobacion con id = " + aprobacionId + " no esta asociado a el objetivo con id = " + objetivoId);
         }
-        aprobacionPersistence.delete(camino.getId());
+        aprobacionPersistence.delete(aprobacion.getId());
         LOGGER.log(Level.INFO, "Termina proceso de borrar la aprobacion con id = {0}", aprobacionId);
     }
     
     public void deleteAprobacionRequisito(Long requisitoId, Long aprobacionId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de borrar la aprobacion con id = {0}", aprobacionId);
-        AprobacionEntity camino = getAprobacionRequisito(requisitoId, aprobacionId);
-        if (camino == null) {
+        AprobacionEntity aprobacion = getAprobacionRequisito(requisitoId, aprobacionId);
+        if (aprobacion == null) {
             throw new BusinessLogicException("La aprobacion con id = " + aprobacionId + " no esta asociado a el requisito con id = " + requisitoId);
         }
-        aprobacionPersistence.delete(camino.getId());
+        aprobacionPersistence.delete(aprobacion.getId());
         LOGGER.log(Level.INFO, "Termina proceso de borrar la aprobacion con id = {0}", aprobacionId);
     }
 }

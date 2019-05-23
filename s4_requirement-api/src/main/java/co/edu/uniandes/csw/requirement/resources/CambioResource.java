@@ -202,8 +202,8 @@ public class CambioResource {
         if (dto.getTipo() == null || dto.getTipo().equals("")) {
             dto.setTipo(current.getTipo());
         }
-        if (dto.getStakeholder() == null) {
-            dto.setStakeholder(current.getStakeholder());
+        if (dto.getAutor() == null || dto.getAutor().equals("")) {
+            dto.setAutor(current.getAutor());
         }
         CambioDTO cambioDTO;
         if (objetivo)

@@ -70,6 +70,10 @@ public class ObjetivoLogic {
         if (objetivoEntity.getDescripcion().equals("") || objetivoEntity.getDescripcion() == null) {
             throw new BusinessLogicException("La descripcion no pueden ser nulo o vacio");
         }
+        if (objetivoEntity.getAutor() == null || objetivoEntity.getAutor().equals(""))
+        {
+            throw new BusinessLogicException("El autor no puede ser nulo o vacio");
+        }
         ProyectoEntity proyecto = proyectoPersistence.find(proyectosId);
         objetivoEntity.setProyecto(proyecto);
         LOGGER.log(Level.INFO, "Termina proceso de creación del objetivo");
@@ -121,6 +125,10 @@ public class ObjetivoLogic {
         }
         if (objetivoEntity.getDescripcion().equals("") || objetivoEntity.getDescripcion() == null) {
             throw new BusinessLogicException("La descripcion no pueden ser nulo o vacio");
+        }
+        if (objetivoEntity.getAutor() == null || objetivoEntity.getAutor().equals(""))
+        {
+            throw new BusinessLogicException("El autor no puede ser nulo o vacio");
         }
         
         

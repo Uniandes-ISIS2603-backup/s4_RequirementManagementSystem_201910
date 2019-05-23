@@ -70,16 +70,6 @@ public class ObjetivoPersistence {
         return objetivos;
     }
 
-    /**
-     * Metodo para retornra todos los objetivos persistidos
-     * @return Lista de los objetivos persistidos
-     */
-    /*public List<ObjetivoEntity> findAll() {
-        LOGGER.log(Level.INFO, "Consultando todos los objetivos");
-        TypedQuery<ObjetivoEntity> query = em.createQuery("select u from ObjetivoEntity u", ObjetivoEntity.class);
-
-        return query.getResultList();
-    }*/
 
     /**
      * Metodo para actualizar un objeto entity

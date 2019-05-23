@@ -33,11 +33,9 @@ public class AprobacionEntity extends BaseEntity implements Serializable {
     private String fechaYHora;
     
     /**
-     * Relacion many to one con stakeholders
+     * El autor de la aprobacion
      */
-    @PodamExclude
-    @ManyToOne()
-    private StakeHolderEntity stakeholder;
+    private String autor;
     
     /**
      * Relacion many to one con objetivos
@@ -102,19 +100,7 @@ public class AprobacionEntity extends BaseEntity implements Serializable {
         this.fechaYHora = fechaYHora;
     }
 
-    /**
-     * @return the stakeholder
-     */
-    public StakeHolderEntity getStakeholder() {
-        return stakeholder;
-    }
-
-    /**
-     * @param stakeholder the stakeholder to set
-     */
-    public void setStakeholder(StakeHolderEntity stakeholder) {
-        this.stakeholder = stakeholder;
-    }
+   
 
     /**
      * @return the objetivo
@@ -142,6 +128,20 @@ public class AprobacionEntity extends BaseEntity implements Serializable {
      */
     public void setRequisito(RequisitoEntity requisito) {
         this.requisito = requisito;
+    }
+
+    /**
+     * @return the autor
+     */
+    public String getAutor() {
+        return autor;
+    }
+
+    /**
+     * @param autor the autor to set
+     */
+    public void setAutor(String autor) {
+        this.autor = autor;
     }
     
 
