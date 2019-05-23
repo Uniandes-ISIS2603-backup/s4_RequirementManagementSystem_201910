@@ -30,12 +30,7 @@ public class OrganizacionEntity extends BaseEntity implements Serializable {
     @PodamExclude
     @ManyToMany
     private List<ProyectoEntity> proyectos = new ArrayList<ProyectoEntity>();
-    /**
-     * Relacion con stakeholders
-     */
-    @PodamExclude
-    @ManyToOne
-    private ProyectoEntity proyecto;
+
 
 //construcctor vacio
     public OrganizacionEntity() {
@@ -64,14 +59,6 @@ public class OrganizacionEntity extends BaseEntity implements Serializable {
 
     public void setStakeHolders(List<StakeHolderEntity> lista) {
         stakeholders = lista;
-    }
-
-    public ProyectoEntity getProyecto() {
-        return proyecto;
-    }
-
-    public void setProyecto(ProyectoEntity proyecto) {
-        this.proyecto = proyecto;
     }
 
     public List<ProyectoEntity> getProyectos() {
