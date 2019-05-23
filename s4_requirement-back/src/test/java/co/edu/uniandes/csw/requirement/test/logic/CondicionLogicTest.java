@@ -100,7 +100,7 @@ public class CondicionLogicTest {
         Assert.assertEquals(newEntity.getId(), entity.getId());
         Assert.assertEquals(newEntity.getDescripcion(), entity.getDescripcion());
 
-    }*/
+    }/*
     
     /*@Test(expected = BusinessLogicException.class)
     public void createCondicionTestConIdInvalido() throws BusinessLogicException {
