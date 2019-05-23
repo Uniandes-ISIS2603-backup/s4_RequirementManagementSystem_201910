@@ -67,7 +67,7 @@ public class ObjetivoLogic {
         if (objetivoEntity.getImportancia() < 1 || objetivoEntity.getImportancia() > 3) {
             throw new BusinessLogicException("La importancia debe de ser un valor entre 1 y 3");
         }
-        if (objetivoEntity.getDescripcion().equals("") || objetivoEntity.getDescripcion() == null) {
+        if (objetivoEntity.getDescripcion() == null || objetivoEntity.getDescripcion().equals("")) {
             throw new BusinessLogicException("La descripcion no pueden ser nulo o vacio");
         }
         if (objetivoEntity.getAutor() == null || objetivoEntity.getAutor().equals(""))
@@ -123,7 +123,7 @@ public class ObjetivoLogic {
         if (objetivoEntity.getImportancia() < 1 || objetivoEntity.getImportancia() > 3) {
             throw new BusinessLogicException("La importancia debe de ser un valor entre 1 y 3");
         }
-        if (objetivoEntity.getDescripcion().equals("") || objetivoEntity.getDescripcion() == null) {
+        if ( objetivoEntity.getDescripcion() == null || objetivoEntity.getDescripcion().equals("")) {
             throw new BusinessLogicException("La descripcion no pueden ser nulo o vacio");
         }
         if (objetivoEntity.getAutor() == null || objetivoEntity.getAutor().equals(""))

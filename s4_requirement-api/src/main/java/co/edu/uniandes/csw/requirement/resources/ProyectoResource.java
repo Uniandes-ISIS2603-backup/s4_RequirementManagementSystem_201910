@@ -105,11 +105,11 @@ public class ProyectoResource {
         ProyectoDetailDTO current = new ProyectoDetailDTO(p);
         proyecto.setId(proyectosId);
         proyecto.setObjetivos(current.getObjetivos());
-        if (proyecto.getDescripcion() == null || proyecto.getDescripcion() == "")
+        if (proyecto.getDescripcion() == null || proyecto.getDescripcion().equals(""))
         {
             proyecto.setDescripcion(current.getDescripcion());
         }
-        if (proyecto.getNombre() == null || proyecto.getNombre() == "")
+        if (proyecto.getNombre() == null || proyecto.getNombre().equals(""))
         {
             proyecto.setNombre(current.getNombre());
         }

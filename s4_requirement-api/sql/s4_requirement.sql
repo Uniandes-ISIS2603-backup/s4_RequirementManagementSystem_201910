@@ -59,4 +59,4 @@ insert into CambioEntity (idPaso, tipo, descripcion) values (11, 'TEST', 'Cambio
 insert into ObjetivoEntity (id, descripcion, importancia, estabilidad, comentarios) values (11, 'Este es un ejemplo de descripcion', 3,2,'Ejemplo de comantario 1');
 insert into ObjetivoEntity (id, descripcion, importancia, estabilidad, comentarios) values (300, 'Ejemplo descripcion 2', 1,1,'Ejemplo de comantario 2');
 
-SELECT * FROM RequisitoEntity;
+SELECT * FROM PROYECTOEntity;
