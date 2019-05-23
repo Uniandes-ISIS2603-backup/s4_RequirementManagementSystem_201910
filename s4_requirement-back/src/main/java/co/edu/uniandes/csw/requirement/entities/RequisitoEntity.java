@@ -21,8 +21,11 @@ import uk.co.jemos.podam.common.PodamExclude;
 // Lo mismo pasa con los atributos, pues tampoco son anotados. 
 public class RequisitoEntity extends BaseEntity implements Serializable {
 
-    private String comentarios, descripcion, tipo;
-    private int importancia, estabilidad;
+    private String comentarios;
+    private String descripcion;
+    private String tipo;
+    private int importancia;
+    private int estabilidad;
     private String autor;
     private List<String> fuentes;
 

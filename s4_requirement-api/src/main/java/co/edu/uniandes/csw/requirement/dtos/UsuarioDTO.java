@@ -6,12 +6,13 @@
 package co.edu.uniandes.csw.requirement.dtos;
 
 import co.edu.uniandes.csw.requirement.entities.UsuarioEntity;
+import java.io.Serializable;
 
 /**
  *
  * @author estudiante
  */
-public class UsuarioDTO {
+public class UsuarioDTO implements Serializable{
     
     private String tipo;
     private String usuario;
