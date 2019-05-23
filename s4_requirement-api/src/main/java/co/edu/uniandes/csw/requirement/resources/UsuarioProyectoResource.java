@@ -28,6 +28,7 @@ import javax.ws.rs.core.MediaType;
  *
  * @proyecto estudiante
  */
+@Path ("usuarios/{usuariosId}/proyectos")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class UsuarioProyectoResource {

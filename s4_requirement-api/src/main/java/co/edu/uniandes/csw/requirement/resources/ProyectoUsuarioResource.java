@@ -30,6 +30,7 @@ import javax.ws.rs.core.MediaType;
  *
  * @proyecto Mateo Pedroza
  */
+@Path ("proyectos/{proyectosId}/usuarios")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class ProyectoUsuarioResource {
