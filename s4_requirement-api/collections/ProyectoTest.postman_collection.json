@@ -1,0 +1,249 @@
+{
+	"info": {
+		"_postman_id": "bb3610ed-c064-48ec-b663-2841abed0072",
+		"name": "ProyectoTest",
+		"description": "Pruebas de proyecto\n",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear un proyecto",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "33b31af7-04ba-4ee9-ae1e-24b1af0fe29e",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_proyecto\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombre\": \"Sistema de Requisitos\",\n\t\"descripcion\": \"Para las primadonnas\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_requirement-api/api/proyectos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"proyectos"
+					]
+				},
+				"description": "Crea un proyecto"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener los proyectos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "33b31af7-04ba-4ee9-ae1e-24b1af0fe29e",
+						"exec": [
+							"var data= JSON.parse(responseBody);",
+							"tests[\"No genera error en el Get all\"] = responseCode.code === 200;",
+							"tests[\"books count\"] = data.length >= 0;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_requirement-api/api/proyectos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"proyectos"
+					]
+				},
+				"description": "Obtener todos los proyectos que existen"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un proyecto",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "33b31af7-04ba-4ee9-ae1e-24b1af0fe29e",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Get\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_requirement-api/api/proyectos/{{new_id_proyecto}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"proyectos",
+						"{{new_id_proyecto}}"
+					]
+				},
+				"description": "Obtener todos los proyectos que existen"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un proyecto Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "33b31af7-04ba-4ee9-ae1e-24b1af0fe29e",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Put\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombre\": \"Sistema de Requisitos actualizado\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_requirement-api/api/proyectos/{{new_id_proyecto}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"proyectos",
+						"{{new_id_proyecto}}"
+					]
+				},
+				"description": "Crea un proyecto"
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar un objetivo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "33b31af7-04ba-4ee9-ae1e-24b1af0fe29e",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_requirement-api/api/proyectos/{{new_id_proyecto}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_requirement-api",
+						"api",
+						"proyectos",
+						"{{new_id_proyecto}}"
+					]
+				},
+				"description": "Obtener todos los proyectos que existen"
+			},
+			"response": []
+		}
+	]
+}

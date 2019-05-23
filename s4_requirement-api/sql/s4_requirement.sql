@@ -5,14 +5,13 @@ delete from UsuarioEntity;
 delete from AprobacionEntity;
 delete from CambioEntity;
 
-delete from CasoDeUsoEntity;
+delete from CaminoEntity;
 delete from CondicionEntity;
+delete from CasoDeUsoEntity;
 
+delete from RequisitoEntity;
 delete from ObjetivoEntity;
 delete from ProyectoEntity;
-delete from RequisitoEntity;
-
-delete from CaminoEntity;
 
 insert into OrganizacionEntity (id, sector, nombre) values (1, 'Tecnologico', 'Microsoft');
 insert into OrganizacionEntity (id, sector, nombre) values (2, 'Financiero', 'Bancolombia');
