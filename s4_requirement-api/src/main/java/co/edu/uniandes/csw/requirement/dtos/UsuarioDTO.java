@@ -34,6 +34,7 @@ public class UsuarioDTO {
             this.id = usuarioEntity.getId();
             this.usuario = usuarioEntity.getUsuario();
             this.tipo = usuarioEntity.getTipo();
+            this.contrasena = usuarioEntity.getContrasena();
             //if (usuarioEntity.getProyecto() != null) {
                 //this.proyecto = new ProyectoDTO(usuarioEntity.getProyecto());
             //} else {

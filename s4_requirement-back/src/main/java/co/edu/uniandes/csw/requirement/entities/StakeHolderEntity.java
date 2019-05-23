@@ -85,22 +85,6 @@ public class StakeHolderEntity extends BaseEntity implements Serializable {
         this.cambios = cambios;
     }
 
-
-//    public List<CambioEntity> getCambios() {
-//        return cambios;
-//    }
-//
-//    public void setCambios(List<CambioEntity> cambios) {
-//        this.cambios = cambios;
-//    }
-//
-//    public List<AprobacionEntity> getAprobaciones() {
-//        return aprobaciones;
-//    }
-//
-//    public void setAprobaciones(List<AprobacionEntity> aprobaciones) {
-//        this.aprobaciones = aprobaciones;
-//    }
     public ObjetivoEntity getAutorObjetivo() {
         return autorObjetivo;
     }

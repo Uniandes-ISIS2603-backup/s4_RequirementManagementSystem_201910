@@ -1,7 +1,10 @@
 package co.edu.uniandes.csw.requirement.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.*;
+import uk.co.jemos.podam.common.PodamExclude;
 
 
 /**
@@ -18,16 +21,12 @@ public class UsuarioEntity extends BaseEntity implements Serializable {
     private String tipo;
     private String usuario;
     private String contrasena;
+    
+    @PodamExclude
+    @ManyToMany
+    private List<ProyectoEntity> proyectos = new ArrayList<ProyectoEntity>();
 
    
-
-//Relacion con proyecto
-    //@PodamExclude
-    //@ManyToOne
-    //private ProyectoEntity proyecto;
-    
-    
-    //TODO: MATEO FALTA RELACION CON PROYECTO, ES MANY TO MANY.
     public UsuarioEntity() {
 
     }
@@ -61,4 +60,13 @@ public class UsuarioEntity extends BaseEntity implements Serializable {
     }    
     
     //Getter y Setter de proyecto
+
+    public List<ProyectoEntity> getProyectos() {
+        return proyectos;
+    }
+
+    public void setProyectos(List<ProyectoEntity> organizacion) {
+        this.proyectos = organizacion;
+    }
+    
 }
