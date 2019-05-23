@@ -19,29 +19,29 @@ import uk.co.jemos.podam.common.PodamExclude;
  * @author Sofia Alvarez, Jorge Esguerra, David Manosalva
  */
 @Entity
-public class ProyectoEntity extends BaseEntity implements Serializable
-{
-    /** 
+public class ProyectoEntity extends BaseEntity implements Serializable {
+
+    /**
      * Atributos de clase proyecto, se hereda id de baseEntity
      */
     private String nombre, descripcion;
-    
+
     @PodamExclude
-    @OneToMany(mappedBy= "proyecto", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany(mappedBy = "proyecto", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<ObjetivoEntity> objetivos = new ArrayList<ObjetivoEntity>();
-    
-    // TODO: MATEO DESCOMENTELO CUANDO REPASE SUS RELACIONES EN USUARIO Y EN STAKEHOLDER
-    /* 
-    @PodamExclude
+
+    /*
+        @PodamExclude
     @ManyToMany(mappedBy= "proyectos")
     private List<UsuarioEntity> usuarios = new ArrayList<UsuarioEntity>();
-    */
-    
-    /* // TODO: MATEO DESCOMENTELO CUANDO REPASE SUS RELACIONES EN USUARIO Y EN STAKEHOLDER
+     */
     @PodamExclude
-    @ManyToMany(mappedBy= "proyectos")
-    private List<StakeHolderEntity> stakeholders = new ArrayList<StakeHolderEntity>();
-    */
+    @ManyToMany(mappedBy = "proyectos")
+    private List<OrganizacionEntity> organizaciones = new ArrayList<OrganizacionEntity>();
+
+    @PodamExclude
+    @ManyToMany(mappedBy = "proyectos")
+    private List<UsuarioEntity> usuarios = new ArrayList<UsuarioEntity>();
 
     /**
      * @return the nombre
@@ -85,37 +85,20 @@ public class ProyectoEntity extends BaseEntity implements Serializable
         this.objetivos = objetivos;
     }
 
-    
-    
-    //TODO: DESCOMENTAR CUANDO MATEO CORRIJA LAS RELACIONES.
-    /**
-     * @return the usuarios
-     */
-    //public List<UsuarioEntity> getUsuarios() {
-      //  return usuarios;
-    //}
+    public List<OrganizacionEntity> getOrganizaciones() {
+        return organizaciones;
+    }
 
-    /**
-     * @param usuarios the usuarios to set
-     */
-    //public void setUsuarios(List<UsuarioEntity> usuarios) {
-      //  this.usuarios = usuarios;
-    //}
+    public void setOrganizaciones(List<OrganizacionEntity> organizacion) {
+        this.organizaciones = organizacion;
+    }
 
-    /**
-     * @return the stakeholders
-     */
-    //public List<StakeHolderEntity> getStakeholders() {
-      //  return stakeholders;
-    //}
+    public List<UsuarioEntity> getUsuarios() {
+        return usuarios;
+    }
 
-    /**
-     * @param stakeholders the stakeholders to set
-     */
-    //public void setStakeholders(List<StakeHolderEntity> stakeholders) {
-      //  this.stakeholders = stakeholders;
-    //}
-    
-    
+    public void setUsuarios(List<UsuarioEntity> usuarios) {
+        this.usuarios = usuarios;
+    }
     
 }

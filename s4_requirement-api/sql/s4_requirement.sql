@@ -1,17 +1,19 @@
 delete from StakeHolderEntity;
 delete from OrganizacionEntity;
 delete from UsuarioEntity;
+delete from ProyectoEntity;
 
 delete from AprobacionEntity;
 delete from CambioEntity;
 
-delete from CaminoEntity;
-delete from CondicionEntity;
 delete from CasoDeUsoEntity;
+delete from CondicionEntity;
 
-delete from RequisitoEntity;
 delete from ObjetivoEntity;
 delete from ProyectoEntity;
+delete from RequisitoEntity;
+
+delete from CaminoEntity;
 
 insert into OrganizacionEntity (id, sector, nombre) values (1, 'Tecnologico', 'Microsoft');
 insert into OrganizacionEntity (id, sector, nombre) values (2, 'Financiero', 'Bancolombia');
@@ -23,8 +25,19 @@ insert into StakeHolderEntity (id, tipo, nombre, organizacion_id) values (2, 'Te
 insert into StakeHolderEntity (id, tipo, nombre, organizacion_id) values (3, 'Administrador', 'Jorge', 1);
 insert into StakeHolderEntity (id, tipo, nombre, organizacion_id) values (4, 'Tecnologico', 'Sofia', 4);
 
-insert into UsuarioEntity (id, usuario, contrasena, tipo) values (100, 'Mateo', '1234', 'Administrador');
-insert into UsuarioEntity (id, usuario, contrasena, tipo) values (200, 'Jose', '1234', 'Cliente');
+insert into UsuarioEntity (id, usuario, contrasena, tipo) values (1, 'Mateo', '1234', 'Administrador');
+insert into UsuarioEntity (id, usuario, contrasena, tipo) values (2, 'Jose', '1234', 'Cliente');
+
+insert into ProyectoEntity (id, nombre, descripcion) values (1, 'Proyecto1', 'Descripcion');
+insert into ProyectoEntity (id, nombre, descripcion) values (2, 'Proyecto2', 'Descripcion');
+
+
+insert into OrganizacionEntity_ProyectoEntity (organizaciones_id,proyectos_id ) values (1,1);
+insert into OrganizacionEntity_ProyectoEntity (organizaciones_id,proyectos_id ) values (2,1);
+insert into OrganizacionEntity_ProyectoEntity (organizaciones_id,proyectos_id ) values (1,2);
+insert into UsuarioEntity_ProyectoEntity (usuarios_id,proyectos_id ) values (1,1);
+insert into UsuarioEntity_ProyectoEntity (usuarios_id,proyectos_id ) values (2,1);
+insert into UsuarioEntity_ProyectoEntity (usuarios_id,proyectos_id ) values (1,2);
 
 insert into AprobacionEntity (id, tipo, autor, organizacion, fechaYHora, estado, id_aprobado, nombre_aprobado, comentario)
  values (1, 'OBJETIVO','Sofia Alvarez','Startech', 'Fri Apr 05 2019 16:06:58 GMT -0500 (-05)', 'Aprobado', '1', 'Objetivo 1', 'Se ha evaluado el cambio 1 y se considera pertinente su implementación');
@@ -58,4 +71,4 @@ insert into CambioEntity (idPaso, tipo, descripcion) values (11, 'TEST', 'Cambio
 insert into ObjetivoEntity (id, descripcion, importancia, estabilidad, comentarios) values (11, 'Este es un ejemplo de descripcion', 3,2,'Ejemplo de comantario 1');
 insert into ObjetivoEntity (id, descripcion, importancia, estabilidad, comentarios) values (300, 'Ejemplo descripcion 2', 1,1,'Ejemplo de comantario 2');
 
-SELECT * FROM PROYECTOEntity;
+SELECT * FROM RequisitoEntity;
