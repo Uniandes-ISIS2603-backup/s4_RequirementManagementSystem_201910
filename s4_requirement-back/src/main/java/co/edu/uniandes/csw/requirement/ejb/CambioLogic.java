@@ -8,12 +8,10 @@ package co.edu.uniandes.csw.requirement.ejb;
 import co.edu.uniandes.csw.requirement.entities.CambioEntity;
 import co.edu.uniandes.csw.requirement.entities.ObjetivoEntity;
 import co.edu.uniandes.csw.requirement.entities.RequisitoEntity;
-import co.edu.uniandes.csw.requirement.entities.StakeHolderEntity;
 import co.edu.uniandes.csw.requirement.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.requirement.persistence.CambioPersistence;
 import co.edu.uniandes.csw.requirement.persistence.ObjetivoPersistence;
 import co.edu.uniandes.csw.requirement.persistence.RequisitoPersistence;
-import co.edu.uniandes.csw.requirement.persistence.StakeHolderPersistence;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,6 +26,14 @@ import javax.inject.Inject;
 @Stateless
 public class CambioLogic {
 
+    public static final String ERROR1 = "La fecha y hora del cambio no pueden ser nulos.";
+    public static final String MODIFICACION = "MODIFICACION";
+    public static final String ELIMINACION = "ELIMINACION";
+    public static final String APROBACION = "APROBACION";
+    
+    public static final String ERROR2 = "El tipo de un cambio debe ser modificacion, eliminacion o aprobacion";
+    public static final String ERROR3 ="El autor de un cambio no puede ser nulo o vacío";
+    
     /**
      * Inyección de persistencia de un cambio
      */
@@ -63,14 +69,14 @@ public class CambioLogic {
     public CambioEntity createCambioObjetivo(Long proyectosId, Long objetivosId, CambioEntity cambio) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de creación del cambio");
         if(cambio.getFechaYHora() == null || cambio.getFechaYHora().equals("")){
-            throw new BusinessLogicException("La fecha y hora del cambio no pueden ser nulos.");
+            throw new BusinessLogicException(ERROR1);
         }
-        if (!(cambio.getTipo().equals("MODIFICACION") || cambio.getTipo().equals("ELIMINACION") || cambio.getTipo().equals("APROBACION"))) {
-            throw new BusinessLogicException("El tipo de un cambio debe ser modificacion, eliminacion o aprobacion");
+        if (!(cambio.getTipo().equals(MODIFICACION) || cambio.getTipo().equals(ELIMINACION) || cambio.getTipo().equals(APROBACION))) {
+            throw new BusinessLogicException(ERROR2);
         }
         if (cambio.getAutor() == null || cambio.getAutor().equals(""))
         {
-            throw new BusinessLogicException("El autor de un cambio no puede ser nulo o vacío");
+            throw new BusinessLogicException(ERROR3);
         }
         
         ObjetivoEntity obj = objetivoPersistence.find(proyectosId, objetivosId);
