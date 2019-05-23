@@ -34,7 +34,7 @@ public class ObjetivoDetailDTO extends ObjetivoDTO implements Serializable {
     /**
      * Lista de stakeholders del objetivo
      */
-    private List<StakeHolderDTO> fuentes;
+    private List<String> fuentes;
     
     /**
      * Constructor vacio para REST
@@ -61,11 +61,17 @@ public class ObjetivoDetailDTO extends ObjetivoDTO implements Serializable {
             for (RequisitoEntity requisitoEntities : objetivoEntity.getRequisitos()) {
                 requisitos.add(new RequisitoDTO(requisitoEntities));
             }
-            
             fuentes = new ArrayList<>();
-            for (StakeHolderEntity stakeHolderEntities : objetivoEntity.getFuentes()) {
-                fuentes.add(new StakeHolderDTO(stakeHolderEntities));
+            for (String s: objetivoEntity.getFuentes()) {
+                fuentes.add(s);
             }
+            
+            
+            
+//            fuentes = new ArrayList<>();
+//            for (StakeHolderEntity stakeHolderEntities : objetivoEntity.getFuentes()) {
+//                fuentes.add(new StakeHolderDTO(stakeHolderEntities));
+//            }
         }
     }
     
@@ -98,13 +104,14 @@ public class ObjetivoDetailDTO extends ObjetivoDTO implements Serializable {
             objetivoEntity.setRequisitos(requisitosEntity);
         }
         
-        if (fuentes != null) {
-            List<StakeHolderEntity> fuentesEntity = new ArrayList<>();
-            for (StakeHolderDTO dtoFuentes : fuentes) {
-                fuentesEntity.add(dtoFuentes.toEntity());
-            }
-            objetivoEntity.setFuentes(fuentesEntity);
-        }
+        
+//        if (fuentes != null) {
+//            List<StakeHolderEntity> fuentesEntity = new ArrayList<>();
+//            for (StakeHolderDTO dtoFuentes : fuentes) {
+//                fuentesEntity.add(dtoFuentes.toEntity());
+//            }
+//            objetivoEntity.setFuentes(fuentesEntity);
+//        }
         return objetivoEntity;
     }
 
@@ -150,19 +157,17 @@ public class ObjetivoDetailDTO extends ObjetivoDTO implements Serializable {
         this.requisitos = requisitos;
     }
 
-    
-
     /**
      * @return the fuentes
      */
-    public List<StakeHolderDTO> getFuentes() {
+    public List<String> getFuentes() {
         return fuentes;
     }
 
     /**
      * @param fuentes the fuentes to set
      */
-    public void setFuentes(List<StakeHolderDTO> fuentes) {
+    public void setFuentes(List<String> fuentes) {
         this.fuentes = fuentes;
     }
     

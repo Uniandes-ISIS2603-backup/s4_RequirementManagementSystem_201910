@@ -55,14 +55,12 @@ public class CondicionResource {
      * @throws BusinessLogicException si no se cumplen las reglas de negocio
      */
     @POST
-    public CondicionDTO crearCondicion(CondicionDTO condicion) throws BusinessLogicException
+    public CondicionDTO crearCondicion(@PathParam("requisitosId") Long requisitosId, @PathParam("casosDeUsoId") Long casosDeUsoId, CondicionDTO condicion) throws BusinessLogicException
     {
         LOGGER.log(Level.INFO, "CondicionResource createCondicion: input: {0}", condicion);
-        CondicionEntity condicionEntity = condicion.toEntity();
-        CondicionEntity nuevaCondicionEntity = condicionLogic.createCondicion(condicionEntity);
-        CondicionDTO nuevacondicionDTO = new CondicionDTO(nuevaCondicionEntity);
-        LOGGER.log(Level.INFO, "CondicionResource createCondicion: output: {0}", nuevacondicionDTO);
-        return nuevacondicionDTO;
+        CondicionDTO c = new CondicionDTO(condicionLogic.createCondicion(requisitosId, casosDeUsoId, condicion.toEntity()));
+        LOGGER.log(Level.INFO, "CondicionResource createCondicion: output: {0}", c);
+        return c;
     }
     
     /**
@@ -72,9 +70,9 @@ public class CondicionResource {
      */
     @GET
     @Path("{id: \\d+}")
-    public CondicionDTO getCondicion (@PathParam("id") Long id)throws WebApplicationException {
+    public CondicionDTO getCondicion (@PathParam("id") Long id, @PathParam("casosDeUsoId") Long casosDeUsoId)throws WebApplicationException {
         LOGGER.log(Level.INFO, "CondicionResource getCondicion: input: {0}", id);
-        CondicionEntity condicionEntity = condicionLogic.getCondicion(id);
+        CondicionEntity condicionEntity = condicionLogic.getCondicion(casosDeUsoId, id);
         if (condicionEntity == null) {
             throw new WebApplicationException("El recurso /condiciones/" + id + " no existe.", 404);
         }
@@ -88,9 +86,9 @@ public class CondicionResource {
      * @return todos los condiciones
      */
     @GET
-    public List<CondicionDTO> getCondiciones() {
+    public List<CondicionDTO> getCondiciones(@PathParam("requisitosId") Long requisitosId, @PathParam("casosDeUsoId") Long casosDeUsoId) {
         LOGGER.info("CondicionResource getCondiciones: input: void");
-        List<CondicionDTO> listaCondiciones = listEntity2DTO(condicionLogic.getCondiciones());
+        List<CondicionDTO> listaCondiciones = listEntity2DTO(condicionLogic.getCondiciones(requisitosId, casosDeUsoId));
         LOGGER.log(Level.INFO, "CondicionResource getCondiciones: output: {0}", listaCondiciones);
         return listaCondiciones;
     }
@@ -101,12 +99,12 @@ public class CondicionResource {
      */
     @DELETE
     @Path("{id: \\d+}")
-    public void deleteCondicion (@PathParam("id") Long id)throws BusinessLogicException {
+    public void deleteCondicion (@PathParam("casosDeUsoId") Long casosDeUsoId, @PathParam("id") Long id)throws BusinessLogicException {
         LOGGER.log(Level.INFO, "CondicionResource deleteCondicion: input: {0}", id);
-        if (condicionLogic.getCondicion(id) == null) {
+        if (condicionLogic.getCondicion(casosDeUsoId, id) == null) {
             throw new WebApplicationException("El recurso /condiciones/" + id + " no existe.", 404);
         }
-        condicionLogic.deleteCondicion(id);
+        condicionLogic.deleteCondicion(casosDeUsoId, id);
         LOGGER.info("CondicionResource deleteCondicion: output: void");
     }
     
@@ -118,14 +116,28 @@ public class CondicionResource {
      */
     @PUT
     @Path("{id: \\d+}")
-    public CondicionDTO putCondicion (@PathParam("id") Long id, CondicionDTO dto)throws WebApplicationException {
+    public CondicionDTO putCondicion (@PathParam("casosDeUsoId") Long casosDeUsoId, @PathParam("id") Long id, CondicionDTO dto)throws WebApplicationException {
         LOGGER.log(Level.INFO, "CondicionResource putCondicion: input: id:{0} , dto: {1}", new Object[]{id, dto});
         dto.setId(id);
-        if (condicionLogic.getCondicion(id) == null) {
+        CondicionEntity prev = condicionLogic.getCondicion(casosDeUsoId, id);
+        if (prev == null) {
             throw new WebApplicationException("El recurso /condiciones/" + id + " no existe.", 404);
         }
-        CondicionDTO condicionDTO = new CondicionDTO(condicionLogic.updateCondicion(id, dto.toEntity()));
-        LOGGER.log(Level.INFO, "CasoDeUsoResource putCasoDeUso: output: {0}", condicionDTO);
+        CondicionDTO current = new CondicionDTO(prev);
+        if (dto.getEsPrecondicion() == null)
+        {
+            dto.setEsPrecondicion(current.getEsPrecondicion());
+        }
+        if (dto.getSeCumplio() == null)
+        {
+            dto.setSeCumplio(current.getSeCumplio());
+        }
+        if (dto.getDescripcion() == null || dto.getDescripcion().equals(""))
+        {
+            dto.setDescripcion(current.getDescripcion());
+        }
+        CondicionDTO condicionDTO = new CondicionDTO(condicionLogic.updateCondicion(casosDeUsoId, id, dto.toEntity()));
+        LOGGER.log(Level.INFO, "CondicionResource putCondicion: output: {0}", condicionDTO);
         return condicionDTO;
     }
     

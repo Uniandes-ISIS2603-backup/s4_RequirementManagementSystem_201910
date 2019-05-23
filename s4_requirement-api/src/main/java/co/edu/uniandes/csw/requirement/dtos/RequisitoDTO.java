@@ -7,6 +7,8 @@ package co.edu.uniandes.csw.requirement.dtos;
 
 import co.edu.uniandes.csw.requirement.entities.RequisitoEntity;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -21,7 +23,10 @@ public class RequisitoDTO implements Serializable {
     private Long id;
     private Integer importancia, estabilidad;
 
-    private StakeHolderDTO autor;
+    private String autor;
+    private List<String> fuentes;
+
+    private ObjetivoDTO objetivo;
 
     public RequisitoDTO() {
 
@@ -35,22 +40,34 @@ public class RequisitoDTO implements Serializable {
             this.estabilidad = re.getEstabilidad();
             this.comentarios = re.getComentarios();
             this.tipo = re.getTipo();
-            if (re.getAutor() != null) {
-                this.autor = new StakeHolderDTO(re.getAutor());
-            } else {
-                re.setAutor(null);
+            this.autor = re.getAutor();
+            fuentes = new ArrayList<>();
+            for (String s : re.getFuentes()) {
+                fuentes.add(s);
             }
+            if (re.getObjetivo() != null) {
+                this.objetivo = new ObjetivoDTO(re.getObjetivo());
+            } else {
+                re.setObjetivo(null);
+            }
+            
         }
     }
 
     public RequisitoEntity toEntity() {
         RequisitoEntity requisitoEntity = new RequisitoEntity();
         requisitoEntity.setId(this.getId());
-        requisitoEntity.setDescripcion(this.descripcion);
-        requisitoEntity.setImportancia(this.importancia);
-        requisitoEntity.setComentarios(this.comentarios);
-        requisitoEntity.setEstabilidad(this.estabilidad);
-        requisitoEntity.setTipo(this.tipo);
+        requisitoEntity.setDescripcion(this.getDescripcion());
+        requisitoEntity.setImportancia(this.getImportancia());
+        requisitoEntity.setComentarios(this.getComentarios());
+        requisitoEntity.setEstabilidad(this.getEstabilidad());
+        requisitoEntity.setTipo(this.getTipo());
+        requisitoEntity.setAutor(this.getAutor());
+        requisitoEntity.setFuentes(this.getFuentes());
+//     
+        if (getObjetivo() != null) {
+            requisitoEntity.setObjetivo(getObjetivo().toEntity());
+        }
         return requisitoEntity;
     }
 
@@ -141,14 +158,14 @@ public class RequisitoDTO implements Serializable {
     /**
      * @return the autor
      */
-    public StakeHolderDTO getAutor() {
+    public String getAutor() {
         return autor;
     }
 
     /**
      * @param autor the autor to set
      */
-    public void setAutor(StakeHolderDTO autor) {
+    public void setAutor(String autor) {
         this.autor = autor;
     }
 
@@ -157,4 +174,33 @@ public class RequisitoDTO implements Serializable {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
 
+    /**
+     * @return the objetivo
+     */
+    public ObjetivoDTO getObjetivo() {
+        return objetivo;
+    }
+
+    /**
+     * @param objetivo the objetivo to set
+     */
+    public void setObjetivo(ObjetivoDTO objetivo) {
+        this.objetivo = objetivo;
+    }
+
+    /**
+     * @return the fuentes
+     */
+    public List<String> getFuentes() {
+        return fuentes;
+    }
+
+    /**
+     * @param fuentes the fuentes to set
+     */
+    public void setFuentes(List<String> fuentes) {
+        this.fuentes = fuentes;
+    }
+
+    
 }

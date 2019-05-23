@@ -34,22 +34,44 @@ public class CambioPersistence {
         return cambioEntity;
     }
 
-    /**
-     * Método para encontrar un cambio por su id.
-     * @param cambioId id del cambio a buscar.
-     * @return devuelve el cambio encontrado.
-     */
-    public CambioEntity find(Long cambioId) {
-        return em.find(CambioEntity.class, cambioId);
+    public CambioEntity findWithObjetivo(Long objetivoId, Long cambioId) {
+        TypedQuery<CambioEntity> q = em.createQuery("select p from CambioEntity p where (p.objetivo.id = :objetivoId) and (p.id = :cambioId)", CambioEntity.class);
+        q.setParameter("objetivoId", objetivoId);
+        q.setParameter("cambioId", cambioId);
+        List<CambioEntity> results = q.getResultList();
+        CambioEntity cambioE = null;
+        if (results == null) {
+            cambioE = null;
+        } else if (results.isEmpty()) {
+            cambioE = null;
+        } else if (results.size() >= 1) {
+            cambioE = results.get(0);
+        }
+        return cambioE;    
     }
+    
     /**
-     * Método que encuentra todos los cambios.
-     * @return lista con todos los cambios.
+     * Busca un aprobacion entity perteneciente a un requisito
+     * @param requisitoId El id del requisito
+     * @param cambioId El id del cambio
+     * @return El aprobacion entity
      */
-    public List<CambioEntity> findAll(){
-        TypedQuery<CambioEntity> query = em.createQuery("select u from CambioEntity u", CambioEntity.class);
-        return query.getResultList();
+    public CambioEntity findWithRequisito(Long requisitoId, Long cambioId) {
+        TypedQuery<CambioEntity> q = em.createQuery("select p from CambioEntity p where (p.requisito.id = :requisitoId) and (p.id = :cambioId)", CambioEntity.class);
+        q.setParameter("requisitoId", requisitoId);
+        q.setParameter("cambioId", cambioId);
+        List<CambioEntity> results = q.getResultList();
+        CambioEntity cambioE = null;
+        if (results == null) {
+            cambioE  = null;
+        } else if (results.isEmpty()) {
+            cambioE  = null;
+        } else if (results.size() >= 1) {
+            cambioE = results.get(0);
+        }
+        return cambioE ;    
     }
+    
     
     /**
      * Método que actualiza un cambio
@@ -65,10 +87,9 @@ public class CambioPersistence {
      * @param cambioId id del cambio a eliminar
      * @return el cambio eliminado.
      */
-    public CambioEntity delete(Long cambioId){
+    public void delete(Long cambioId){
         CambioEntity cambio = em.find(CambioEntity.class, cambioId);
         em.remove(cambio);
-        return cambio;
     }
     
 }

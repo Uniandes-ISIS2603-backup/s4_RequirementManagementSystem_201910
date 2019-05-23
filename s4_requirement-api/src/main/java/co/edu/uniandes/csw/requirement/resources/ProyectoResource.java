@@ -18,6 +18,7 @@ import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
+import co.edu.uniandes.csw.requirement.patch.PATCH;
 
 /**
  * Clase que representa el Recurso para obtener DTOS de tipo Proyecto
@@ -96,14 +97,30 @@ public class ProyectoResource {
     @Path("{proyectosId: \\d+}")
     public ProyectoDetailDTO updateProyecto(@PathParam("proyectosId") Long proyectosId, ProyectoDetailDTO proyecto) throws BusinessLogicException{
         LOGGER.log(Level.INFO, "ProyectoResource updateProyecto: input: proyectosId: {0} , proyecto: {1}", new Object[]{proyectosId, proyecto});
-        proyecto.setId(proyectosId);
-        if (proyectoLogic.getProyecto(proyectosId) == null) {
+        ProyectoEntity p = proyectoLogic.getProyecto(proyectosId);
+        
+        if (p == null) {
             throw new WebApplicationException("El recurso /proyectos/" + proyectosId + " no existe.", 404);
         }
+        ProyectoDetailDTO current = new ProyectoDetailDTO(p);
+        proyecto.setId(proyectosId);
+        proyecto.setObjetivos(current.getObjetivos());
+        if (proyecto.getDescripcion() == null || proyecto.getDescripcion() == "")
+        {
+            proyecto.setDescripcion(current.getDescripcion());
+        }
+        if (proyecto.getNombre() == null || proyecto.getNombre() == "")
+        {
+            proyecto.setNombre(current.getNombre());
+        }
+        
         ProyectoDetailDTO detailDTO = new ProyectoDetailDTO(proyectoLogic.updateProyecto(proyectosId, proyecto.toEntity()));
         LOGGER.log(Level.INFO, "ProyectoResource updateProyecto: output: {0}", detailDTO);
         return detailDTO;
     }
+    
+   
+    
     
     /**
      * Metodo para eliminar un proyecto por id

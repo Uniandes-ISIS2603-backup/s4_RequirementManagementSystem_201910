@@ -40,17 +40,41 @@ public class AprobacionPersistence {
      * @param aprobacionId el id de la aprobación a buscar
      * @return la aprobación encontrada
      */
-    public AprobacionEntity find(Long aprobacionId) {
-        return em.find(AprobacionEntity.class, aprobacionId);
+    public AprobacionEntity findWithObjetivo(Long objetivoId, Long aprobacionId) {
+        TypedQuery<AprobacionEntity> q = em.createQuery("select p from AprobacionEntity p where (p.objetivo.id = :objetivoId) and (p.id = :aprobacionId)", AprobacionEntity.class);
+        q.setParameter("objetivoId", objetivoId);
+        q.setParameter("aprobacionId", aprobacionId);
+        List<AprobacionEntity> results = q.getResultList();
+        AprobacionEntity aprobacionE = null;
+        if (results == null) {
+            aprobacionE = null;
+        } else if (results.isEmpty()) {
+            aprobacionE = null;
+        } else if (results.size() >= 1) {
+            aprobacionE = results.get(0);
+        }
+        return aprobacionE;    
     }
-    
     /**
-     * Método para encontrar todas las aprobaciones de la base de datos.
-     * @return una lista con todas las aprobaciones encontradas.
+     * Busca un aprobacion entity perteneciente a un requisito
+     * @param requisitoId El id del requisito
+     * @param aprobacionId El id del objetivo
+     * @return El aprobacion entity
      */
-    public List<AprobacionEntity> findAll(){
-        TypedQuery<AprobacionEntity> query = em.createQuery("select u from AprobacionEntity u", AprobacionEntity.class);
-        return query.getResultList();
+    public AprobacionEntity findWithRequisito(Long requisitoId, Long aprobacionId) {
+        TypedQuery<AprobacionEntity> q = em.createQuery("select p from AprobacionEntity p where (p.requisito.id = :requisitoId) and (p.id = :aprobacionId)", AprobacionEntity.class);
+        q.setParameter("requisitoId", requisitoId);
+        q.setParameter("aprobacionId", aprobacionId);
+        List<AprobacionEntity> results = q.getResultList();
+        AprobacionEntity aprobacionE = null;
+        if (results == null) {
+            aprobacionE = null;
+        } else if (results.isEmpty()) {
+            aprobacionE = null;
+        } else if (results.size() >= 1) {
+            aprobacionE = results.get(0);
+        }
+        return aprobacionE;    
     }
     
     /**
@@ -67,9 +91,8 @@ public class AprobacionPersistence {
      * @param aprobacionId id de la aprobación a eliminar
      * @return la aprobación eliminada.
      */
-    public AprobacionEntity delete(Long aprobacionId){
+    public void delete(Long aprobacionId){
         AprobacionEntity aprobacion = em.find(AprobacionEntity.class, aprobacionId);
         em.remove(aprobacion);
-        return aprobacion;
     }
 }

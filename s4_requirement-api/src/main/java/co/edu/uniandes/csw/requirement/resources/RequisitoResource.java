@@ -14,15 +14,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 
 
-@Path("requisitos")
 @Produces("application/json")
 @Consumes("application/json")
-@RequestScoped
 public class RequisitoResource
 {
     private static final Logger LOGGER = Logger.getLogger(RequisitoResource.class.getName());
@@ -43,22 +40,12 @@ public class RequisitoResource
      * 
      */
     @POST
-    public RequisitoDTO createRequisito(RequisitoDTO req) throws BusinessLogicException
+    public RequisitoDTO createRequisito(@PathParam ("proyectosId") Long proyectosId, @PathParam ("objetivosId") Long objetivosId,RequisitoDTO req) throws BusinessLogicException
     {
-        try{
         LOGGER.log(Level.INFO, "RequisitoResource createRequisito: input: {0}", req);
-        LOGGER.log(Level.INFO, "RequisitoResource createRequisito: input: {0}", req.getEstabilidad());
-        RequisitoEntity reqEntity = reqLogic.createRequisito(req.toEntity());
-        RequisitoDTO reqDTO = new RequisitoDTO(reqEntity);
-        //RequisitoDTO reqDTO = new RequisitoDTO(reqLogic.createRequisito(req.toEntity()));
+        RequisitoDetailDTO reqDTO = new RequisitoDetailDTO(reqLogic.createRequisito(proyectosId, objetivosId, req.toEntity()));
         LOGGER.log(Level.INFO, "RequisitoResource createRequisito: output: {0}", reqDTO);
         return reqDTO;
-        }
-        catch(BusinessLogicException e)
-        {
-            e.printStackTrace();
-            throw e;
-        }
     }
     
     /**
@@ -72,12 +59,12 @@ public class RequisitoResource
      */
     @GET
     @Path("{requisitosId: \\d+}")
-    public RequisitoDetailDTO getRequisito(@PathParam("requisitosId") Long requisitosId)
+    public RequisitoDetailDTO getRequisito(@PathParam ("objetivosId") Long objetivosId, @PathParam("requisitosId") Long requisitosId)
     {
         LOGGER.log(Level.INFO, "RequisitoResource getRequisito: input: {0}", requisitosId);
-        RequisitoEntity requisitoEntity = reqLogic.getRequisito(requisitosId);
+        RequisitoEntity requisitoEntity = reqLogic.getRequisito(objetivosId, requisitosId);
         if (requisitoEntity == null) {
-            throw new WebApplicationException("El recurso /requisitos/" + requisitosId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /objetivos/"+ objetivosId + "/requisitos/" + requisitosId + " no existe.", 404);
         }
         RequisitoDetailDTO requisitoDetailDTO = new RequisitoDetailDTO(requisitoEntity);
         LOGGER.log(Level.INFO, "RequisitoResource getRequisito: output: {0}", requisitoDetailDTO);
@@ -91,10 +78,10 @@ public class RequisitoResource
      * aplicación. Si no hay ninguno retorna una lista vacía.
      */
     @GET
-    public List<RequisitoDetailDTO> getRequisitos()
+    public List<RequisitoDetailDTO> getRequisitos(@PathParam ("proyectosId") Long proyectosId, @PathParam ("objetivosId") Long objetivosId)
     {
         LOGGER.info("RequisitoResource getRequisitos: input: void");
-        List<RequisitoDetailDTO> listaReqs = listEntity2DetailDTO(reqLogic.getRequisitos());
+        List<RequisitoDetailDTO> listaReqs = listEntity2DetailDTO(reqLogic.getRequisitos(proyectosId, objetivosId));
         LOGGER.log(Level.INFO, "RequisitoResource getRequisitos: output: {0}", listaReqs);
         return listaReqs;
     }
@@ -112,15 +99,14 @@ public class RequisitoResource
      */
     @DELETE
     @Path("{requisitosId: \\d+}")
-    public void deleteRequisito(@PathParam("requisitosId") Long requisitosId) throws BusinessLogicException
+    public void deleteRequisito( @PathParam("objetivosId") Long objetivosId, @PathParam("requisitosId") Long requisitosId) throws BusinessLogicException
     {
         LOGGER.log(Level.INFO, "RequisitoResource deleteRequisito: input: {0}", requisitosId);
-        RequisitoEntity entity = reqLogic.getRequisito(requisitosId);
+        RequisitoEntity entity = reqLogic.getRequisito(objetivosId, requisitosId);
         if (entity == null) {
-            throw new WebApplicationException("El recurso /requisitos/" + requisitosId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /objetivos/" + objetivosId + "/requisitos/" + requisitosId + " no existe.", 404);
         }
-       //TODO: requisitoLogic.removeEditorial(requisitosId);
-        reqLogic.deleteRequisito(requisitosId);
+        reqLogic.deleteRequisito(objetivosId, requisitosId);
         LOGGER.info("RequisitoResource deleteRequisito: output: void");
     }
     
@@ -139,15 +125,43 @@ public class RequisitoResource
      * Error de lógica que se genera cuando no se puede actualizar el requisito.
      */
     @PUT
-    @Path("{id: \\d+}")
-    public RequisitoDTO putRequisito(@PathParam("id") Long id, RequisitoDetailDTO req) throws BusinessLogicException
+    @Path("{requisitosId: \\d+}")
+    public RequisitoDetailDTO putRequisito(@PathParam ("proyectosId") Long proyectosId, @PathParam("objetivosId") Long objetivosId, @PathParam("requisitosId") Long requisitosId, RequisitoDetailDTO req) throws BusinessLogicException
     {
-        LOGGER.log(Level.INFO, "RequisitoResource updateRequisito: input: id: {0} , requisito: {1}", new Object[]{id, req});
-        req.setId(id);
-        if (reqLogic.getRequisito(id) == null) {
-            throw new WebApplicationException("El recurso /requisitos/" + id + " no existe.", 404);
+        LOGGER.log(Level.INFO, "RequisitoResource updateRequisito: input: objetivo: {0},  requisitoId: {1} , requisito: {2}", new Object[]{objetivosId, requisitosId, req});
+        RequisitoEntity entity = reqLogic.getRequisito(objetivosId, requisitosId);
+        
+        req.setId(requisitosId);
+        if (entity == null) {
+            throw new WebApplicationException("El recurso /objetivos/" + objetivosId + "/requisitos/" + requisitosId + " no existe.", 404);
         }
-        RequisitoDetailDTO detailDTO = new RequisitoDetailDTO(reqLogic.updateRequisito(id, req.toEntity()));
+        RequisitoDetailDTO current = new RequisitoDetailDTO(entity);
+        req.setAprobaciones(current.getAprobaciones());
+        req.setAutor(current.getAutor());
+        req.setCambios(current.getCambios());
+        req.setFuentes(current.getFuentes());
+        if (req.getTipo().equals("") || req.getTipo() == null)
+        {
+            req.setTipo(current.getTipo());
+        }
+        if (req.getComentarios().equals("") || req.getComentarios() == null)
+        {
+            req.setComentarios(current.getComentarios());
+        }
+        if (req.getDescripcion().equals("") || req.getDescripcion() == null)
+        {
+            req.setDescripcion(current.getDescripcion());
+        }
+        if (req.getEstabilidad() == null)
+        {
+            req.setEstabilidad(current.getEstabilidad());
+        }
+        if (req.getImportancia() == null)
+        {
+            req.setImportancia(current.getImportancia());
+        }
+        
+        RequisitoDetailDTO detailDTO = new RequisitoDetailDTO(reqLogic.updateRequisito(proyectosId, objetivosId, requisitosId, req.toEntity()));
         LOGGER.log(Level.INFO, "RequisitoResource updateRequisito: output: {0}", detailDTO);
         return detailDTO;
     }
@@ -170,6 +184,31 @@ public class RequisitoResource
             list.add(new RequisitoDetailDTO(entity));
         }
         return list;
+    }
+    
+    @Path("{requisitosId: \\d+}/casosDeUso")
+    public Class<CasoDeUsoResource> getCasodeResource(@PathParam("objetivosId") Long objetivosId, @PathParam("requisitosId") Long requisitosId) {
+        if (reqLogic.getRequisito(objetivosId, requisitosId) == null) {
+            throw new WebApplicationException("El recurso /requisitos/" + requisitosId + " no existe.", 404);
+        }
+        return CasoDeUsoResource.class;
+    }
+    
+    @Path("{requisitosId: \\d+}/cambios")
+    public Class<CambioResource> getCambioResource(@PathParam("objetivosId") Long objetivosId, @PathParam("requisitosId") Long requisitosId) {
+        if (reqLogic.getRequisito(objetivosId, requisitosId) == null) {
+            throw new WebApplicationException("El recurso /requisitos/" + requisitosId + " no existe.", 404);
+        }
+        return CambioResource.class;
+    }
+    
+    
+    @Path("{requisitosId: \\d+}/aprobaciones")
+    public Class<AprobacionResource> getAprobacionesResource(@PathParam("objetivosId") Long objetivosId, @PathParam("requisitosId") Long requisitosId) {
+        if (reqLogic.getRequisito(objetivosId, requisitosId) == null) {
+            throw new WebApplicationException("El recurso /requisitos/" + requisitosId + " no existe.", 404);
+        }
+        return AprobacionResource.class;
     }
     
     

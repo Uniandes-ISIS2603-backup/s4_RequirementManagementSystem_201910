@@ -54,7 +54,7 @@ public class ObjetivoPersistence {
      */
     public ObjetivoEntity find(Long proyectosId, Long objetivoId) {
         LOGGER.log(Level.INFO, "Consultando el Objetivo con id = {0} del Proyecto con id = " + proyectosId, objetivoId);
-        TypedQuery<ObjetivoEntity> q = em.createQuery("select p from ObjetivoEntity p where (p.proyecto.id = :proyectoid) and (p.id = :objetivoId)", ObjetivoEntity.class);
+        TypedQuery<ObjetivoEntity> q = em.createQuery("select p from ObjetivoEntity p where (p.proyecto.id = :proyectosId) and (p.id = :objetivoId)", ObjetivoEntity.class);
         q.setParameter("proyectosId", proyectosId);
         q.setParameter("objetivoId", objetivoId);
         List<ObjetivoEntity> results = q.getResultList();
@@ -70,16 +70,6 @@ public class ObjetivoPersistence {
         return objetivos;
     }
 
-    /**
-     * Metodo para retornra todos los objetivos persistidos
-     * @return Lista de los objetivos persistidos
-     */
-    public List<ObjetivoEntity> findAll() {
-        LOGGER.log(Level.INFO, "Consultando todos los objetivos");
-        TypedQuery<ObjetivoEntity> query = em.createQuery("select u from ObjetivoEntity u", ObjetivoEntity.class);
-
-        return query.getResultList();
-    }
 
     /**
      * Metodo para actualizar un objeto entity
@@ -99,7 +89,7 @@ public class ObjetivoPersistence {
         LOGGER.log(Level.INFO, "Borrando el objetivo con id={0}", objetivoId);
         ObjetivoEntity objetivoEntity = em.find(ObjetivoEntity.class, objetivoId);
         em.remove(objetivoEntity);
-        LOGGER.log(Level.INFO, "Saliendo de borrar El objetivo con id = {0}", objetivoId);
+        LOGGER.log(Level.INFO, "Saliendo de borrar el objetivo con id = {0}", objetivoId);
         
     }
 

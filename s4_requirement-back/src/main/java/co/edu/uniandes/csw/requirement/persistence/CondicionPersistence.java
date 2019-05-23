@@ -38,21 +38,26 @@ public class CondicionPersistence {
     /**
      * Método para encontrar una condicion por su id.
      * @param condicionId id de la condicion a buscar.
+     * @param casoDeUsoId
      * @return devuelve la condicion encontrada.
      */
-    public CondicionEntity find(Long condicionId) {
-        return em.find(CondicionEntity.class, condicionId);
+    public CondicionEntity find(Long casoDeUsoId, Long condicionId) {
+        TypedQuery<CondicionEntity> q = em.createQuery("select p from CondicionEntity p where (p.caso.id = :casoDeUsoId) and (p.id = :condicionId)", CondicionEntity.class);
+        q.setParameter("casoDeUsoId", casoDeUsoId);
+        q.setParameter("condicionId", condicionId);
+        List<CondicionEntity> results = q.getResultList();
+        CondicionEntity condiciones = null;
+        if (results == null) {
+            condiciones = null;
+        } else if (results.isEmpty()) {
+            condiciones = null;
+        } else if (results.size() >= 1) {
+            condiciones = results.get(0);
+        }
+        return condiciones;     
+    
     }
 
-    /**
-     * Método que encuentra todas las condiciones.
-     * @return lista con todas las condiciones.
-     */
-    public List<CondicionEntity> findAll() {
-
-        TypedQuery<CondicionEntity> query = em.createQuery("select u from CondicionEntity u", CondicionEntity.class);
-        return query.getResultList();
-    }
     
     public CondicionEntity findByDescripcion(String description){
         TypedQuery<CondicionEntity> query = em.createQuery("select u from CondicionEntity u where u.descripcion = :descripcion", CondicionEntity.class);
@@ -86,10 +91,9 @@ public class CondicionPersistence {
      * @param condicionId id de la condicion a eliminar
      * @return la condicion eliminada.
      */
-    public CondicionEntity delete(Long condicionId){
+    public void delete(Long condicionId){
         CondicionEntity condicion=em.find(CondicionEntity.class, condicionId);
         em.remove(condicion);
-        return condicion;
     }
 
 }

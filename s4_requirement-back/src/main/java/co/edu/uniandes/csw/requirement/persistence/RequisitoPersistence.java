@@ -21,7 +21,7 @@ import javax.persistence.TypedQuery;
 @Stateless
 public class RequisitoPersistence {
 
-    private static final Logger LOGGER = Logger.getLogger(ObjetivoPersistence.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(RequisitoPersistence.class.getName());
     
     @PersistenceContext(unitName = "requirementPU") // requirement persistence unit.
     protected EntityManager em; // esta hace el acceso a la base de datos.
@@ -34,17 +34,29 @@ public class RequisitoPersistence {
         return e;
     }
 
-    public RequisitoEntity find(Long id) {
-        LOGGER.log(Level.INFO, "Consultando el requisito con id={0}", id);
-        return em.find(RequisitoEntity.class, id);
+    public RequisitoEntity find(Long objetivoId, Long requisitoId) {
+        LOGGER.log(Level.INFO, "Consultando el requisito con id={0} del objetivo con id = " + objetivoId, requisitoId);
+        TypedQuery<RequisitoEntity> q = em.createQuery("select p from RequisitoEntity p where (p.objetivo.id = :objetivoId) and (p.id = :requisitoId)", RequisitoEntity.class);
+        q.setParameter("objetivoId", objetivoId);
+        q.setParameter("requisitoId", requisitoId);
+        List<RequisitoEntity> results = q.getResultList();
+        RequisitoEntity requisitos = null;
+        if (results == null) {
+            requisitos = null;
+        } else if (results.isEmpty()) {
+            requisitos = null;
+        } else if (results.size() >= 1) {
+            requisitos = results.get(0);
+        }
+        return requisitos;
     }
 
-    public List<RequisitoEntity> findAll()
-    {
-        LOGGER.log(Level.INFO, "Consultando todos los requisito");
-        TypedQuery<RequisitoEntity> query = em.createQuery("select u from RequisitoEntity u", RequisitoEntity.class);
-        return query.getResultList();
-    }
+//    public List<RequisitoEntity> findAll()
+//    {
+//        LOGGER.log(Level.INFO, "Consultando todos los requisito");
+//        TypedQuery<RequisitoEntity> query = em.createQuery("select u from RequisitoEntity u", RequisitoEntity.class);
+//        return query.getResultList();
+//    }
 
     public RequisitoEntity update(RequisitoEntity r) 
     {

@@ -17,9 +17,8 @@ import java.util.List;
 public class RequisitoDetailDTO extends RequisitoDTO implements Serializable{
     
     private List<CambioDTO> cambios;
-    private List<ObjetivoDTO> objetivos;
     private List<AprobacionDTO> aprobaciones;
-    private List<StakeHolderDTO> fuentes;
+    private List<CasoDeUsoDTO> casosDeUso;
     
     public RequisitoDetailDTO()
     {
@@ -37,14 +36,9 @@ public class RequisitoDetailDTO extends RequisitoDTO implements Serializable{
             for (CambioEntity cambEntity : reqEntity.getCambios()) {
                 cambios.add(new CambioDTO(cambEntity));
             }
-            objetivos = new ArrayList<>();
-            for (ObjetivoEntity objEntity: reqEntity.getObjetivos()){
-                objetivos.add(new ObjetivoDTO(objEntity));
-            }
-            
-            fuentes = new ArrayList<>();
-            for (StakeHolderEntity stakeholderEntity : reqEntity.getFuentes()){
-                fuentes.add(new StakeHolderDTO(stakeholderEntity));
+            casosDeUso = new ArrayList<>();
+            for (CasoDeUsoEntity casos : reqEntity.getCasosDeUso()){
+                casosDeUso.add(new CasoDeUsoDTO(casos));
             }
         }
     }
@@ -66,19 +60,12 @@ public class RequisitoDetailDTO extends RequisitoDTO implements Serializable{
             }
             reqEntity.setCambios(cambiosEntity);
         }
-        if (objetivos != null) {
-            List<ObjetivoEntity> objetivosEntity = new ArrayList<>();
-            for (ObjetivoDTO dtoObjetivo : objetivos) {
-                objetivosEntity.add(dtoObjetivo.toEntity());
+        if (getCasosDeUso() != null) {
+            List<CasoDeUsoEntity> casosEntity = new ArrayList<>();
+            for (CasoDeUsoDTO dtoCasos : getCasosDeUso()) {
+                casosEntity.add(dtoCasos.toEntity());
             }
-            reqEntity.setObjetivos(objetivosEntity);
-        }
-        if (fuentes != null) {
-            List<StakeHolderEntity> fuentesEntity = new ArrayList<>();
-            for (StakeHolderDTO dtoFuentes : fuentes) {
-                fuentesEntity.add(dtoFuentes.toEntity());
-            }
-            reqEntity.setFuentes(fuentesEntity);
+            reqEntity.setCasosDeUso(casosEntity);
         }
         return reqEntity;
     }
@@ -110,32 +97,21 @@ public class RequisitoDetailDTO extends RequisitoDTO implements Serializable{
     public void setCambios(List<CambioDTO> cambios) {
         this.cambios = cambios;
     }
+    
 
     /**
-     * @return the objetivos
+     * @return the casosDeUso
      */
-    public List<ObjetivoDTO> getObjetivos() {
-        return objetivos;
+    public List<CasoDeUsoDTO> getCasosDeUso() {
+        return casosDeUso;
     }
 
     /**
-     * @param requisitos the requisitos to set
+     * @param casosDeUso the casosDeUso to set
      */
-    public void setObjetivos(List<ObjetivoDTO> objetivos) {
-        this.objetivos = objetivos;
+    public void setCasosDeUso(List<CasoDeUsoDTO> casosDeUso) {
+        this.casosDeUso = casosDeUso;
     }
     
-    /**
-     * @return the fuentes
-     */
-    public List<StakeHolderDTO> getFuentes() {
-        return fuentes;
-    }
-
-    /**
-     * @param fuentes the fuentes to set
-     */
-    public void setFuentes(List<StakeHolderDTO> fuentes) {
-        this.fuentes = fuentes;
-    }
+    
 }

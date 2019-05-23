@@ -19,7 +19,7 @@ import javax.persistence.TypedQuery;
 @Stateless
 public class CaminoPersistence {
     
-     @PersistenceContext(unitName = "requirementPU")
+    @PersistenceContext(unitName = "requirementPU")
     protected EntityManager em;
     
     public CaminoEntity create(CaminoEntity camino){
@@ -28,23 +28,29 @@ public class CaminoPersistence {
     }
     
     
-    public CaminoEntity find(Long caminoId){
-        return em.find(CaminoEntity.class, caminoId);
-    }
-    
-    public List<CaminoEntity> findAll(){
-        TypedQuery<CaminoEntity> q = em.createQuery("select u from CaminoEntity u", CaminoEntity.class);
-        return q.getResultList();
+    public CaminoEntity find(Long casoDeUsoId,Long caminoId){
+        TypedQuery<CaminoEntity> q = em.createQuery("select p from CaminoEntity p where (p.caso.id = :casoDeUsoId) and (p.id = :caminoId)", CaminoEntity.class);
+        q.setParameter("casoDeUsoId", casoDeUsoId);
+        q.setParameter("caminoId", caminoId);
+        List<CaminoEntity> results = q.getResultList();
+        CaminoEntity caminos = null;
+        if (results == null) {
+            caminos = null;
+        } else if (results.isEmpty()) {
+            caminos = null;
+        } else if (results.size() >= 1) {
+            caminos = results.get(0);
+        }
+        return caminos;
     }
     
     public CaminoEntity update(CaminoEntity camino){
         return em.merge(camino);
     }
     
-    public CaminoEntity delete(Long caminoId){
+    public void delete(Long caminoId){
         CaminoEntity camino = em.find(CaminoEntity.class, caminoId);
         em.remove(camino);
-        return camino;
     }
      
      

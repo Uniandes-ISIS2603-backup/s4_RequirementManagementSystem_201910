@@ -8,178 +8,197 @@ package co.edu.uniandes.csw.requirement.ejb;
 import co.edu.uniandes.csw.requirement.entities.AprobacionEntity;
 import co.edu.uniandes.csw.requirement.entities.ObjetivoEntity;
 import co.edu.uniandes.csw.requirement.entities.RequisitoEntity;
-import co.edu.uniandes.csw.requirement.entities.StakeHolderEntity;
 import co.edu.uniandes.csw.requirement.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.requirement.persistence.AprobacionPersistence;
 import co.edu.uniandes.csw.requirement.persistence.ObjetivoPersistence;
-import co.edu.uniandes.csw.requirement.persistence.StakeHolderPersistence;
 import co.edu.uniandes.csw.requirement.persistence.RequisitoPersistence;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 /**
  * Clase de la logica para la aprobacion
+ *
  * @author Sofia Alvarez
  */
 @Stateless
 public class AprobacionLogic {
-    
-   /**
-    * Inyección de la persistencia de aprobacion
-    */
+
+    /**
+     * Inyección de la persistencia de aprobacion
+     */
     @Inject
     private AprobacionPersistence aprobacionPersistence;
-    
-    /**
-     * Inyección de la persistencia de stakeholder
-     */
-    @Inject 
-    private StakeHolderPersistence shPersistence;
-    
+
     /**
      * Inyección de la persistencia de objetivo
      */
     @Inject
     private ObjetivoPersistence objetivoPersistence;
-    
+
     /**
      * Inyección de la persistencia de requisito.
      */
-    @Inject 
+    @Inject
     private RequisitoPersistence requisitoPersistence;
-    
+
     /**
      * Consola de JS
      */
     private static final Logger LOGGER = Logger.getLogger(AprobacionLogic.class.getName());
-    
+
     /**
      * Método para la creación de una aprobación
+     *
      * @param aprobacion la aprobación a persistir
      * @return la aprobación lista
-     * @throws BusinessLogicException si el tipo de la aprobación es nulo o si es diferente de "OBJETIVO" || "REQUISITO"
+     * @throws BusinessLogicException
      */
-    public AprobacionEntity createAprobacion(AprobacionEntity aprobacion) throws BusinessLogicException{
-        if(aprobacion.getTipo() == null){
-            throw new BusinessLogicException("El tipo de la aprobación no puede ser nulo.");
+    public AprobacionEntity createAprobacionObjetivo(Long proyectoId, Long objetivoId, AprobacionEntity aprobacion) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "Inicia proceso de creación de una aprobacion");
+        if (!(aprobacion.getEstado().equals("APROBADO") || aprobacion.getEstado().equals("NO APROBADO") || aprobacion.getEstado().equals("EN REVISION"))) {
+            throw new BusinessLogicException("El estado de la aprobación no es valido");
         }
-        /*
-        if(aprobacion.getObjetivo() != null && aprobacion.getRequisito() != null){
-            throw new BusinessLogicException("La aprobación no puede estar asociada a un Objetivo y a un Requisito.");
-        }*/
-        if(!aprobacion.getTipo().equals("OBJETIVO")&&!aprobacion.getTipo().equals("REQUISITO")){
-            throw new BusinessLogicException("El tipo de una aprobación debe ser Objetivo o Requisito");
+        if (aprobacion.getAutor() == null || aprobacion.getAutor().equals(""))
+        {
+             throw new BusinessLogicException("La aprobación debe tener un autor");
         }
-        /*
-        if(aprobacion.getTipo().equals("OBJETIVO") && aprobacion.getObjetivo() == null){
-            throw new BusinessLogicException("La aprobación debería estar asociada con un objetivo.");
+        ObjetivoEntity obj = objetivoPersistence.find(proyectoId, objetivoId);
+        if (obj != null) {
+            aprobacion.setObjetivo(obj);
+        } else {
+            throw new BusinessLogicException("El objetivo con id = " + objetivoId + "no existe");
         }
-        if(aprobacion.getTipo().equals("REQUISITO") && aprobacion.getRequisito()== null){
-            throw new BusinessLogicException("La aprobación debería estar asociada con un requisito.");
-        }
-        */
-        aprobacion = aprobacionPersistence.create(aprobacion);
-        return aprobacion;
+        LOGGER.log(Level.INFO, "Termina proceso de creación de una aprobacion");
+        return aprobacionPersistence.create(aprobacion);
     }
-    
+
     /**
-     * Método para eliminar una aprobación
-     * @param aprobacionId id de la aprobacion a eliminar
-     * @return la aprobacion eliminada
+     * Crea una aprobacion para un requisito
+     * @param objetivoId el padre del requisito
+     * @param requisitoId el requisito a buscar
+     * @param aprobacion la aprobacion a asociar
+     * @return AprobacionEntity creada
+     * @throws BusinessLogicException 
      */
-    public AprobacionEntity deleteAprobacion(Long aprobacionId){
-        AprobacionEntity aprobacion = aprobacionPersistence.delete(aprobacionId);
-        return aprobacion;
+    public AprobacionEntity createAprobacionRequisito(Long objetivoId, Long requisitoId, AprobacionEntity aprobacion) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "Inicia proceso de creación de una aprobacion");
+        if (!(aprobacion.getEstado().equals("APROBADO") || aprobacion.getEstado().equals("NO APROBADO") || aprobacion.getEstado().equals("EN REVISION"))) {
+            throw new BusinessLogicException("El estado de la aprobación no es valido");
+        }
+        if (aprobacion.getAutor() == null || aprobacion.getAutor().equals(""))
+        {
+             throw new BusinessLogicException("La aprobación debe tener un autor");
+        }
+        RequisitoEntity req = requisitoPersistence.find(objetivoId, requisitoId);
+        if (req != null) {
+            aprobacion.setRequisito(req);
+        } else {
+            throw new BusinessLogicException("El requisito con id = " + requisitoId + "no existe");
+        }
+        LOGGER.log(Level.INFO, "Termina proceso de creación de una aprobacion");
+        return aprobacionPersistence.create(aprobacion);
     }
-    
+
+    public List<AprobacionEntity> getAprobacionesObjetivo(Long proyectoId, Long objetivoId) {
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar todos las aprobaciones");
+        ObjetivoEntity obj = objetivoPersistence.find(proyectoId, objetivoId);
+        LOGGER.log(Level.INFO, "Termina proceso de consultar todos las aprobaciones");
+        return obj.getAprobaciones();
+    }
+
+    public List<AprobacionEntity> getAprobacionesRequisito(Long objetivoId, Long requisitoId) {
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar todos las aprobaciones");
+        RequisitoEntity obj = requisitoPersistence.find(objetivoId, requisitoId);
+        LOGGER.log(Level.INFO, "Termina proceso de consultar todos las aprobaciones");
+        return obj.getAprobaciones();
+    }
+
     /**
-     * Método para encontrar una aprobacion por id.
-     * @param id id de la aprobacion a buscar
-     * @return la aprobacion encontrada
+     *
+     * Obtener una editorial por medio de su id.
+     *
+     * @param casoDeUsoId : id de la editorial para ser buscada.
+     * @param caminoId
+     * @return la editorial solicitada por medio de su id.
      */
-    public AprobacionEntity findAprobacionById(Long id){
-        AprobacionEntity aprobacion = aprobacionPersistence.find(id);
-        return aprobacion;
+    public AprobacionEntity getAprobacionObjetivo(Long objetivoId, Long aprobacionId) {
+        AprobacionEntity aprobacionEntity = aprobacionPersistence.findWithObjetivo(objetivoId, aprobacionId);
+        if (aprobacionEntity == null) {
+            LOGGER.log(Level.SEVERE, "La aprobacion con el id = {0} no existe", aprobacionId);
+        }
+        return aprobacionEntity;
     }
-    
+
+    public AprobacionEntity getAprobacionRequisito(Long requisitoId, Long aprobacionId) {
+        AprobacionEntity aprobacionEntity = aprobacionPersistence.findWithRequisito(requisitoId, aprobacionId);
+        if (aprobacionEntity == null) {
+            LOGGER.log(Level.SEVERE, "La aprobacion con el id = {0} no existe", aprobacionId);
+        }
+        return aprobacionEntity;
+    }
+
     /**
-     * Método que retorna una lista con todas las aprobaciones encontradas
-     * @return lista con todas las aprobaciones encontradas
+     *
+     * Actualizar una aprobacion.
+     *
+     * @param casoDeUsoId: id de la editorial para buscarla en la base de datos.
+     * @param aprobacion: editorial con los cambios para ser actualizada, por
+     * ejemplo el nombre.
+     * @param requisitoId
+     * @return la editorial con los cambios actualizados en la base de datos.
      */
-    public List<AprobacionEntity> findAllAprobaciones(){
-        List<AprobacionEntity> aprobaciones = aprobacionPersistence.findAll();
-        return aprobaciones;
+    public AprobacionEntity updateAprobacionObjetivo(Long proyectoId, Long objetivoId, AprobacionEntity aprobacion) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "Inicia proceso de actualizar el camino con id = {0}", aprobacion.getId());
+        if (!(aprobacion.getEstado().equals("APROBADO") || aprobacion.getEstado().equals("NO APROBADO") || aprobacion.getEstado().equals("EN REVISION"))) {
+            throw new BusinessLogicException("El estado de la aprobación no es valido");
+        }
+        if (aprobacion.getAutor() == null || aprobacion.getAutor().equals(""))
+        {
+             throw new BusinessLogicException("La aprobación debe tener un autor");
+        }
+        ObjetivoEntity obj = objetivoPersistence.find(proyectoId, objetivoId);
+        aprobacion.setObjetivo(obj);
+        aprobacionPersistence.update(aprobacion);
+        LOGGER.log(Level.INFO, "Termina proceso de actualizar la aprobacion con id = {0}", aprobacion.getId());
+        return aprobacion;
     }
-    
+
+    public AprobacionEntity updateAprobacionRequisito(Long objetivoId, Long requisitoId, AprobacionEntity aprobacion) {
+        LOGGER.log(Level.INFO, "Inicia proceso de actualizar el camino con id = {0}", aprobacion.getId());
+        RequisitoEntity req = requisitoPersistence.find(objetivoId, requisitoId);
+        aprobacion.setRequisito(req);
+        aprobacionPersistence.update(aprobacion);
+        LOGGER.log(Level.INFO, "Termina proceso de actualizar la aprobacion con id = {0}", aprobacion.getId());
+        return aprobacion;
+    }
+
     /**
-     * Método que actualiza una aprobacion
-     * @param aprobacion es la aprobacion a actualizar
-     * @return la aprobacion actualizada
-     * @throws BusinessLogicException si el tipo de la aprobación es nulo o si es diferente de "OBJETIVO" || "REQUISITO"
-     * o si la aprobacion esta asociada a un obetivo y a un requisito.
+     * Borrar un editorial
+     *
+     * @param objetivoId
+     * @param aprobacionId: id de la editorial a borrar
+     * @throws BusinessLogicException Si la editorial a eliminar tiene libros.
      */
-    public AprobacionEntity updateAprobacion(AprobacionEntity aprobacion) throws BusinessLogicException{
-        if(aprobacion.getTipo() == null){
-            throw new BusinessLogicException("El tipo de la aprobación no puede ser nulo.");
+    public void deleteAprobacionObjetivo(Long objetivoId, Long aprobacionId) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "Inicia proceso de borrar la aprobacion con id = {0}", aprobacionId);
+        AprobacionEntity aprobacion = getAprobacionObjetivo(objetivoId, aprobacionId);
+        if (aprobacion == null) {
+            throw new BusinessLogicException("La aprobacion con id = " + aprobacionId + " no esta asociado a el objetivo con id = " + objetivoId);
         }
-        if(aprobacion.getObjetivo() != null && aprobacion.getRequisito() != null){
-            throw new BusinessLogicException("La aprobación no puede estar asociada a un Objetivo y a un Requisito.");
-        }
-        if(!aprobacion.getTipo().equals("OBJETIVO")&&!aprobacion.getTipo().equals("REQUISITO")){
-            throw new BusinessLogicException("El tipo de una aprobación debe ser Objetivo o Requisito");
-        }
-        /*
-        if(aprobacion.getTipo().equals("OBJETIVO") && aprobacion.getObjetivo() == null){
-            throw new BusinessLogicException("La aprobación debería estar asociada con un objetivo.");
-        }
-        if(aprobacion.getTipo().equals("REQUISITO") && aprobacion.getRequisito()== null){
-            throw new BusinessLogicException("La aprobación debería estar asociada con un requisito.");
-        }
-        */ 
-        aprobacion = aprobacionPersistence.update(aprobacion);
-        return aprobacion;
+        aprobacionPersistence.delete(aprobacion.getId());
+        LOGGER.log(Level.INFO, "Termina proceso de borrar la aprobacion con id = {0}", aprobacionId);
     }
     
-   /**
-    * Cambia al stakeholder de una aprobacion
-    * @param aprobacionId id de la aprobacion
-    * @param shId stakeholder a cambiar
-    * @return la aprobacion con el nuevo stakeholder
-    */
-   
-    public AprobacionEntity changeStakeHolder(Long aprobacionId, Long shId){
-        StakeHolderEntity nuevo = shPersistence.find(shId);
-        AprobacionEntity aprobacion = aprobacionPersistence.find(aprobacionId);
-        aprobacion.setStakeHolder(nuevo);
-        return aprobacion;
-    }
-    
-   /**
-    * Cambia el objetivo de una aprobación
-    * @param aprobacionId id de la aprobación
-    * @param objetivoId objetivo a cambiar
-    * @return la aprobación con el nuevo objetivo.
-    */
-    //TODO Revisar el cambio de Objetivo
-//    public AprobacionEntity changeObjetivo(Long aprobacionId, Long objetivoId){
-//        ObjetivoEntity nuevo = objetivoPersistence.find(objetivoId);
-//        AprobacionEntity aprobacion = aprobacionPersistence.find(aprobacionId);
-//        aprobacion.setObjetivo(nuevo);
-//        return aprobacion;
-//    }
-      
-    /**
-    * Cambia el requisito de una aprobación
-    * @param aprobacionId id de la aprobación
-    * @param requisitoId requisito a cambiar
-    * @return la aprobación con el nuevo requisito.
-    */
-    public AprobacionEntity changeRequisito(Long aprobacionId, Long requisitoId){
-        RequisitoEntity nuevo = requisitoPersistence.find(requisitoId);
-        AprobacionEntity aprobacion = aprobacionPersistence.find(aprobacionId);
-        aprobacion.setRequisito(nuevo);
-        return aprobacion;
+    public void deleteAprobacionRequisito(Long requisitoId, Long aprobacionId) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "Inicia proceso de borrar la aprobacion con id = {0}", aprobacionId);
+        AprobacionEntity aprobacion = getAprobacionRequisito(requisitoId, aprobacionId);
+        if (aprobacion == null) {
+            throw new BusinessLogicException("La aprobacion con id = " + aprobacionId + " no esta asociado a el requisito con id = " + requisitoId);
+        }
+        aprobacionPersistence.delete(aprobacion.getId());
+        LOGGER.log(Level.INFO, "Termina proceso de borrar la aprobacion con id = {0}", aprobacionId);
     }
 }

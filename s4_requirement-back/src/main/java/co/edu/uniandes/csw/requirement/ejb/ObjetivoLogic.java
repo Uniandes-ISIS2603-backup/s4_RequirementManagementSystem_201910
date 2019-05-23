@@ -70,6 +70,10 @@ public class ObjetivoLogic {
         if (objetivoEntity.getDescripcion().equals("") || objetivoEntity.getDescripcion() == null) {
             throw new BusinessLogicException("La descripcion no pueden ser nulo o vacio");
         }
+        if (objetivoEntity.getAutor() == null || objetivoEntity.getAutor().equals(""))
+        {
+            throw new BusinessLogicException("El autor no puede ser nulo o vacio");
+        }
         ProyectoEntity proyecto = proyectoPersistence.find(proyectosId);
         objetivoEntity.setProyecto(proyecto);
         LOGGER.log(Level.INFO, "Termina proceso de creación del objetivo");
@@ -112,7 +116,7 @@ public class ObjetivoLogic {
      * @throws BusinessLogicException Si no cumple con las reglas de estabilidad, impotancia y descripcion
      */
     public ObjetivoEntity updateObjetivo(Long proyectosId, ObjetivoEntity objetivoEntity) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Inicia proceso de actualizar el autor con id = {0}" + proyectosId, objetivoEntity.getId());
+        LOGGER.log(Level.INFO, "Inicia proceso de actualizar el objetivo con id = {0} del proyecto con id = " + proyectosId, objetivoEntity.getId());
         if (objetivoEntity.getEstabilidad() < 1 || objetivoEntity.getEstabilidad() > 3) {
             throw new BusinessLogicException("La estabilidad debe de ser un valor entre 1 y 3");
         }
@@ -122,10 +126,16 @@ public class ObjetivoLogic {
         if (objetivoEntity.getDescripcion().equals("") || objetivoEntity.getDescripcion() == null) {
             throw new BusinessLogicException("La descripcion no pueden ser nulo o vacio");
         }
+        if (objetivoEntity.getAutor() == null || objetivoEntity.getAutor().equals(""))
+        {
+            throw new BusinessLogicException("El autor no puede ser nulo o vacio");
+        }
+        
+        
         ProyectoEntity p = proyectoPersistence.find(proyectosId);
         objetivoEntity.setProyecto(p);
         objetivoPersistence.update(objetivoEntity);
-        LOGGER.log(Level.INFO, "Termina proceso de actualizar el autor con id = {0} del proyecto con id = " + proyectosId, objetivoEntity.getId());
+        LOGGER.log(Level.INFO, "Termina proceso de actualizar el objetivo con id = {0} del proyecto con id = " + proyectosId, objetivoEntity.getId());
         return objetivoEntity;
     }
 

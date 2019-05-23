@@ -39,58 +39,58 @@ import javax.ws.rs.WebApplicationException;
  * @author Sofia Alvarez
  */
 public class CambioStakeholderResource {
-    
-    /**
-    * Inyeccion de las dependencias de cambios
-    */
-    @Inject
-    private CambioLogic cambioLogic;
-    
-    /**
-     * Inyeccion de las dependencias de stakeholders
-     */
-    @Inject
-    private StakeHolderLogic stakeHolderLogic;
-
-    /**
-     * Actualiza el stakeholder de un cambio
-     * @param idCambio id del cambio
-     * @param idAprobador id del aprobador
-     * @return el cambio actualizado
-     */
-  @PUT 
-    @Path("{id1: \\d+}/stakeholder/{id2: \\d+}")
-    public CambioDTO changeStakeHolder(@PathParam("id1") Long idCambio, @PathParam("id2") Long idAprobador){
-        CambioEntity aprobacion = cambioLogic.findCambioById(idCambio);
-        if(aprobacion == null){
-            throw new WebApplicationException("El recurso /aprobaciones/"+idCambio+" no existe.", 404);
-        }
-        StakeHolderEntity stakeHolder = stakeHolderLogic.getStakeHolder(idAprobador);
-        if(stakeHolder == null){
-            throw new WebApplicationException("El recurso /stakeholders/"+idAprobador+" no existe.", 404);
-        }
-        cambioLogic.changeStakeHolder(idCambio, idAprobador); 
-        CambioDTO dto = new CambioDTO(aprobacion);
-        return dto;
-    }
-    
-    /**
-     * Retorna los stakeholders asociados a un cambio
-     * @param idCambio id del cambio
-     * @return stakeholder de un cambio.
-     */
-    @GET
-    @Path("{id1: \\d+}/stakeholder")
-    public StakeHolderDTO getAutor(@PathParam("id1")Long  idCambio){
-        CambioEntity entity = cambioLogic.findCambioById(idCambio);
-        if(entity == null){
-            throw new WebApplicationException("El recurso /aprobaciones/"+idCambio+" no existe.", 404);
-        }
-        StakeHolderEntity sh = entity.getStakeholder();
-        StakeHolderDTO dto = new StakeHolderDTO(sh); 
-        return dto;
-    }
-    
-     
+//    
+//    /**
+//    * Inyeccion de las dependencias de cambios
+//    */
+//    @Inject
+//    private CambioLogic cambioLogic;
+//    
+//    /**
+//     * Inyeccion de las dependencias de stakeholders
+//     */
+//    @Inject
+//    private StakeHolderLogic stakeHolderLogic;
+//
+//    /**
+//     * Actualiza el stakeholder de un cambio
+//     * @param idCambio id del cambio
+//     * @param idAprobador id del aprobador
+//     * @return el cambio actualizado
+//     */
+//  @PUT 
+//    @Path("{id1: \\d+}/stakeholder/{id2: \\d+}")
+//    public CambioDTO changeStakeHolder(@PathParam("id1") Long idCambio, @PathParam("id2") Long idAprobador){
+//        CambioEntity aprobacion = cambioLogic.findCambioById(idCambio);
+//        if(aprobacion == null){
+//            throw new WebApplicationException("El recurso /aprobaciones/"+idCambio+" no existe.", 404);
+//        }
+//        StakeHolderEntity stakeHolder = stakeHolderLogic.getStakeHolder(idAprobador);
+//        if(stakeHolder == null){
+//            throw new WebApplicationException("El recurso /stakeholders/"+idAprobador+" no existe.", 404);
+//        }
+//        cambioLogic.changeStakeHolder(idCambio, idAprobador); 
+//        CambioDTO dto = new CambioDTO(aprobacion);
+//        return dto;
+//    }
+//    
+//    /**
+//     * Retorna los stakeholders asociados a un cambio
+//     * @param idCambio id del cambio
+//     * @return stakeholder de un cambio.
+//     */
+//    @GET
+//    @Path("{id1: \\d+}/stakeholder")
+//    public StakeHolderDTO getAutor(@PathParam("id1")Long  idCambio){
+//        CambioEntity entity = cambioLogic.findCambioById(idCambio);
+//        if(entity == null){
+//            throw new WebApplicationException("El recurso /aprobaciones/"+idCambio+" no existe.", 404);
+//        }
+//        StakeHolderEntity sh = entity.getStakeholder();
+//        StakeHolderDTO dto = new StakeHolderDTO(sh); 
+//        return dto;
+//    }
+//    
+//     
     
 }
