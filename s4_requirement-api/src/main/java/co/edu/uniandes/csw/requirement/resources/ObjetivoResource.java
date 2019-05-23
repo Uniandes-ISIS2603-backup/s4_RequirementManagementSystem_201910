@@ -162,13 +162,14 @@ public class ObjetivoResource {
     public void deleteObjetivo(@PathParam("proyectosId") Long proyectosId, @PathParam("objetivosId") Long objetivosId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "ObjetivoResource deleteObjetivo: input: proyectosId: {0} , objetivosId: {1} , ", new Object[]{proyectosId, objetivosId});
         ObjetivoEntity entity = objetivoLogic.getObjetivo(proyectosId, objetivosId);
+        if (entity == null) {
+            throw new WebApplicationException("El recurso /proyectos/" + proyectosId + "/objetivos/" + objetivosId + " no existe.", 404);
+        }
         if (!entity.getRequisitos().isEmpty())
         {
             throw new BusinessLogicException("No se puede borrar el objetivo con id " + objetivosId + " pues tiene requisitos dependientes ");
         }
-        if (entity == null) {
-            throw new WebApplicationException("El recurso /proyectos/" + proyectosId + "/objetivos/" + objetivosId + " no existe.", 404);
-        }
+        
         objetivoLogic.deleteObjetivo(proyectosId, objetivosId);
         LOGGER.info("ObjetivoResource deleteObjetivo: output: void");
     }
