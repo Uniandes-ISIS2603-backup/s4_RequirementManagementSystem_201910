@@ -1,0 +1,51 @@
+EXPLICACION DE RUTAS:
+
+Buenas noches al lector, esto es importante para entender como sirve la DB y los servicios Restful de RMS.
+
+Rutas
+
+General 
+
+http://localhost:8080/s4_requirement-api/api/
+
+La clase más global es proyectos, por lo tanto
+
+http://localhost:8080/s4_requirement-api/api/proyectos
+
+Da la lista de proyectos, y permite hacer post
+
+http://localhost:8080/s4_requirement-api/api/proyectos/:idProyecto
+
+Da el detalle de un proyectos específico, y permite hacer PUT
+
+http://localhost:8080/s4_requirement-api/api/proyectos/idProyecto/objetivos
+
+El segundo objeto más global, permite ver los objetivos relacionados al proyecto y hacer post para crear nuevos objetivos
+
+http://localhost:8080/s4_requirement-api/api/proyectos/idProyecto/objetivos/idObjetivo/cambios
+
+Permite ver los cambios del objetivo asociado, funciona similar a aprobaciones (cambiando cambios por aprobaciones)
+
+http://localhost:8080/s4_requirement-api/api/proyectos/idProyecto/objetivos/idObjetivo/requisitos
+
+Permite hacer las acciones restful con la lista de requisitos
+
+
+
+http://localhost:8080/s4_requirement-api/api/proyectos/idProyecto/objetivos/idObjetivo/requisitos/idRequisito
+
+Permite hacer las acciones pertinentes sobre el requisito especificado
+
+Estos también tienen cambios y aprobaciones, como los objetivos.
+
+
+
+http://localhost:8080/s4_requirement-api/api/proyectos/idProyecto/objetivos/idObjetivo/requisitos/idRequisito/casosDeUso 
+
+Permite ver y ejecutar acciones restful sobre los casos de uso de un requisito
+
+http://localhost:8080/s4_requirement-api/api/proyectos/idProyecto/objetivos/idObjetivo/requisitos/idRequisito/casosDeUso/IdCasodeUso/condiciones
+
+Permite hacer acciones restful sobre las condiciones de un caso de uso. Puede reemplazarse por "caminos" para hacer lo mismo sobre los caminos del caso de uso especifico. 
+
+
