@@ -31,6 +31,10 @@ public class CondicionDTO implements Serializable{
     private Boolean esPrecondicion; 
 
     private CasoDeUsoDTO casodeuso;
+    
+    /**
+     * Commit final!
+     */
     /**
      * Constructor vacio
      */
